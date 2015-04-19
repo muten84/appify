@@ -1,5 +1,8 @@
 package it.appify.view;
 
+import it.appify.api.Page;
+import it.appify.api.PageManager;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,19 +10,16 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 
-import it.appify.api.Page;
-import it.appify.api.PageManager;
+public class AppJsPageManager implements PageManager<Element> {
 
-public class AppJsPageManager implements PageManager {
-
-	private Map<String, Page> pages;
+	private Map<String, Page<Element>> pages;
 
 	private String currentPage;
 
-	private PageListener listener;
+	private PageListener<Element> listener;
 
 	public AppJsPageManager() {
-		pages = new HashMap<String, Page>();
+		pages = new HashMap<String, Page<Element>>();
 	}
 
 	@Override
@@ -30,17 +30,17 @@ public class AppJsPageManager implements PageManager {
 	}
 
 	@Override
-	public Page getCurrentPage() {
+	public Page<Element> getCurrentPage() {
 		return this.pages.get(currentPage);
 	}
 
 	@Override
-	public void setPageListener(PageListener pageListener) {
+	public void setPageListener(PageListener<Element> pageListener) {
 		this.listener = pageListener;
 
 	}
 
-	protected void onPageShow(Page p) {
+	protected void onPageShow(Page<Element> p) {
 		currentPage = p.getPageId();
 		this.pages.put(p.getPageId(), p);
 		// if (p.isWasHidden()) {
@@ -52,22 +52,22 @@ public class AppJsPageManager implements PageManager {
 		}
 	}
 
-	protected void onPageHide(Page p) {
+	protected void onPageHide(Page<Element> p) {
 
 	}
 
 	private void onPageShowed(String name, JavaScriptObject e) {
-		Page currentPage = this.pages.get(name);
+		Page<Element> currentPage = this.pages.get(name);
 		if (currentPage == null) {
 			Element el = e.cast();
-			currentPage = new SimplePage(el);
+			currentPage = new WebPage(el);
 		}
 		onPageShow(currentPage);
 	}
 
 	private void onPageHidden(String name, JavaScriptObject e) {
 		GWT.log("Page " + name + "destroyed");
-		Page p = this.pages.get(name);
+		Page<Element> p = this.pages.get(name);
 		onPageHide(p);
 		// this.pages.get(name).setWasHidden(true);
 	}

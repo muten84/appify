@@ -13,7 +13,7 @@ public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
 
 	private M model;
 
-	private ObjectMapper<M> mapper;
+	protected abstract ObjectMapper<M> getObjectMapper();
 
 	@Override
 	public String getModelId() {
@@ -40,7 +40,7 @@ public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
 
 	@Override
 	public void bindModelToView(String viewId, M instance) {
-		String json = mapper.write(instance);
+		String json = getObjectMapper().write(instance);
 		JavaScriptObject jsObj = JsonUtils.safeEval(json);
 		_create(viewId, jsObj);
 	}
@@ -61,15 +61,13 @@ public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
 
 	@Override
 	public void updateModel(M model) {
-		String json = mapper.write(model);
+		String json = getObjectMapper().write(model);
 		JavaScriptObject jsObj = JsonUtils.safeEval(json);
 		_updateModel(jsObj);
 	}
 
 	private native void _updateModel(JavaScriptObject newModel)/*-{
-
 		$wnd.vm.$data = newModel;
-
 	}-*/;
 
 }

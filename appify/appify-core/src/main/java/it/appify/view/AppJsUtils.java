@@ -7,11 +7,11 @@ public class AppJsUtils {
 	}
 
 	private native static void _showDialog(String title, String text, String ok)/*-{
-																				$wnd.App.dialog({
-																				title : title,
-																				text : text,
-																				okButton : ok
-																				});
-																				}-*/;
+		$wnd.App.dialog({
+			title : title,
+			text : text,
+			okButton : ok
+		});
+	}-*/;
 
 }

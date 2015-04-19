@@ -3,12 +3,13 @@ package it.appify.view;
 import it.appify.api.HasView;
 import it.appify.api.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 
-public class SimplePage implements Page, HasView<Element> {
+public class WebPage implements Page<Element>, HasView<Element> {
 
 	public static class ViewHandlerHolder {
 		private String viewId;
@@ -43,11 +44,12 @@ public class SimplePage implements Page, HasView<Element> {
 
 	private Element pageElement;
 
-	public SimplePage(Element el) {
-		this.pageElement = el;
-	}
-
 	private List<ViewHandlerHolder> handlers;
+
+	public WebPage(Element el) {
+		this.pageElement = el;
+		this.handlers = new ArrayList<WebPage.ViewHandlerHolder>();
+	}
 
 	@Override
 	public void addViewHandler(String id, String type, ViewHandler h) {
@@ -98,5 +100,10 @@ public class SimplePage implements Page, HasView<Element> {
 			String elemId)/*-{
 		return $wnd.$(obj).find(elemId)[0];
 	}-*/;
+
+	@Override
+	public Element getRootElement() {
+		return pageElement;
+	}
 
 }
