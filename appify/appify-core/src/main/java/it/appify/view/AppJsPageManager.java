@@ -53,7 +53,9 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	protected void onPageHide(Page<Element> p) {
-
+		if (this.listener != null) {
+			this.listener.onPageHide(p);
+		}
 	}
 
 	private void onPageShowed(String name, JavaScriptObject e) {

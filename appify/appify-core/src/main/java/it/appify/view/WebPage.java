@@ -4,43 +4,13 @@ import it.appify.api.HasView;
 import it.appify.api.Page;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 
 public class WebPage implements Page<Element>, HasView<Element> {
-
-	public static class ViewHandlerHolder {
-		private String viewId;
-		private String eventType;
-		private ViewHandler handler;
-
-		public String getViewId() {
-			return viewId;
-		}
-
-		public void setViewId(String viewId) {
-			this.viewId = viewId;
-		}
-
-		public String getEventType() {
-			return eventType;
-		}
-
-		public void setEventType(String eventType) {
-			this.eventType = eventType;
-		}
-
-		public ViewHandler getHandler() {
-			return handler;
-		}
-
-		public void setHandler(ViewHandler handler) {
-			this.handler = handler;
-		}
-
-	}
 
 	private Element pageElement;
 
@@ -54,12 +24,15 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	@Override
 	public void addViewHandler(String id, String type, ViewHandler h) {
 		ViewHandlerHolder holder = new ViewHandlerHolder();
-		holder.viewId = id;
-		holder.eventType = type;
-		holder.handler = h;
+		holder.setViewId(id);
+		holder.setEventType(type);
+		holder.setHandler(h);
 		this.handlers.add(holder);
 		JavaScriptObject obj = pageElement.cast();
-		_addViewHandler("#" + id, type, obj, h);
+		if (!id.startsWith("#")) {
+			id = "#" + id;
+		}
+		_addViewHandler(id, type, obj, h);
 	}
 
 	private native void _addViewHandler(String id, String type,
@@ -71,7 +44,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 				.on(
 						type,
 						function() {
-							h.@it.appify.api.HasViewHandlers.ViewHandler::onEvent(Ljava/lang/String;)(type);
+							h.@it.appify.api.HasViewHandlers.ViewHandler::onEvent(Ljava/lang/String;Ljava/lang/String;)(type,id);
 						});
 	}-*/;
 
@@ -104,6 +77,11 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	@Override
 	public Element getRootElement() {
 		return pageElement;
+	}
+
+	@Override
+	public Iterator<ViewHandlerHolder> getViewHandlers() {
+		return handlers.iterator();
 	}
 
 }

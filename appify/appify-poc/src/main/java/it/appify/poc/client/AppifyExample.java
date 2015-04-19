@@ -42,7 +42,8 @@ public class AppifyExample implements EntryPoint {
 
 			@Override
 			public void onPageHide(Page<Element> page) {
-				// TODO Auto-generated method stub
+				GWT.log("onPageHide " + page.getPageId() + " - "
+						+ page.getRootElement().getTagName());
 
 			}
 		});
@@ -62,7 +63,7 @@ public class AppifyExample implements EntryPoint {
 				"click", new ViewHandler() {
 
 					@Override
-					public void onEvent(String type) {
+					public void onEvent(String type, String source) {
 						GWT.log("changing Title");
 						m.setTitle("Titolo Modificato");
 						m.setContent("Loer Ipsum Modified");

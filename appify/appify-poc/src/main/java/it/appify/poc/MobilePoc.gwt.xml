@@ -6,5 +6,5 @@
 	
 	<source path="client" />
 
-	<entry-point class="it.appify.poc.client.AppifyExample"></entry-point>
+	<entry-point class="it.appify.poc.client.AppifyPageLoaderTest"></entry-point>
 </module>

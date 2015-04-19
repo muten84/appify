@@ -23,8 +23,11 @@ public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
 
 	@Override
 	public M getCurrentModel() {
-		// TODO Auto-generated method stub
-		return null;
+		if (this.model == null) {
+			M dummyM = getObjectMapper().read("{}");
+			return dummyM;
+		}
+		return this.model;
 	}
 
 	@Override
@@ -40,6 +43,7 @@ public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
 
 	@Override
 	public void bindModelToView(String viewId, M instance) {
+		this.model = instance;
 		String json = getObjectMapper().write(instance);
 		JavaScriptObject jsObj = JsonUtils.safeEval(json);
 		_create(viewId, jsObj);
