@@ -1,0 +1,49 @@
+buildscript {
+	repositories {
+		jcenter()
+		//Alternatively use:
+		maven { url 'http://dl.bintray.com/steffenschaefer/maven' }
+	}
+	dependencies { classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6' }
+}
+
+apply plugin: "java"
+apply plugin: "maven"
+apply plugin: "eclipse"
+apply plugin: 'gwt'
+
+group = "it.appify"
+version = 1.0
+
+repositories {
+    mavenCentral()
+}
+
+
+
+dependencies {
+    compile 'commons-codec:commons-codec:1.5'  
+    compile 'commons-lang:commons-lang:2.6'
+    compile('com.github.nmorel.gwtjackson:gwt-jackson:0.9.0')
+
+    testCompile 'junit:junit:4.9'
+  
+   
+    
+}
+
+
+
+eclipse {
+		jdt {
+			sourceCompatibility = 1.7
+			targetCompatibility = 1.7
+		}
+		classpath{
+			containers.clear()
+			containers.add('org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7')
+			containers.add('com.google.gwt.eclipse.core.GWT_CONTAINER')
+		}
+	}
+
+
