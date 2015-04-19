@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.7.0/distro-source/core/src/gwt-module.dtd">
+<module rename-to="mobilepoc">
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.gwt.json.JSON" />
+	<inherits name='it.appify.Presenter' />
+	<inherits name="com.github.nmorel.gwtjackson.GwtJackson" />
+	<source path="client" />
+
+	<entry-point class="it.appify.poc.client.AppifyExample"></entry-point>
+</module>

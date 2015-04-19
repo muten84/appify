@@ -1,0 +1,503 @@
+/**
+ * App.js v3.0.5
+ * Instant mobile web app creation
+ * Copyright (c) 2012 Kik Interactive, http://kik.com
+ * Released under the MIT license
+ *
+ * iScroll v4.1.6
+ * Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
+ * Released under the MIT license
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+/* Resets */
+
+html, body, div, form, p, ul, li, span, label, img {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+html, body {
+	height: 100%;
+	width: 100%;
+}
+body {
+	position: relative;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	overflow: hidden;
+}
+.app-android {
+	font-family: "Roboto", sans-serif;
+}
+.app-no-scrollbar ::-webkit-scrollbar {
+	height: 0 !important;
+	width: 0 !important;
+}
+* {
+	-webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+	tap-highlight-color: rgba(0,0,0,0) !important;
+}
+.clear {
+	clear: both;
+}
+
+.app-android .app-ios-only,
+.app-ios .app-android-only {
+	display: none;
+}
+
+
+
+/* Page */
+
+.app-clickblocker {
+	z-index: 9000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #FFF;
+	opacity: 0;
+}
+
+.app-page {
+	display: none;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+.app-loaded .app-page {
+	display: block;
+}
+.app-ios-7 .app-page,
+.app-ios-8 .app-page {
+	box-shadow: 0 0 12px rgba(0,0,0,0.2);
+}
+
+
+
+/* Topbar */
+
+.app-topbar {
+	z-index: 3000;
+	position: relative;
+	height: 44px;
+	width: 100%;
+	background-color: #000;
+	color: #FFF;
+	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.15);
+	box-shadow: inset 0 0 1px rgba(0,0,0,0.15);
+}
+.app-android .app-topbar {
+	height: 56px;
+	-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+}
+.app-topbar .app-button {
+	position: absolute;
+	bottom: 0;
+	padding: 0 16px;
+	height: 100%;
+	line-height: 44px;
+}
+.app-android .app-topbar .app-button {
+	line-height: 56px;
+}
+.app-topbar .app-button.left {
+	left: 0;
+}
+.app-topbar .app-button.right {
+	right: 0;
+}
+.app-topbar .app-title {
+	margin: 0 auto;
+	height: 100%;
+	width: 100%;
+	line-height: 44px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.app-android .app-topbar .app-title {
+	line-height: 56px;
+}
+.app-ios-statusbar .app-topbar {
+	padding-top: 20px;
+}
+.app-android-statusbar .app-topbar {
+	padding-top: 24px;
+}
+.app-android-statusbar .app-topbar:before {
+	position: absolute;
+	top: 0;
+	height: 24px;
+	width: 100%;
+	background-color: rgba(0,0,0,0.3);
+	content: "";
+}
+.app-ios-statusbar .app-topbar .app-button {
+	height: 44px;
+}
+.app-android-statusbar .app-topbar .app-button {
+	height: 56px;
+}
+
+
+
+/* Content */
+
+.app-content {
+	z-index: 2000;
+	position: relative;
+	background-color: #FFF;
+	overflow: auto;
+	-webkit-box-shadow: 0 0 12px rgba(0,0,0,0.2);
+	box-shadow: 0 0 12px rgba(0,0,0,0.2);
+}
+.app-android-2 .app-content {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.app-scrollhack > * {
+	/*
+		terrible hack to make elements render
+		properly in scrollable regions
+	*/
+	-webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+.app-section {
+	position: relative;
+	margin: 8px;
+	border: 1px solid #AAA;
+}
+
+
+
+/* Lists */
+
+.app-list {
+	list-style: none;
+}
+.app-list > li,
+.app-list > li.app-button {
+	padding-left: 20px;
+	padding-right: 8px;
+	height: 43px;
+	border-bottom: 1px solid #AAA;
+	line-height: 43px;
+	overflow: hidden;
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.app-android .app-list > li,
+.app-android .app-list > li.app-button {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.app-section .app-list > li:last-child,
+.app-section .app-list > li.app-button:last-child {
+	border-bottom: none;
+}
+.app-list > label {
+	display: block;
+	padding-left: 12px;
+	height: 24px;
+	background-color: #000;
+	color: #FFF;
+	line-height: 24px;
+}
+.app-list > li + label {
+	margin-top: -1px;
+}
+
+
+
+/* Buttons */
+
+.app-content .app-button {
+	margin: 0 auto;
+	height: 40px;
+	border-bottom: 1px solid #AAA;
+	line-height: 40px;
+	overflow: hidden;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.app-button:last-child {
+	border-bottom: none;
+}
+
+.app-content .app-button.green {
+	background-color: #7F7;
+}
+.app-content .app-button.red {
+	background-color: #F77;
+}
+.app-content .app-button.blue {
+	background-color: #77F;
+}
+
+
+
+/* Inputs */
+
+.app-input {
+	position: relative;
+	display: block;
+	padding: 10px 12px;
+	width: 100%;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #AAA;
+	outline: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	line-height: 20px;
+	-webkit-appearance: none;
+}
+.app-section .app-input:last-child {
+	border-bottom: none;
+}
+.app-input,
+.app-input * {
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+}
+input.app-input {
+	height: 40px;
+}
+textarea.app-input {
+	height: 80px;
+	resize: none;
+}
+.app-input input,
+.app-input textarea {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	background-color: none;
+	border: none;
+	outline: none;
+	line-height: inherit;
+	resize: none;
+	-webkit-appearance: none;
+}
+.app-input input {
+	height: 20px;
+}
+.app-input textarea {
+	height: 60px;
+}
+
+
+
+/* Dialogs */
+
+.app-dialog-container {
+	position: absolute;
+	z-index: 5000;
+	top: 0;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0);
+	overflow: hidden;
+	-webkit-transition: background-color 0.425s cubic-bezier(0.4,0.6,0.05,1);
+	transition: background-color 0.425s cubic-bezier(0.4,0.6,0.05,1);
+}
+.app-android-2 .app-dialog-container,
+.app-android-4 .app-dialog-container {
+	position: fixed;
+	background-color: rgba(0,0,0,0.8);
+	opacity: 0.01;
+	-webkit-transition: opacity 0.282s ease-in-out;
+	transition: opacity 0.282s ease-in-out;
+}
+.app-android-5 .app-dialog-container {
+	-webkit-transition: none;
+	transition: none;
+}
+.app-dialog-container.enabled {
+	background-color: rgba(0,0,0,0.8);
+}
+.app-android-2 .app-dialog-container.enabled,
+.app-android-4 .app-dialog-container.enabled {
+	opacity: 1;
+}
+.app-android-5 .app-dialog-container.enabled {
+	background-color: rgba(0,0,0,0.25);
+}
+.app-dialog {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin: 0 10%;
+	padding: 0;
+	width: 80%;
+	background-color: #FFF;
+	border-top: 1px solid #FFF;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: 0 0 8px rgba(0,0,0,0.5);
+	box-shadow: 0 0 8px rgba(0,0,0,0.5);
+	color: #777;
+	overflow: hidden;
+	-webkit-transform: translate3d(0,380px,0);
+	transform: translate3d(0,380px,0);
+	-webkit-transition: -webkit-transform 0.425s cubic-bezier(0.4,0.6,0.05,1);
+	transition: transform 0.425s cubic-bezier(0.4,0.6,0.05,1);
+}
+@media (min-width: 360px) {
+	.app-dialog {
+		margin: 0 15%;
+		width: 70%;
+	}
+}
+.app-android .app-dialog {
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+.app-android-2 .app-dialog {
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.app-android-2 .app-dialog,
+.app-android-4 .app-dialog {
+	top: auto;
+	bottom: 50%;
+	-webkit-transform: translate3d(0,50%,0);
+	transform: translate3d(0,50%,0);
+	-webkit-transition: none;
+	transition: none;
+}
+.app-android-5 .app-dialog {
+	-webkit-transition-easing: ease-in-out;
+	transition-easing: ease-in-out;
+}
+.app-dialog-container.enabled .app-dialog {
+	-webkit-transform: translate3d(0,-50%,0);
+	transform: translate3d(0,-50%,0);
+}
+.app-android-2 .app-dialog-container.enabled .app-dialog,
+.app-android-4 .app-dialog-container.enabled .app-dialog {
+	-webkit-transform: translate3d(0,50%,0);
+	transform: translate3d(0,50%,0);
+}
+.app-dialog-container.closing.closing-success .app-dialog {
+	-webkit-transform: translate3d(0,-664px,0);
+	transform: translate3d(0,-664px,0);
+}
+.app-android-2 .app-dialog-container.closing.closing-success .app-dialog,
+.app-android-4 .app-dialog-container.closing.closing-success .app-dialog {
+	-webkit-transform: translate3d(0,50%,0);
+	transform: translate3d(0,50%,0);
+}
+
+.app-dialog .title {
+	position: relative;
+	margin-bottom: 8px;
+	padding: 16px 20px 0;
+	font-size: 18px;
+	font-weight: 300;
+	text-align: center;
+}
+.app-dialog .text {
+	margin: 20px 0;
+	padding: 0 20px 8px;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: center;
+}
+.app-dialog .button {
+	float: right;
+	height: 44px;
+	width: 50%;
+	font-size: 20px;
+	font-weight: 300;
+	line-height: 44px;
+	text-align: center;
+	-webkit-transition: opacity 0.25s ease-out;
+	transition: opacity 0.25s ease-out;
+}
+.app-dialog .button.cancel {
+	background-color: rgb(227,228,231);
+	color: #000;
+}
+.app-dialog .button.ok {
+	background-color: #2B9;
+	color: #FFF;
+}
+.app-dialog .button.first:before {
+	clear: left;
+}
+.app-dialog .button.last:after {
+	clear: right;
+}
+.app-dialog .button.first.last {
+	width: 100%;
+}
+.app-ios .app-dialog .button.first {
+	-webkit-border-radius: 0 0 0 8px;
+	border-radius: 0 0 0 8px;
+}
+.app-ios .app-dialog .button.last {
+	-webkit-border-radius: 0 0 8px 0;
+	border-radius: 0 0 8px 0;
+}
+.app-ios .app-dialog .button.first.last {
+	width: 100%;
+	-webkit-border-radius: 0 0 8px 8px;
+	border-radius: 0 0 8px 8px;
+}
+.app-dialog .button.active {
+	opacity: 0.7;
+}
+.app-dialog .button.active,
+.app-android-2 .app-dialog .button,
+.app-android-2 .app-dialog .button {
+	-webkit-transition: none;
+	transition: none;
+}
