@@ -60,9 +60,11 @@ public class AppJsPageManager implements PageManager<Element> {
 
 	private void onPageShowed(String name, JavaScriptObject e) {
 		Page<Element> currentPage = this.pages.get(name);
+		Element el = e.cast();
 		if (currentPage == null) {
-			Element el = e.cast();
 			currentPage = new WebPage(el);
+		} else {
+			((WebPage) currentPage).setPageElement(el);
 		}
 		this.pages.put("name", currentPage);
 		onPageShow(currentPage);
@@ -71,15 +73,18 @@ public class AppJsPageManager implements PageManager<Element> {
 	private void onPageHidden(String name, JavaScriptObject e) {
 		GWT.log("Page " + name + "destroyed");
 		Page<Element> p = this.pages.get(name);
+		this.pages.remove(name);
 		onPageHide(p);
 		// this.pages.get(name).setWasHidden(true);
 	}
 
 	private native void _showPage(String name)/*-{
+		var that = this;
 		try {
 			//$wnd.App.restore();
 			$wnd.App.load(name, function() {
-				console.log('page loaded')
+				console.log('page loaded ' + name)
+				//that.@it.appify.view.AppJsPageManager::onPageLoaded(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(name,);
 			});
 		} catch (err) {
 			console.log(err);
@@ -89,12 +94,49 @@ public class AppJsPageManager implements PageManager<Element> {
 		}
 	}-*/;
 
+	private void onPageCreated(String pageName, JavaScriptObject e) {
+		Page<Element> currentPage = this.pages.get(pageName);
+		Element el = e.cast();
+		if (currentPage == null) {
+			currentPage = new WebPage(el);
+		} else {
+			((WebPage) currentPage).setPageElement(el);
+		}
+		this.pages.put("name", currentPage);
+		onPageCreate(currentPage);
+	}
+	
+	private void onPageLoaded(String pageName, JavaScriptObject e) {
+		Page<Element> currentPage = this.pages.get(pageName);
+		Element el = e.cast();
+		if (currentPage == null) {
+			currentPage = new WebPage(el);
+		} else {
+			((WebPage) currentPage).setPageElement(el);
+		}
+		this.pages.put("name", currentPage);
+		onPageReady(currentPage);
+	}
+
+	protected void onPageCreate(Page<Element> page) {
+		if (this.listener != null) {
+			this.listener.onPageCreate(page);
+		}
+	}
+
+	protected void onPageReady(Page<Element> page) {
+		if (this.listener != null) {
+			this.listener.onPageReady(page);
+		}
+	}
+
 	private native void _addPage(final String pageName)/*-{
 		var that = this;
 		$wnd.App
 				.controller(
 						pageName,
 						function(page) {
+							that.@it.appify.view.AppJsPageManager::onPageCreated(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(pageName, page);
 							$wnd
 									.$(page)
 									.on(

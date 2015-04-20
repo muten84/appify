@@ -3,6 +3,10 @@ package it.appify.api;
 public interface PageManager<E> {
 
 	public static interface PageListener<E> {
+		public void onPageCreate(Page<E> page);
+		
+		public void onPageReady(Page<E> page);
+
 		public void onPageShow(Page<E> page);
 
 		public void onPageHide(Page<E> page);

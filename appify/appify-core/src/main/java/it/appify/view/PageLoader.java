@@ -30,21 +30,35 @@ public class PageLoader<V, M> {
 		pm.setPageListener(new PageListener<V>() {
 			@Override
 			public void onPageHide(Page<V> page) {
-				GWT.log("onPageHide: "+page.getPageId());
+				GWT.log("onPageHide: " + page.getPageId());
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onPageShow(Page<V> page) {
-				GWT.log("onPageShow: "+page.getPageId());
-				vm.bindModelToView(page.getPageId(), modelInstance);
+				GWT.log("onPageShow: " + page.getPageId());
+				//vm.bindModelToView(page.getPageId(), modelInstance);
 				List<ViewHandlerHolder> h = pageHandlers.get(page.getPageId());
 				if (h != null) {
 					for (ViewHandlerHolder viewHandlerHolder : h) {
-						page.addViewHandler(viewHandlerHolder.getViewId(), viewHandlerHolder.getEventType(), viewHandlerHolder.getHandler());
+						page.addViewHandler(viewHandlerHolder.getViewId(),
+								viewHandlerHolder.getEventType(),
+								viewHandlerHolder.getHandler());
 					}
 				}
+			}
+
+			@Override
+			public void onPageCreate(Page<V> page) {
+				GWT.log("onPageCreate: " + page.getPageId());
+
+			}
+
+			@Override
+			public void onPageReady(Page<V> page) {
+				GWT.log("onPageReady: " + page.getPageId());
+
 			}
 
 		});
@@ -58,28 +72,31 @@ public class PageLoader<V, M> {
 		}
 		this.pageHandlers.get(pageId).add(handler);
 		if (pageId.equals(pm.getCurrentPage().getPageId())) {
-			pm.getCurrentPage().addViewHandler(handler.getViewId(), handler.getEventType(), handler.getHandler());
+			pm.getCurrentPage().addViewHandler(handler.getViewId(),
+					handler.getEventType(), handler.getHandler());
 		}
 
 	}
 
 	public void loadPage(String pageId, M model) {
-		loadPage(pageId, model, null);
+		loadPage(pageId, model, null);		
 	}
 
-	public void loadPage(String pageId, M model, List<ViewHandlerHolder> handlers) {
+	public void loadPage(String pageId, M model,
+			List<ViewHandlerHolder> handlers) {
 		this.modelInstance = model;
 		if (handlers != null) {
-			List<ViewHandlerHolder> pageHandlers = this.pageHandlers.get(pageId);
+			List<ViewHandlerHolder> pageHandlers = this.pageHandlers
+					.get(pageId);
 			if (pageHandlers == null) {
 				pageHandlers = new ArrayList<ViewHandlerHolder>();
 				this.pageHandlers.put(pageId, pageHandlers);
 			}
 			this.pageHandlers.get(pageId).clear();
 			this.pageHandlers.get(pageId).addAll(handlers);
-		}
-
+		}		
 		pm.showPage(pageId);
+		vm.bindModelToView(pageId, model);
 
 	}
 

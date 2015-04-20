@@ -6,6 +6,7 @@ import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.json.client.JSONObject;
 
 public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
 
@@ -27,6 +28,7 @@ public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
 			M dummyM = getObjectMapper().read("{}");
 			return dummyM;
 		}
+		this.model = getModel();
 		return this.model;
 	}
 
@@ -72,6 +74,17 @@ public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
 
 	private native void _updateModel(JavaScriptObject newModel)/*-{
 		$wnd.vm.$data = newModel;
+	}-*/;
+
+	private M getModel() {
+		JavaScriptObject jso = _getModel();
+		JSONObject jsonObj = new JSONObject(jso);
+		M m = getObjectMapper().read(jsonObj.toString());
+		return m;
+	}
+
+	private native JavaScriptObject _getModel()/*-{
+		return $wnd.vm.$data;
 	}-*/;
 
 }
