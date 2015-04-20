@@ -64,6 +64,7 @@ public class AppJsPageManager implements PageManager<Element> {
 			Element el = e.cast();
 			currentPage = new WebPage(el);
 		}
+		this.pages.put("name", currentPage);
 		onPageShow(currentPage);
 	}
 

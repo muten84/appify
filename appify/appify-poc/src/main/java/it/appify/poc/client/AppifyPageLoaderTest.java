@@ -35,32 +35,48 @@ public class AppifyPageLoaderTest implements EntryPoint {
 		// define a view model
 		vm = new ExampleViewModel();
 		// define your view handlersut
-		ViewHandlerHolder changeValueBtnHandler = createClickHandler("changeValueBtn");
-		List<ViewHandlerHolder> handlers = Arrays
-				.asList(new ViewHandlerHolder[] { changeValueBtnHandler });
-		// inject in the application context
-		PageLoader<Element, Model> loader = new PageLoader<Element, Model>(pm,
-				vm);
-		// load the page and inject the model instance
-		loader.loadPage("mainPage", m, handlers);
-
-	}
-
-	private ViewHandlerHolder createClickHandler(String viewId) {
-		return Util.createHandler(
-
-		viewId, "click", new ViewHandler() {
+		ViewHandlerHolder changeValueBtnHandler = createClickHandler("changeValueBtn", new ViewHandler() {
 
 			@Override
-			public void onEvent(String type, String source) {				
-				GWT.log("received onEvent for " + type + " event type from"
-						+ source + "... changing model");
+			public void onEvent(String type, String source) {
+				GWT.log("received onEvent for " + type + " event type from" + source + "... changing model");
 				m.setTitle("Titolo Modificato");
 				m.setContent("Loer Ipsum Modified");
 				vm.updateModel(m);
 
 			}
 		});
+		List<ViewHandlerHolder> handlers = Arrays.asList(new ViewHandlerHolder[] { changeValueBtnHandler });
+		// inject in the application context
+		final PageLoader<Element, Model> loader = new PageLoader<Element, Model>(pm, vm);
+		// load the page and inject the model instance
+		loader.loadPage("mainPage", m, handlers);
+		// add an handler to the nextBt view
+		loader.addPageViewHandler("mainPage", createClickHandler("nextBtn", new ViewHandler() {
+
+			@Override
+			public void onEvent(String type, String source) {
+				ViewHandlerHolder childPageBackBtnHandler = createClickHandler("childPageBackBtn", new ViewHandler() {
+
+					@Override
+					public void onEvent(String type, String source) {
+						GWT.log("onEvent: " + type + " - " + source);
+						loader.loadPage("mainPage", m);
+
+					}
+				});
+				List<ViewHandlerHolder> handlers = Arrays.asList(new ViewHandlerHolder[] { childPageBackBtnHandler });
+				loader.loadPage("childPage", m, handlers);
+
+			}
+		}));
+
+	}
+
+	private ViewHandlerHolder createClickHandler(String viewId, ViewHandler h) {
+		return Util.createHandler(
+
+		viewId, "click", h);
 	}
 
 	private Model createModel() {

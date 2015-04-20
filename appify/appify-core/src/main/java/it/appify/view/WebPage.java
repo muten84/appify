@@ -35,8 +35,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_addViewHandler(id, type, obj, h);
 	}
 
-	private native void _addViewHandler(String id, String type,
-			JavaScriptObject p, ViewHandler h)/*-{
+	private native void _addViewHandler(String id, String type, JavaScriptObject p, ViewHandler h)/*-{
 		var that = this;
 		$wnd
 				.$(p)
@@ -69,8 +68,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		return _getElementInPage(obj, "#" + elemId).cast();
 	}
 
-	private native JavaScriptObject _getElementInPage(JavaScriptObject obj,
-			String elemId)/*-{
+	private native JavaScriptObject _getElementInPage(JavaScriptObject obj, String elemId)/*-{
 		return $wnd.$(obj).find(elemId)[0];
 	}-*/;
 
@@ -82,6 +80,14 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	@Override
 	public Iterator<ViewHandlerHolder> getViewHandlers() {
 		return handlers.iterator();
+	}
+
+	public Element getPageElement() {
+		return pageElement;
+	}
+
+	public void setPageElement(Element pageElement) {
+		this.pageElement = pageElement;
 	}
 
 }
