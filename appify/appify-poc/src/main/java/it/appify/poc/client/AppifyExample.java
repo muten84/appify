@@ -46,6 +46,20 @@ public class AppifyExample implements EntryPoint {
 						+ page.getRootElement().getTagName());
 
 			}
+
+			@Override
+			public void onPageCreate(Page<Element> page) {
+				GWT.log("onPageCreate " + page.getPageId() + " - "
+						+ page.getRootElement().getTagName());
+				
+			}
+
+			@Override
+			public void onPageReady(Page<Element> page) {
+				GWT.log("onPageReady " + page.getPageId() + " - "
+						+ page.getRootElement().getTagName());
+				
+			}
 		});
 
 		/*

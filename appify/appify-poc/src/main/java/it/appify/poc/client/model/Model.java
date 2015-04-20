@@ -1,6 +1,8 @@
 package it.appify.poc.client.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -17,10 +19,12 @@ public class Model implements Serializable {
 	private String chilePageTitle;
 	private String childPageContent;
 	private String message;
+	private List<String> items;
 	private ChildModel child;
+	private List<String> picked;
 
 	public Model() {
-
+		picked = Arrays.asList(new String[] { "one", "two" });
 	}
 
 	public Model(String title) {
@@ -81,6 +85,28 @@ public class Model implements Serializable {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public List<String> getItems() {
+		return items;
+	}
+
+	public void setItems(List<String> items) {
+		this.items = items;
+	}
+
+	public List<String> getPicked() {
+		return picked;
+	}
+
+	public void setPicked(List<String> picked) {
+		this.picked = picked;
+	}
+
+	@Override
+	public String toString() {
+		return "Model [title=" + title + ", content=" + content + ", input="
+				+ input + ", message=" + message + "]";
 	}
 
 }

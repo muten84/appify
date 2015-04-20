@@ -29,6 +29,13 @@
 				<div id="content">{{content}}</div>
 				<input v-model="input" class="app-input" placeholder="Subject">
 				<textarea v-model="message" class="app-input" placeholder="Message"></textarea>
+				<label>Simple List </label>
+				<ul class="app-list app-section">
+					<li v-repeat="items">{{$value}}</li>
+					<li>Item 1</li>
+					<li>Item 2</li>
+					<li>Item 3</li>
+				</ul>
 				<div class="app-button">Send</div>
 				<div id="getModelBtn" class="app-button">Read Current Model</div>
 				<div id="changeValueBtn" class="app-button">ChangeValue</div>
@@ -42,7 +49,17 @@
 			<div id="childPageBackBtn" class="app-button left">Back</div>
 			<div class="app-title">{{child.title}}</div>
 		</div>
-		<div class="app-content">{{child.content}}</div>
+		<div class="app-content">
+			{{child.content}}
+			<div class="app-section">
+				<!-- radio buttons -->
+				<p>
+					<input type="radio" name="picked" value="one" v-model="picked">
+					<input type="radio" name="picked" value="two" v-model="picked">
+					{{picked}}
+				</p>
+			</div>
+		</div>
 	</div>
 
 	<!-- end of page declaration -->
