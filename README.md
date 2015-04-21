@@ -9,7 +9,7 @@ A tiny framework for developing complex HTML5 web applications in a simple way u
  - Geolocation HTML5 API
  - Notification API
  - Push State API (for history Page mechanism)
- - Advanced Javascript API such as: Battery Status, Acceloremeter, Orientation)
+ 
  
  Appify enables developers to write the View in HTML/CSS and the frontend Controller logic in Java.
  You can reuse all your Java business logic and your Java POJO Model in the offered VMMV pattern.
