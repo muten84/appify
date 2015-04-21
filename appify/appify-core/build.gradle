@@ -12,38 +12,40 @@ apply plugin: "maven"
 apply plugin: "eclipse"
 apply plugin: 'gwt-base'
 
+project.ext{ gwtVersion='2.7.0' }
+
 group = "it.appify"
 version = 1.0
 
-repositories {
-    mavenCentral()
-}
+repositories { mavenCentral() }
 
 
 
 dependencies {
-    compile 'commons-codec:commons-codec:1.5'  
-    compile 'commons-lang:commons-lang:2.6'
-    compile('com.github.nmorel.gwtjackson:gwt-jackson:0.9.0')
+	compile('com.google.gwt:gwt-dev:'+gwtVersion)
+	compile('com.google.gwt:gwt-user:'+gwtVersion)
+	compile 'commons-codec:commons-codec:1.5'
+	compile 'commons-lang:commons-lang:2.6'
+	compile('com.github.nmorel.gwtjackson:gwt-jackson:0.9.0')
 
-    testCompile 'junit:junit:4.9'
-  
-   
-    
+	testCompile 'junit:junit:4.9'
+
+
+
 }
 
 
 
 eclipse {
-		jdt {
-			sourceCompatibility = 1.7
-			targetCompatibility = 1.7
-		}
-		classpath{
-			containers.clear()
-			containers.add('org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7')
-			containers.add('com.google.gwt.eclipse.core.GWT_CONTAINER')
-		}
+	jdt {
+		sourceCompatibility = 1.6
+		targetCompatibility = 1.6
 	}
+	classpath{
+		containers.clear()
+		containers.add('org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7')
+		containers.add('com.google.gwt.eclipse.core.GWT_CONTAINER')
+	}
+}
 
 
