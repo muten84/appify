@@ -8,6 +8,7 @@ import it.appify.api.PageManager;
 import it.appify.poc.client.model.ChildModel;
 import it.appify.poc.client.model.ExampleViewModel;
 import it.appify.poc.client.model.Model;
+import it.appify.poc.client.util.Utils;
 import it.appify.view.AppJsPageManager;
 import it.appify.view.AppJsUtils;
 import it.appify.view.PageLoader;
@@ -36,7 +37,7 @@ public class AppifyPageLoaderTest implements EntryPoint {
 		// define a view model
 		vm = new ExampleViewModel();
 		// define your view handlersut
-		ViewHandlerHolder changeValueBtnHandler = createClickHandler(
+		ViewHandlerHolder changeValueBtnHandler = Utils.createClickHandler(
 				"changeValueBtn", new ViewHandler() {
 
 					@Override
@@ -59,22 +60,23 @@ public class AppifyPageLoaderTest implements EntryPoint {
 		loader.loadPage("mainPage", m, handlers);
 		// add an handler to the nextBt view
 		loader.addPageViewHandler("mainPage",
-				createClickHandler("nextBtn", new ViewHandler() {
+				Utils.createClickHandler("nextBtn", new ViewHandler() {
 
 					@Override
 					public void onEvent(String type, String source) {
-						ViewHandlerHolder childPageBackBtnHandler = createClickHandler(
-								"childPageBackBtn", new ViewHandler() {
+						ViewHandlerHolder childPageBackBtnHandler = Utils
+								.createClickHandler("childPageBackBtn",
+										new ViewHandler() {
 
-									@Override
-									public void onEvent(String type,
-											String source) {
-										GWT.log("onEvent: " + type + " - "
-												+ source);
-										loader.loadPage("mainPage", m);
+											@Override
+											public void onEvent(String type,
+													String source) {
+												GWT.log("onEvent: " + type
+														+ " - " + source);
+												loader.loadPage("mainPage", m);
 
-									}
-								});
+											}
+										});
 						List<ViewHandlerHolder> handlers = Arrays
 								.asList(new ViewHandlerHolder[] { childPageBackBtnHandler });
 						loader.loadPage("childPage", m, handlers);
@@ -83,7 +85,7 @@ public class AppifyPageLoaderTest implements EntryPoint {
 				}));
 
 		loader.addPageViewHandler("mainPage",
-				createClickHandler("getModelBtn", new ViewHandler() {
+				Utils.createClickHandler("getModelBtn", new ViewHandler() {
 
 					@Override
 					public void onEvent(String type, String source) {
@@ -93,12 +95,6 @@ public class AppifyPageLoaderTest implements EntryPoint {
 					}
 				}));
 
-	}
-
-	private ViewHandlerHolder createClickHandler(String viewId, ViewHandler h) {
-		return Util.createHandler(
-
-		viewId, "click", h);
 	}
 
 	private Model createModel() {
