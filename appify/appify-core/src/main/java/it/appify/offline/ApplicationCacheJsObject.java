@@ -22,18 +22,20 @@ public class ApplicationCacheJsObject extends JavaScriptObject {
 	}
 
 	/**
-	 * Returns <code>true</code> if the Application Cache API is supported on the running platform.
+	 * Returns <code>true</code> if the Application Cache API is supported on
+	 * the running platform.
 	 */
 	public final static native boolean isSupported() /*-{
 		return typeof $wnd.applicationCache != "undefined";
 	}-*/;
 
 	public final static native ApplicationCacheJsObject getApplicationCache() /*-{
-		return $wnd.applicationCache;
+		return $wnd.cache;
 	}-*/;
 
 	@SuppressWarnings("unused")
-	private final static void handleCacheEvents(EventListener listener, Event event) {
+	private final static void handleCacheEvents(EventListener listener,
+			Event event) {
 		UncaughtExceptionHandler ueh = GWT.getUncaughtExceptionHandler();
 		if (ueh != null) {
 			try {
@@ -46,8 +48,9 @@ public class ApplicationCacheJsObject extends JavaScriptObject {
 		}
 	}
 
-	public final native void addEventListener(String type, EventListener listener, boolean useCapture) /*-{
-			this.addEventListener(
+	public final native void addEventListener(String type,
+			EventListener listener, boolean useCapture) /*-{
+			$wnd.cache.addEventListener(
 			  type,
 			  function(event) {
 			    @it.appify.offline.ApplicationCacheJsObject::handleCacheEvents(Lcom/google/gwt/user/client/EventListener;Lcom/google/gwt/user/client/Event;) (listener, event);
@@ -57,15 +60,15 @@ public class ApplicationCacheJsObject extends JavaScriptObject {
 		}-*/;
 
 	public final native void update() /*-{
-		this.update();
+		$wnd.cache.update();
 	}-*/;
 
 	public final native void swapCache() /*-{
-		this.swapCache();
+		$wnd.cache.swapCache();
 	}-*/;
 
 	public final native int getStatus() /*-{
-		return this.status;
+		return $wnd.cache.status;
 	}-*/;
 
 	public final native boolean isOnline() /*-{
