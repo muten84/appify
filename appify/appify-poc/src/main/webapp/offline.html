@@ -1,11 +1,11 @@
 <!doctype html>
-<html>
+<html manifest="manifest.appcache">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 <title>Mobile POC</title>
-<link rel="stylesheet" href="mobilepoc/appjs/app.min.css">
+<link rel="stylesheet" href="mobilepocoffline/appjs/app.min.css">
 
 <style>
 /* TODO */
@@ -15,7 +15,7 @@
 
 <body>
 	<script type="text/javascript" language="javascript"
-		src="mobilepoc/mobilepoc.nocache.js"></script>
+		src="mobilepocoffline/mobilepocoffline.nocache.js"></script>
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
 		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
 	<!-- page structured app -->
@@ -36,6 +36,7 @@
 					<li>Item 2</li>
 					<li>Item 3</li>
 					<li>Item 4</li>
+					<!-- <li>Item 5 Added for ApplicationCache Test</li> -->
 				</ul>
 				<div class="app-button">Send</div>
 				<div id="getModelBtn" class="app-button">Read Current Model</div>
@@ -65,9 +66,10 @@
 	</div>
 
 	<!-- end of page declaration -->
-	<script src="mobilepoc/appjs/zepto.js"></script>
-	<script src="mobilepoc/appjs/app.min.js"></script>
-	<script src="mobilepoc/vuejs/vue.js"></script>
+	<script src="mobilepocoffline/cache-utils/cache-utils.js"></script>
+	<script src="mobilepocoffline/appjs/zepto.js"></script>
+	<script src="mobilepocoffline/appjs/app.min.js"></script>
+	<script src="mobilepocoffline/vuejs/vue.js"></script>
 
 </body>
 </html>

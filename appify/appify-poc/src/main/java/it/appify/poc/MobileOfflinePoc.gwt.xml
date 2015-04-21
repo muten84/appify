@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.7.0/distro-source/core/src/gwt-module.dtd">
+<module rename-to="mobilepocoffline">
+
+	<inherits name='it.appify.Presenter' />
+	<inherits name='it.appify.Offline' />
+
+	<source path="client" />
+	<define-linker
+		name="AppCacheLinker"
+		class="it.appify.offline.linker.ApplicationCacheLinker" />
+	<add-linker name="AppCacheLinker" />
+	<entry-point class="it.appify.poc.client.AppifyApplicationCacheTest"></entry-point>
+</module>

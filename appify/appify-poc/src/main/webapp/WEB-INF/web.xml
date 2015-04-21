@@ -10,4 +10,28 @@
 		PhoneGap use is encouraged for native app ditribution.
 	</description>
 	
+	<filter>
+      <filter-name>ExpiresFilter</filter-name>
+      <filter-class>fr.xebia.servlet.filter.ExpiresFilter</filter-class>
+      <init-param>
+         <param-name>ExpiresByType text/cache-manifest</param-name>
+         <param-value>access plus 0 seconds</param-value>
+      </init-param>     
+   </filter>
+   
+   <filter-mapping>
+      <filter-name>ExpiresFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+      <dispatcher>REQUEST</dispatcher>
+   </filter-mapping>
+	
+	<servlet>
+		<servlet-name>ManifestGenerator</servlet-name>
+		<servlet-class>it.appify.poc.server.ManifestGenerator</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManifestGenerator</servlet-name>
+		<url-pattern>/manifest.appcache</url-pattern>
+	</servlet-mapping>
+	
 </web-app> 
