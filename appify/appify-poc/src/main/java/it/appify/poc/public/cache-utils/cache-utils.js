@@ -1,7 +1,8 @@
 // Cache application tools
 (function () {
+	window.cache=window.applicationCache;
+	var cache = window.cache;
 	
-	var cache = window.applicationCache;
 	cache.addEventListener("cached", function () {
 	    console.log("All resources for this web app have now been downloaded. You can run this application while not connected to the internet");
 	}, false);
