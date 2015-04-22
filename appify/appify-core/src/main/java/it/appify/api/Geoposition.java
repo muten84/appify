@@ -36,4 +36,11 @@ public class Geoposition implements Serializable {
 		this.coords = coords;
 	}
 
+	@Override
+	public String toString() {
+		return "Geoposition [timestamp=" + timestamp + ", coords=" + coords + "]";
+	}
+	
+	
+
 }

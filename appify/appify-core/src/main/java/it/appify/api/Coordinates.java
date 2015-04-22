@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
-public class Coordinates implements Serializable{
+public class Coordinates implements Serializable {
 
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class Coordinates implements Serializable{
 
 	private int altitudeAccuracy;
 
-	private String heading;
+	private int heading;
 
 	private double latitude;
 
@@ -54,11 +54,11 @@ public class Coordinates implements Serializable{
 		this.altitudeAccuracy = altitudeAccuracy;
 	}
 
-	public String getHeading() {
+	public int getHeading() {
 		return heading;
 	}
 
-	public void setHeading(String heading) {
+	public void setHeading(int heading) {
 		this.heading = heading;
 	}
 
@@ -84,6 +84,11 @@ public class Coordinates implements Serializable{
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	@Override
+	public String toString() {
+		return "Coordinates [accuracy=" + accuracy + ", altitude=" + altitude + ", altitudeAccuracy=" + altitudeAccuracy + ", heading=" + heading + ", latitude=" + latitude + ", longitude=" + longitude + ", speed=" + speed + "]";
 	}
 
 }
