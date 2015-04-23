@@ -18,8 +18,10 @@ public class GeolocationJsObject {
 
 	private GeoOptionsBeanMapper optionsMapper;
 
-	// TODO: valutare la necessità di mantenere una lista di callback per più richieste
-	// oppure redere la richiesta idempotente (il primo che risponde libera la callback)
+	// TODO: valutare la necessità di mantenere una lista di callback per più
+	// richieste
+	// oppure redere la richiesta idempotente (il primo che risponde libera la
+	// callback)
 	private GeolocationCallback callback;
 
 	private Geoposition lastPosition;
@@ -28,10 +30,12 @@ public class GeolocationJsObject {
 
 	private int watchId = -1;
 
-	public static interface GeolocationBeanMapper extends ObjectMapper<Geoposition> {
+	public static interface GeolocationBeanMapper extends
+			ObjectMapper<Geoposition> {
 	}
 
-	public static interface GeoOptionsBeanMapper extends ObjectMapper<GeoOptions> {
+	public static interface GeoOptionsBeanMapper extends
+			ObjectMapper<GeoOptions> {
 	}
 
 	public GeolocationJsObject(GeoOptions options) {
@@ -53,10 +57,14 @@ public class GeolocationJsObject {
 		GWT.log("position info is: " + positionString);
 		JavaScriptObject jsObj = JsonUtils.safeEval(positionString);
 		JSONObject obj = new JSONObject(jsObj);
-		long timestamp = Long.parseLong("" + obj.get("timestamp").isNumber().doubleValue());
-		double latitude = obj.get("coords").isObject().get("latitude").isNumber().doubleValue();
-		double longitude = obj.get("coords").isObject().get("longitude").isNumber().doubleValue();
-		double accuracy = obj.get("coords").isObject().get("accuracy").isNumber().doubleValue();
+		long timestamp = Long.parseLong(""
+				+ obj.get("timestamp").isNumber().doubleValue());
+		double latitude = obj.get("coords").isObject().get("latitude")
+				.isNumber().doubleValue();
+		double longitude = obj.get("coords").isObject().get("longitude")
+				.isNumber().doubleValue();
+		double accuracy = obj.get("coords").isObject().get("accuracy")
+				.isNumber().doubleValue();
 		// JSONArray array = obj.isArray();
 		// positionString = array.get(0).isObject().toString();
 		// GWT.log("normalized position info is: " + positionString);
@@ -83,19 +91,17 @@ public class GeolocationJsObject {
 		if (this.callback != null) {
 			this.callback.onError(errorCode, msg);
 		}
-		// TODO: on position error if watch id is >0 do a claerWatch and notify to the callback to re-register to the
+		// TODO: on position error if watch id is >0 do a claerWatch and notify
+		// to the callback to re-register to the
 		// geolocation
 		this.callback = null;
-	}
-
-	public void clearWatch() {
-		// TODO: implementare clearWatch
 	}
 
 	public void getCurrentPosition(GeolocationCallback callback) {
 		GWT.log("getCurrentPosition .. " + callback);
 		// if (this.callback != null && lastPosition !=null) {
-		// // libero la callback pendente con l'ultime posizione e registro la nuova
+		// // libero la callback pendente con l'ultime posizione e registro la
+		// nuova
 		// callback.onPosition(lastPosition);
 		// }
 		this.callback = callback;
@@ -123,6 +129,19 @@ public class GeolocationJsObject {
 			// TODO: clear watch??? and renew subscription
 		}
 	}
+
+	public void clearWatch() {
+		if (this.watchId > 0) {
+			_clearWatch(this.watchId);
+			this.watchId = -1;
+		}
+
+	}
+
+	private native final int _clearWatch(int watchId)/*-{
+		console.log('_clearWatch');
+		navigator.geolocation.clearWatch(watchId);
+	}-*/;
 
 	private native final int _watchPosition(JavaScriptObject options)/*-{
 		console.log(' _watchPosition');

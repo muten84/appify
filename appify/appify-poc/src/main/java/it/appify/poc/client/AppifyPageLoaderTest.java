@@ -1,14 +1,16 @@
 package it.appify.poc.client;
 
-import it.appify.api.HasViewHandlers.Util;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.HasViewHandlers.ViewHandlerHolder;
 import it.appify.api.ModelView;
 import it.appify.api.PageManager;
+import it.appify.api.Storage;
 import it.appify.poc.client.model.ChildModel;
 import it.appify.poc.client.model.ExampleViewModel;
 import it.appify.poc.client.model.Model;
+import it.appify.poc.client.model.ExampleViewModel.ModelBeanMapper;
 import it.appify.poc.client.util.Utils;
+import it.appify.storage.LocalStorage;
 import it.appify.view.AppJsPageManager;
 import it.appify.view.AppJsUtils;
 import it.appify.view.PageLoader;
@@ -16,6 +18,7 @@ import it.appify.view.PageLoader;
 import java.util.Arrays;
 import java.util.List;
 
+import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
@@ -28,6 +31,8 @@ public class AppifyPageLoaderTest implements EntryPoint {
 
 	Model m;
 
+	Storage storage;
+
 	@Override
 	public void onModuleLoad() {
 		// define your model
@@ -36,6 +41,14 @@ public class AppifyPageLoaderTest implements EntryPoint {
 		pm = new AppJsPageManager();
 		// define a view model
 		vm = new ExampleViewModel();
+		// inject storage
+		storage = new LocalStorage() {
+
+			@Override
+			protected <M> ObjectMapper<M> getObjectMapper() {
+				return GWT.create(ModelBeanMapper.class);
+			}
+		};
 		// define your view handlersut
 		ViewHandlerHolder changeValueBtnHandler = Utils.createClickHandler(
 				"changeValueBtn", new ViewHandler() {
@@ -91,6 +104,18 @@ public class AppifyPageLoaderTest implements EntryPoint {
 					public void onEvent(String type, String source) {
 						Model m = vm.getCurrentModel();
 						AppJsUtils.alert("Current Model...", m.toString(), "OK");
+						storage.store("model", m);
+					}
+				}));
+
+		loader.addPageViewHandler("mainPage", Utils.createClickHandler(
+				"getModelFromStorageBtn", new ViewHandler() {
+
+					@Override
+					public void onEvent(String type, String source) {
+						Model m = storage.get("model");
+						AppJsUtils.alert("Current Model from storage...",
+								m.toString(), "OK");
 
 					}
 				}));
