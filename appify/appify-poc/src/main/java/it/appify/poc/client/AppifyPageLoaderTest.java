@@ -1,14 +1,18 @@
 package it.appify.poc.client;
 
+import it.appify.api.Battery;
+import it.appify.api.Battery.BatteryStatusCallback;
+import it.appify.api.BatteryStatus;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.HasViewHandlers.ViewHandlerHolder;
 import it.appify.api.ModelView;
 import it.appify.api.PageManager;
 import it.appify.api.Storage;
+import it.appify.battery.AdvancedJSBattery;
 import it.appify.poc.client.model.ChildModel;
 import it.appify.poc.client.model.ExampleViewModel;
-import it.appify.poc.client.model.Model;
 import it.appify.poc.client.model.ExampleViewModel.ModelBeanMapper;
+import it.appify.poc.client.model.Model;
 import it.appify.poc.client.util.Utils;
 import it.appify.storage.LocalStorage;
 import it.appify.view.AppJsPageManager;
@@ -33,6 +37,8 @@ public class AppifyPageLoaderTest implements EntryPoint {
 
 	Storage storage;
 
+	Battery battery;
+
 	@Override
 	public void onModuleLoad() {
 		// define your model
@@ -41,6 +47,8 @@ public class AppifyPageLoaderTest implements EntryPoint {
 		pm = new AppJsPageManager();
 		// define a view model
 		vm = new ExampleViewModel();
+		// inject battery
+		battery = new AdvancedJSBattery();
 		// inject storage
 		storage = new LocalStorage() {
 
@@ -116,6 +124,25 @@ public class AppifyPageLoaderTest implements EntryPoint {
 						Model m = storage.get("model");
 						AppJsUtils.alert("Current Model from storage...",
 								m.toString(), "OK");
+
+					}
+				}));
+
+		loader.addPageViewHandler("mainPage", Utils.createClickHandler(
+				"getBatteryStatusBtn", new ViewHandler() {
+
+					@Override
+					public void onEvent(String type, String source) {
+						battery.getBatteryStatus(new BatteryStatusCallback() {
+
+							@Override
+							public void onBatteryStatus(
+									BatteryStatus currentStatus) {
+								AppJsUtils.alert("Battery Status...",
+										currentStatus.toString(), "OK");
+
+							}
+						});
 
 					}
 				}));

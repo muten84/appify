@@ -37,7 +37,9 @@
 				</ul>
 				<div class="app-button">Send</div>
 				<div id="getModelBtn" class="app-button">Read Current Model</div>
-				<div id="getModelFromStorageBtn" class="app-button">Get Model From Storage</div>
+				<div id="getBatteryStatusBtn" class="app-button">Read Battery Status</div>
+				<div id="getModelFromStorageBtn" class="app-button">Get Model
+					From Storage</div>
 				<div id="changeValueBtn" class="app-button">ChangeValue</div>
 				<div id="nextBtn" class="app-button">Go to Next Page</div>
 			</div>
@@ -55,9 +57,11 @@
 				<!-- radio buttons -->
 				<p>
 					<label>Radio buttons: </label>
-					<p>One</p><input type="radio" name="picked" value="one" v-model="picked">
-					<p>Two</p><input type="radio" name="picked" value="two" v-model="picked">
-					<p>{{picked}}</p>
+				<p>One</p>
+				<input type="radio" name="picked" value="one" v-model="picked">
+				<p>Two</p>
+				<input type="radio" name="picked" value="two" v-model="picked">
+				<p>{{picked}}</p>
 				</p>
 			</div>
 		</div>

@@ -4,6 +4,7 @@
 
 	<inherits name='it.appify.Presenter' />
 	<inherits name='it.appify.Storage' />
+	<inherits name='it.appify.Battery' />
 
 	<source path="client" />
 
