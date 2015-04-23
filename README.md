@@ -6,6 +6,7 @@ A tiny framework for developing complex HTML5 web applications in a simple way u
  - MVVM pattern
  - MVP pattern
  - Offline Application Cache API
+ - Storage API
  - Geolocation HTML5 API
  - Notification API
  - Push State API (for history Page mechanism)
