@@ -1,1 +1,1 @@
-include 'appify-core', 'appify-poc'
+include 'appify-core', 'appify-poc', 'appify-examples'
