@@ -84,7 +84,7 @@ public interface ExampleApp extends WebApp<AppModel> {
 }
 ```
 
-4)Congratulations, you have developed a mobile web app in just few seconds :) let's start it:
+4)Congratulations, you have developed a mobile web app in a just few seconds :) ... let's start our newly app:
 ``` java
 ExampleApp myApp = GWT.create(ExampleApp.class);
 myApp.startApp(initializeAppState());
