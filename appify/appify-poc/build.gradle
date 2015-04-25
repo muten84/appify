@@ -17,11 +17,7 @@ project.ext{ gwtVersion='2.7.0' }
 
 sourceCompatibility = 1.6
 version = '1.0'
-jar {
-	manifest {
-		attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
-	}
-}
+
 
 repositories { mavenCentral() }
 

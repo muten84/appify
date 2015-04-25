@@ -6,9 +6,6 @@
 	<inherits name='it.appify.Offline' />
 
 	<source path="client" />
-	<define-linker
-		name="AppCacheLinker"
-		class="it.appify.offline.linker.ApplicationCacheLinker" />
-	<add-linker name="AppCacheLinker" />
+	
 	<entry-point class="it.appify.poc.client.AppifyApplicationCacheTest"></entry-point>
 </module>

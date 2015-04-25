@@ -2,11 +2,9 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.7.0/distro-source/core/src/gwt-module.dtd">
 <module rename-to="mobilepoc">
 
-	<inherits name='it.appify.Presenter' />
-	<inherits name='it.appify.Storage' />
-	<inherits name='it.appify.Battery' />
+	<inherits name='it.appify.App' />
 
 	<source path="client" />
 
-	<entry-point class="it.appify.poc.client.AppifyPageLoaderTest"></entry-point>
+	<entry-point class="it.appify.poc.client.GeneratedWebAppEntryPoint"></entry-point>
 </module>
