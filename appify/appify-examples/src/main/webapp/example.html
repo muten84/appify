@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<title>Mobile POC</title>
+<link rel="stylesheet" href="example/appjs/app.min.css">
+
+<style>
+/* TODO */
+</style>
+
+</head>
+
+<body>
+	<script type="text/javascript" language="javascript"
+		src="example/example.nocache.js"></script>
+	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
+		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+	<!-- page structured app -->
+
+	<div class="app-page" id="mainPage" data-page="mainPage">
+		<div class="app-topbar">
+			<div id="header" class="app-title">{{title}}</div>
+		</div>
+		<div class="app-content">
+			<div class="app-section">
+				<div id="content">{{content}}</div>
+				<input v-model="input" class="app-input" placeholder="Subject">
+				<textarea v-model="message" class="app-input" placeholder="Message"></textarea>
+				<label>Simple List </label>
+				<ul class="app-list app-section">
+					<li v-repeat="items">{{$value}}</li>
+					<li>Item 1</li>
+					<li>Item 2</li>
+				</ul>
+				<div class="app-button">Send</div>
+				<div id="getModelBtn" class="app-button">Read Current Model</div>
+				<div id="getBatteryStatusBtn" class="app-button">Read Battery Status</div>
+				<div id="getModelFromStorageBtn" class="app-button">Get Model
+					From Storage</div>
+				<div id="changeValueBtn" class="app-button">ChangeValue</div>
+				<div id="nextBtn" class="app-button">Go to Next Page</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="app-page" id="childPage" data-page="childPage">
+		<div class="app-topbar">
+			<div id="childPageBackBtn" class="app-button left">Back</div>
+			<div class="app-title">{{child.title}}</div>
+		</div>
+		<div class="app-content">
+			{{child.content}}
+			<div class="app-section">
+				<!-- radio buttons -->
+				<p>
+					<label>Radio buttons: </label>
+				<p>One</p>
+				<input type="radio" name="picked" value="one" v-model="picked">
+				<p>Two</p>
+				<input type="radio" name="picked" value="two" v-model="picked">
+				<p>{{picked}}</p>
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- end of page declaration -->
+	<script src="example/appjs/zepto.js"></script>
+	<script src="example/appjs/app.min.js"></script>
+	<script src="example/vuejs/vue.js"></script>
+
+</body>
+</html>
