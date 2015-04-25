@@ -4,6 +4,10 @@
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.google.gwt.json.JSON" />
 	<inherits name="com.github.nmorel.gwtjackson.GwtJackson" />
-	<source path="api"/>
-	<source path="view"/>
+	<source path="api" />
+	<source path="view" />
+
+	<!-- <generate-with class="it.appify.generator.ViewModelGenerator">
+		<when-type-assignable class="it.appify.view.WebModelView" />
+	</generate-with> -->
 </module>

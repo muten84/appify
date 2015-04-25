@@ -71,6 +71,7 @@ public class PageLoader<V, M> {
 			this.pageHandlers.put(pageId, pageHandlers);
 		}
 		this.pageHandlers.get(pageId).add(handler);
+		//if current page is attached to DOM
 		if (pageId.equals(pm.getCurrentPage().getPageId())) {
 			pm.getCurrentPage().addViewHandler(handler.getViewId(),
 					handler.getEventType(), handler.getHandler());

@@ -6,4 +6,8 @@
 	<inherits name="com.github.nmorel.gwtjackson.GwtJackson" />
 	<source path="api" />
 	<source path="offline" />
+
+	<define-linker name="AppCacheLinker"
+		class="it.appify.offline.linker.ApplicationCacheLinker" />
+	<add-linker name="AppCacheLinker" />
 </module>

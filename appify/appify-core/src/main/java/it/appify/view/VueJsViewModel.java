@@ -8,7 +8,7 @@ import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.json.client.JSONObject;
 
-public abstract class VueJsViewModel<M> implements ModelView<M, Element> {
+public abstract class VueJsViewModel<M> implements WebModelView<M> {
 
 	private Element el;
 
