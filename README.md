@@ -25,9 +25,10 @@ You can reuse all your Java business logic and your Java POJO Model in the offer
 
 Appify is a young project i'm working hard for docs and other modules compatibility. Stay tuned for updates and docs.
 #Examples
-1) Write your view:
+1) Write your view in pure HTML5:
 
-    <div class="app-page" id="mainPage" data-page="mainPage">
+``` html
+<div class="app-page" id="mainPage" data-page="mainPage">
 		<div class="app-topbar">
 			<div id="header" class="app-title">{{title}}</div>
 		</div>
@@ -51,8 +52,8 @@ Appify is a young project i'm working hard for docs and other modules compatibil
 				<div id="nextBtn" class="app-button">Go to Next Page</div>
 			</div>
 		</div>
-	</div>
-	
+</div>
+```	
 2)Write your controllers in Java:
 
 ``` java
