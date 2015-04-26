@@ -34,6 +34,7 @@ import com.squareup.javapoet.TypeSpec;
 
 /**
  * Generate a web app with minimal capabilities
+ * 
  * @author Luigi
  *
  */
@@ -61,6 +62,9 @@ public class WebAppGenerator extends Generator {
 			if (pw != null) {
 				WebApp annotatedApp = classType
 						.findAnnotationInTypeHierarchy(WebApp.class);
+				if (annotatedApp == null) {
+					return null;
+				}
 				String mainPage = annotatedApp.mainPage();
 				Class<?> modelClass = annotatedApp.appStateType();
 				TypeSpec spec = createWebAppClass(className, mainPage,
@@ -149,10 +153,14 @@ public class WebAppGenerator extends Generator {
 				String viewId = vhAnnotation.viewId();
 				TypeSpec innerViewHandler = createViewHandler("controller"
 						+ jClassType.getSimpleSourceName(), jMethod.getName());
+				initializeControllerBuilder.addStatement("$T holder" + pageId
+						+ "_" + viewId
+						+ " = this.createViewHandler(\"$L\",\"$L\",\"$L\",$L)",
+						ViewHandlerHolder.class, pageId, viewId, eventType,
+						innerViewHandler);
 				initializeControllerBuilder.addStatement(
-						"$T holder"+pageId+"_"+viewId+" = this.createViewHandler(\"$L\",\"$L\",\"$L\",$L)", ViewHandlerHolder.class, pageId, viewId,
-						eventType, innerViewHandler);
-				initializeControllerBuilder.addStatement("this.bindHandlerToPage(\"$L\", holder"+pageId+"_"+viewId+")", pageId);				
+						"this.bindHandlerToPage(\"$L\", holder" + pageId + "_"
+								+ viewId + ")", pageId);
 			}
 		}
 		return initializeControllerBuilder.build();

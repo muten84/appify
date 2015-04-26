@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.7.0/distro-source/core/src/gwt-module.dtd">
+<module>
+	<inherits name='org.timepedia.exporter.Exporter' />
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.gwt.json.JSON" />
+	<inherits name="com.github.nmorel.gwtjackson.GwtJackson" />
+	<source path="api" />
+	<source path="view" />
+	<source path="app" />
+	<source path="annotations" />
+	<source path="battery" />
+	<source path="geolocation" />
+	<source path="export" />
+
+	<!-- <set-property name="export" value="yes" /> -->
+	<!-- <entry-point class="it.appify.export.ExportableEntryPoint"></entry-point> -->
+
+</module>
