@@ -89,7 +89,24 @@ public interface ExampleApp extends WebApp<AppModel> {
 ExampleApp myApp = GWT.create(ExampleApp.class);
 myApp.startApp(initializeAppState());
 ```
+5)If you prefer, you can use the Javascript Api version of Appify:
+``` javascript
+//construct your appify object
+var myapp = new appify.app();
 
+//define your model
+var mymodel = {title: 'Title', content: 'Lorem Ipsum...'};
+
+//let's start your app
+myapp.startApp(mymodel);
+
+//navigate trough pages
+myapp.moveTo('childPage');
+
+//update model view 
+mymodel.title='New Title';
+myapp.updateAppState(mymodel);
+```
 #Updates:
 Actually Appify rely on these modules:
   - App.Js for the View and the Page transition
