@@ -1,4 +1,4 @@
-package it.appify.poc.client;
+package it.appify.poc.client.controller;
 
 import it.appify.annotations.Controller;
 import it.appify.annotations.ViewHandler;
