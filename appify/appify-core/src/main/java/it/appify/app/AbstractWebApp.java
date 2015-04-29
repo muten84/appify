@@ -3,6 +3,7 @@ package it.appify.app;
 import it.appify.api.HasViewHandlers;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.HasViewHandlers.ViewHandlerHolder;
+import it.appify.api.Battery;
 import it.appify.api.Geolocation;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
@@ -144,6 +145,12 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	
 	@Override
 	public Geolocation getGeolocationService() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Battery getBatteryService() {
 		// TODO Auto-generated method stub
 		return null;
 	}

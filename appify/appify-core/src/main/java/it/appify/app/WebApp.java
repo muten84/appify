@@ -1,5 +1,6 @@
 package it.appify.app;
 
+import it.appify.api.Battery;
 import it.appify.api.Geolocation;
 
 /**
@@ -21,5 +22,7 @@ public interface WebApp<AppState> {
 	public void back();	
 	
 	public Geolocation getGeolocationService();
+	
+	public Battery getBatteryService();
 	
 }

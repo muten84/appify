@@ -1,4 +1,4 @@
-package it.appify.examples.client.controller;
+package it.appify.examples.client.service;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -8,11 +8,11 @@ import it.appify.api.Geoposition;
 import it.appify.app.WebApp;
 
 @Controller
-public class GeolocationController {
+public class GeolocationService {
 
 	private WebApp<?> webapp;
 
-	public GeolocationController(WebApp<?> webapp) {
+	public GeolocationService(WebApp<?> webapp) {
 		this.webapp = webapp;
 		this.webapp.getGeolocationService().watchPosition(new GeolocationCallback() {
 

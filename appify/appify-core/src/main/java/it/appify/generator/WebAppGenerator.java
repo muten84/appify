@@ -1,5 +1,6 @@
 package it.appify.generator;
 
+import it.appify.annotations.Battery;
 import it.appify.annotations.Controller;
 import it.appify.annotations.Geolocation;
 import it.appify.annotations.ViewHandler;
@@ -70,6 +71,10 @@ public class WebAppGenerator extends Generator {
 				if (geolocation != null) {
 					addGeolocationService(webappBuilder, geolocation);
 				}
+				Battery battery = scanBatteryService(classType);				
+				if(battery!=null) {
+					addBatteryService(webappBuilder, battery);
+				}
 				TypeSpec webapp = webappBuilder.build();
 				JavaFile file = buildJavaFile(packageName, webapp);
 				file.writeTo(pw);
@@ -87,6 +92,8 @@ public class WebAppGenerator extends Generator {
 
 		return packageName + "." + className;
 	}
+	
+	
 
 	protected TypeSpec.Builder addGeolocationService(TypeSpec.Builder spec, Geolocation annotation) {
 		boolean highAccuracy = annotation.enableHighAccuracy();
@@ -99,6 +106,25 @@ public class WebAppGenerator extends Generator {
 				.returns(it.appify.api.Geolocation.class).
 				addCode("return $T.createGeoLocationService($L,$L,$L);", ServiceProvider.class, highAccuracy, maxAge, timeout).build());
 		return spec;
+	}
+	
+	protected TypeSpec.Builder addBatteryService(TypeSpec.Builder spec, Battery annotation) {
+
+		spec.addMethod(MethodSpec.methodBuilder("getBatteryService")
+				.addModifiers(Modifier.PUBLIC)
+				.addAnnotation(Override.class)
+				.returns(it.appify.api.Battery.class).
+				addCode("return $T.createBatteryService();", ServiceProvider.class).build());
+		return spec;
+	}
+	
+	protected Battery scanBatteryService(JClassType classType) {
+		Battery annoatation = classType.findAnnotationInTypeHierarchy(Battery.class);
+		if (annoatation != null) {
+			return annoatation;
+		}
+		return null;
+
 	}
 
 	protected Geolocation scanGeolocationService(JClassType classType) {
