@@ -14,7 +14,13 @@ public class AppifyEntryPoint implements EntryPoint {
 		// exportJsAPI();
 		ExampleApp myApp = GWT.create(ExampleApp.class);
 		myApp.startApp(initializeAppState());
-
+		AppModel model = myApp.getCurrentAppState();
+		GWT.log("Current App state is: "+model.getTitle()+" - "+model.getContent());
+		model = myApp.getStorageService().get(AppModel.class.toString());
+		GWT.log("Stored App state is: "+model.getTitle()+" - "+model.getContent());
+		model = myApp.getCurrentAppState();
+		myApp.getStorageService().store(AppModel.class.toString(), myApp.getCurrentAppState());
+		GWT.log("New Stored App state is: "+model.getTitle()+" - "+model.getContent());
 	}
 
 	// public void exportJsAPI() {

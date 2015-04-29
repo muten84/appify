@@ -7,6 +7,7 @@ import it.appify.api.Battery;
 import it.appify.api.Geolocation;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
+import it.appify.api.Storage;
 import it.appify.view.AppJsPageManager;
 import it.appify.view.PageLoader;
 import it.appify.view.WebModelView;
@@ -51,10 +52,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 * @param viewId
 	 * @param eventType
 	 */
-	public void addHandler(String pageId, String viewId, String eventType,
-			ViewHandler handler) {
-		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType,
-				handler);
+	public void addHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
+		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType, handler);
 		loader.addPageViewHandler(pageId, holder);
 	}
 
@@ -67,8 +66,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		pageViewHandlers.put(pageId, holders);
 	}
 
-	protected ViewHandlerHolder createViewHandler(String pageId, String viewId,
-			String eventType, ViewHandler handler) {
+	protected ViewHandlerHolder createViewHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
 		ViewHandlerHolder holder = new ViewHandlerHolder();
 		holder.setEventType(eventType);
 		holder.setHandler(handler);
@@ -87,12 +85,10 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 			throw new RuntimeException("main page cannot be null or empty");
 		}
 		if (pageManager.getCurrentPage() == null) {
-			loader.loadPage(mainPage, initialState,
-					pageViewHandlers.get(this.mainPage));
+			loader.loadPage(mainPage, initialState, pageViewHandlers.get(this.mainPage));
 			pageStack.add(mainPage);
 		} else {
-			throw new RuntimeException(
-					"App just started use moveTo and back to create navigation in your app");
+			throw new RuntimeException("App just started use moveTo and back to create navigation in your app");
 		}
 
 	}
@@ -115,16 +111,14 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	@Override
 	public void moveTo(String pageId) {
 		if (pageManager.getCurrentPage() == null) {
-			throw new RuntimeException(
-					"Main page not started  maybe you need to call start app first??");
+			throw new RuntimeException("Main page not started  maybe you need to call start app first??");
 		}
 		if (pageManager.getCurrentPage().getPageId().equals(pageId)) {
 			// no need to move to the current page
 			return;
 		}
 		pageStack.add(pageManager.getCurrentPage().getPageId());
-		loader.loadPage(pageId, modelView.getCurrentModel(),
-				pageViewHandlers.get(pageId));
+		loader.loadPage(pageId, modelView.getCurrentModel(), pageViewHandlers.get(pageId));
 
 	}
 
@@ -138,19 +132,30 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		loader.loadPage(pageId, state);
 	}
 
+	@Override
+	public <AppState> AppState getCurrentAppState() {
+		return (AppState) modelView.getCurrentModel();
+	}
+
 	public WebPage getCurrentPage() {
 		Page<Element> page = pageManager.getCurrentPage();
 		return (WebPage) page;
 	}
-	
+
 	@Override
 	public Geolocation getGeolocationService() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public Battery getBatteryService() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Storage getStorageService() {
 		// TODO Auto-generated method stub
 		return null;
 	}

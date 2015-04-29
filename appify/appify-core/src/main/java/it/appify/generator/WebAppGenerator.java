@@ -3,11 +3,13 @@ package it.appify.generator;
 import it.appify.annotations.Battery;
 import it.appify.annotations.Controller;
 import it.appify.annotations.Geolocation;
+import it.appify.annotations.Storage;
 import it.appify.annotations.ViewHandler;
 import it.appify.annotations.WebApp;
 import it.appify.api.HasViewHandlers.ViewHandlerHolder;
 import it.appify.app.AbstractWebApp;
 import it.appify.app.ServiceProvider;
+import it.appify.storage.LocalStorage;
 import it.appify.view.VueJsViewModel;
 import it.appify.view.WebModelView;
 
@@ -66,14 +68,19 @@ public class WebAppGenerator extends Generator {
 				}
 				String mainPage = annotatedApp.mainPage();
 				Class<?> modelClass = annotatedApp.appStateType();
-				TypeSpec.Builder webappBuilder = createWebAppClass(className, mainPage, modelClass, superInterface);
+				TypeSpec objectMapperInterface = createObjectMapperInterface("ObjectMapper" + modelClass.getSimpleName(), modelClass);
+				TypeSpec.Builder webappBuilder = createWebAppClass(className, mainPage, modelClass, superInterface, objectMapperInterface);
 				Geolocation geolocation = scanGeolocationService(classType);
 				if (geolocation != null) {
-					addGeolocationService(webappBuilder, geolocation);
+					webappBuilder = addGeolocationService(webappBuilder, geolocation);
 				}
-				Battery battery = scanBatteryService(classType);				
-				if(battery!=null) {
-					addBatteryService(webappBuilder, battery);
+				Battery battery = scanBatteryService(classType);
+				if (battery != null) {
+					webappBuilder = addBatteryService(webappBuilder, battery);
+				}
+				Storage storage = scanStorageService(classType);
+				if (storage != null) {
+					webappBuilder = addStorageService(webappBuilder, storage, objectMapperInterface);
 				}
 				TypeSpec webapp = webappBuilder.build();
 				JavaFile file = buildJavaFile(packageName, webapp);
@@ -92,32 +99,46 @@ public class WebAppGenerator extends Generator {
 
 		return packageName + "." + className;
 	}
-	
-	
+
+	protected TypeSpec.Builder addStorageService(TypeSpec.Builder spec, Storage annotation, TypeSpec objectMapperInterface) {
+		String storageType = annotation.type();
+		Class<?> storageModelType = annotation.modelType();
+		if (storageType.equals(it.appify.api.Storage.LOCAL_STORAGE)) {
+			TypeSpec storage = TypeSpec.anonymousClassBuilder("").superclass(LocalStorage.class).addField(FieldSpec.builder(ParameterizedTypeName.get(ObjectMapper.class, storageModelType), "mapper", Modifier.PRIVATE).build())
+
+			.addMethod(MethodSpec.methodBuilder("getObjectMapper").addModifiers(Modifier.PROTECTED).returns(ParameterizedTypeName.get(ObjectMapper.class, storageModelType)).addAnnotation(Override.class).addStatement("if(mapper==null){mapper = $T.create($N.class);}return mapper", GWT.class, objectMapperInterface.name).build()).build();
+
+			spec.addMethod(MethodSpec.methodBuilder("getStorageService").addModifiers(Modifier.PUBLIC).returns(it.appify.api.Storage.class).addCode("return $L;", storage).build());
+			return spec;
+
+		}
+		return null;
+	}
+
+	protected Storage scanStorageService(JClassType classType) {
+		Storage annotation = classType.findAnnotationInTypeHierarchy(Storage.class);
+
+		if (annotation != null) {
+			return annotation;
+		}
+		return null;
+	}
 
 	protected TypeSpec.Builder addGeolocationService(TypeSpec.Builder spec, Geolocation annotation) {
 		boolean highAccuracy = annotation.enableHighAccuracy();
 		int maxAge = annotation.maxAge();
 		long timeout = annotation.timeout();
 
-		spec.addMethod(MethodSpec.methodBuilder("getGeolocationService")
-				.addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class)
-				.returns(it.appify.api.Geolocation.class).
-				addCode("return $T.createGeoLocationService($L,$L,$L);", ServiceProvider.class, highAccuracy, maxAge, timeout).build());
+		spec.addMethod(MethodSpec.methodBuilder("getGeolocationService").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(it.appify.api.Geolocation.class).addCode("return $T.createGeoLocationService($L,$L,$L);", ServiceProvider.class, highAccuracy, maxAge, timeout).build());
 		return spec;
 	}
-	
+
 	protected TypeSpec.Builder addBatteryService(TypeSpec.Builder spec, Battery annotation) {
 
-		spec.addMethod(MethodSpec.methodBuilder("getBatteryService")
-				.addModifiers(Modifier.PUBLIC)
-				.addAnnotation(Override.class)
-				.returns(it.appify.api.Battery.class).
-				addCode("return $T.createBatteryService();", ServiceProvider.class).build());
+		spec.addMethod(MethodSpec.methodBuilder("getBatteryService").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(it.appify.api.Battery.class).addCode("return $T.createBatteryService();", ServiceProvider.class).build());
 		return spec;
 	}
-	
+
 	protected Battery scanBatteryService(JClassType classType) {
 		Battery annoatation = classType.findAnnotationInTypeHierarchy(Battery.class);
 		if (annoatation != null) {
@@ -144,8 +165,8 @@ public class WebAppGenerator extends Generator {
 		return javaFile;
 	}
 
-	protected TypeSpec.Builder createWebAppClass(String className, String mainPage, Class<?> modelClass, Class<?> superInterface) throws ClassNotFoundException {
-		TypeSpec objectMapperInterface = createObjectMapperInterface("ObjectMapper" + modelClass.getSimpleName(), modelClass);
+	protected TypeSpec.Builder createWebAppClass(String className, String mainPage, Class<?> modelClass, Class<?> superInterface, TypeSpec objectMapperInterface) throws ClassNotFoundException {
+
 		TypeSpec.Builder webAppbuilder = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC, Modifier.FINAL).addSuperinterface(superInterface).superclass(ParameterizedTypeName.get(AbstractWebApp.class, modelClass)).addType(objectMapperInterface).addMethod(createDefaultConstructor(mainPage)).addMethod(createSuperClassMethods(modelClass, objectMapperInterface)).addMethod(initializeControllers(typeOracle));
 		// .addMethod(main)
 		// .build();
@@ -220,7 +241,7 @@ public class WebAppGenerator extends Generator {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		WebAppGenerator generator = new WebAppGenerator();
-		TypeSpec type = generator.createWebAppClass("MyWebAppImpl", "mainPage", Object.class, Runnable.class).build();
+		TypeSpec type = generator.createWebAppClass("MyWebAppImpl", "mainPage", Object.class, Runnable.class, null).build();
 		JavaFile file = generator.buildJavaFile("it.mypackage.example", type);
 		file.writeTo(System.out);
 

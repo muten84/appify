@@ -2,6 +2,7 @@ package it.appify.app;
 
 import it.appify.api.Battery;
 import it.appify.api.Geolocation;
+import it.appify.api.Storage;
 
 /**
  * WebApp interface to control navigation, the app state and its service providers such as Geolocation, Battery etc..
@@ -14,6 +15,9 @@ import it.appify.api.Geolocation;
 public interface WebApp<AppState> {
 
 	public void updateAppState(AppState state);
+	
+	@SuppressWarnings("hiding")
+	public <AppState> AppState getCurrentAppState();
 
 	public void startApp(AppState initialState);
 
@@ -24,5 +28,7 @@ public interface WebApp<AppState> {
 	public Geolocation getGeolocationService();
 	
 	public Battery getBatteryService();
+	
+	public Storage getStorageService();
 	
 }
