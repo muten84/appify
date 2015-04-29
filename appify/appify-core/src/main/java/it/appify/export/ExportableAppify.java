@@ -7,6 +7,7 @@ import org.timepedia.exporter.client.Exportable;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 
+import it.appify.api.Geolocation;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.app.AbstractWebApp;
 import it.appify.view.WebModelView;
@@ -145,6 +146,12 @@ public class ExportableAppify extends AbstractWebApp<JavaScriptObject>
 	public void updateAppState(JavaScriptObject state) {
 		// TODO Auto-generated method stub
 		super.updateAppState(state);
+	}
+
+	@Override
+	public Geolocation getGeolocationService() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

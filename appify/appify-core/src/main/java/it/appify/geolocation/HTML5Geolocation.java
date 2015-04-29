@@ -21,4 +21,9 @@ public class HTML5Geolocation implements Geolocation {
 		this.geolocation.watchPosition(callback);
 	}
 
+	@Override
+	public <Service> Service getService() {
+		return (Service) this;
+	}
+
 }

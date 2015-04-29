@@ -34,4 +34,9 @@ public class AdvancedJSBattery implements Battery {
 
 	}
 
+	@Override
+	public <Service> Service getService() {
+		return (Service) this;
+	}
+
 }

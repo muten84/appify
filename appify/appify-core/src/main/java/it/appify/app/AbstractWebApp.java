@@ -3,6 +3,7 @@ package it.appify.app;
 import it.appify.api.HasViewHandlers;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.HasViewHandlers.ViewHandlerHolder;
+import it.appify.api.Geolocation;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
 import it.appify.view.AppJsPageManager;
@@ -139,6 +140,12 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	public WebPage getCurrentPage() {
 		Page<Element> page = pageManager.getCurrentPage();
 		return (WebPage) page;
+	}
+	
+	@Override
+	public Geolocation getGeolocationService() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	protected abstract WebModelView<AppState> getAppStateModelView();

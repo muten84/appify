@@ -27,5 +27,5 @@ public @interface Controller {
 	 * 
 	 * @return
 	 */
-	public String page();
+	public String page() default "mainPage";
 }

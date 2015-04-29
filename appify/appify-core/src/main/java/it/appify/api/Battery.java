@@ -1,6 +1,6 @@
 package it.appify.api;
 
-public interface Battery {
+public interface Battery extends IsService{
 
 	public static interface BatteryStatusCallback {
 		public void onBatteryStatus(BatteryStatus currentStatus);
