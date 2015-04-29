@@ -11,10 +11,15 @@ public class AppifyEntryPoint implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
+		// exportJsAPI();
 		ExampleApp myApp = GWT.create(ExampleApp.class);
 		myApp.startApp(initializeAppState());
 
 	}
+
+	// public void exportJsAPI() {
+	// Exporter exporter = (Exporter) GWT.create(ExportableAppify.class);
+	// }
 
 	public AppModel initializeAppState() {
 		final AppModel m = new AppModel("Main Page App Title");
