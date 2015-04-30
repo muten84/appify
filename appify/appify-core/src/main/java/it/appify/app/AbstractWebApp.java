@@ -8,6 +8,7 @@ import it.appify.api.Geolocation;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
 import it.appify.api.Storage;
+import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.view.AppJsPageManager;
 import it.appify.view.PageLoader;
 import it.appify.view.WebModelView;
@@ -156,6 +157,12 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	@Override
 	public Storage getStorageService() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public WebScreenOrientation getScreenOrientationService() {
 		// TODO Auto-generated method stub
 		return null;
 	}

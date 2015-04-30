@@ -17,7 +17,7 @@ public interface ScrOrientation<Element> extends HasHandlers {
 
 	// https://github.com/muten84/HTML5-API-demos/blob/master/demos/screen-orientation-api-demo.html
 
-	public void requestFullScreen(Element e);
+	public void requestFullScreen();
 
 	public void exitFullScreen();
 

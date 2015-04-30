@@ -3,6 +3,7 @@ package it.appify.generator;
 import it.appify.annotations.Battery;
 import it.appify.annotations.Controller;
 import it.appify.annotations.Geolocation;
+import it.appify.annotations.ScreenOrientation;
 import it.appify.annotations.Storage;
 import it.appify.annotations.ViewHandler;
 import it.appify.annotations.WebApp;
@@ -82,6 +83,10 @@ public class WebAppGenerator extends Generator {
 				if (storage != null) {
 					webappBuilder = addStorageService(webappBuilder, storage, objectMapperInterface);
 				}
+				ScreenOrientation screenOrientation = scanScreenOrientation(classType);
+				if (screenOrientation != null) {
+					webappBuilder = addScreenOrientationService(webappBuilder, screenOrientation);
+				}
 				TypeSpec webapp = webappBuilder.build();
 				JavaFile file = buildJavaFile(packageName, webapp);
 				file.writeTo(pw);
@@ -115,6 +120,14 @@ public class WebAppGenerator extends Generator {
 		return null;
 	}
 
+	protected ScreenOrientation scanScreenOrientation(JClassType classType) {
+		ScreenOrientation annotation = classType.findAnnotationInTypeHierarchy(ScreenOrientation.class);
+		if (annotation != null) {
+			return annotation;
+		}
+		return null;
+	}
+
 	protected Storage scanStorageService(JClassType classType) {
 		Storage annotation = classType.findAnnotationInTypeHierarchy(Storage.class);
 
@@ -130,6 +143,12 @@ public class WebAppGenerator extends Generator {
 		long timeout = annotation.timeout();
 
 		spec.addMethod(MethodSpec.methodBuilder("getGeolocationService").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(it.appify.api.Geolocation.class).addCode("return $T.createGeoLocationService($L,$L,$L);", ServiceProvider.class, highAccuracy, maxAge, timeout).build());
+		return spec;
+	}
+
+	protected TypeSpec.Builder addScreenOrientationService(TypeSpec.Builder spec, ScreenOrientation annotation) {
+
+		spec.addMethod(MethodSpec.methodBuilder("getScreenOrientationService").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(it.appify.screenorientation.WebScreenOrientation.class).addCode("return $T.createWebScreenOrientation();", ServiceProvider.class).build());
 		return spec;
 	}
 

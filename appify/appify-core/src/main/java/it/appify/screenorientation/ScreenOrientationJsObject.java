@@ -69,7 +69,7 @@ public class ScreenOrientationJsObject {
 	}-*/;
 
 	protected native final JavaScriptObject _getScreenOrientation()/*-{
-		$wnd.screenOrientation = $wnd.screen;
+		$wnd.screenOrientation = $wnd.screen.orientation;
 		if ('orientation' in screen && 'angle' in screen.orientation) {
 			// The browser supports the new version of the API			
 			return $wnd.screenOrientation;
@@ -77,8 +77,10 @@ public class ScreenOrientationJsObject {
 		return null;
 	}-*/;
 
-	protected native void _requestFullScreen(Element el) /*-{
-		$wnd.Fullscreen.launch(el);
+	
+	protected native void _requestFullScreen() /*-{
+		console.log('_requestFullScreen: ');
+		$wnd.Fullscreen.launch($doc.documentElement);
 	}-*/;
 
 	protected native void _exitFullScreen() /*-{
@@ -96,25 +98,33 @@ public class ScreenOrientationJsObject {
 	private native JavaScriptObject _getFullScreenObject()/*-{
 		$wnd.Fullscreen = {
 			launch : function(element) {
+				console.log('Fullscreen: '+element);
 				if (element.requestFullscreen) {
+					console.log('element.requestFullscreen');
 					element.requestFullscreen();
 				} else if (element.mozRequestFullScreen) {
+					console.log('element.mozRequestFullScreen');
 					element.mozRequestFullScreen();
 				} else if (element.webkitRequestFullscreen) {
+					console.log('element.webkitRequestFullscreen');
 					element.webkitRequestFullscreen();
 				} else if (element.msRequestFullscreen) {
+					console.log('element.msRequestFullscreen');
 					element.msRequestFullscreen();
+				}
+				else{
+					console.log('no element found :(');
 				}
 			},
 			exit : function() {
-				if (document.exitFullscreen) {
-					document.exitFullscreen();
-				} else if (document.mozCancelFullScreen) {
-					document.mozCancelFullScreen();
-				} else if (document.webkitExitFullscreen) {
-					document.webkitExitFullscreen();
+				if ($doc.exitFullscreen) {
+					$doc.exitFullscreen();
+				} else if ($doc.mozCancelFullScreen) {
+					$doc.mozCancelFullScreen();
+				} else if ($doc.webkitExitFullscreen) {
+					$doc.webkitExitFullscreen();
 				} else if (document.msExitFullscreen) {
-					document.msExitFullscreen();
+					$doc.msExitFullscreen();
 				}
 			}
 		};

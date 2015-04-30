@@ -2,6 +2,7 @@ package it.appify.examples.client.app;
 
 import it.appify.annotations.Battery;
 import it.appify.annotations.Geolocation;
+import it.appify.annotations.ScreenOrientation;
 import it.appify.annotations.Storage;
 import it.appify.app.WebApp;
 import it.appify.examples.client.model.AppModel;
@@ -14,6 +15,8 @@ import it.appify.examples.client.model.AppModel;
 @Geolocation(enableHighAccuracy = true, maxAge = 5000, timeout = 5000)
 // inject storage service of type LOCAL STORAGE for storing and reading AppModel type
 @Storage(type = it.appify.api.Storage.LOCAL_STORAGE, modelType = AppModel.class)
+// inject screen orientation service
+@ScreenOrientation
 public interface ExampleApp extends WebApp<AppModel> {
 
 }

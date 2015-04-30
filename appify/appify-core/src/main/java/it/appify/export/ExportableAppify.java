@@ -11,6 +11,7 @@ import it.appify.api.Geolocation;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.Storage;
 import it.appify.app.AbstractWebApp;
+import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.view.WebModelView;
 import it.appify.view.WebPage;
 
@@ -157,6 +158,12 @@ public class ExportableAppify extends AbstractWebApp<JavaScriptObject>
 
 	@Override
 	public Storage getStorageService() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public WebScreenOrientation getScreenOrientationService() {
 		// TODO Auto-generated method stub
 		return null;
 	}
