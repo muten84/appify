@@ -26,23 +26,30 @@
 		</div>
 		<div class="app-content">
 			<div class="app-section">
-				<div id="content">{{content}}</div>
+				<!-- <div id="content">{{content}}</div>
 				<input v-model="input" class="app-input" placeholder="Subject">
-				<textarea v-model="message" class="app-input" placeholder="Message"></textarea>
-				<label>Simple List </label>
+				<textarea v-model="message" class="app-input" placeholder="Message"></textarea> -->
+				<label>Appify Status</label>
 				<ul class="app-list app-section">
 					<li v-repeat="items">{{$value}}</li>
-					<li>Item 1</li>
-					<li>Item 2</li>
+					<li class="battery-charging-{{batteryStatus.charging}}">Battery
+						Status: Charing: {{batteryStatus.charging}}, Level:
+						{{batteryStatus.level}}</li>
+					<li>Geolocation: {{position.timestamp}},
+						{{position.coords.latitude}}, {{position.coords.longitude}}</li>
+					<li>Screen: {{screen.availWidth}} * {{screen.availHeight}}</li>
+					<li>Screen Orientation: {{screenOrientation.type}}</li>
 				</ul>
 				<div class="app-button">Send</div>
-				<div id="getModelBtn" class="app-button">Read Current Model</div>
-				<div id="getBatteryStatusBtn" class="app-button">Read Battery Status</div>
+				<!-- <div id="getModelBtn" class="app-button">Read Current Model</div>
+				<div id="getBatteryStatusBtn" class="app-button">Read Battery
+					Status</div> -->
 				<div id="fullScreenBtn" class="app-button">Request Full Screen</div>
-				<div id="exitfullScreenBtn" class="app-button">Exit Full Screen</div>
-				<div id="getModelFromStorageBtn" class="app-button">Get Model
+				<div id="exitfullScreenBtn" class="app-button">Exit Full
+					Screen</div>
+				<!-- <div id="getModelFromStorageBtn" class="app-button">Get Model
 					From Storage</div>
-				<div id="changeValueBtn" class="app-button">ChangeValue</div>
+				<div id="changeValueBtn" class="app-button">ChangeValue</div> -->
 				<div id="nextBtn" class="app-button">Go to Next Page</div>
 			</div>
 		</div>

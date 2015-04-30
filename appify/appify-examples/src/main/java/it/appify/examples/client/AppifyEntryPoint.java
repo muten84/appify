@@ -28,7 +28,7 @@ public class AppifyEntryPoint implements EntryPoint {
 	// }
 
 	public AppModel initializeAppState() {
-		final AppModel m = new AppModel("Main Page App Title");
+		final AppModel m = new AppModel("Appify Examples");
 		m.setContent("Lorem Ipsum Content");
 		m.setChilePageTitle("Child Page Title");
 		m.setChildPageContent("Child Page Content");
