@@ -2,6 +2,9 @@ package it.appify.api;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@JsonAutoDetect
 public class Screen implements Serializable {
 
 	/**
@@ -18,6 +21,14 @@ public class Screen implements Serializable {
 	private int availWidth;
 
 	private int colorDepth;
+
+	public Screen() {
+		availHeight=0;
+		availWidth=0;
+		availLeft=0;
+		availTop=0;
+		colorDepth=0;
+	}
 
 	public int getAvailHeight() {
 		return availHeight;

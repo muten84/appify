@@ -20,8 +20,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
-
+//TODO: add an update and store method
+//for enqueue all read&write request Scheduler.get().scheduleDeferred(
+//new ScheduledCommand() {
 public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	protected PageLoader<Element, AppState> loader;
@@ -43,7 +47,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		pageManager = new AppJsPageManager();
 		modelView = getAppStateModelView();
 		loader = new PageLoader<Element, AppState>(pageManager, modelView);
-		initializeControllers();
+//		initializeControllers();
 	}
 
 	/**
@@ -86,11 +90,13 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 			throw new RuntimeException("main page cannot be null or empty");
 		}
 		if (pageManager.getCurrentPage() == null) {
+			initializeControllers();
 			loader.loadPage(mainPage, initialState, pageViewHandlers.get(this.mainPage));
 			pageStack.add(mainPage);
 		} else {
 			throw new RuntimeException("App just started use moveTo and back to create navigation in your app");
 		}
+		
 
 	}
 

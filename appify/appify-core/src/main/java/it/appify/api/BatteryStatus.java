@@ -1,6 +1,16 @@
 package it.appify.api;
 
-public class BatteryStatus {
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@JsonAutoDetect
+public class BatteryStatus implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -605402352986631188L;
 
 	private boolean charging;
 

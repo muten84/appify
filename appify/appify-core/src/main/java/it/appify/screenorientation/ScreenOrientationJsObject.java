@@ -74,7 +74,8 @@ public class ScreenOrientationJsObject {
 			// The browser supports the new version of the API			
 			return $wnd.screenOrientation;
 		}
-		return null;
+		$wnd.screenOrientation = {type: 'any', angle: 0, fullscreen: false};
+		return $wnd.screenOrientation;
 	}-*/;
 
 	

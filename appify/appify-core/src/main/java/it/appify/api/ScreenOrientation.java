@@ -1,12 +1,28 @@
 package it.appify.api;
 
-public class ScreenOrientation {	
-	
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@JsonAutoDetect
+public class ScreenOrientation implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6926984511746753661L;
+
 	private double angle;
-	
+
 	private String type;
-	
+
 	private boolean fullscreen;
+
+	public ScreenOrientation() {
+		angle = 0.0;
+		type = ScrOrientation.ANY;
+		fullscreen = false;
+	}
 
 	public double getAngle() {
 		return angle;
@@ -31,8 +47,5 @@ public class ScreenOrientation {
 	public void setFullscreen(boolean fullscreen) {
 		this.fullscreen = fullscreen;
 	}
-	
-	
-	
 
 }
