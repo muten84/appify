@@ -168,6 +168,12 @@ public class ExportableAppify extends AbstractWebApp<JavaScriptObject>
 		return null;
 	}
 
+	@Override
+	protected void initializeServices() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

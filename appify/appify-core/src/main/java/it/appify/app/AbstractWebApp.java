@@ -7,6 +7,8 @@ import it.appify.api.Battery;
 import it.appify.api.Geolocation;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
+import it.appify.api.PageManager.PageListener;
+import it.appify.api.Service;
 import it.appify.api.Storage;
 import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.view.AppJsPageManager;
@@ -22,10 +24,12 @@ import java.util.Stack;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 //TODO: add an update and store method
 //for enqueue all read&write request Scheduler.get().scheduleDeferred(
 //new ScheduledCommand() {
+
 public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	protected PageLoader<Element, AppState> loader;
@@ -40,14 +44,60 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	private Map<String, List<ViewHandlerHolder>> pageViewHandlers;
 
+	private List<Service> services;
+
+	private boolean firstLoad = true;
+
+	private PageListener<Element> pl = new PageListener<Element>() {
+
+		@Override
+		public void onPageShow(Page<Element> page) {
+			GWT.log("AbstractWebApp onPageShow");
+		}
+
+		@Override
+		public void onPageReady(Page<Element> page) {
+			GWT.log("AbstractWebApp onPageReady");
+			//if occurs first load of main page it's a good idea to start app services
+			if (page.getPageId().equals(mainPage) && firstLoad) {
+				firstLoad = false;
+				if (callback != null) {
+					if (services != null && services.size() > 0) {
+						for (Service s : services) {
+							s.start();
+						}
+					}
+					// all service started launch app start
+					callback.onAppStart(AbstractWebApp.this);
+				}
+			}
+
+		}
+
+		@Override
+		public void onPageHide(Page<Element> page) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onPageCreate(Page<Element> page) {
+			// TODO Auto-generated method stub
+
+		}
+	};
+
+	private it.appify.app.WebApp.AppListener<AppState> callback;
+
 	public AbstractWebApp(String mainPage) {
 		this.mainPage = mainPage;
+		services = new ArrayList<Service>();
 		pageViewHandlers = new HashMap<String, List<ViewHandlerHolder>>();
 		pageStack = new Stack<String>();
 		pageManager = new AppJsPageManager();
 		modelView = getAppStateModelView();
-		loader = new PageLoader<Element, AppState>(pageManager, modelView);
-//		initializeControllers();
+		loader = new PageLoader<Element, AppState>(pageManager, modelView, pl);
+		// initializeControllers();
 	}
 
 	/**
@@ -57,8 +107,10 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 * @param viewId
 	 * @param eventType
 	 */
-	public void addHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
-		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType, handler);
+	public void addHandler(String pageId, String viewId, String eventType,
+			ViewHandler handler) {
+		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType,
+				handler);
 		loader.addPageViewHandler(pageId, holder);
 	}
 
@@ -71,7 +123,12 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		pageViewHandlers.put(pageId, holders);
 	}
 
-	protected ViewHandlerHolder createViewHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
+	protected void bindService(Service service) {
+		services.add(service);
+	}
+
+	protected ViewHandlerHolder createViewHandler(String pageId, String viewId,
+			String eventType, ViewHandler handler) {
 		ViewHandlerHolder holder = new ViewHandlerHolder();
 		holder.setEventType(eventType);
 		holder.setHandler(handler);
@@ -90,14 +147,24 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 			throw new RuntimeException("main page cannot be null or empty");
 		}
 		if (pageManager.getCurrentPage() == null) {
+			initializeServices();
 			initializeControllers();
-			loader.loadPage(mainPage, initialState, pageViewHandlers.get(this.mainPage));
+			List<ViewHandlerHolder> handlers = pageViewHandlers
+					.get(this.mainPage);
+			loader.loadPage(mainPage, initialState, handlers);
+
 			pageStack.add(mainPage);
 		} else {
-			throw new RuntimeException("App just started use moveTo and back to create navigation in your app");
+			throw new RuntimeException(
+					"App just started use moveTo and back to create navigation in your app");
 		}
-		
 
+	}
+
+	public void startApp(AppState initialAppState,
+			AppListener<AppState> callback) {
+		this.callback = callback;
+		startApp(initialAppState);
 	}
 
 	/**
@@ -118,14 +185,16 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	@Override
 	public void moveTo(String pageId) {
 		if (pageManager.getCurrentPage() == null) {
-			throw new RuntimeException("Main page not started  maybe you need to call start app first??");
+			throw new RuntimeException(
+					"Main page not started  maybe you need to call start app first??");
 		}
 		if (pageManager.getCurrentPage().getPageId().equals(pageId)) {
 			// no need to move to the current page
 			return;
 		}
 		pageStack.add(pageManager.getCurrentPage().getPageId());
-		loader.loadPage(pageId, modelView.getCurrentModel(), pageViewHandlers.get(pageId));
+		loader.loadPage(pageId, modelView.getCurrentModel(),
+				pageViewHandlers.get(pageId));
 
 	}
 
@@ -166,7 +235,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public WebScreenOrientation getScreenOrientationService() {
 		// TODO Auto-generated method stub
@@ -176,5 +245,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	protected abstract WebModelView<AppState> getAppStateModelView();
 
 	protected abstract void initializeControllers();
+
+	protected abstract void initializeServices();
 
 }

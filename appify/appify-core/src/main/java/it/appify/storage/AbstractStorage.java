@@ -19,6 +19,9 @@ public abstract class AbstractStorage implements it.appify.api.Storage {
 	@Override
 	public <M> M get(String key) {
 		String data = storage.getItem(key);
+		if (data == null) {
+			return null;
+		}
 		M model = this.<M> getObjectMapper().read(data);
 		return model;
 	}

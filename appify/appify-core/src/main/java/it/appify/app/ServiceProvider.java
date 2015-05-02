@@ -9,6 +9,7 @@ import it.appify.api.Geolocation;
 import it.appify.api.ScrOrientation;
 import it.appify.battery.AdvancedJSBattery;
 import it.appify.geolocation.HTML5Geolocation;
+import it.appify.geolocation.WsGeolocation;
 import it.appify.offline.HTML5ApplicationCache;
 import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.screenorientation.WebScreenOrientationImpl;
@@ -30,7 +31,7 @@ public class ServiceProvider {
 		}
 		return applicationCache;
 	}
-	
+
 	public static WebScreenOrientation createWebScreenOrientation() {
 		if (webScreenOrientation == null) {
 			webScreenOrientation = new WebScreenOrientationImpl();
@@ -46,7 +47,15 @@ public class ServiceProvider {
 
 	}
 
-	public static Geolocation createGeoLocationService(boolean hiAccuracy, int maximumAge, long timeout) {
+	public static Geolocation createWsGeolocation() {
+		if (geolocation == null) {
+			geolocation = new WsGeolocation();
+		}
+		return geolocation;
+	}
+
+	public static Geolocation createGeoLocationService(boolean hiAccuracy,
+			int maximumAge, long timeout) {
 		if (geolocation == null) {
 			GeoOptions options = new GeoOptions();
 			options.setEnableHighAccuracy(hiAccuracy);

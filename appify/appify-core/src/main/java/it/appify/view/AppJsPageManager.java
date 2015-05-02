@@ -41,6 +41,7 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	protected void onPageShow(Page<Element> p) {
+		GWT.log("AppJsPageManager onPageShow: "+p.getPageId());
 		currentPage = p.getPageId();
 		this.pages.put(p.getPageId(), p);
 		// if (p.isWasHidden()) {
@@ -59,6 +60,7 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	private void onPageShowed(String name, JavaScriptObject e) {
+		GWT.log("AppJsPageManager onPageShowed: "+name);		
 		Page<Element> currentPage = this.pages.get(name);
 		Element el = e.cast();
 		if (currentPage == null) {
@@ -115,7 +117,7 @@ public class AppJsPageManager implements PageManager<Element> {
 			((WebPage) currentPage).setPageElement(el);
 		}
 		this.pages.put("name", currentPage);
-		onPageReady(currentPage);
+		//onPageReady(currentPage);
 	}
 
 	protected void onPageCreate(Page<Element> page) {

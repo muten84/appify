@@ -65,11 +65,7 @@ public class GeolocationJsObject {
 				.isNumber().doubleValue();
 		double accuracy = obj.get("coords").isObject().get("accuracy")
 				.isNumber().doubleValue();
-		// JSONArray array = obj.isArray();
-		// positionString = array.get(0).isObject().toString();
-		// GWT.log("normalized position info is: " + positionString);
-
-		// Geoposition positionObj = mapper.read(positionString);
+	
 		Geoposition positionObj = new Geoposition();
 		positionObj.setTimestamp(timestamp);
 		Coordinates coords = new Coordinates();
