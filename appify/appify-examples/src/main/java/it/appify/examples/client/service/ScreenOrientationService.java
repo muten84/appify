@@ -1,6 +1,7 @@
 package it.appify.examples.client.service;
 
-import it.appify.annotations.Controller;
+import it.appify.annotations.Service;
+import it.appify.annotations.Start;
 import it.appify.annotations.ViewHandler;
 import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
@@ -11,7 +12,7 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.core.shared.GWT;
 
-@Controller
+@Service
 public class ScreenOrientationService {
 
 	private WebApp<AppModel> webapp;
@@ -20,12 +21,17 @@ public class ScreenOrientationService {
 		this.webapp = webapp;
 		// just injected your screen orientation service try to request full
 		// screen
+
+	}
+
+	@Start
+	public void start() {
 		final Screen screen = this.webapp.getScreenOrientationService()
 				.getScreen();
 		final ScreenOrientation screenOrientation = this.webapp
 				.getScreenOrientationService().getScreenOrientation();
 		final AppModel model = webapp.getCurrentAppState();
-		
+
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 
 			@Override
@@ -41,18 +47,6 @@ public class ScreenOrientationService {
 			}
 		});
 
-	}
-
-	@ViewHandler(viewId = "fullScreenBtn", eventType = "click")
-	public void requestFullScreen() {
-		GWT.log("ScreenOrientationService requesting full screen");
-		this.webapp.getScreenOrientationService().requestFullScreen();
-	}
-
-	@ViewHandler(viewId = "exitfullScreenBtn", eventType = "click")
-	public void exitFullScreen() {
-		GWT.log("ScreenOrientationService requesting exit full screen");
-		this.webapp.getScreenOrientationService().exitFullScreen();
 	}
 
 }

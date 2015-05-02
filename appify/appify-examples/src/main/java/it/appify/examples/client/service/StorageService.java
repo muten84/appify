@@ -1,22 +1,30 @@
 package it.appify.examples.client.service;
 
-import com.google.gwt.core.shared.GWT;
-
-import it.appify.annotations.Controller;
+import it.appify.annotations.Service;
+import it.appify.annotations.Start;
 import it.appify.app.WebApp;
 import it.appify.examples.client.model.AppModel;
 
-@Controller
+import com.google.gwt.core.shared.GWT;
+
+@Service
 public class StorageService {
 
 	private WebApp<?> webapp;
 
 	public StorageService(WebApp<?> webapp) {
 		this.webapp = webapp;
+
+	}
+
+	@Start
+	public void start() {
 		AppModel model = this.webapp.<AppModel> getCurrentAppState();
-		GWT.log("StorageService initialized:  storing current app state model");
+		GWT.log("StorageService initialized:  " + model.getTitle() + " - "
+				+ model.getContent());
 		this.webapp.getStorageService().store(AppModel.class.toString(), model);
-		model = this.webapp.getStorageService().<AppModel> get(AppModel.class.toString());
+		model = this.webapp.getStorageService().<AppModel> get(
+				AppModel.class.toString());
 		GWT.log("StorageService test, model stored: " + model);
 	}
 

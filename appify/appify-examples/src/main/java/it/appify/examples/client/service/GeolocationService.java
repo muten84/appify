@@ -1,20 +1,26 @@
 package it.appify.examples.client.service;
 
-import com.google.gwt.core.shared.GWT;
-
-import it.appify.annotations.Controller;
+import it.appify.annotations.Service;
+import it.appify.annotations.Start;
 import it.appify.api.Geolocation.GeolocationCallback;
 import it.appify.api.Geoposition;
 import it.appify.app.WebApp;
 import it.appify.examples.client.model.AppModel;
 
-@Controller
+import com.google.gwt.core.shared.GWT;
+
+@Service
 public class GeolocationService {
 
 	private WebApp<AppModel> webapp;
 
 	public GeolocationService(final WebApp<AppModel> webapp) {
 		this.webapp = webapp;
+
+	}
+
+	@Start
+	public void start() {
 		this.webapp.getGeolocationService().watchPosition(
 				new GeolocationCallback() {
 
@@ -24,7 +30,8 @@ public class GeolocationService {
 						AppModel model = webapp.<AppModel> getCurrentAppState();
 						model.setPosition(position);
 						webapp.updateAppState((AppModel) model);
-						webapp.getStorageService().store(AppModel.class.toString(), model);
+						webapp.getStorageService().store(
+								AppModel.class.toString(), model);
 					}
 
 					@Override

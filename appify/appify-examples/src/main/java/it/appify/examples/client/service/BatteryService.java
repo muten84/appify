@@ -1,6 +1,7 @@
 package it.appify.examples.client.service;
 
-import it.appify.annotations.Controller;
+import it.appify.annotations.Service;
+import it.appify.annotations.Start;
 import it.appify.api.Battery.BatteryStatusCallback;
 import it.appify.api.BatteryStatus;
 import it.appify.app.WebApp;
@@ -10,13 +11,20 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.core.shared.GWT;
 
-@Controller
+@Service
 public class BatteryService {
 
 	private WebApp<AppModel> app;
 
 	public BatteryService(final WebApp<AppModel> app) {
+		GWT.log("BatteryService built...");
 		this.app = app;
+
+	}
+
+	@Start
+	public void startService() {
+		GWT.log("BatteryService started...");
 		this.app.getBatteryService().getBatteryStatus(
 				new BatteryStatusCallback() {
 
