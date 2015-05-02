@@ -103,4 +103,10 @@ public class App extends AbstractWebApp<GenericModel> implements Exportable {
 
 	}
 
+	@Override
+	protected void initializeServices() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

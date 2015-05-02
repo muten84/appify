@@ -44,6 +44,12 @@ public class WebAppEntryPoint implements EntryPoint {
 				
 			}
 
+			@Override
+			protected void initializeServices() {
+				// TODO Auto-generated method stub
+				
+			}
+
 		};
 
 		webapp.startApp(myappState);
