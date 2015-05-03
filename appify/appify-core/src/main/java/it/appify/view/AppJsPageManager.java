@@ -41,7 +41,7 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	protected void onPageShow(Page<Element> p) {
-		GWT.log("AppJsPageManager onPageShow: "+p.getPageId());
+		GWT.log("AppJsPageManager onPageShow: " + p.getPageId());
 		currentPage = p.getPageId();
 		this.pages.put(p.getPageId(), p);
 		// if (p.isWasHidden()) {
@@ -60,7 +60,7 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	private void onPageShowed(String name, JavaScriptObject e) {
-		GWT.log("AppJsPageManager onPageShowed: "+name);		
+		GWT.log("AppJsPageManager onPageShowed: " + name);
 		Page<Element> currentPage = this.pages.get(name);
 		Element el = e.cast();
 		if (currentPage == null) {
@@ -107,7 +107,7 @@ public class AppJsPageManager implements PageManager<Element> {
 		this.pages.put("name", currentPage);
 		onPageCreate(currentPage);
 	}
-	
+
 	private void onPageLoaded(String pageName, JavaScriptObject e) {
 		Page<Element> currentPage = this.pages.get(pageName);
 		Element el = e.cast();
@@ -117,7 +117,7 @@ public class AppJsPageManager implements PageManager<Element> {
 			((WebPage) currentPage).setPageElement(el);
 		}
 		this.pages.put("name", currentPage);
-		//onPageReady(currentPage);
+		// onPageReady(currentPage);
 	}
 
 	protected void onPageCreate(Page<Element> page) {
@@ -160,5 +160,10 @@ public class AppJsPageManager implements PageManager<Element> {
 	private native void _setDefaultTransition(String transitionName)/*-{
 		$wnd.App.setDefaultTransition(transitionName);
 	}-*/;
+
+	@Override
+	public void setDefaultTransition(String transitionName) {
+		_setDefaultTransition(transitionName);
+	}
 
 }

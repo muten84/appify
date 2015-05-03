@@ -8,6 +8,7 @@ import it.appify.api.Geolocation;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
 import it.appify.api.PageManager.PageListener;
+import it.appify.api.PageManager.Transitions;
 import it.appify.api.Service;
 import it.appify.api.Storage;
 import it.appify.screenorientation.WebScreenOrientation;
@@ -95,6 +96,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		pageViewHandlers = new HashMap<String, List<ViewHandlerHolder>>();
 		pageStack = new Stack<String>();
 		pageManager = new AppJsPageManager();
+		pageManager.setDefaultTransition(Transitions.SLIDE_LEFT);
 		modelView = getAppStateModelView();
 		loader = new PageLoader<Element, AppState>(pageManager, modelView, pl);
 		// initializeControllers();

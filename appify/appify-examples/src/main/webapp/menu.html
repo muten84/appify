@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="cbp-spmenu-push">
+<body>
 	<script src="menu/js/classie.js"></script>
 	<script type="text/javascript" language="javascript"
 		src="example/example.nocache.js"></script>
@@ -94,8 +94,28 @@
 		</div>
 	</div>
 
+	<div class="app-page" id="childPage" data-page="childPage">
+		<div class="app-topbar">
+			<div id="childPageBackBtn" class="app-button left">Back</div>
+			<div class="app-title">{{child.title}}</div>
+		</div>
+		<div class="app-content">
+			{{child.content}}
+			<div class="app-section">
+				<!-- radio buttons -->
+				<p>
+					<label>Radio buttons: </label>
+					<p>One</p>
+				<input type="radio" name="picked" value="one" v-model="picked">
+				<p>Two</p>
+				<input type="radio" name="picked" value="two" v-model="picked">
+				<p>{{picked}}</p>
+				</p>
+			</div>
+		</div>
+	</div>
 	<!-- end of page declaration -->
-	<script src="menu/js/modernizr.custom.js"></script>
+					<script src="menu/js/modernizr.custom.js"></script>
 	<script src="example/appjs/zepto.js"></script>
 	<script src="example/appjs/app.min.js"></script>
 	<script src="example/vuejs/vue.js"></script>
@@ -148,5 +168,6 @@
 
 		}
 	</script>
-</body>
+
+				</body>
 </html>
