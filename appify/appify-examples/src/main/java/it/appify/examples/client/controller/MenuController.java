@@ -18,6 +18,7 @@ public class MenuController {
 	@ViewHandler(viewId = "firstMenuBtn", eventType = "click")
 	public void onFirstBtnClicked() {
 		GWT.log("First menu button clicked");
+		this.app.moveTo("childPage");
 	}
 
 	@ViewHandler(viewId = "showLeft", eventType = "click")
