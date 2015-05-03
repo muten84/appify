@@ -1,5 +1,7 @@
 package it.appify.examples.client.controller;
 
+import com.google.gwt.core.shared.GWT;
+
 import it.appify.annotations.Controller;
 import it.appify.annotations.ViewHandler;
 import it.appify.app.WebApp;
@@ -18,4 +20,6 @@ public class MainPageController {
 		this.app.moveTo("childPage");
 
 	}
+
+	
 }
