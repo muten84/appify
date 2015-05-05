@@ -29,8 +29,8 @@
 
 
 
-
-	<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+	<!-- MAIN PAGE -->
+	<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->	
 	<div class="app-page" id="mainPage" data-page="mainPage">
 		<!-- MENU -->
 		<div class="snap-drawers">
@@ -46,10 +46,10 @@
 		</div>
 		<div id="content" class="content snap-content">
 			<div class="app-topbar">
-				<header class="bar bar-nav app-title topbar-height">					
+				<header class="bar bar-nav app-title topbar-height">
 					<button id="showLeft" class="btn btn-nav pull-left">
-							<span class="icon icon-bars"></span>
-					</button>					
+						<span class="icon icon-bars"></span>
+					</button>
 					<button class="btn btn-nav pull-right">
 						<span class="fa fa-map-marker fa-2x"></span>
 					</button>
@@ -116,8 +116,21 @@
 				</div>
 			</div>
 		</div>
+		<nav class="bar bar-tab">
+			<a class="tab-item active" href="#"> <span class="icon icon-home"></span>
+				<span class="tab-label">Home</span>
+			</a> <a class="tab-item" href="#"> <span class="icon icon-person"></span>
+				<span class="tab-label">Profile</span>
+			</a> <a class="tab-item" href="#"> <span
+				class="icon icon-star-filled"></span> <span class="tab-label">Favorites</span>
+			</a> <a class="tab-item" href="#"> <span class="icon icon-search"></span>
+				<span class="tab-label">Search</span>
+			</a> <a class="tab-item" href="#"> <span class="icon icon-gear"></span>
+				<span class="tab-label">Settings</span>
+			</a>
+		</nav>
 	</div>
-
+	<!-- SECOND PAGE -->
 	<div class="app-page" id="childPage" data-page="childPage">
 		<div class="app-topbar">
 			<div id="childPageBackBtn" class="app-button left">Back</div>
@@ -138,6 +151,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<script type="text/javascript">
 		window.snapp
 	</script>
