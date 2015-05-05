@@ -11,7 +11,7 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.core.shared.GWT;
 
-@Service
+
 public class BatteryService {
 
 	private WebApp<AppModel> app;
@@ -22,7 +22,7 @@ public class BatteryService {
 
 	}
 
-	@Start
+	
 	public void startService() {
 		GWT.log("BatteryService started...");
 		this.app.getBatteryService().getBatteryStatus(

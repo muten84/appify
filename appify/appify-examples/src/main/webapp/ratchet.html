@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ratchet template page</title>
+
+<!-- Sets initial viewport load and disables zooming  -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+<!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+<link href="ratchet/css/ratchet.css" rel="stylesheet">
+<link href="snapjs/snap.css" rel="stylesheet">
+<link rel="stylesheet" href="example/appjs/app.min.css">
+
+</head>
+<body>
+	<script type="text/javascript" language="javascript"
+		src="example/example.nocache.js"></script>
+	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
+		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+
+
+
+
+	<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+	<div class="app-page" id="mainPage" data-page="mainPage">
+		<!-- MENU -->
+		<div class="snap-drawers">
+			<div class="snap-drawer snap-drawer-left">
+				<div class="app-section">
+					<button id="firstMenuBtn" class="btn btn-block">Block
+						level button</button>
+					<button class="btn btn-block">Another btn</button>
+					<button class="btn btn-block">YetAnother btn</button>
+				</div>
+			</div>
+			<div class="snap-drawer snap-drawer-right"></div>
+		</div>
+		<div id="content" class="content snap-content">
+			<div class="app-topbar">
+				<header class="bar bar-nav app-title">
+					<button id="showLeft" class="btn btn-link btn-nav pull-left">
+						<span class="icon icon-bars"></span> Menu
+					</button>
+					<!-- <button class="btn btn-link btn-nav pull-right">
+					Right <span class="icon icon-right-nav"></span>
+				</button> -->
+					<h1 class="title">{{title}}</h1>
+				</header>
+			</div>
+			<div class="app-content">
+				<div class="app-section">
+					<label>Appify Status</label>
+					<ul class="app-list app-section">
+						<li v-repeat="items">{{$value}}</li>
+						<li class="battery-charging-{{batteryStatus.charging}}">Battery
+							Status: Charing: {{batteryStatus.charging}}, Level:
+							{{batteryStatus.level}}</li>
+						<li>Geolocation: {{position.timestamp}},
+							{{position.coords.latitude}}, {{position.coords.longitude}}</li>
+						<li>Screen: {{screen.availWidth}} * {{screen.availHeight}}</li>
+						<li>Screen Orientation: {{screenOrientation.type}}</li>
+					</ul>
+					<div class="app-button">Send</div>
+					<!-- <div id="getModelBtn" class="app-button">Read Current Model</div>
+				<div id="getBatteryStatusBtn" class="app-button">Read Battery
+					Status</div> -->
+					<div id="fullScreenBtn" class="app-button">Request Full
+						Screen</div>
+					<div id="exitfullScreenBtn" class="app-button">Exit Full
+						Screen</div>
+					<!-- <div id="getModelFromStorageBtn" class="app-button">Get Model
+					From Storage</div>
+				<div id="changeValueBtn" class="app-button">ChangeValue</div> -->
+					<div id="nextBtn" class="app-button">Go to Next Page</div>
+					<p class="content-padded">This is an Appify example App showin some capabilities you can enable in your app.
+					Appify'em all! :)</p>
+					<div class="card">
+						<ul class="table-view">
+							<li class="table-view-cell"><a class="push-right"
+								href="http://goratchet.com"> <strong>Ratchet
+										documentation</strong>
+							</a></li>
+							<li class="table-view-cell"><a class="push-right"
+								href="https://github.com/twbs/ratchet/"> <strong>Ratchet
+										on Github</strong>
+							</a></li>
+							<li class="table-view-cell"><a class="push-right"
+								href="https://groups.google.com/forum/#!forum/goratchet"> <strong>Ratchet
+										Google group</strong>
+							</a></li>
+							<li class="table-view-cell"><a class="push-right"
+								href="https://twitter.com/goratchet"> <strong>Ratchet
+										on Twitter</strong>
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="app-page" id="childPage" data-page="childPage">
+		<div class="app-topbar">
+			<div id="childPageBackBtn" class="app-button left">Back</div>
+			<div class="app-title">{{child.title}}</div>
+		</div>
+		<div class="app-content">
+			{{child.content}}
+			<div class="app-section">
+				<!-- radio buttons -->
+				<p>
+					<label>Radio buttons: </label>
+					<p>One</p>
+				<input type="radio" name="picked" value="one" v-model="picked">
+				<p>Two</p>
+				<input type="radio" name="picked" value="two" v-model="picked">
+				<p>{{picked}}</p>
+				</p>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		window.snapp
+	</script>
+	<script src="example/appjs/zepto.js"></script>
+	<script src="example/appjs/app.min.js"></script>
+	<script src="example/vuejs/vue.js"></script>
+	<!-- Include the compiled Ratchet JS -->
+	<script src="ratchet/js/ratchet.js"></script>
+	<script src="menu/js/classie.js"></script>
+	<script src="snapjs/snap.js"></script>
+</body>
+</html>

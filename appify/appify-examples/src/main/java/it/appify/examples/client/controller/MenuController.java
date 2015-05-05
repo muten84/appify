@@ -24,8 +24,25 @@ public class MenuController {
 	@ViewHandler(viewId = "showLeft", eventType = "click")
 	public void onMenuClick() {
 		GWT.log("menu show clicked");
-		showMenu();
+//		showMenu();
+		snapOpenMenu();
 	}
+
+	private native void snapCloseMenu()/*-{
+
+		var snapper = new $wnd.Snap({
+			element : $doc.getElementById('content')
+		});
+		snapper.close();
+	}-*/;
+
+	private native void snapOpenMenu()/*-{
+
+		var snapper = new $wnd.Snap({
+			element : $doc.getElementById('content')
+		});
+		snapper.open('left');
+	}-*/;
 
 	private native void showMenu()/*-{
 		var menuLeft = $doc.getElementById('cbp-spmenu-s1');
