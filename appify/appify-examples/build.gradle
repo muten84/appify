@@ -21,6 +21,10 @@ version = '1.0'
 
 repositories { mavenCentral() }
 
+configurations{
+	generate
+}
+
 dependencies {
 	//	providedCompile('com.google.gwt:gwt-dev:'+gwtVersion)
 	//	providedCompile('com.google.gwt:gwt-user:'+gwtVersion)
@@ -33,6 +37,7 @@ dependencies {
 	gwt('com.googlecode.gwtquery:gwtquery:1.4.3')
 	gwt('com.github.nmorel.gwtjackson:gwt-jackson:0.9.0')
 	runtime('fr.xebia.web:xebia-servlet-extras:1.0.8')
+	generate project(':appify-page-generator')
 	
 
 }
@@ -55,4 +60,16 @@ gwt {
 	
 	superDev { noPrecompile=true }
 	src += files(project(':appify-core').sourceSets.main.allJava.srcDirs)
+}
+
+task generatePages(type: JavaExec) {
+    main = "it.appify.generator.PageGenerator"
+    classpath = configurations.generate
+    args=['src/main/appify/pages', "src/main/webapp/generated.html", "Appify Generated App", "example"]
+}
+
+task generatePageTest(type: JavaExec) {
+    main = "it.appify.generator.PageGenerator"
+    classpath = configurations.generate
+    args=['1.html', 'src/main/appify/pages', "src/main/webapp/test.html", "Appify Generated App", "example"]
 }
