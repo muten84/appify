@@ -15,7 +15,10 @@
 
 <link href="ratchet/css/ratchet.css" rel="stylesheet">
 <link href="snapjs/snap.css" rel="stylesheet">
-<link rel="stylesheet" href="example/appjs/app.min.css">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<!-- for docs http://fortawesome.github.io/Font-Awesome/examples/ -->
+<link href="example/appjs/app.min.css" rel="stylesheet">
+<link href="custom.css" rel="stylesheet">
 
 </head>
 <body>
@@ -43,10 +46,20 @@
 		</div>
 		<div id="content" class="content snap-content">
 			<div class="app-topbar">
-				<header class="bar bar-nav app-title">
-					<button id="showLeft" class="btn btn-link btn-nav pull-left">
-						<span class="icon icon-bars"></span> Menu
+				<header class="bar bar-nav app-title topbar-height">					
+					<button id="showLeft" class="btn btn-nav pull-left">
+							<span class="icon icon-bars"></span>
+					</button>					
+					<button class="btn btn-nav pull-right">
+						<span class="fa fa-map-marker fa-2x"></span>
 					</button>
+					<button class="btn btn-nav pull-right">
+						<span class="fa fa-bolt fa-2x"></span>
+					</button>
+					<button class="btn btn-nav pull-right">
+						<span class="fa fa-rss fa-2x"></span>
+					</button>
+
 					<!-- <button class="btn btn-link btn-nav pull-right">
 					Right <span class="icon icon-right-nav"></span>
 				</button> -->
@@ -78,8 +91,8 @@
 					From Storage</div>
 				<div id="changeValueBtn" class="app-button">ChangeValue</div> -->
 					<div id="nextBtn" class="app-button">Go to Next Page</div>
-					<p class="content-padded">This is an Appify example App showin some capabilities you can enable in your app.
-					Appify'em all! :)</p>
+					<p class="content-padded">This is an Appify example App showin
+						some capabilities you can enable in your app. Appify'em all! :)</p>
 					<div class="card">
 						<ul class="table-view">
 							<li class="table-view-cell"><a class="push-right"
@@ -104,7 +117,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="app-page" id="childPage" data-page="childPage">
 		<div class="app-topbar">
 			<div id="childPageBackBtn" class="app-button left">Back</div>
@@ -116,7 +129,7 @@
 				<!-- radio buttons -->
 				<p>
 					<label>Radio buttons: </label>
-					<p>One</p>
+				<p>One</p>
 				<input type="radio" name="picked" value="one" v-model="picked">
 				<p>Two</p>
 				<input type="radio" name="picked" value="two" v-model="picked">
