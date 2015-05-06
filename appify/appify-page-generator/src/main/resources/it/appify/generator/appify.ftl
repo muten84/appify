@@ -18,6 +18,9 @@
 <link href="${gwtModule}/css/font-awesome.min.css" rel="stylesheet">
 <!-- for docs http://fortawesome.github.io/Font-Awesome/${gwtModule}s/ -->
 <link href="${gwtModule}/appjs/app.min.css" rel="stylesheet">
+<#if css??>
+   <#include "${css}.html" parse=false>
+</#if>
 
 </head>
 <body>
@@ -37,5 +40,9 @@
 	<!-- Include the compiled Ratchet JS -->
 	<script src="${gwtModule}/ratchet/js/ratchet.js"></script>
 	<script src="${gwtModule}/snapjs/snap.js"></script>
+	<#if javascript??>
+   		<#include "${javascript}.html" parse=false>
+	</#if>
+	
 </body>
 </html>

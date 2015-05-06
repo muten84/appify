@@ -48,17 +48,35 @@ public class PageGenerator {
 
 	}
 
-	public void generatePages(String matchPage, String templateDirPath,
-			String outputFileName, String pageTitle, String gwtModule)
-			throws IOException, TemplateException {
+	public void generatePages(String matchPage, String templateDirPath, String outputFileName, String pageTitle, String gwtModule) throws IOException, TemplateException {
+		List<TemplateLoader> loadersList = new ArrayList<TemplateLoader>();
+		File pagesDir = new File(templateDirPath + "/pages");
+		File cssDir = new File(templateDirPath + "/css");
+		File jsDir = new File(templateDirPath + "/js");
+		FileTemplateLoader pagesTemplatesLoader = null;
+		if (pagesDir != null && pagesDir.isDirectory()) {
+			System.out.println("Adding pages dir: " + pagesDir.getAbsolutePath());
+			pagesTemplatesLoader = new FileTemplateLoader(pagesDir);
+			loadersList.add(pagesTemplatesLoader);
+		}
+		FileTemplateLoader cssTemplatesLoader = null;
+		if (cssDir != null && cssDir.isDirectory()) {
+			System.out.println("Adding css dir: " + cssDir.getAbsolutePath());
+			cssTemplatesLoader = new FileTemplateLoader(cssDir);
+			loadersList.add(cssTemplatesLoader);
+		}
+		FileTemplateLoader jsTemplatesLoader = null;
+		if (jsDir != null && jsDir.isDirectory()) {
+			System.out.println("Adding jsDir dir: " + cssDir.getAbsolutePath());
+			jsTemplatesLoader = new FileTemplateLoader(jsDir);
+			loadersList.add(jsTemplatesLoader);
+		}
 
-		FileTemplateLoader pagesTemplatesLoader = new FileTemplateLoader(
-				new File(templateDirPath));
 		URL url = PageGenerator.class.getResource("appify.ftl");
 		StringTemplateLoader strLoader = new StringTemplateLoader();
+
 		InputStream resourceStream = url.openStream();
-		BufferedReader in = new BufferedReader(new InputStreamReader(
-				resourceStream));
+		BufferedReader in = new BufferedReader(new InputStreamReader(resourceStream));
 		String inputLine;
 		StringBuffer buffer = new StringBuffer();
 		while ((inputLine = in.readLine()) != null) {
@@ -68,52 +86,62 @@ public class PageGenerator {
 		}
 		in.close();
 		strLoader.putTemplate("appify", buffer.toString());
-		ClassTemplateLoader ctl = new ClassTemplateLoader(getClass(),
-				"it/appify/generator");
-		TemplateLoader[] loaders = new TemplateLoader[] { strLoader,
-				pagesTemplatesLoader, ctl };
+		loadersList.add(strLoader);
+		ClassTemplateLoader ctl = new ClassTemplateLoader(getClass(), "it/appify/generator");
+		loadersList.add(ctl);
+		TemplateLoader[] loaders = loadersList.toArray(new TemplateLoader[] {});
 		MultiTemplateLoader mtl = new MultiTemplateLoader(loaders);
 
 		Configuration cfg = new Configuration();
 		cfg.setTemplateLoader(mtl);
-		File pagesDir = new File(templateDirPath);
-		String[] pageList = pagesDir.list();
 		cfg.setDefaultEncoding("UTF-8");
 		cfg.setObjectWrapper(new DefaultObjectWrapper());
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-
 		Template temp = cfg.getTemplate("appify");
+
 		List<Page> pages = new ArrayList<PageGenerator.Page>();
-		if (matchPage != null && matchPage.length() > 0) {
-			for (String pageName : pageList) {
-				if (pageName.equals(matchPage)) {
-					String name = pageName.substring(0,
-							pageName.indexOf(".html"));
-					pages.add(new Page(name));
+		if (pagesDir != null && pagesDir.isDirectory()) {
+			String[] pageList = pagesDir.list();
+
+			if (matchPage != null && matchPage.length() > 0) {
+				for (String pageName : pageList) {
+					if (pageName.equals(matchPage)) {
+						String name = pageName.substring(0, pageName.indexOf(".html"));
+						pages.add(new Page(name));
+					}
 				}
-			}
-		} else {
-			for (String pageName : pageList) {
-				if (pageName.contains("html")) {
-					String name = pageName.substring(0,
-							pageName.indexOf(".html"));
-					pages.add(new Page(name));
+			} else {
+				for (String pageName : pageList) {
+					if (pageName.contains("html")) {
+						String name = pageName.substring(0, pageName.indexOf(".html"));
+						pages.add(new Page(name));
+					}
 				}
 			}
 		}
+		String css = "";
+		if (cssDir != null && cssDir.isDirectory()) {
+			System.out.println("Css dir OK");
+			css = cssDir.list()[0];
+
+		}
+		System.out.println("CSS snippet: " + css);
 		/* Merge data-model with template */
 		Map root = new HashMap();
 		root.put("title", pageTitle);
 		root.put("gwtModule", gwtModule);
 		root.put("pages", pages);
+		if (css.length() > 0) {
+			String name = css.substring(0, css.indexOf(".html"));
+			root.put("css", name);
+		}
 		File outFile = new File(outputFileName);
 		FileOutputStream fileOut = new FileOutputStream(outFile);
 		Writer out = new OutputStreamWriter(fileOut);
 		temp.process(root, out);
 	}
 
-	public static void main(String[] args) throws IOException,
-			TemplateException {
+	public static void main(String[] args) throws IOException, TemplateException {
 		PageGenerator gen = new PageGenerator();
 		if (args[0].contains(".html")) {
 			gen.generatePages(args[0], args[1], args[2], args[3], args[4]);
