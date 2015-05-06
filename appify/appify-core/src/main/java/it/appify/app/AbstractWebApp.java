@@ -54,12 +54,14 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		@Override
 		public void onPageShow(Page<Element> page) {
 			GWT.log("AbstractWebApp onPageShow");
+			loader.setCurrentTransition(null);
 		}
 
 		@Override
 		public void onPageReady(Page<Element> page) {
 			GWT.log("AbstractWebApp onPageReady");
-			// if occurs first load of main page it's a good idea to start app services
+			// if occurs first load of main page it's a good idea to start app
+			// services
 			if (page.getPageId().equals(mainPage) && firstLoad) {
 				firstLoad = false;
 				if (callback != null) {
@@ -68,7 +70,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 							try {
 								s.start();
 							} catch (Exception e) {
-								GWT.log("error while starting service: " + s.getClass());
+								GWT.log("error while starting service: "
+										+ s.getClass());
 							}
 						}
 					}
@@ -113,8 +116,10 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 * @param viewId
 	 * @param eventType
 	 */
-	public void addHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
-		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType, handler);
+	public void addHandler(String pageId, String viewId, String eventType,
+			ViewHandler handler) {
+		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType,
+				handler);
 		loader.addPageViewHandler(pageId, holder);
 	}
 
@@ -131,7 +136,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		services.add(service);
 	}
 
-	protected ViewHandlerHolder createViewHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
+	protected ViewHandlerHolder createViewHandler(String pageId, String viewId,
+			String eventType, ViewHandler handler) {
 		ViewHandlerHolder holder = new ViewHandlerHolder();
 		holder.setEventType(eventType);
 		holder.setHandler(handler);
@@ -152,17 +158,20 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		if (pageManager.getCurrentPage() == null) {
 			initializeServices();
 			initializeControllers();
-			List<ViewHandlerHolder> handlers = pageViewHandlers.get(this.mainPage);
+			List<ViewHandlerHolder> handlers = pageViewHandlers
+					.get(this.mainPage);
 			loader.loadPage(mainPage, initialState, handlers);
 
 			pageStack.add(mainPage);
 		} else {
-			throw new RuntimeException("App just started use moveTo and back to create navigation in your app");
+			throw new RuntimeException(
+					"App just started use moveTo and back to create navigation in your app");
 		}
 
 	}
 
-	public void startApp(AppState initialAppState, AppListener<AppState> callback) {
+	public void startApp(AppState initialAppState,
+			AppListener<AppState> callback) {
 		this.callback = callback;
 		startApp(initialAppState);
 	}
@@ -185,14 +194,16 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	@Override
 	public void moveTo(String pageId) {
 		if (pageManager.getCurrentPage() == null) {
-			throw new RuntimeException("Main page not started  maybe you need to call start app first??");
+			throw new RuntimeException(
+					"Main page not started  maybe you need to call start app first??");
 		}
 		if (pageManager.getCurrentPage().getPageId().equals(pageId)) {
 			// no need to move to the current page
 			return;
 		}
 		pageStack.add(pageManager.getCurrentPage().getPageId());
-		loader.loadPage(pageId, modelView.getCurrentModel(), pageViewHandlers.get(pageId));
+		loader.loadPage(pageId, modelView.getCurrentModel(),
+				pageViewHandlers.get(pageId));
 
 	}
 
@@ -203,6 +214,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	public void back() {
 		String pageId = pageStack.pop();
 		AppState state = modelView.getCurrentModel();
+		loader.setCurrentTransition(Transitions.SLIDE_RIGHT);
 		loader.loadPage(pageId, state);
 	}
 
@@ -226,6 +238,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		return (AppState) modelView.getCurrentModel();
 	}
 
+	@Override
 	public WebPage getCurrentPage() {
 		Page<Element> page = pageManager.getCurrentPage();
 		return (WebPage) page;

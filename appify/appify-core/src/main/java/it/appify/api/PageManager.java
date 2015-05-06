@@ -42,12 +42,13 @@ public interface PageManager<E> {
 	public void setPageListener(PageListener<E> pageListener);
 
 	public void setDefaultTransition(String transitionName);
-	
+
 	public void openContextMenu(String viewId);
-	
+
 	public void closeContextMenu();
-	
+
 	public boolean isContextMenuOpened();
 
-	
+	public void showPage(String pageName, String transitionType);
+
 }

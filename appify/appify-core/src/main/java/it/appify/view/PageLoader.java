@@ -24,10 +24,12 @@ public class PageLoader<V, M> {
 	private M modelInstance;
 
 	private Map<String, List<ViewHandlerHolder>> pageHandlers;
-	
+
 	private Page<V> currentShowingPage;
 
 	private PageListener<V> outerPl = null;
+
+	private String currentTransition = null;
 
 	private final PageListener<V> pl = new PageListener<V>() {
 		@Override
@@ -43,7 +45,7 @@ public class PageLoader<V, M> {
 		public void onPageShow(Page<V> page) {
 			GWT.log("PageLoader onPageShow: " + page.getPageId());
 			// vm.bindModelToView(page.getPageId(), modelInstance);
-			//currentShowedPage = page;
+			// currentShowedPage = page;
 			List<ViewHandlerHolder> h = pageHandlers.get(page.getPageId());
 			if (h != null) {
 				for (ViewHandlerHolder viewHandlerHolder : h) {
@@ -125,16 +127,20 @@ public class PageLoader<V, M> {
 		}
 		final boolean showed = false;
 		final boolean bound = false;
-		GWT.log("SCHEULING LOAD PAGE: "+pageId);
+		GWT.log("SCHEULING LOAD PAGE: " + pageId);
 		Scheduler.get().scheduleIncremental(new RepeatingCommand() {
 			private boolean _showed = showed;
 			private boolean _bound = bound;
 
 			@Override
 			public boolean execute() {
-				GWT.log(pageId+" executing: " + _showed + " - " + _bound);
+				GWT.log(pageId + " executing: " + _showed + " - " + _bound);
 				if (!_showed) {
-					pm.showPage(pageId);
+					if (getCurrentTransition() == null) {
+						pm.showPage(pageId);
+					} else {
+						pm.showPage(pageId, getCurrentTransition());
+					}
 					_showed = true;
 					return true;
 				}
@@ -152,6 +158,14 @@ public class PageLoader<V, M> {
 			}
 		});
 
+	}
+
+	public String getCurrentTransition() {
+		return currentTransition;
+	}
+
+	public void setCurrentTransition(String currentTransition) {
+		this.currentTransition = currentTransition;
 	}
 
 }

@@ -32,6 +32,13 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	@Override
+	public void showPage(String pageName, String transitionType) {
+		_addPage(pageName);
+		_showPage(pageName, transitionType);
+
+	}
+
+	@Override
 	public Page<Element> getCurrentPage() {
 		return this.pages.get(currentPage);
 	}
@@ -82,19 +89,31 @@ public class AppJsPageManager implements PageManager<Element> {
 		// this.pages.get(name).setWasHidden(true);
 	}
 
-	private native void _showPage(String name)/*-{
+	private native void _showPage(String name, String transition)/*-{
 		var that = this;
 		try {
-			//$wnd.App.restore();
-			$wnd.App.load(name, function() {
+
+			$wnd.App.load(name, transition, function() {
 				console.log('page loaded ' + name)
-				//that.@it.appify.view.AppJsPageManager::onPageLoaded(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(name,);
+
 			});
 		} catch (err) {
 			console.log(err);
-			//			$wnd.App.load(name, function() {
-			//				console.log('page loaded')
-			//			});
+
+		}
+	}-*/;
+
+	private native void _showPage(String name)/*-{
+		var that = this;
+		try {
+
+			$wnd.App.load(name, function() {
+				console.log('page loaded ' + name)
+
+			});
+		} catch (err) {
+			console.log(err);
+
 		}
 	}-*/;
 
@@ -186,8 +205,7 @@ public class AppJsPageManager implements PageManager<Element> {
 		});
 		//left or right
 		$wnd.snapper.open(from);
-	}-*/;	
-	
+	}-*/;
 
 	@Override
 	public void openContextMenu(String viewId) {
