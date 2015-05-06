@@ -23,33 +23,13 @@ public class MenuController {
 
 	@ViewHandler(viewId = "showLeft", eventType = "click")
 	public void onMenuClick() {
-		GWT.log("menu show clicked");
-//		showMenu();
-		snapOpenMenu();
+		GWT.log("menu show clicked");	
+		if (!this.app.isMenuOpen()) {
+			this.app.openContextMenu("content");
+		} else {
+			this.app.closeContextMenu();
+		}
 	}
 
-	private native void snapCloseMenu()/*-{
-
-		var snapper = new $wnd.Snap({
-			element : $doc.getElementById('content')
-		});
-		snapper.close();
-	}-*/;
-
-	private native void snapOpenMenu()/*-{
-
-		var snapper = new $wnd.Snap({
-			element : $doc.getElementById('content')
-		});
-		snapper.open('left');
-	}-*/;
-
-	private native void showMenu()/*-{
-		var menuLeft = $doc.getElementById('cbp-spmenu-s1');
-		var pushable = $doc.getElementById('pushableContent');
-		//cbp-spmenu-push-toleft
-		$wnd.classie.toggle(pushable, 'cbp-spmenu-push-toright');
-		$wnd.classie.toggle(menuLeft, 'cbp-spmenu-open');
-	}-*/;
-
+	
 }
