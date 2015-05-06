@@ -40,8 +40,8 @@
 	<!-- Include the compiled Ratchet JS -->
 	<script src="${gwtModule}/ratchet/js/ratchet.js"></script>
 	<script src="${gwtModule}/snapjs/snap.js"></script>
-	<#if javascript??>
-   		<#include "${javascript}.html" parse=false>
+	<#if js??>
+   		<#include "${js}.html" parse=false>
 	</#if>
 	
 </body>

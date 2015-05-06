@@ -21,7 +21,6 @@ public class MenuController {
 		} else {
 			app.openContextMenu("content");
 		}
-
 	}
 
 }

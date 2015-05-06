@@ -15,6 +15,16 @@ public class CheckInController {
 	}
 
 	@ViewHandler(eventType = "click", viewId = "checkInBtn")
-	public void onCheckIn() {		
+	public void onCheckIn() {
+		showModal("waitModal");
+	}
+
+	@ViewHandler(eventType = "click", viewId = "closeWaitModalBtn")
+	public void onCloseModal() {
+		showModal("waitModal");
+	}
+
+	protected void showModal(String name) {
+		app.getCurrentPage().toggleClassViewStyle(name, "active");
 	}
 }

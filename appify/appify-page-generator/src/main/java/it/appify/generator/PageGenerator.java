@@ -125,6 +125,12 @@ public class PageGenerator {
 			css = cssDir.list()[0];
 
 		}
+		String js = "";
+		if (jsDir != null && jsDir.isDirectory()) {
+			System.out.println("Js dir OK");
+			js = jsDir.list()[0];
+
+		}
 		System.out.println("CSS snippet: " + css);
 		/* Merge data-model with template */
 		Map root = new HashMap();
@@ -134,6 +140,10 @@ public class PageGenerator {
 		if (css.length() > 0) {
 			String name = css.substring(0, css.indexOf(".html"));
 			root.put("css", name);
+		}
+		if (js.length() > 0) {
+			String name = js.substring(0, js.indexOf(".html"));
+			root.put("js", name);
 		}
 		File outFile = new File(outputFileName);
 		FileOutputStream fileOut = new FileOutputStream(outFile);
