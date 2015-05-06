@@ -62,14 +62,20 @@ gwt {
 	src += files(project(':appify-core').sourceSets.main.allJava.srcDirs)
 }
 
-task generatePages(type: JavaExec) {
+task generateExamplePages(type: JavaExec) {
     main = "it.appify.generator.PageGenerator"
     classpath = configurations.generate
-    args=['src/main/appify/pages', "src/main/webapp/generated.html", "Appify Generated App", "example"]
+    args=['src/main/appify/example', "src/main/webapp/example-generated.html", "Appify Generated App", "example"]
 }
 
-task generatePageTest(type: JavaExec) {
+task generateEmsMobilePages(type: JavaExec) {
+	main = "it.appify.generator.PageGenerator"
+	classpath = configurations.generate
+	args=['src/main/appify/emsmobile', "src/main/webapp/emsmobile-generated.html", "Ems Mobile App", "emsmobile"]
+}
+
+task generateExamplePageTest(type: JavaExec) {
     main = "it.appify.generator.PageGenerator"
     classpath = configurations.generate
-    args=['1.html', 'src/main/appify/pages', "src/main/webapp/test.html", "Appify Generated App", "example"]
+    args=['1.html', 'src/main/appify/example', "src/main/webapp/1-test.html", "Appify Generated App", "example"]
 }
