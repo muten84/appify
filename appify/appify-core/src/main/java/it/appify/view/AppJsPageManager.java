@@ -18,6 +18,8 @@ public class AppJsPageManager implements PageManager<Element> {
 
 	private PageListener<Element> listener;
 
+	private String menuOpened;
+
 	public AppJsPageManager() {
 		pages = new HashMap<String, Page<Element>>();
 	}
@@ -164,6 +166,45 @@ public class AppJsPageManager implements PageManager<Element> {
 	@Override
 	public void setDefaultTransition(String transitionName) {
 		_setDefaultTransition(transitionName);
+	}
+
+	private native String _getMenuState()/*-{
+		if (typeof $wnd.snapper != 'undefined') {
+			return $wnd.snapper.state().state;
+		}
+	}-*/;
+
+	private native void _snapCloseMenu(String viewId)/*-{
+		if (typeof $wnd.snapper != 'undefined') {
+			$wnd.snapper.close();
+		}
+	}-*/;
+
+	private native void _snapOpenMenu(String viewId, String from)/*-{
+		$wnd.snapper = new $wnd.Snap({
+			element : $doc.getElementById(viewId)
+		});
+		//left or right
+		$wnd.snapper.open(from);
+	}-*/;
+
+	@Override
+	public void openContextMenu(String viewId) {
+		menuOpened = viewId;
+		_snapOpenMenu(viewId, "left");
+	}
+
+	@Override
+	public void closeContextMenu() {
+		if (menuOpened != null) {
+			_snapCloseMenu(menuOpened);
+			menuOpened = null;
+		}
+	}
+
+	@Override
+	public boolean isContextMenuOpened() {
+		return _getMenuState().equals("left");
 	}
 
 }

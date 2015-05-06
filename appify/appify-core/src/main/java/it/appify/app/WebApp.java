@@ -42,4 +42,10 @@ public interface WebApp<AppState> {
 
 	public WebScreenOrientation getScreenOrientationService();
 
+	public void openContextMenu(String viewId);
+
+	public void closeContextMenu();
+	
+	public boolean isMenuOpen();
+
 }
