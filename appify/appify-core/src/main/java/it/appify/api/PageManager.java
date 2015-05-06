@@ -48,4 +48,6 @@ public interface PageManager<E> {
 	public void closeContextMenu();
 	
 	public boolean isContextMenuOpened();
+
+	
 }

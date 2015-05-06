@@ -65,7 +65,11 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 				if (callback != null) {
 					if (services != null && services.size() > 0) {
 						for (Service s : services) {
-							s.start();
+							try {
+								s.start();
+							} catch (Exception e) {
+								GWT.log("error while starting service: " + s.getClass());
+							}
 						}
 					}
 					// all service started launch app start
@@ -249,6 +253,11 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	public WebScreenOrientation getScreenOrientationService() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public <E> E getViewFragment(String viewId) {
+		return (E) pageManager.getCurrentPage().getElementInPage(viewId);
 	}
 
 	protected abstract WebModelView<AppState> getAppStateModelView();

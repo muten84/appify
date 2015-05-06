@@ -186,7 +186,8 @@ public class AppJsPageManager implements PageManager<Element> {
 		});
 		//left or right
 		$wnd.snapper.open(from);
-	}-*/;
+	}-*/;	
+	
 
 	@Override
 	public void openContextMenu(String viewId) {

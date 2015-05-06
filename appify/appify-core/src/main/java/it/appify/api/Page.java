@@ -7,5 +7,7 @@ public interface Page<E> extends HasViewHandlers {
 	public E getElementInPage(String elemId);
 
 	public E getRootElement();
+	
+	public void toggleClassViewStyle(String viewId, String className);
 
 }

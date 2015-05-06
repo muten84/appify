@@ -174,6 +174,12 @@ public class ExportableAppify extends AbstractWebApp<JavaScriptObject>
 		
 	}
 
+	@Override
+	public <E> E getViewFragment(String viewId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

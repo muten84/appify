@@ -90,4 +90,15 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		this.pageElement = pageElement;
 	}
 
+	@Override
+	public void toggleClassViewStyle(String viewId, String className) {
+		_toggleClassOnElem(viewId, className);
+	}
+
+	// classie.toggle( this, 'active' );
+	private native void _toggleClassOnElem(String viewId, String className)/*-{
+		var el = $doc.getElementById(viewId);
+		$wnd.classie.toggle(el, className);
+	}-*/;
+
 }
