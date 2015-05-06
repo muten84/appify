@@ -1,4 +1,7 @@
 .topbar-height{	
   height: 110% !important;
+}
 
+.bottombar-height{
+	height: 70px !important;
 }

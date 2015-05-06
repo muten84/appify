@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ems Mobile App</title>
+
+<!-- Sets initial viewport load and disables zooming  -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+<!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+<link href="emsmobile/ratchet/css/ratchet.css" rel="stylesheet">
+<link href="emsmobile/snapjs/snap.css" rel="stylesheet">
+<link href="emsmobile/css/font-awesome.min.css" rel="stylesheet">
+<!-- for docs http://fortawesome.github.io/Font-Awesome/emsmobiles/ -->
+<link href="emsmobile/appjs/app.min.css" rel="stylesheet">
+<!-- PUT HERE ALL YOUR CUSTOM CSS REFS -->
+<link href="custom.css" rel="stylesheet">
+</head>
+<body>
+	<script type="text/javascript" language="javascript"
+		src="emsmobile/emsmobile.nocache.js"></script>
+	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
+		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+
+	<!-- PUT HERE YOUR HTML VIEWS -->
+	<!-- MAIN PAGE -->
+	<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+	<!-- MAIN PAGE -->
+	<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+	<div class="app-page" id="dumpPage" data-page="dumpPage">
+		<!-- MODAL -->
+		<!-- <a href="#myModalexample" class="btn">Open modal</a> -->
+		<div id="myModalexample" class="modal">
+			<header class="bar bar-nav">
+				<a class="icon icon-close pull-right" href="#myModalexample"></a>
+				<h1 class="title">Modal</h1>
+			</header>
+
+			<div class="content">
+				<p class="content-padded">The contents of my modal go here.
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+					ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+			</div>
+		</div>
+		<!-- MENU -->
+		<div class="snap-drawers">
+			<div class="snap-drawer snap-drawer-left">
+				<div class="app-section">
+					<a href="#myModalexample" id="checkInBtn" class="btn btn-block">Inizio Turno</a>
+					<button id="mangeEquipBtn" class="btn btn-block">Gestione
+						Equipaggio</button>
+					<button id="lastEmergencyBtn" class="btn btn-block">Ultima
+						Emergenza</button>
+				</div>
+			</div>
+			<div class="snap-drawer snap-drawer-right"></div>
+		</div>
+		<div id="content" class="content snap-content">
+			<div class="app-topbar">
+				<header class="bar bar-nav app-title topbar-height">
+					<button id="showMenuBtn" class="btn btn-nav pull-left">
+						<span class="icon icon-bars"></span>
+					</button>
+					<button id="gpsStateBtn" class="btn btn-nav pull-right">
+						<span class="fa fa-map-marker fa-2x"></span>
+					</button>
+					<button id="batteryStateBtn" class="btn btn-nav pull-right">
+						<span class="fa fa-bolt fa-2x"></span>
+					</button>
+					<button id="connectionStateBtn" class="btn btn-nav pull-right">
+						<span class="fa fa-rss fa-2x"></span>
+					</button>
+				</header>
+			</div>
+			<div class="app-content">
+				<iframe id="dumpFrame" class="app-section"
+					style="width: 98%; height: 98%" src="{{dumpUrl}}"></iframe>
+				<!-- visualizzare qui il dump di bologna -->
+			</div>
+		</div>
+		<nav class="bottombar-height bar bar-tab">
+			<a class="tab-item">
+				<button id="refreshDumpBtn" class="btn btn-nav">
+					<span class="icon fa fa-refresh"></span> <span class="tab-label">Aggiorna
+						Dump</span>
+				</button>
+			</a> <a class="tab-item">
+				<button class="btn btn-nav">
+					<span class="icon fa fa-exclamation-circle"></span> <span
+						class="tab-label">Codici Rossi</span>
+				</button>
+			</a>
+			<!-- <a class="tab-item" href="#"> <span
+				class="icon fa fa-exclamation-circle fa-4x"></span> <span
+				class="tab-label">Cod. Rossi</span></a> <a class="tab-item" href="#">
+				<span class="icon icon-person"></span> <span class="tab-label">Profile</span>
+			</a> <a class="tab-item" href="#"> <span
+				class="icon icon-star-filled"></span> <span class="tab-label">Favorites</span>
+			</a> <a class="tab-item" href="#"> <span class="icon icon-search"></span>
+				<span class="tab-label">Search</span>
+			</a> <a class="tab-item" href="#"> <span class="icon icon-gear"></span>
+				<span class="tab-label">Settings</span>
+			</a> -->
+		</nav>
+
+	</div>
+	<script src="emsmobile/appjs/zepto.js"></script>
+	<script src="emsmobile/appjs/app.min.js"></script>
+	<script src="emsmobile/vuejs/vue.js"></script>
+	<!-- Include the compiled Ratchet JS -->
+	<script src="emsmobile/ratchet/js/ratchet.js"></script>
+	<script src="emsmobile/snapjs/snap.js"></script>
+
+</body>
+</html>

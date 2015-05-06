@@ -71,7 +71,7 @@ task generateExamplePages(type: JavaExec) {
 task generateEmsMobilePages(type: JavaExec) {
 	main = "it.appify.generator.PageGenerator"
 	classpath = configurations.generate
-	args=['src/main/appify/emsmobile', "src/main/webapp/emsmobile-generated.html", "Ems Mobile App", "emsmobile"]
+	args=['src/main/appify/emsmobile', "src/main/webapp/emsmobile.html", "Ems Mobile App", "emsmobile"]
 }
 
 task generateExamplePageTest(type: JavaExec) {
