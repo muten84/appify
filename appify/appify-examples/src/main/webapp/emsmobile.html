@@ -39,8 +39,7 @@
 
 			<div class="content">
 				<div class="loader"></div>
-				<div id="waitModalText" class="app-section" style="text-align: center;">Sto
-					verificando la disponibilit? del turno attendere per favore...</div>
+				<div id="waitModalText" class="app-section" style="text-align: center;">...</div>
 			</div>
 		</div>
 		<!-- MENU -->
@@ -105,7 +104,20 @@
 			</a> -->
 		</nav>
 
-	</div><div class="app-page" id="listPage" data-page="listPage">
+	</div><div class="app-page" id="vehiclesPage" data-page="vehiclesPage">
+	<div id="waitModal" class="modal">
+		<header class="bar bar-nav">
+			<a id="closeWaitModalBtn" class="icon icon-close pull-right"
+				href="#waitModal"></a>
+			<h1 class="title">Mezzo selezionato</h1>
+		</header>
+
+		<div class="content">
+			<div class="loader"></div>
+			<div id="waitModalText" class="app-section"
+				style="text-align: center;">...</div>
+		</div>
+	</div>
 	<div id="content" class="content snap-content">
 		<div class="app-topbar">
 			<header class="bar bar-nav app-title topbar-height">
@@ -125,15 +137,15 @@
 		</div>
 		<div class="app-content">
 			<div class="app-section">
-				<ul id="listOfItems1" class="table-view">
-					<li v-repeat="items" 
+				<ul id="vehicleList" class="table-view">
+					<li v-repeat="items" v-on="click: onData(this,$event)"
 						class="table-view-cell media"><a class="navigate-right">
-							<span class="media-object pull-left icon icon-pages"></span>
-							<div v-on="click: onData(this,$event)" class="media-body">{{name}}</div>
+							<span class="media-object pull-left fa fa-ambulance"></span>
+							<div class="media-body">{{name}}</div>
 					</a></li>
 				</ul>
 			</div>
-			<div class="app-section">
+			<!-- <div class="app-section">
 				<ul id="listOfItems2" class="table-view">
 
 					<li v-repeat="items2" v-on="click: onData(this,$event)"
@@ -142,7 +154,7 @@
 							<div class="media-body">{{$value}}</div>
 					</a></li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>

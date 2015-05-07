@@ -16,10 +16,10 @@ public class MainPageNavigationController {
 		this.app = app;
 	}
 
-	@ViewHandler(eventType = "click", viewId = "manageEquipButton")
-	public void onManageEquipe() {
-		GWT.log("onManageEquipe");
-		app.moveTo("listPage");
+	@ViewHandler(eventType = "click", viewId = "checkInBtn")
+	public void onCheckInStart() {
+		GWT.log("onCheckInStart");
+		app.moveTo("vehiclesPage");
 
 	}
 }
