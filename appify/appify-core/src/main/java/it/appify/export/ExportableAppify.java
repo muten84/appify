@@ -12,6 +12,7 @@ import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.Storage;
 import it.appify.app.AbstractWebApp;
 import it.appify.screenorientation.WebScreenOrientation;
+import it.appify.view.ViewModelHandlerHolder;
 import it.appify.view.WebModelView;
 import it.appify.view.WebPage;
 
@@ -88,6 +89,12 @@ public class ExportableAppify extends AbstractWebApp<JavaScriptObject>
 			});
 			return $wnd.vm;
 		}-*/;
+
+		@Override
+		public void addViewModelHandler(String pageId, String viewId, ViewModelHandlerHolder holder) {
+			// TODO Auto-generated method stub
+			
+		}
 
 	}
 

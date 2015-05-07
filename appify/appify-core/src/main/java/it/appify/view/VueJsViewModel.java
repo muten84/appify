@@ -1,18 +1,26 @@
 package it.appify.view;
 
-import it.appify.api.ModelView;
+import it.appify.api.HasViewHandlers.ViewHandlerHolder;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.user.client.Event;
 
 public abstract class VueJsViewModel<M> implements WebModelView<M> {
 
 	private Element el;
 
 	private M model;
+
+	private Map<VMKey, ViewModelHandlerHolder> handlers;
 
 	protected abstract ObjectMapper<M> getObjectMapper();
 
@@ -39,7 +47,8 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 
 	@Override
 	public String getViewId() {
-		return el.getId();
+		Element e = _getView().cast();
+		return e.getId();
 
 	}
 
@@ -51,11 +60,48 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 		_create(viewId, jsObj);
 	}
 
+	protected void onDataReceived(JavaScriptObject view, JavaScriptObject model, JavaScriptObject event) {
+		Element e = view.cast();
+		JSONObject modelJson = new JSONObject(model);
+		Event gwtEvent = event.cast();
+		GWT.log("getViewId: " + getViewId());
+		GWT.log("onDataReceived View  is: " + e.toString());
+		GWT.log("onDataReceived Model is: " + modelJson.toString());
+		GWT.log("onDataReceived Event is: " + gwtEvent.getType());
+		GWT.log("getCurrentEventTarget: " + gwtEvent.getCurrentEventTarget().toString());
+		GWT.log("getParentElement: " + e.getParentElement().getId());
+		VMKey key = new VMKey(getViewId(), e.getParentElement().getId());
+
+		//TODO: important!! model event disaptching!!
+//		ViewModelHandlerHolder holder = handlers.get(key);
+//		if (holder != null) {
+//			Serializable o = (Serializable) holder.getObjectMapper().read(modelJson.toString());
+//			holder.getHandler().<Serializable> onEvent(gwtEvent.getType(), getViewId(), e.getParentElement().getId(), o);
+//		}
+		//TODO: important!! model event disaptching!!
+
+	}
+
+	@Override
+	public void addViewModelHandler(String pageId, String viewId, ViewModelHandlerHolder holder) {
+		VMKey key = new VMKey(pageId, viewId);
+		handlers.put(key, holder);
+	}
+	
+	
+
 	private native JavaScriptObject _create(String viewId, JavaScriptObject json)/*-{
-		$wnd.vm = new $wnd.Vue({
-			el : '#' + viewId,
-			data : json
-		});
+		var that = this;
+		$wnd.vm = new $wnd.Vue(
+				{
+					el : '#' + viewId,
+					data : json,
+					methods : {
+						onData : function(item, e) {
+							that.@it.appify.view.VueJsViewModel::onDataReceived(Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)(item.$el,item.$data,e);
+						}
+					}
+				});
 		return $wnd.vm;
 	}-*/;
 
@@ -82,6 +128,10 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 		M m = getObjectMapper().read(jsonObj.toString());
 		return m;
 	}
+
+	private native JavaScriptObject _getView()/*-{
+		return $wnd.vm.$el;
+	}-*/;
 
 	private native JavaScriptObject _getModel()/*-{
 		return $wnd.vm.$data;
