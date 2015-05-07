@@ -1,3 +1,19 @@
+/*
+ * Appify - a tiny frontend framework to build complex mobile apps.
+ * 
+ * Copyright (C) 2015 Luigi Bifulco Appify is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package it.appify.offline.linker;
 
 import java.util.HashSet;
@@ -11,8 +27,8 @@ import com.google.gwt.core.ext.linker.Artifact;
 import com.google.gwt.core.ext.linker.ArtifactSet;
 import com.google.gwt.core.ext.linker.EmittedArtifact;
 import com.google.gwt.core.ext.linker.LinkerOrder;
-import com.google.gwt.core.ext.linker.Shardable;
 import com.google.gwt.core.ext.linker.LinkerOrder.Order;
+import com.google.gwt.core.ext.linker.Shardable;
 import com.google.gwt.core.ext.linker.impl.SelectionInformation;
 
 @Shardable
@@ -26,14 +42,18 @@ public class ApplicationCacheLinker extends AbstractLinker {
 	}
 
 	@Override
-	public ArtifactSet link(TreeLogger logger, LinkerContext context, ArtifactSet artifacts, boolean onePermutation) throws UnableToCompleteException {
+	public ArtifactSet link(TreeLogger logger, LinkerContext context,
+			ArtifactSet artifacts, boolean onePermutation)
+			throws UnableToCompleteException {
 		MANIFEST = context.getModuleName() + "-artifacts.lst";
 
 		ArtifactSet toReturn = new ArtifactSet(artifacts);
 
 		logger.log(TreeLogger.INFO, "SelectionInformation:");
-		SortedSet<SelectionInformation> selectionInformationSet = toReturn.find(SelectionInformation.class);
-		SelectionInformation selectionInformation = selectionInformationSet.isEmpty() ? null : selectionInformationSet.first();
+		SortedSet<SelectionInformation> selectionInformationSet = toReturn
+				.find(SelectionInformation.class);
+		SelectionInformation selectionInformation = selectionInformationSet
+				.isEmpty() ? null : selectionInformationSet.first();
 
 		HashSet<String> classes = new HashSet<String>();
 		for (Artifact<?> a : artifacts) {
@@ -46,14 +66,21 @@ public class ApplicationCacheLinker extends AbstractLinker {
 		}
 
 		if (toReturn.find(SelectionInformation.class).isEmpty()) {
-			logger.log(TreeLogger.INFO, "DevMode warning: Clobbering " + MANIFEST + " to allow debugging. Recompile before deploying your app!" + artifacts);
+			logger.log(
+					TreeLogger.INFO,
+					"DevMode warning: Clobbering "
+							+ MANIFEST
+							+ " to allow debugging. Recompile before deploying your app!"
+							+ artifacts);
 			// artifacts = null;
 			return toReturn;
 		}
 
 		// Create the general cache-manifest resource for the landing page:
 		if (selectionInformation != null)
-			toReturn.add(emitLandingPageCacheManifest("../" + context.getModuleName() + "-artifacts.lst", context, logger, artifacts));
+			toReturn.add(emitLandingPageCacheManifest(
+					"../" + context.getModuleName() + "-artifacts.lst",
+					context, logger, artifacts));
 		return toReturn;
 	}
 
@@ -68,7 +95,9 @@ public class ApplicationCacheLinker extends AbstractLinker {
 	 *            {@code null} to generate an empty cache manifest
 	 */
 	@SuppressWarnings("rawtypes")
-	private Artifact<?> emitLandingPageCacheManifest(String fileName, LinkerContext context, TreeLogger logger, ArtifactSet artifacts) throws UnableToCompleteException {
+	private Artifact<?> emitLandingPageCacheManifest(String fileName,
+			LinkerContext context, TreeLogger logger, ArtifactSet artifacts)
+			throws UnableToCompleteException {
 		StringBuilder publicSourcesSb = new StringBuilder();
 
 		if (artifacts != null) {
@@ -78,10 +107,20 @@ public class ApplicationCacheLinker extends AbstractLinker {
 				if (artifact instanceof EmittedArtifact) {
 					EmittedArtifact ea = (EmittedArtifact) artifact;
 					String pathName = ea.getPartialPath();
-					if (pathName.endsWith("symbolMap") || pathName.endsWith(".xml.gz") || pathName.endsWith("rpc.log") || pathName.endsWith("gwt.rpc") || pathName.endsWith("manifest.txt") || pathName.startsWith("rpcPolicyManifest") || pathName.startsWith("soycReport") || pathName.endsWith(".cssmap")) {
+					if (pathName.endsWith("symbolMap")
+							|| pathName.endsWith(".xml.gz")
+							|| pathName.endsWith("rpc.log")
+							|| pathName.endsWith("gwt.rpc")
+							|| pathName.endsWith("manifest.txt")
+							|| pathName.startsWith("rpcPolicyManifest")
+							|| pathName.startsWith("soycReport")
+							|| pathName.endsWith(".cssmap")) {
 						continue;// skip these resources
 					} else {
-						publicSourcesSb.append(context.getModuleName()).append("/").append(pathName.replace("\\", "/")).append("\n");
+						publicSourcesSb.append(context.getModuleName())
+								.append("/")
+								.append(pathName.replace("\\", "/"))
+								.append("\n");
 					}
 				}
 			}
@@ -90,7 +129,9 @@ public class ApplicationCacheLinker extends AbstractLinker {
 		// build cache list
 		StringBuilder sb = new StringBuilder();
 		sb.append(publicSourcesSb);
-		logger.log(TreeLogger.DEBUG, "Be sure your landing page's <html> tag declares a manifest: <html manifest=" + MANIFEST + "\">");
+		logger.log(TreeLogger.DEBUG,
+				"Be sure your landing page's <html> tag declares a manifest: <html manifest="
+						+ MANIFEST + "\">");
 
 		// Create the manifest as a new artifact and return it:
 		return emitString(logger, sb.toString(), fileName);

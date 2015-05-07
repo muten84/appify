@@ -1,12 +1,5 @@
 package it.appify.export;
 
-import org.timepedia.exporter.client.Export;
-import org.timepedia.exporter.client.ExportPackage;
-import org.timepedia.exporter.client.Exportable;
-
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.dom.client.Element;
-
 import it.appify.api.Geolocation;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.Storage;
@@ -15,6 +8,13 @@ import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.view.ViewModelHandlerHolder;
 import it.appify.view.WebModelView;
 import it.appify.view.WebPage;
+
+import org.timepedia.exporter.client.Export;
+import org.timepedia.exporter.client.ExportPackage;
+import org.timepedia.exporter.client.Exportable;
+
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.dom.client.Element;
 
 @Export("app")
 @ExportPackage("appify")

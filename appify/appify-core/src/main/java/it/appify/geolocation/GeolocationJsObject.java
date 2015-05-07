@@ -1,15 +1,30 @@
+/*
+ * Appify - a tiny frontend framework to build complex mobile apps.
+ * 
+ * Copyright (C) 2015 Luigi Bifulco Appify is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package it.appify.geolocation;
 
 import it.appify.api.Coordinates;
-import it.appify.api.Geolocation.GeolocationCallback;
 import it.appify.api.GeoOptions;
+import it.appify.api.Geolocation.GeolocationCallback;
 import it.appify.api.Geoposition;
 
 import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 
 public class GeolocationJsObject {
@@ -65,7 +80,7 @@ public class GeolocationJsObject {
 				.isNumber().doubleValue();
 		double accuracy = obj.get("coords").isObject().get("accuracy")
 				.isNumber().doubleValue();
-	
+
 		Geoposition positionObj = new Geoposition();
 		positionObj.setTimestamp(timestamp);
 		Coordinates coords = new Coordinates();

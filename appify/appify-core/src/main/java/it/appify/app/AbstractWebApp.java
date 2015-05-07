@@ -1,10 +1,26 @@
+/*
+ * Appify - a tiny frontend framework to build complex mobile apps.
+ * 
+ * Copyright (C) 2015 Luigi Bifulco Appify is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package it.appify.app;
 
+import it.appify.api.Battery;
+import it.appify.api.Geolocation;
 import it.appify.api.HasViewHandlers;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.HasViewHandlers.ViewHandlerHolder;
-import it.appify.api.Battery;
-import it.appify.api.Geolocation;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
 import it.appify.api.PageManager.PageListener;
@@ -23,8 +39,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 //TODO: add an update and store method
@@ -60,10 +74,13 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 			GWT.log("AbstractWebApp onPageShow");
 			loader.setCurrentTransition(null);
 			// inject all ui elements in the controller....
-			List<ControllerHolder<?>> controllers = pageControllers.get(page.getPageId());
+			List<ControllerHolder<?>> controllers = pageControllers.get(page
+					.getPageId());
 			if (controllers != null) {
 				for (ControllerHolder<?> controllerHolder : controllers) {
-					GWT.log("injecting elements: " + controllerHolder.pageId + " - " + controllerHolder.viewId + " - " + controllerHolder.fieldName);
+					GWT.log("injecting elements: " + controllerHolder.pageId
+							+ " - " + controllerHolder.viewId + " - "
+							+ controllerHolder.fieldName);
 					controllerHolder.injectViewElements();
 				}
 			}
@@ -85,7 +102,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 							try {
 								s.start();
 							} catch (Exception e) {
-								GWT.log("error while starting service: " + s.getClass());
+								GWT.log("error while starting service: "
+										+ s.getClass());
 							}
 						}
 					}
@@ -132,11 +150,13 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 * @param viewId
 	 * @param eventType
 	 */
-	public void addHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
-		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType, handler);
+	public void addHandler(String pageId, String viewId, String eventType,
+			ViewHandler handler) {
+		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType,
+				handler);
 		loader.addPageViewHandler(pageId, holder);
 	}
-	
+
 	protected void bindHandlerToPage(String pageId, ViewHandlerHolder holder) {
 		List<ViewHandlerHolder> holders = pageViewHandlers.get(pageId);
 		if (holders == null) {
@@ -146,7 +166,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		pageViewHandlers.put(pageId, holders);
 	}
 
-	protected void bindControllerToPage(String pageId, ControllerHolder<?> holder) {
+	protected void bindControllerToPage(String pageId,
+			ControllerHolder<?> holder) {
 		List<ControllerHolder<?>> holders = pageControllers.get(pageId);
 		if (holders == null) {
 			holders = new ArrayList<ControllerHolder<?>>();
@@ -168,7 +189,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		services.add(service);
 	}
 
-	protected ViewHandlerHolder createViewHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
+	protected ViewHandlerHolder createViewHandler(String pageId, String viewId,
+			String eventType, ViewHandler handler) {
 		ViewHandlerHolder holder = new ViewHandlerHolder();
 		holder.setEventType(eventType);
 		holder.setHandler(handler);
@@ -189,17 +211,20 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		if (pageManager.getCurrentPage() == null) {
 			initializeServices();
 			initializeControllers();
-			List<ViewHandlerHolder> handlers = pageViewHandlers.get(this.mainPage);
+			List<ViewHandlerHolder> handlers = pageViewHandlers
+					.get(this.mainPage);
 			loader.loadPage(mainPage, initialState, handlers);
 
 			pageStack.add(mainPage);
 		} else {
-			throw new RuntimeException("App just started use moveTo and back to create navigation in your app");
+			throw new RuntimeException(
+					"App just started use moveTo and back to create navigation in your app");
 		}
 
 	}
 
-	public void startApp(AppState initialAppState, AppListener<AppState> callback) {
+	public void startApp(AppState initialAppState,
+			AppListener<AppState> callback) {
 		this.callback = callback;
 		startApp(initialAppState);
 	}
@@ -222,14 +247,16 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	@Override
 	public void moveTo(String pageId) {
 		if (pageManager.getCurrentPage() == null) {
-			throw new RuntimeException("Main page not started  maybe you need to call start app first??");
+			throw new RuntimeException(
+					"Main page not started  maybe you need to call start app first??");
 		}
 		if (pageManager.getCurrentPage().getPageId().equals(pageId)) {
 			// no need to move to the current page
 			return;
 		}
 		pageStack.add(pageManager.getCurrentPage().getPageId());
-		loader.loadPage(pageId, modelView.getCurrentModel(), pageViewHandlers.get(pageId));
+		loader.loadPage(pageId, modelView.getCurrentModel(),
+				pageViewHandlers.get(pageId));
 
 	}
 

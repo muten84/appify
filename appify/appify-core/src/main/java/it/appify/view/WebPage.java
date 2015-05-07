@@ -1,3 +1,19 @@
+/*
+ * Appify - a tiny frontend framework to build complex mobile apps.
+ * 
+ * Copyright (C) 2015 Luigi Bifulco Appify is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package it.appify.view;
 
 import it.appify.api.HasView;
@@ -36,7 +52,8 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_addViewHandler(id, type, obj, h);
 	}
 
-	private native void _addViewHandler(String id, String type, JavaScriptObject p, ViewHandler h)/*-{
+	private native void _addViewHandler(String id, String type,
+			JavaScriptObject p, ViewHandler h)/*-{
 		var that = this;
 		$wnd
 				.$(p)
@@ -69,7 +86,8 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		return _getElementInPage(obj, "#" + elemId).cast();
 	}
 
-	private native JavaScriptObject _getElementInPage(JavaScriptObject obj, String elemId)/*-{
+	private native JavaScriptObject _getElementInPage(JavaScriptObject obj,
+			String elemId)/*-{
 		return $wnd.$(obj).find(elemId)[0];
 	}-*/;
 
@@ -93,15 +111,15 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 	@Override
 	public void toggleClassViewStyle(String viewId, String className) {
-		GWT.log("toggleClassViewStyle: "+viewId+" - "+className);
+		GWT.log("toggleClassViewStyle: " + viewId + " - " + className);
 		_toggleClassOnElem(viewId, className);
 	}
 
 	// classie.toggle( this, 'active' );
 	private native void _toggleClassOnElem(String viewId, String className)/*-{
-		console.log('_toggleClassOnElem: '+viewId+" - "+className);
+		console.log('_toggleClassOnElem: ' + viewId + " - " + className);
 		var el = $doc.getElementById(viewId);
-		console.log("Element found: "+el);
+		console.log("Element found: " + el);
 		$wnd.classie.toggle(el, className);
 	}-*/;
 

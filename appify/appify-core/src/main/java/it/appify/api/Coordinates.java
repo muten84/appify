@@ -4,6 +4,12 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+/**
+ * Generic geolocation model
+ * 
+ * @author Luigi
+ *
+ */
 @JsonAutoDetect
 public class Coordinates implements Serializable {
 
@@ -88,7 +94,10 @@ public class Coordinates implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Coordinates [accuracy=" + accuracy + ", altitude=" + altitude + ", altitudeAccuracy=" + altitudeAccuracy + ", heading=" + heading + ", latitude=" + latitude + ", longitude=" + longitude + ", speed=" + speed + "]";
+		return "Coordinates [accuracy=" + accuracy + ", altitude=" + altitude
+				+ ", altitudeAccuracy=" + altitudeAccuracy + ", heading="
+				+ heading + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", speed=" + speed + "]";
 	}
 
 }

@@ -1,9 +1,23 @@
+/*
+ * Appify - a tiny frontend framework to build complex mobile apps.
+ * 
+ * Copyright (C) 2015 Luigi Bifulco Appify is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package it.appify.view;
 
-import it.appify.api.HasViewHandlers.ViewHandlerHolder;
-
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.github.nmorel.gwtjackson.client.ObjectMapper;
@@ -20,9 +34,13 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 
 	private M model;
 
-	private Map<VMKey, ViewModelHandlerHolder> handlers;
+	private Map<VMKey, ViewModelHandlerHolder<?>> handlers;
 
 	protected abstract ObjectMapper<M> getObjectMapper();
+
+	public VueJsViewModel() {
+		handlers = new HashMap<VMKey, ViewModelHandlerHolder<?>>();
+	}
 
 	@Override
 	public String getModelId() {
@@ -60,35 +78,40 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 		_create(viewId, jsObj);
 	}
 
-	protected void onDataReceived(JavaScriptObject view, JavaScriptObject model, JavaScriptObject event) {
+	protected void onDataReceived(JavaScriptObject view,
+			JavaScriptObject model, JavaScriptObject event) {
 		Element e = view.cast();
 		JSONObject modelJson = new JSONObject(model);
 		Event gwtEvent = event.cast();
-		GWT.log("getViewId: " + getViewId());
-		GWT.log("onDataReceived View  is: " + e.toString());
-		GWT.log("onDataReceived Model is: " + modelJson.toString());
-		GWT.log("onDataReceived Event is: " + gwtEvent.getType());
-		GWT.log("getCurrentEventTarget: " + gwtEvent.getCurrentEventTarget().toString());
-		GWT.log("getParentElement: " + e.getParentElement().getId());
+		// GWT.log("getViewId: " + getViewId());
+		// GWT.log("onDataReceived View  is: " + e.toString());
+		// GWT.log("onDataReceived Model is: " + modelJson.toString());
+		// GWT.log("onDataReceived Event is: " + gwtEvent.getType());
+		// GWT.log("getCurrentEventTarget: "
+		// + gwtEvent.getCurrentEventTarget().toString());
+		// GWT.log("getParentElement: " + e.getParentElement().getId());
 		VMKey key = new VMKey(getViewId(), e.getParentElement().getId());
 
-		//TODO: important!! model event disaptching!!
-//		ViewModelHandlerHolder holder = handlers.get(key);
-//		if (holder != null) {
-//			Serializable o = (Serializable) holder.getObjectMapper().read(modelJson.toString());
-//			holder.getHandler().<Serializable> onEvent(gwtEvent.getType(), getViewId(), e.getParentElement().getId(), o);
-//		}
-		//TODO: important!! model event disaptching!!
+		// TODO: important!! model event disaptching!!
+		ViewModelHandlerHolder<?> holder = handlers.get(key);
+		if (holder != null) {
+			Serializable o = (Serializable) holder.getObjectMapper().read(
+					modelJson.toString());
+			holder.getHandler().<Serializable> onEvent(gwtEvent.getType(),
+					getViewId(), e.getParentElement().getId(), o);
+		} else {
+			GWT.log("holder is null");
+		}
+		// TODO: important!! model event disaptching!!
 
 	}
 
 	@Override
-	public void addViewModelHandler(String pageId, String viewId, ViewModelHandlerHolder holder) {
+	public void addViewModelHandler(String pageId, String viewId,
+			ViewModelHandlerHolder holder) {
 		VMKey key = new VMKey(pageId, viewId);
 		handlers.put(key, holder);
 	}
-	
-	
 
 	private native JavaScriptObject _create(String viewId, JavaScriptObject json)/*-{
 		var that = this;
@@ -98,6 +121,7 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 					data : json,
 					methods : {
 						onData : function(item, e) {
+							console.log('on data...');
 							that.@it.appify.view.VueJsViewModel::onDataReceived(Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)(item.$el,item.$data,e);
 						}
 					}

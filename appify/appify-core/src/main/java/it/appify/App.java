@@ -1,8 +1,8 @@
 package it.appify;
 
-import com.google.gwt.core.shared.GWT;
-
 import it.appify.app.WebApp;
+
+import com.google.gwt.core.shared.GWT;
 
 public class App {
 

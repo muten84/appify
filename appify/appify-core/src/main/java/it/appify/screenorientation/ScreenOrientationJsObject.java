@@ -1,3 +1,19 @@
+/*
+ * Appify - a tiny frontend framework to build complex mobile apps.
+ * 
+ * Copyright (C) 2015 Luigi Bifulco Appify is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package it.appify.screenorientation;
 
 import it.appify.api.ScrOrientation.ScreenOrientationCallback;
@@ -5,12 +21,12 @@ import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.dom.client.Element;
 
 public class ScreenOrientationJsObject {
 	/*
-	 * var prefix = 'orientation' in screen ? '' : 'mozOrientation' in screen ? 'moz' : 'msOrientation' in screen ? 'ms'
-	 * : null; use prefix var for old version API
+	 * var prefix = 'orientation' in screen ? '' : 'mozOrientation' in screen ?
+	 * 'moz' : 'msOrientation' in screen ? 'ms' : null; use prefix var for old
+	 * version API
 	 */
 
 	private JavaScriptObject fullscreen;
@@ -74,11 +90,14 @@ public class ScreenOrientationJsObject {
 			// The browser supports the new version of the API			
 			return $wnd.screenOrientation;
 		}
-		$wnd.screenOrientation = {type: 'any', angle: 0, fullscreen: false};
+		$wnd.screenOrientation = {
+			type : 'any',
+			angle : 0,
+			fullscreen : false
+		};
 		return $wnd.screenOrientation;
 	}-*/;
 
-	
 	protected native void _requestFullScreen() /*-{
 		console.log('_requestFullScreen: ');
 		$wnd.Fullscreen.launch($doc.documentElement);
@@ -99,7 +118,7 @@ public class ScreenOrientationJsObject {
 	private native JavaScriptObject _getFullScreenObject()/*-{
 		$wnd.Fullscreen = {
 			launch : function(element) {
-				console.log('Fullscreen: '+element);
+				console.log('Fullscreen: ' + element);
 				if (element.requestFullscreen) {
 					console.log('element.requestFullscreen');
 					element.requestFullscreen();
@@ -112,8 +131,7 @@ public class ScreenOrientationJsObject {
 				} else if (element.msRequestFullscreen) {
 					console.log('element.msRequestFullscreen');
 					element.msRequestFullscreen();
-				}
-				else{
+				} else {
 					console.log('no element found :(');
 				}
 			},
@@ -151,7 +169,7 @@ public class ScreenOrientationJsObject {
 			this.callback = callback;
 			_addChangeHandler();
 		}
-		
+
 	}
 
 	protected native void _addChangeHandler()/*-{

@@ -1,8 +1,5 @@
 package it.appify.generator.exportable;
 
-import it.appify.app.AbstractWebApp;
-import it.appify.app.WebApp;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -17,7 +14,6 @@ import com.google.gwt.core.ext.GeneratorContext;
 import com.google.gwt.core.ext.TreeLogger;
 import com.google.gwt.core.ext.UnableToCompleteException;
 import com.google.gwt.core.ext.typeinfo.JClassType;
-import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.core.ext.typeinfo.TypeOracle;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.JavaFile;
