@@ -6,6 +6,9 @@ import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -22,9 +25,12 @@ public class EmsMobileModel implements Serializable {
 	private Screen screen;
 	private ScreenOrientation screenOrientation;
 	private String dumpUrl;
+	private List<Item> items;
+	private List<String> items2;
 
 	public EmsMobileModel() {
-
+		items = Arrays.asList(new Item[] { new Item("1", "Name1"), new Item("2", "Name2") });
+		items2 = Arrays.asList(new String[] { "Item 1", "Item 2", "Item 3" });
 	}
 
 	public BatteryStatus getBatteryStatus() {
@@ -65,6 +71,22 @@ public class EmsMobileModel implements Serializable {
 
 	public void setDumpUrl(String dumpUrl) {
 		this.dumpUrl = dumpUrl;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public List<String> getItems2() {
+		return items2;
+	}
+
+	public void setItems2(List<String> items2) {
+		this.items2 = items2;
 	}
 
 }

@@ -39,7 +39,7 @@
 
 			<div class="content">
 				<div class="loader"></div>
-				<div class="app-section" style="text-align: center;">Sto
+				<div id="waitModalText" class="app-section" style="text-align: center;">Sto
 					verificando la disponibilit? del turno attendere per favore...</div>
 			</div>
 		</div>
@@ -124,33 +124,25 @@
 			</header>
 		</div>
 		<div class="app-content">
+			<div class="app-section">
+				<ul id="listOfItems1" class="table-view">
+					<li v-repeat="items" 
+						class="table-view-cell media"><a class="navigate-right">
+							<span class="media-object pull-left icon icon-pages"></span>
+							<div v-on="click: onData(this,$event)" class="media-body">{{name}}</div>
+					</a></li>
+				</ul>
+			</div>
+			<div class="app-section">
+				<ul id="listOfItems2" class="table-view">
 
-			<ul class="table-view">
-				<li class="table-view-cell">Item 1
-					<div class="toggle">
-						<div class="toggle-handle"></div>
-					</div>
-				</li>
-				<li class="table-view-cell">Item 1 <span class="badge">4</span></li>
-				<li class="table-view-cell">Item 1
-					<button class="btn">Button</button>
-				</li>
-				<li class="table-view-cell media"><a class="navigate-right">
-						<span class="media-object pull-left icon icon-pages"></span>
-						<div class="media-body">Item 3</div>
-				</a></li>
-
-				<li class="table-view-cell media"><a class="navigate-right">
-						<img class="media-object pull-left"
-						src="http://placehold.it/42x42">
-						<div class="media-body">
-							Item 1
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore. Lorem
-								ipsum dolor sit amet.</p>
-						</div>
-				</a></li>
-			</ul>
+					<li v-repeat="items2" v-on="click: onData(this,$event)"
+						class="table-view-cell media"><a class="navigate-right">
+							<span class="media-object pull-left icon icon-pages"></span>
+							<div class="media-body">{{$value}}</div>
+					</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
