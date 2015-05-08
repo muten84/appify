@@ -18,6 +18,7 @@
 <link href="${gwtModule}/css/font-awesome.min.css" rel="stylesheet">
 <!-- for docs http://fortawesome.github.io/Font-Awesome/${gwtModule}s/ -->
 <link href="${gwtModule}/appjs/app.min.css" rel="stylesheet">
+<link href="${gwtModule}/popover/popover.css" rel="stylesheet">
 <#if css??>
    <#include "${css}.html" parse=false>
 </#if>
@@ -37,9 +38,11 @@
 	<script src="${gwtModule}/appjs/zepto.js"></script>
 	<script src="${gwtModule}/appjs/app.min.js"></script>
 	<script src="${gwtModule}/vuejs/vue.js"></script>
-	<!-- Include the compiled Ratchet JS -->
 	<script src="${gwtModule}/ratchet/js/ratchet.js"></script>
 	<script src="${gwtModule}/snapjs/snap.js"></script>
+	<script src="${gwtModule}/popover/jquery.js" type="text/javascript"></script>
+	<script src="${gwtModule}/classie/classie.js" type="text/javascript"></script>
+	<script src="${gwtModule}/popover/popover.js" type="text/javascript"></script>
 	<#if js??>
    		<#include "${js}.html" parse=false>
 	</#if>
