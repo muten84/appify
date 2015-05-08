@@ -1,5 +1,6 @@
 package it.appify.poc.client;
 
+import it.appify.api.ApplicationCache;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.HasViewHandlers.ViewHandlerHolder;
 import it.appify.app.AbstractWebApp;
@@ -105,6 +106,18 @@ public class App extends AbstractWebApp<GenericModel> implements Exportable {
 
 	@Override
 	protected void initializeServices() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ApplicationCache getApplicationCacheService() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void storeCurrentAppState() {
 		// TODO Auto-generated method stub
 		
 	}

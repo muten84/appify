@@ -6,6 +6,18 @@
 	height: 70px !important;
 }
 
+.status-on{
+	background-color:#4BC73E !important;
+}
+
+.status-off{
+	background-color:#DA4141 !important;
+}
+
+.status-idle{
+	background-color:#EFBB4A !important;
+}
+
 /*LOADER*/
 .loader,
 .loader:before,

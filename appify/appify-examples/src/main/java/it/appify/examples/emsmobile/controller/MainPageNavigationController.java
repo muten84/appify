@@ -19,6 +19,7 @@ public class MainPageNavigationController {
 	@ViewHandler(eventType = "click", viewId = "checkInBtn")
 	public void onCheckInStart() {
 		GWT.log("onCheckInStart");
+		app.getScreenOrientationService().requestFullScreen();
 		app.moveTo("vehiclesPage");
 
 	}

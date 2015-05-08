@@ -6,7 +6,6 @@ import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,8 +26,10 @@ public class EmsMobileModel implements Serializable {
 	private String dumpUrl;
 	private List<Item> items;
 	private List<String> items2;
+	private BarStatus barStatus;
 
 	public EmsMobileModel() {
+		barStatus = new BarStatus();
 		items = Arrays.asList(new Item[] { new Item("1", "Name1"), new Item("2", "Name2") });
 		items2 = Arrays.asList(new String[] { "Item 1", "Item 2", "Item 3" });
 	}
@@ -87,6 +88,14 @@ public class EmsMobileModel implements Serializable {
 
 	public void setItems2(List<String> items2) {
 		this.items2 = items2;
+	}
+
+	public BarStatus getBarStatus() {
+		return barStatus;
+	}
+
+	public void setBarStatus(BarStatus barStatus) {
+		this.barStatus = barStatus;
 	}
 
 }

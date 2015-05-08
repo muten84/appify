@@ -2,7 +2,7 @@
 	<div id="waitModal" class="modal">
 		<header class="bar bar-nav">
 			<a id="closeWaitModalBtn" class="icon icon-close pull-right"
-				href="#waitModal"></a>
+				></a>
 			<h1 class="title">Mezzo selezionato</h1>
 		</header>
 
@@ -18,13 +18,16 @@
 				<button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button>
-				<button id="gpsStateBtn" class="btn btn-nav pull-right">
+				<button id="gpsStateBtn"
+					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
 					<span class="fa fa-map-marker fa-2x"></span>
 				</button>
-				<button id="batteryStateBtn" class="btn btn-nav pull-right">
+				<button id="batteryStateBtn"
+					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
 					<span class="fa fa-bolt fa-2x"></span>
 				</button>
-				<button id="connectionStateBtn" class="btn btn-nav pull-right">
+				<button id="connectionStateBtn"
+					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
 					<span class="fa fa-rss fa-2x"></span>
 				</button>
 			</header>

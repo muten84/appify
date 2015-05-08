@@ -1,5 +1,6 @@
 package it.appify.poc.client;
 
+import it.appify.api.ApplicationCache;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.app.AbstractWebApp;
 import it.appify.poc.client.model.ExampleViewModel.ModelBeanMapper;
@@ -46,6 +47,18 @@ public class WebAppEntryPoint implements EntryPoint {
 
 			@Override
 			protected void initializeServices() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public ApplicationCache getApplicationCacheService() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			protected void storeCurrentAppState() {
 				// TODO Auto-generated method stub
 				
 			}

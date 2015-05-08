@@ -20,14 +20,13 @@ public class AppifyEntryPoint implements EntryPoint {
 			@Override
 			public void onAppStart(WebApp<AppModel> app) {
 				AppModel model = myApp.getCurrentAppState();
-				GWT.log("onAppStart Current App state is: " + model.getTitle() + " - "
-						+ model.getContent());
-								
+				GWT.log("onAppStart Current App state is: " + model.getTitle() + " - " + model.getContent());
+				app.updateAppState(model);
+
 			}
 		});
 		AppModel model = myApp.getCurrentAppState();
-		GWT.log("Current App state is: " + model.getTitle() + " - "
-				+ model.getContent());
+		GWT.log("Current App state is: " + model.getTitle() + " - " + model.getContent());
 
 	}
 

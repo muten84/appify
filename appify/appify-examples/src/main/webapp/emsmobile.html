@@ -29,69 +29,91 @@
 
 	<!-- PUT HERE YOUR HTML VIEWS -->
 <div class="app-page" id="dumpPage" data-page="dumpPage">
-		<!-- MODAL -->
-		<!-- <a href="#myModalexample" class="btn">Open modal</a> -->
-		<div id="waitModal" class="modal">
-			<header class="bar bar-nav">
-				<a id="closeWaitModalBtn" class="icon icon-close pull-right" href="#waitModal"></a>
-				<h1 class="title">Richiesta in corso...</h1>
-			</header>
+	<!-- MODAL -->
+	<div id="waitModal" class="modal">
+		<header class="bar bar-nav">
+			<a id="closeWaitModalBtn" class="icon icon-close pull-right"></a>
+			<h1 class="title">Richiesta in corso...</h1>
+		</header>
 
-			<div class="content">
-				<div class="loader"></div>
-				<div id="waitModalText" class="app-section" style="text-align: center;">...</div>
+		<div class="content">
+			<div class="loader"></div>
+			<div id="waitModalText" class="app-section"
+				style="text-align: center;">...</div>
+		</div>
+	</div>
+	<!-- MENU -->
+	<div class="snap-drawers">
+		<div class="snap-drawer snap-drawer-left">
+			<div class="app-section">
+				<a id="checkInBtn" class="btn btn-block">Inizio Turno</a>
+				<button id="manageEquipButton" class="btn btn-block">Gestione
+					Equipaggio</button>
+				<button id="lastEmergencyBtn" class="btn btn-block">Ultima
+					Emergenza</button>
 			</div>
 		</div>
-		<!-- MENU -->
-		<div class="snap-drawers">
-			<div class="snap-drawer snap-drawer-left">
-				<div class="app-section">
-					<a href="#waitModal" id="checkInBtn" class="btn btn-block">Inizio
-						Turno</a>
-					<button id="manageEquipButton" class="btn btn-block">Gestione
-						Equipaggio</button>
-					<button id="lastEmergencyBtn" class="btn btn-block">Ultima
-						Emergenza</button>
-				</div>
-			</div>
-			<div class="snap-drawer snap-drawer-right"></div>
+		<div class="snap-drawer snap-drawer-right"></div>
+	</div>
+	<div id="content" class="content snap-content">
+		<div id="popover" class="popover">
+			<header class="bar bar-nav">
+				<h1 class="title">Popover title</h1>
+			</header>
+			<ul class="table-view">
+				<li class="table-view-cell">Item1</li>
+				<li class="table-view-cell">Item2</li>
+				<li class="table-view-cell">Item3</li>
+				<li class="table-view-cell">Item4</li>
+				<li class="table-view-cell">Item5</li>
+				<li class="table-view-cell">Item6</li>
+				<li class="table-view-cell">Item7</li>
+				<li class="table-view-cell">Item8</li>
+			</ul>
 		</div>
-		<div id="content" class="content snap-content">
-			<div class="app-topbar">
-				<header class="bar bar-nav app-title topbar-height">
-					<button id="showMenuBtn" class="btn btn-nav pull-left">
-						<span class="icon icon-bars"></span>
-					</button>
-					<button id="gpsStateBtn" class="btn btn-nav pull-right">
-						<span class="fa fa-map-marker fa-2x"></span>
-					</button>
-					<button id="batteryStateBtn" class="btn btn-nav pull-right">
-						<span class="fa fa-bolt fa-2x"></span>
-					</button>
-					<button id="connectionStateBtn" class="btn btn-nav pull-right">
-						<span class="fa fa-rss fa-2x"></span>
-					</button>
-				</header>
-			</div>
-			<div class="app-content">
-				<iframe id="dumpFrame" class="app-section"
-					style="width: 98%; height: 98%" src="{{dumpUrl}}"></iframe>
-				<!-- visualizzare qui il dump di bologna -->
-			</div>
-		</div>
-		<nav class="bottombar-height bar bar-tab">
-			<a class="tab-item">
-				<button id="refreshDumpBtn" class="btn btn-nav">
-					<span class="icon fa fa-refresh"></span> <span class="tab-label">Aggiorna
-						Dump</span>
+		<div class="app-topbar">
+			<header class="bar bar-nav app-title topbar-height">
+				<a href="#myPopover">
+					<h1 class="title">
+						Tap title <span class="icon icon-caret"></span>
+					</h1>
+				</a>
+				<button id="showMenuBtn" class="btn btn-nav pull-left">
+					<span class="icon icon-bars"></span>
 				</button>
-			</a> <a class="tab-item">
-				<button class="btn btn-nav">
-					<span class="icon fa fa-exclamation-circle"></span> <span
-						class="tab-label">Codici Rossi</span>
+				<button id="gpsStateBtn"
+					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
+					<span class="fa fa-map-marker fa-2x"></span>
 				</button>
-			</a>
-			<!-- <a class="tab-item" href="#"> <span
+				<button id="batteryStateBtn"
+					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
+					<span class="fa fa-bolt fa-2x"></span>
+				</button>
+				<button id="connectionStateBtn"
+					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
+					<span class="fa fa-rss fa-2x"></span>
+				</button>
+			</header>
+		</div>
+		<div class="app-content">
+			<iframe id="dumpFrame" class="app-section"
+				style="width: 98%; height: 98%" src="{{dumpUrl}}"></iframe>
+			<!-- visualizzare qui il dump di bologna -->
+		</div>
+	</div>
+	<nav class="bottombar-height bar bar-tab">
+		<a class="tab-item">
+			<button id="refreshDumpBtn" class="btn btn-nav">
+				<span class="icon fa fa-refresh"></span> <span class="tab-label">Aggiorna
+					Dump</span>
+			</button>
+		</a> <a class="tab-item">
+			<button class="btn btn-nav">
+				<span class="icon fa fa-exclamation-circle"></span> <span
+					class="tab-label">Codici Rossi</span>
+			</button>
+		</a>
+		<!-- <a class="tab-item" href="#"> <span
 				class="icon fa fa-exclamation-circle fa-4x"></span> <span
 				class="tab-label">Cod. Rossi</span></a> <a class="tab-item" href="#">
 				<span class="icon icon-person"></span> <span class="tab-label">Profile</span>
@@ -102,13 +124,13 @@
 			</a> <a class="tab-item" href="#"> <span class="icon icon-gear"></span>
 				<span class="tab-label">Settings</span>
 			</a> -->
-		</nav>
+	</nav>
 
-	</div><div class="app-page" id="vehiclesPage" data-page="vehiclesPage">
+</div><div class="app-page" id="vehiclesPage" data-page="vehiclesPage">
 	<div id="waitModal" class="modal">
 		<header class="bar bar-nav">
 			<a id="closeWaitModalBtn" class="icon icon-close pull-right"
-				href="#waitModal"></a>
+				></a>
 			<h1 class="title">Mezzo selezionato</h1>
 		</header>
 
@@ -124,13 +146,16 @@
 				<button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button>
-				<button id="gpsStateBtn" class="btn btn-nav pull-right">
+				<button id="gpsStateBtn"
+					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
 					<span class="fa fa-map-marker fa-2x"></span>
 				</button>
-				<button id="batteryStateBtn" class="btn btn-nav pull-right">
+				<button id="batteryStateBtn"
+					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
 					<span class="fa fa-bolt fa-2x"></span>
 				</button>
-				<button id="connectionStateBtn" class="btn btn-nav pull-right">
+				<button id="connectionStateBtn"
+					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
 					<span class="fa fa-rss fa-2x"></span>
 				</button>
 			</header>
@@ -164,6 +189,7 @@
 	<!-- Include the compiled Ratchet JS -->
 	<script src="emsmobile/ratchet/js/ratchet.js"></script>
 	<script src="emsmobile/snapjs/snap.js"></script>
-<script src="emsmobile/classie/classie.js"></script>	
+<script src="emsmobile/classie/classie.js"></script>
+<script type="text/javascript" src="popover.js"></script>	
 </body>
 </html>
