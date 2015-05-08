@@ -34,24 +34,29 @@ public class BatteryStatusService {
 	}
 
 	protected void check() {
-		this.app.getBatteryService().getBatteryStatus(new BatteryStatusCallback() {
+		this.app.getBatteryService().getBatteryStatus(
+				new BatteryStatusCallback() {
 
-			@Override
-			public void onBatteryStatus(BatteryStatus currentStatus) {
-				double level = currentStatus.getLevel();
-				EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();		
-				
-				if (level < 0.4) {
-					model.getBarStatus().setBatteryStatus("status-off");					
-				} else if (level > 0.4 && level < 0.6) {
-					model.getBarStatus().setBatteryStatus("status-idle");
-				} else if (level > 0.6) {
-					model.getBarStatus().setBatteryStatus("status-on");
-				}
-				app.updateAppState(model);
+					@Override
+					public void onBatteryStatus(BatteryStatus currentStatus) {
+						double level = currentStatus.getLevel();
+						EmsMobileModel model = app
+								.<EmsMobileModel> getCurrentAppState();
 
-			}
-		});
+						if (level < 0.4) {
+							model.getBarStatus().setBatteryStatus("status-off");
+						} else if (level > 0.4 && level < 0.6) {
+							model.getBarStatus()
+									.setBatteryStatus("status-idle");
+						} else if (level > 0.6) {
+							model.getBarStatus().setBatteryStatus("status-on");
+						}
+						app.updateAppState(model);
+						app.getCurrentPage().popover("batteryStateBtn",
+								"Stato Batteria",
+								""+currentStatus.getLevel() * 100+"%", "fade");
+					}
+				});
 	}
 
 }

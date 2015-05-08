@@ -19,6 +19,7 @@ public class DumpController {
 
 	public DumpController(WebApp<EmsMobileModel> app) {
 		this.app = app;
+		
 	}
 
 	@ViewHandler(eventType = "click", viewId = "refreshDumpBtn")
@@ -32,7 +33,7 @@ public class DumpController {
 		frame.src = url;
 	}-*/;
 
-	/*getter and setter */
+	/* getter and setter */
 	public Element getDumpFrameElement() {
 		return dumpFrameElement;
 	}

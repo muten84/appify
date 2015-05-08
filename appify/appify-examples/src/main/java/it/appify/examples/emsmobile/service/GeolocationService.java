@@ -30,33 +30,42 @@ public class GeolocationService {
 				check();
 				return true;
 			}
-		}, 3000);
+		}, 5000);
 
 	}
 
 	protected void check() {
 		// updateBtnStatus("status-idle", "gpsStateBtn");
-		this.app.getGeolocationService().getCurrentPosition(new GeolocationCallback() {
+		this.app.getGeolocationService().getCurrentPosition(
+				new GeolocationCallback() {
 
-			@Override
-			public void onPosition(Geoposition position) {
-				GWT.log("onPosition geolocation service");				
-				EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-				model.getBarStatus().setGpsStatus("status-on");
-				app.updateAppState(model);
-				
-				
-			}
+					@Override
+					public void onPosition(Geoposition position) {
+						GWT.log("onPosition geolocation service");
+						EmsMobileModel model = app
+								.<EmsMobileModel> getCurrentAppState();
+						model.setPosition(position);
+						model.getBarStatus().setGpsStatus("status-on");
+						app.updateAppState(model);
+						app.getCurrentPage().popover(
+								"gpsStateBtn",
+								"Stato GPS",
+								position.getCoords().getLatitude() + " "
+										+ position.getCoords().getLongitude(),
+								"fade");
 
-			@Override
-			public void onError(int code, String msg) {
-				GWT.log("onError geolocation service");				
-				EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-				model.getBarStatus().setGpsStatus("status-off");
-				app.updateAppState(model);
+					}
 
-			}
-		});
+					@Override
+					public void onError(int code, String msg) {
+						GWT.log("onError geolocation service");
+						EmsMobileModel model = app
+								.<EmsMobileModel> getCurrentAppState();
+						model.getBarStatus().setGpsStatus("status-off");
+						app.updateAppState(model);
+
+					}
+				});
 	}
 
 }

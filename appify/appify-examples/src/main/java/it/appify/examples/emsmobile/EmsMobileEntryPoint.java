@@ -17,8 +17,12 @@ public class EmsMobileEntryPoint implements EntryPoint {
 
 			@Override
 			public void onAppStart(WebApp<EmsMobileModel> app) {
-				GWT.log("App started: " + app.<EmsMobileModel> getCurrentAppState().getBarStatus().getGpsStatus());
+				GWT.log("App started: "
+						+ app.<EmsMobileModel> getCurrentAppState()
+								.getBarStatus().getGpsStatus());
 				app.updateAppState(app.<EmsMobileModel> getCurrentAppState());
+				app.getCurrentPage().popover("gpsStateBtn", "Stato GPS",
+						"", "fade");
 			}
 		});
 

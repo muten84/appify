@@ -33,24 +33,29 @@ public class ConnectionStateService {
 	}
 
 	protected void check() {
-		this.app.getApplicationCacheService().getConnetionStatus(new CheckConnectedCallback() {
+		this.app.getApplicationCacheService().getConnetionStatus(
+				new CheckConnectedCallback() {
 
-			@Override
-			public void onOnline() {
-				EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-				model.getBarStatus().setConnectionStatus("status-on");
-				app.updateAppState(model);
+					@Override
+					public void onOnline() {
+						EmsMobileModel model = app
+								.<EmsMobileModel> getCurrentAppState();
+						model.getBarStatus().setConnectionStatus("status-on");
+						app.updateAppState(model);
+						app.getCurrentPage().popover("connectionStateBtn",
+								"Stato Connessione", "Online", "fade");
+					}
 
-			}
-
-			@Override
-			public void onOffline() {
-				EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-				model.getBarStatus().setConnectionStatus("status-off");
-				app.updateAppState(model);
-
-			}
-		});
+					@Override
+					public void onOffline() {
+						EmsMobileModel model = app
+								.<EmsMobileModel> getCurrentAppState();
+						model.getBarStatus().setConnectionStatus("status-off");
+						app.updateAppState(model);
+						app.getCurrentPage().popover("connectionStateBtn",
+								"Stato Connessione", "Offline", "fade");
+					}
+				});
 	}
 
 }
