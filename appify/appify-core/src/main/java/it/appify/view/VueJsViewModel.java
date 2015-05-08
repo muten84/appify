@@ -97,7 +97,7 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 		if (holder != null) {
 			Serializable o = (Serializable) holder.getObjectMapper().read(
 					modelJson.toString());
-			holder.getHandler().<Serializable> onEvent(gwtEvent.getType(),
+			holder.getHandler().onEvent(gwtEvent.getType(),
 					getViewId(), e.getParentElement().getId(), o);
 		} else {
 			GWT.log("holder is null");

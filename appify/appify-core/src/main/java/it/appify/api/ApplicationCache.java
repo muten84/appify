@@ -41,6 +41,12 @@ public interface ApplicationCache extends HasHandlers {
 		public final static String UPDATEREADY = "updateready";
 	}
 
+	public static interface CheckConnectedCallback {
+		public void onOnline();
+
+		public void onOffline();
+	}
+
 	public static class Util {
 
 		public static String getCacheStatus(int code) {
@@ -84,5 +90,19 @@ public interface ApplicationCache extends HasHandlers {
 	 * @return
 	 */
 	public String getStatus();
+
+	/**
+	 * Check if user agent is connected
+	 * 
+	 * @return
+	 */
+	public void getConnetionStatus(CheckConnectedCallback callback);
+
+	/**
+	 * Check if user agent is connected
+	 * 
+	 * @return
+	 */
+	public void watchConnectionStatus(CheckConnectedCallback callback);
 
 }

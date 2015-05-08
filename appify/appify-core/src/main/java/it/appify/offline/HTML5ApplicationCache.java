@@ -17,6 +17,8 @@
 package it.appify.offline;
 
 import it.appify.api.ApplicationCache;
+import it.appify.offline.OfflineMonitor.OfflineMonitorListener;
+import it.appify.offline.OnlineChecker.CheckOnlineCallback;
 
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
@@ -25,8 +27,16 @@ public class HTML5ApplicationCache implements ApplicationCache {
 
 	private ApplicationCacheJsObject cache;
 
+	private OnlineChecker checkConnection;
+
+	private OfflineMonitor monitor;
+
+	private boolean started = false;
+
 	public HTML5ApplicationCache() {
 		cache = ApplicationCacheJsObject.getApplicationCache();
+		checkConnection = new OnlineChecker();
+		monitor = new OfflineMonitor(checkConnection);
 	}
 
 	@Override
@@ -64,4 +74,53 @@ public class HTML5ApplicationCache implements ApplicationCache {
 
 	}
 
+	@Override
+	public void getConnetionStatus(final CheckConnectedCallback callback) {
+		if (cache != null) {
+			boolean connected = cache.isOnline();
+			if (connected) {
+				callback.onOnline();
+			} else {
+				callback.onOffline();
+			}
+
+		} else {
+			checkConnection.checkOnline(new CheckOnlineCallback() {
+
+				@Override
+				public void onOnline() {
+					callback.onOnline();
+
+				}
+
+				@Override
+				public void onOffline() {
+					callback.onOffline();
+
+				}
+			});
+		}
+
+	}
+
+	@Override
+	public void watchConnectionStatus(final CheckConnectedCallback callback) {
+		if (!started) {
+			monitor.start(new OfflineMonitorListener() {
+
+				@Override
+				public void onOnline() {
+					callback.onOnline();
+
+				}
+
+				@Override
+				public void onOffline() {
+					callback.onOffline();
+
+				}
+			});
+		}
+
+	}
 }

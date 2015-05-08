@@ -52,8 +52,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_addViewHandler(id, type, obj, h);
 	}
 
-	private native void _addViewHandler(String id, String type,
-			JavaScriptObject p, ViewHandler h)/*-{
+	private native void _addViewHandler(String id, String type, JavaScriptObject p, ViewHandler h)/*-{
 		var that = this;
 		$wnd
 				.$(p)
@@ -86,8 +85,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		return _getElementInPage(obj, "#" + elemId).cast();
 	}
 
-	private native JavaScriptObject _getElementInPage(JavaScriptObject obj,
-			String elemId)/*-{
+	private native JavaScriptObject _getElementInPage(JavaScriptObject obj, String elemId)/*-{
 		return $wnd.$(obj).find(elemId)[0];
 	}-*/;
 
@@ -115,12 +113,29 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_toggleClassOnElem(viewId, className);
 	}
 
+	@Override
+	public boolean hasStyle(String viewId, String className) {
+		return _hasStyle(viewId, className);
+	}
+
+	// classie.has( element, 'my-class' )
+	private native boolean _hasStyle(String viewId, String className)/*-{
+		//console.log('_hasStyle: ' + viewId + " - " + className);
+		var el = $doc.getElementById(viewId);
+		if (el != 'undefined') {
+			//console.log("Element found: " + el);
+			return $wnd.classie.has(el, className);
+		}
+	}-*/;
+
 	// classie.toggle( this, 'active' );
 	private native void _toggleClassOnElem(String viewId, String className)/*-{
-		console.log('_toggleClassOnElem: ' + viewId + " - " + className);
+		//console.log('_toggleClassOnElem: ' + viewId + " - " + className);
 		var el = $doc.getElementById(viewId);
-		console.log("Element found: " + el);
-		$wnd.classie.toggle(el, className);
+		if (el != 'undefined') {
+			//console.log("Element found: " + el);
+			$wnd.classie.toggle(el, className);
+		}
 	}-*/;
 
 }

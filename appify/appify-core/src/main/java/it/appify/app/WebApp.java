@@ -16,6 +16,7 @@
  */
 package it.appify.app;
 
+import it.appify.api.ApplicationCache;
 import it.appify.api.Battery;
 import it.appify.api.Geolocation;
 import it.appify.api.Storage;
@@ -23,8 +24,7 @@ import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.view.WebPage;
 
 /**
- * WebApp interface to control navigation, the app state and its service
- * providers such as Geolocation, Battery etc..
+ * WebApp interface to control navigation, the app state and its service providers such as Geolocation, Battery etc..
  * 
  * @author Luigi
  *
@@ -44,8 +44,7 @@ public interface WebApp<AppState> {
 
 	public void startApp(AppState initialState);
 
-	public void startApp(AppState initialAppState,
-			AppListener<AppState> callback);
+	public void startApp(AppState initialAppState, AppListener<AppState> callback);
 
 	public void moveTo(String pageId);
 
@@ -56,6 +55,8 @@ public interface WebApp<AppState> {
 	public Battery getBatteryService();
 
 	public Storage getStorageService();
+
+	public ApplicationCache getApplicationCacheService();
 
 	public WebScreenOrientation getScreenOrientationService();
 

@@ -1,5 +1,6 @@
 package it.appify.export;
 
+import it.appify.api.ApplicationCache;
 import it.appify.api.Geolocation;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.Storage;
@@ -185,6 +186,18 @@ public class ExportableAppify extends AbstractWebApp<JavaScriptObject>
 	public <E> E getViewFragment(String viewId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ApplicationCache getApplicationCacheService() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void storeCurrentAppState() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

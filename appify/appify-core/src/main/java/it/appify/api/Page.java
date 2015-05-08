@@ -26,4 +26,6 @@ public interface Page<E> extends HasViewHandlers {
 
 	public void toggleClassViewStyle(String viewId, String className);
 
+	public boolean hasStyle(String viewId, String className);
+
 }
