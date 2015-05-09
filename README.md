@@ -248,7 +248,29 @@ app.getApplicationCacheService().getConnetionStatus(
 					}
 				});
 ```
+####@Storage
+If you need to persist application state in the storage you can annotate your web app with this annotation. Using Storage annotation will enable you to get a Storage Service and to obtain a great Appify behavior. Once Storage was activated your application state will be persisted every time you call the updateAppState method of your app. Without the Storage feature the updateAppState method will affect only the view but changes will not be persisted so a simple refresh of your page will reset all your application state.
 
+``` java
+@Storage(modelType = AppModel.class)
+@it.appify.annotations.WebApp(appStateType = AppModel.class)
+public interface ExampleApp extends WebApp<AppModel> {
+
+}
+``` 
+
+``` java
+AppModel model = app.<AppModel> getCurrentAppState();
+model.setConnectionStatus("status-on");
+/*will affect the view and persist in the local storage your app state*/
+app.updateAppState(model);
+```
+``` java
+AppModel model = app.<AppModel> getCurrentAppState();
+model.setBatteryStatus(currentStatus);
+/*persist only in the local storage your app state*/
+app.getStorageService().store(AppModel.class.toString(), model);
+``` 
 #Javascript API
 If you prefer, you can use the Javascript Api version of Appify:
 ``` javascript
