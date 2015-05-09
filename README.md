@@ -102,7 +102,17 @@ Appify can inject the desired view element in your controller. If you have the n
 Note that you have to provide at least some getters and setters of your private fields. Getters and Setters will enable Appify to correctly inject your view element in your controller. Alternatively you can use the public modifier for your UI fields. Note that all ViewElement (ui fields) are simply DOM elements. GWT offers its Element class and a great mechanism that wraps an HTML DOM Element in a Java Object.
 
 ####@ViewModelHandler
-If you need to intercpet the data behind your user interaction you have to use the ViewModelHandler annotation. ViewModelHandler is a special ViewHandler for intercept events and its related model data. This annotation si useful for List, Combo or Radio Button. In general all usr interaction with a UI field with a model bound to it can be intercepted trough a ViewModelHandler.
+If you need to intercpet the data behind the user interaction with a view you have to use the ViewModelHandler annotation. ViewModelHandler is a special ViewHandler for intercept events from a ViewElement and its related model data. This annotation is useful for List, Combo or Radio Button. In general all usr interaction with a UI field with a model bound to it can be intercepted trough a ViewModelHandler. The example above show you how you can ge this described behavior in a few lines of code:
+
+``` java
+@ViewModelHandler(modelType = Item.class, viewId = "itemList")
+	public void onItemReceived(Item i) {
+		GWT.log("Received item from listOfItems1: " + i.getCode() + " - "
+				+ i.getName());
+	
+	}
+``` 
+The onItemReceived method will receive the data behind a list of items when user click on an item in the list. The viewId MUST correspond simply to the id of our HTML list. Note that ViewModelHandler need to know the model type in terms of fields bound to our views, in this case the HTML list. The declaration of the binding between View and Model is made trough special attributes that can be used in your HTML page. We call this attributes directives. For all directives see the relative Appendix 'Appify supported Directives'.   
 
 ##Appify WebApp annotations:
 ####@Geolocation
@@ -152,4 +162,6 @@ These modules (except of GWT) are not mandatory and you can use what you prefer,
 #License 
 GNU GPLv3
 
-  
+#Appendix
+
+##Appify supported Directives
