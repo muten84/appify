@@ -49,7 +49,7 @@ In your GWT EntryPoint you have to create your app in a very simple way:
 ExampleApp myApp = GWT.create(ExampleApp.class);
 ``` 
 
-GWT.create starts the magic....your app interface will be processed and b the appify framework and it will generate the interface realization. The generated webapp results in a kind of skeleton of your app. All your app features will be injected in order to the declared webapp annotations.
+GWT.create starts the magic: your annotated WebApp interface will be processed and the appify framework will generate the interface realization. The generated webapp results in a kind of skeleton of your app. All your app features will be injected in order to the declared webapp annotations.
 In this first example we have declared a webapp with no particular features but we can develop a simple app by adding to our project the views and the controllers. If you want to add some others features to your app you can annotate your webapp interface with others non-manadatory annotations such as Geolocation, Storage, Offline,  etc. See at appify annotations for all features you can enable in your app. Once you get a reference to the skeleton app, you can start it:
 
 ``` java
@@ -59,7 +59,7 @@ myApp.startApp(new AppModel());
 ##Controller annotations:
 
 ####@Controller
-Developing a controller is very simple with Appify. Controller is a simple class annotated with @Controller annotation. The controller can be bound to a View (in Appify a view is a page) by its name. So if you want to bind a MenuController to your main page you have write this simple code:
+Developing a controller with Appify is very simple. Controller is a  class annotated with @Controller annotation. The controller can be bound to a View (in Appify a view is a page) by its name. So if you want to bind a MenuController to your main page you have yo annotate your MainPage class with a @Controller and pass the page name to page parameter.
 
 ``` java
 @Controller(page = "mainPage")
@@ -72,10 +72,10 @@ public class MainPageMenuController {
 	}
 }
 ``` 
-Now suppose we have this HTML code for our menu view....:
+Now suppose we have this HTML code for our menu view, controller can intercept all events from this HTML page because we have declared it with the id "mainPage":
 
 ``` java
-<div class="app-page" id="dumpPage" data-page="dumpPage">
+<div class="app-page" id="mainPage" data-page="mainPage">
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left">
 			<div class="app-section">
@@ -89,14 +89,15 @@ Now suppose we have this HTML code for our menu view....:
 </div>
 ``` 
 ####@ViewHandler
-So if you want to intercept the click event on the button with id checkInBtn you have to write this simple code in your controller class:
+So if you want to intercept the click event on the button with id "checkInBtn" contained in the "mainPage" page you have to write this simple code in your controller class:
+
 ``` java
 @ViewHandler(eventType = "click", viewId = "checkInBtn")
 	public void onCheckInStart() {
 		GWT.log("onCheckInStart");
 	}
 ``` 
-Classes annotated with @Controller annotation MUST have a constructor with a WebApp type parameter. This constructor will enables the framework to inject the WebApp interface. Trough this interface you can develop your controller to programmatically interact with your services, trigger a page transition, obtain your current app state, change some view behavior like CSS toggles, show modals, show tooltips and popovers, and to read and write the persistent storage.
+Classes annotated with @Controller annotation MUST have a constructor with a WebApp type parameter. This constructor will enables the framework to inject the WebApp skeleton. Webapp skeleton enable you to develop your controllers to trigger a page transition, obtain your current app state, get current visualized page reference, change some view behavior like CSS toggles, show modals, show tooltips and popovers, and to read and write the persistent storage. For all WebApp API skeleton you can see at the WebApp API. 
 
 ####@ViewElement
 Appify can inject the desired view element in your controller. If you have the need to get a reference to an input text element you can declare it as a field of your controller class:
@@ -108,24 +109,24 @@ Appify can inject the desired view element in your controller. If you have the n
 Note that you have to provide at least some getters and setters of your private fields. Getters and Setters will enable Appify to correctly inject your view element in your controller. Alternatively you can use the public modifier for your UI fields. Note that all ViewElement (ui fields) are simply DOM elements. GWT offers its Element class and a great mechanism that wraps an HTML DOM Element in a Java Object.
 
 ####@ViewModelHandler
-If you need to intercpet the data behind the user interaction with a view you have to use the ViewModelHandler annotation. ViewModelHandler is a special ViewHandler for intercept events from a ViewElement and its related model data. This annotation is useful for List, Combo or Radio Button. In general all usr interaction with a UI field with a model bound to it can be intercepted trough a ViewModelHandler. The example above show you how you can ge this described behavior in a few lines of code:
+If you need to intercpet the data behind the user interaction with a view you have to use the @ViewModelHandler annotation. @ViewModelHandler is a special @ViewHandler for intercept events from a @ViewElement and its related model data. This annotation is useful for List, Combo or Radio Button HTML elements. In general all user interactions with a UI field bound with a model can be intercepted trough a @ViewModelHandler. The example above shows how you can get the described behavior in a few lines of code:
 
 ``` java
 @ViewModelHandler(modelType = Item.class, viewId = "itemList")
 	public void onItemReceived(Item i) {
-		GWT.log("Received item from listOfItems1: " + i.getCode() + " - "
+		GWT.log("Received item from itemList: " + i.getCode() + " - "
 				+ i.getName());
 	
 	}
 ``` 
-The onItemReceived method will receive the data behind a list of items when user click on an item in the list. The viewId MUST correspond simply to the id of our HTML list. Note that ViewModelHandler need to know the model type in terms of fields bound to our views, in this case the HTML list and the "code" and "name" fields wrapped in the Item class. The declaration of the binding between View and Model is made trough special attributes that can be used in your HTML page. We call this attributes directives. For all supported directives see the relative Appendix 'Appify supported Directives'.   
+The onItemReceived method will receive the data behind a list of items when the user will click on an item in the list. The viewId MUST correspond simply to the id of our HTML list. Note that ViewModelHandler need to know the model type in terms of fields bound to our views, in this case the HTML list and the "code" and "name" fields wrapped in the Item class. The declaration of the binding between View and Model is made trough special attributes that can be used in your HTML page. We will call this attributes directives. For all supported directives see the relative Appendix 'Appify supported Directives'.   
 
 ##Service annotations:
 Services are simple classes delegated to some kind of background logic execution with singleton scope. To make a class an Appify Service you need to use the related annotations set.
 
 ####@Service
 Service annotation is the main annotation for service discovering. Appify will inject your app in a Service class and will start your service calling the method annotated with the Start annotation. 
-So if you want to create a service u just need to do this:
+So if you want to create a service you just need to do this:
 
 ``` java
 @Service
@@ -140,7 +141,7 @@ public class MyService {
 ```
 
 ####@Start
-Service annotation is strictly related with Start annotation. All services will be started by Appify if there is at least one public method annotated with the Start annotation.
+@Service annotation is strictly related with #Start annotation. A service class will be started by Appify if there is at least one public method annotated with the @Start annotation.
 
 ``` java
 @Start
