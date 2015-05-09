@@ -27,14 +27,14 @@ Appify is a young project i'm working hard for docs and other modules compatibil
 
 #Getting started with Appify:
 ##Introduction
-Appify was developed mainly for Java Web developers. If you have skills on HTML5 and Javascript and you want to develop your application logic Java using pure HTML5 only for th view, you are using the right framework. Thre reuse of the code is critical and its maintanability too.... Java has a good infrastrucuture for getting these features and a good distribution mechanism for sharing your builds with other developers. The mix between Java and all others web technologies is possible thanks to the GWT compiler a great toolkit developed by Google and now developed as a community project. GWT enable your Java project to be compiled in Javascript and executed as a normal webapp frontend application ina  browser. If you want to use Appify, you have to start a simple GWT project and inherits the right module in your gwt.xml file:
+Appify was developed mainly for Java Web developers. If you have skills on HTML5 and Javascript and you want to develop your application logic in Java using pure HTML5 only for the view, you are using the right framework. Thre reuse of the code is critical and its maintanability too.... Java has a good infrastrucuture for getting these features and a good distribution mechanism for sharing your builds with other developers. The mix between Java and all others web technologies is possible thanks to the GWT compiler a great toolkit developed by Google and now maintained as a community project. GWT enable your Java project to be compiled in Javascript and executed as a normal webapp frontend application in a browser. If you want to use Appify, you have to start a simple GWT project and inherits the right module in your gwt.xml file:
 
 ``` xml
 <inherits name="it.appify.App" />
 ``` 
 
 ####@WebApp
-Now your are ready to use all Appify features. First of all you have to declare your web app inteface. Appify offers some annotations to make the development of your web app, fast and easy.Infact the webapp interface can be annotated with some web app capabilities and inject them in your webapp such as: Geolocation, Storage, Application Cache, Notification, Offline support, and many others.
+Now your are ready to use all Appify features. First of all you have to declare your web app inteface. Appify offers some annotations to make the development of your web app fast and easy. Infact the webapp interface can be annotated with some web app capabilities and inject them in your webapp such as: Geolocation, Storage, Application Cache, Notification, Offline support, and many others.
 
 ``` java
 @it.appify.annotations.WebApp(appStateType = AppModel.class)
@@ -42,15 +42,19 @@ public interface ExampleApp extends WebApp<AppModel> {
 
 }
 ```
-In this code section we have declared our webapp interface and annotated it with @WebApp annotation. Note that we have to pass the application state model type to the WebApp annotation. This is the only mandatory step to appify our app. The AppModel class will contains all data representing your application state. The application state will be injected and presented to the HTML5 view. This is possible thanks to the MVVM pattern offered by the Appify framework.
+In this code section we have declared our webapp interface and annotated it with @WebApp annotation. Note that we have to pass the application state model type to the WebApp annotation. This is the only mandatory step to "appify" our app. The AppModel class will contains all data representing your application state. The application state will be injected and presented to the HTML5 view. This is possible thanks to the MVVM pattern offered by the Appify framework.
 
 In your GWT EntryPoint you have to create your app in a very simple way:
 ``` java
 ExampleApp myApp = GWT.create(ExampleApp.class);
 ``` 
 
-GWT.create starts the magic....your app interface will be processed and it will be generated its realization. The generated webapp results in a kind of skeleton of your app. All your app features will be injected in order to the declared webapp annotations.
-In this first example we have declared a webapp with no particular features but we can develop a simple app by adding to our project the views and the controllers. If you want to add some others features to your app you can annotate your webapp interface with others non-manadatory annotations such as Geolocation, Storage, Offline,  etc. See at appify annotations for all features you can enable in your app.
+GWT.create starts the magic....your app interface will be processed and b the appify framework and it will generate the interface realization. The generated webapp results in a kind of skeleton of your app. All your app features will be injected in order to the declared webapp annotations.
+In this first example we have declared a webapp with no particular features but we can develop a simple app by adding to our project the views and the controllers. If you want to add some others features to your app you can annotate your webapp interface with others non-manadatory annotations such as Geolocation, Storage, Offline,  etc. See at appify annotations for all features you can enable in your app. Once you get a reference to the skeleton app, you can start it:
+
+``` java
+myApp.startApp(new AppModel());
+``` 
 
 ##Controller annotations:
 
