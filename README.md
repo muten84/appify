@@ -53,6 +53,42 @@ GWT.create starts the magic....your app interface will be processed and it will 
 In this first example we have declared a webapp with no particular features but we can develop a simple app by adding to our project the views and the controllers. If you want to add some others features to your app you can annotate your webapp interface with others non-manadatory annotations such as Geolocation, Storage, Offline,  etc. See at appify annotations for all features you can enable in your app.
 
 ##Controller annotations:
+Developing a controller is very simple with Appify. Controller is a simple class annotated with @Controller annotation. The controller can be bound to a View (in Appify a view is a page) by its name. So if you want to bind a MenuController to your main page you have write this simple code:
+
+``` java
+@Controller(page = "mainPage")
+public class MainPageMenuController {
+
+	private WebApp<EmsMobileModel> app;
+
+	public MainPageMenuController(WebApp<EmsMobileModel> app) {
+		this.app = app;
+	}
+}
+``` 
+Now suppose we have this HTML code for our menu view....:
+
+``` java
+<div class="snap-drawers">
+		<div class="snap-drawer snap-drawer-left">
+			<div class="app-section">
+				<a id="checkInBtn" class="btn btn-block">Check In</a>
+				<button id="manageEquipButton" class="btn btn-block">Equipments</button>
+				<button id="lastEmergencyBtn" class="btn btn-block">Last Call</button>
+			</div>
+		</div>
+		<div class="snap-drawer snap-drawer-right"></div>
+	</div>
+``` 
+###@ViewHandler
+if you want to intercept the click event on the button with id checkInBtn you have to write this simple code in your controller class:
+``` java
+@ViewHandler(eventType = "click", viewId = "checkInBtn")
+	public void onCheckInStart() {
+		GWT.log("onCheckInStart");
+	}
+``` 
+Classes annotated with @Controller annotation MUST have a constructor with a WebApp type parameter. This constructor will enables the framework to inject the WebApp interface. Trough this interface you can develop your controller to programmatically interact with your services, trigger a page transition, obtain your current app state, change some view behavior like CSS toggles, show modals, show tooltips and popovers, and to read and write the persistent storage.
 
 
 
