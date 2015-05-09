@@ -33,7 +33,7 @@ Appify was developed mainly for Java Web developers. If you have skills on HTML5
 <inherits name="it.appify.App" />
 ``` 
 
-###@WebApp
+####@WebApp
 Now your are ready to use all Appify features. First of all you have to declare your web app inteface. Appify offers some annotations to make the development of your web app, fast and easy.Infact the webapp interface can be annotated with some web app capabilities and inject them in your webapp such as: Geolocation, Storage, Application Cache, Notification, Offline support, and many others.
 
 ``` java
@@ -69,7 +69,8 @@ public class MainPageMenuController {
 Now suppose we have this HTML code for our menu view....:
 
 ``` java
-<div class="snap-drawers">
+<div class="app-page" id="dumpPage" data-page="dumpPage">
+	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left">
 			<div class="app-section">
 				<a id="checkInBtn" class="btn btn-block">Check In</a>
@@ -79,8 +80,9 @@ Now suppose we have this HTML code for our menu view....:
 		</div>
 		<div class="snap-drawer snap-drawer-right"></div>
 	</div>
+</div>
 ``` 
-###@ViewHandler
+####@ViewHandler
 if you want to intercept the click event on the button with id checkInBtn you have to write this simple code in your controller class:
 ``` java
 @ViewHandler(eventType = "click", viewId = "checkInBtn")
@@ -92,8 +94,8 @@ Classes annotated with @Controller annotation MUST have a constructor with a Web
 
 
 
-##Appify annotations:
-###@Geolocation
+##Appify WebApp annotations:
+####@Geolocation
 
 ``` java
 @Geolocation(enableHighAccuracy=true, maxAge=5000, timeout=4000)
