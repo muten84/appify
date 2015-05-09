@@ -116,6 +116,9 @@ Actually Appify rely on these modules:
 These modules (except of GWT) are not mandatory and you can use what you prefer, for example for the MVVM instead of VueJs you can use AngularJs. This is not a priority requirement, but it's planned in the road-map and will be provided in the next future.
 All other features such as Geolocation, Notification and PushState are offered with Java API.
 
+#License
+GNU GPLv3
+
 
 
 
