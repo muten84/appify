@@ -53,6 +53,8 @@ GWT.create starts the magic....your app interface will be processed and it will 
 In this first example we have declared a webapp with no particular features but we can develop a simple app by adding to our project the views and the controllers. If you want to add some others features to your app you can annotate your webapp interface with others non-manadatory annotations such as Geolocation, Storage, Offline,  etc. See at appify annotations for all features you can enable in your app.
 
 ##Controller annotations:
+
+####@Controller
 Developing a controller is very simple with Appify. Controller is a simple class annotated with @Controller annotation. The controller can be bound to a View (in Appify a view is a page) by its name. So if you want to bind a MenuController to your main page you have write this simple code:
 
 ``` java
@@ -83,7 +85,7 @@ Now suppose we have this HTML code for our menu view....:
 </div>
 ``` 
 ####@ViewHandler
-if you want to intercept the click event on the button with id checkInBtn you have to write this simple code in your controller class:
+So if you want to intercept the click event on the button with id checkInBtn you have to write this simple code in your controller class:
 ``` java
 @ViewHandler(eventType = "click", viewId = "checkInBtn")
 	public void onCheckInStart() {
@@ -112,7 +114,46 @@ If you need to intercpet the data behind the user interaction with a view you ha
 	
 	}
 ``` 
-The onItemReceived method will receive the data behind a list of items when user click on an item in the list. The viewId MUST correspond simply to the id of our HTML list. Note that ViewModelHandler need to know the model type in terms of fields bound to our views, in this case the HTML list. The declaration of the binding between View and Model is made trough special attributes that can be used in your HTML page. We call this attributes directives. For all directives see the relative Appendix 'Appify supported Directives'.   
+The onItemReceived method will receive the data behind a list of items when user click on an item in the list. The viewId MUST correspond simply to the id of our HTML list. Note that ViewModelHandler need to know the model type in terms of fields bound to our views, in this case the HTML list and the "code" and "name" fields wrapped in the Item class. The declaration of the binding between View and Model is made trough special attributes that can be used in your HTML page. We call this attributes directives. For all supported directives see the relative Appendix 'Appify supported Directives'.   
+
+##Service annotations:
+Services are simple classes delegated to some kind of background logic execution with singleton scope. To make a class an Appify Service you need to use the related annotations set.
+
+####@Service
+Service annotation is the main annotation for service discovering. Appify will inject your app in a Service class and will start your service calling the method annotated with the Start annotation. 
+So if you want to create a service u just need to do this:
+
+``` java
+@Service
+public class MyService {
+
+	private WebApp<AppState> app;
+
+	public MyService(WebApp<AppState> app) {
+		this.app = app;
+	}
+}
+```
+
+####@Start
+Service annotation is strictly related with Start annotation. All services will be started by Appify if there is at least one public method annotated with the Start annotation.
+
+``` java
+@Start
+	public void startMyService() {
+		//after and every 10 seconds notify the user if something was changed
+		Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
+
+			@Override
+			public boolean execute() {
+				//notify the user somthing happened
+				return true;
+			}
+		}, 10000);
+
+	}
+}
+```
 
 ##Appify WebApp annotations:
 ####@Geolocation
@@ -127,7 +168,7 @@ public interface ExampleApp extends WebApp<AppModel> {
 
 You can enable Geolocation support by adding this simple annotation. You can use annotation parameter to configure your geolocation behavior.
 
-##Service annotations:
+
 
 #Javascript API
 If you prefer, you can use the Javascript Api version of Appify:
