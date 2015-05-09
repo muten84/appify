@@ -140,6 +140,7 @@ These modules (except of GWT) are not mandatory and you can use what you prefer,
 All other features such as Geolocation, Notification and PushState are offered with Java API.
 
 
-
+#License 
+GNU GPLv3
 
   
