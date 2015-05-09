@@ -171,8 +171,29 @@ public interface ExampleApp extends WebApp<AppModel> {
 
 }
 ```
+Now you can use the Geolocation Service:
+``` java
+app.getGeolocationService().getCurrentPosition(
+				new GeolocationCallback() {
+
+					@Override
+					public void onPosition(Geoposition position) {
+						GWT.log("onPosition geolocation service");
+					
+
+					}
+
+					@Override
+					public void onError(int code, String msg) {
+						GWT.log("onError geolocation service");
+					
+
+					}
+				});
+```
+
 ####@Battery
-Battery servie enables your app to obtain the Battery service for reading battery level and get charging information from your device.
+Battery service enables your app to obtain the Battery service for reading battery level and get charging information from your device.
 
 ``` java
 @Battery
@@ -199,6 +220,31 @@ app.getBatteryService().getBatteryStatus(
 						} else if (level > 0.6) {
 							model.getBarStatus().setBatteryStatus("status-on");
 						}
+					}
+				});
+```
+####@Offline
+Offline annotation makes your app offline-first enabling your app to access the HTML5 Application Cache receive events and get connection status informations:
+
+``` java
+@Offline
+@it.appify.annotations.WebApp(appStateType = AppModel.class)
+public interface ExampleApp extends WebApp<AppModel> {
+
+}
+```
+``` java
+app.getApplicationCacheService().getConnetionStatus(
+				new CheckConnectedCallback() {
+
+					@Override
+					public void onOnline() {
+						//your device is connected to the internet
+					}
+
+					@Override
+					public void onOffline() {
+						//your app is offline
 					}
 				});
 ```
@@ -239,3 +285,4 @@ GNU GPLv3
 #Appendix
 
 ##Appify supported Directives
+TODO
