@@ -99,9 +99,10 @@ Appify can inject the desired view element in your controller. If you have the n
 	@ViewElement("myInputText")
 	private Element inputText;
 ``` 
-Provide at lease some getters and setters. Getters and Setters will enable Appify to correctly inject your view element in your controller. Alternatively you can use the public modifier for your ui fields. Note that all ViewElement are simply DOM elements. GWT offers its Element class and a great mechanism that wraps an HTML DOM Element in a Java class.
+Note that you have to provide at least some getters and setters of your private fields. Getters and Setters will enable Appify to correctly inject your view element in your controller. Alternatively you can use the public modifier for your UI fields. Note that all ViewElement (ui fields) are simply DOM elements. GWT offers its Element class and a great mechanism that wraps an HTML DOM Element in a Java Object.
 
 ####@ViewModelHandler
+If you need to intercpet the data behind your user interaction you have to use the ViewModelHandler annotation. ViewModelHandler is a special ViewHandler for intercept events and its related model data. This annotation si useful for List, Combo or Radio Button. In general all usr interaction with a UI field with a model bound to it can be intercepted trough a ViewModelHandler.
 
 ##Appify WebApp annotations:
 ####@Geolocation
