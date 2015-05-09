@@ -162,6 +162,7 @@ public class MyService {
 
 ##Appify WebApp annotations:
 ####@Geolocation
+You can enable Geolocation support by adding this simple annotation. You can use annotation parameter to configure your geolocation behavior.
 
 ``` java
 @Geolocation(enableHighAccuracy=true, maxAge=5000, timeout=4000)
@@ -170,10 +171,37 @@ public interface ExampleApp extends WebApp<AppModel> {
 
 }
 ```
+####@Battery
+Battery servie enables your app to obtain the Battery service for reading battery level and get charging information from your device.
 
-You can enable Geolocation support by adding this simple annotation. You can use annotation parameter to configure your geolocation behavior.
+``` java
+@Battery
+@it.appify.annotations.WebApp(appStateType = AppModel.class)
+public interface ExampleApp extends WebApp<AppModel> {
 
+}
+```
+``` java
+app.getBatteryService().getBatteryStatus(
+				new BatteryStatusCallback() {
 
+					@Override
+					public void onBatteryStatus(BatteryStatus currentStatus) {
+						double level = currentStatus.getLevel();
+						EmsMobileModel model = app
+								.<EmsMobileModel> getCurrentAppState();
+
+						if (level < 0.4) {
+							model.getBarStatus().setBatteryStatus("status-off");
+						} else if (level > 0.4 && level < 0.6) {
+							model.getBarStatus()
+									.setBatteryStatus("status-idle");
+						} else if (level > 0.6) {
+							model.getBarStatus().setBatteryStatus("status-on");
+						}
+					}
+				});
+```
 
 #Javascript API
 If you prefer, you can use the Javascript Api version of Appify:
