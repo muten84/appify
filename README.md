@@ -44,11 +44,27 @@ public interface ExampleApp extends WebApp<AppModel> {
 ```
 In this code section we have declared our webapp interface and annotated it with @WebApp annotation. Note that we have to pass the application state model type to the WebApp annotation. This is the only mandatory step to appify our app. The AppModel class will contains all data injected and presented to the HTML5 view. This is possible thanks to the MVVM pattern offered by the Appify framework.
 
-If you want to add other web features to your app you can annotate your webapp interface with others non-manadatory annotations.
+In your GWT EntryPoint you have to create your app in a very simple way:
+``` java
+ExampleApp myApp = GWT.create(ExampleApp.class);
+myApp.startApp(initializeAppState());
+``` 
+
+GWT.create starts the magic your app interface will be processed and it will be generated the webapp skeleton in order to the declared webapp features. In this first example we have declared a webapp with no particular features but we can develop a simple app by adding it our views and our controllers.If you want to add other web features to your app you can annotate your webapp interface with others non-manadatory annotations such as Geolocation, Storage, Offline,  etc. See at appify annotations for all features you can enable in your app.
+
+
 
 ##@Geolocation
 
+``` java
+@Geolocation(enableHighAccuracy=true, maxAge=5000, timeout=4000)
+@it.appify.annotations.WebApp(appStateType = AppModel.class)
+public interface ExampleApp extends WebApp<AppModel> {
 
+}
+```
+
+You can enable Geolocation support by adding this simple annotation. You can use annotation parameter to configure your geolocation behavior.
 
 ``` html
 <div class="app-page" id="mainPage" data-page="mainPage">
