@@ -24,8 +24,31 @@ Appify enables developers to write the View in HTML/CSS and the frontend Control
 You can reuse all your Java business logic and your Java POJO Model in the offered VMMV pattern.
 
 Appify is a young project i'm working hard for docs and other modules compatibility. Stay tuned for updates and docs.
-#Examples
-1) Write your view in pure HTML5:
+
+#Getting started with Appify:
+##Introduction
+Appify was developed mainly for Java Web developers. If you have skills on HTML5 and Javascript and you want to develop your application logic Java using pure HTML5 only for th view, you are using the right framework. Thre reuse of the code is critical and its maintanability too.... Java has a good infrastrucuture for getting these features and a good distribution mechanism for sharing your builds with other developers. The mix between Java and all others web technologies is possible thanks to the GWT compiler a great toolkit developed by Google and now developed as a community project. GWT enable your Java project to be compiled in Javascript and executed as a normal webapp frontend application ina  browser. If you want to use Appify, you have to start a simple GWT project and inherits the right module in your gwt.xml file:
+
+``` xml
+<inherits name="it.appify.App" />
+``` 
+
+##@WebApp
+Now your are ready to use all Appify features. First of all you have to declare your web app inteface. Appify offers some annotations to make the development of your web app, fast and easy.Infact the webapp interface can be annotated with all yor web app capabilities to inject the in your webapp such as: Geolocation, Storage, Application Cache, Notification, Offline support, and many others.
+
+``` java
+@it.appify.annotations.WebApp(appStateType = AppModel.class)
+public interface ExampleApp extends WebApp<AppModel> {
+
+}
+```
+In this code section we have declared our webapp interface and annotated it with @WebApp annotation. Note that we have to pass the application state model type to the WebApp annotation. This is the only mandatory step to appify our app. The AppModel class will contains all data injected and presented to the HTML5 view. This is possible thanks to the MVVM pattern offered by the Appify framework.
+
+If you want to add other web features to your app you can annotate your webapp interface with others non-manadatory annotations.
+
+##@Geolocation
+
+
 
 ``` html
 <div class="app-page" id="mainPage" data-page="mainPage">
@@ -115,9 +138,6 @@ Actually Appify rely on these modules:
 
 These modules (except of GWT) are not mandatory and you can use what you prefer, for example for the MVVM instead of VueJs you can use AngularJs. This is not a priority requirement, but it's planned in the road-map and will be provided in the next future.
 All other features such as Geolocation, Notification and PushState are offered with Java API.
-
-#License
-GNU GPLv3
 
 
 
