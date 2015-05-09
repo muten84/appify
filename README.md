@@ -33,7 +33,7 @@ Appify was developed mainly for Java Web developers. If you have skills on HTML5
 <inherits name="it.appify.App" />
 ``` 
 
-##@WebApp
+###@WebApp
 Now your are ready to use all Appify features. First of all you have to declare your web app inteface. Appify offers some annotations to make the development of your web app, fast and easy.Infact the webapp interface can be annotated with some web app capabilities and inject them in your webapp such as: Geolocation, Storage, Application Cache, Notification, Offline support, and many others.
 
 ``` java
@@ -52,12 +52,12 @@ ExampleApp myApp = GWT.create(ExampleApp.class);
 GWT.create starts the magic....your app interface will be processed and it will be generated its realization. The generated webapp results in a kind of skeleton of your app. All your app features will be injected in order to the declared webapp annotations.
 In this first example we have declared a webapp with no particular features but we can develop a simple app by adding to our project the views and the controllers. If you want to add some others features to your app you can annotate your webapp interface with others non-manadatory annotations such as Geolocation, Storage, Offline,  etc. See at appify annotations for all features you can enable in your app.
 
-#Controller annotations:
+##Controller annotations:
 
 
 
-#Appify annotations:
-##@Geolocation
+##Appify annotations:
+###@Geolocation
 
 ``` java
 @Geolocation(enableHighAccuracy=true, maxAge=5000, timeout=4000)
