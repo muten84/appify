@@ -92,7 +92,16 @@ if you want to intercept the click event on the button with id checkInBtn you ha
 ``` 
 Classes annotated with @Controller annotation MUST have a constructor with a WebApp type parameter. This constructor will enables the framework to inject the WebApp interface. Trough this interface you can develop your controller to programmatically interact with your services, trigger a page transition, obtain your current app state, change some view behavior like CSS toggles, show modals, show tooltips and popovers, and to read and write the persistent storage.
 
+####@ViewElement
+Appify can inject the desired view element in your controller. If you have the need to get a reference to an input text element you can declare it as a field of your controller class:
 
+``` java
+	@ViewElement("myInputText")
+	private Element inputText;
+``` 
+Provide at lease some getters and setters. Getters and Setters will enable Appify to correctly inject your view element in your controller. Alternatively you can use the public modifier for your ui fields. Note that all ViewElement are simply DOM elements. GWT offers its Element class and a great mechanism that wraps an HTML DOM Element in a Java class.
+
+####@ViewModelHandler
 
 ##Appify WebApp annotations:
 ####@Geolocation
@@ -107,69 +116,10 @@ public interface ExampleApp extends WebApp<AppModel> {
 
 You can enable Geolocation support by adding this simple annotation. You can use annotation parameter to configure your geolocation behavior.
 
-``` html
-<div class="app-page" id="mainPage" data-page="mainPage">
-		<div class="app-topbar">
-			<div id="header" class="app-title">{{title}}</div>
-		</div>
-		<div class="app-content">
-			<div class="app-section">
-				<div id="content">{{content}}</div>
-				<input v-model="input" class="app-input" placeholder="Subject">
-				<textarea v-model="message" class="app-input" placeholder="Message"></textarea>
-				<label>Simple List </label>
-				<ul class="app-list app-section">
-					<li v-repeat="items">{{$value}}</li>
-					<li>Item 1</li>
-					<li>Item 2</li>
-				</ul>
-				<div class="app-button">Send</div>
-				<div id="getModelBtn" class="app-button">Read Current Model</div>
-				<div id="getBatteryStatusBtn" class="app-button">Read Battery Status</div>
-				<div id="getModelFromStorageBtn" class="app-button">Get Model
-					From Storage</div>
-				<div id="changeValueBtn" class="app-button">ChangeValue</div>
-				<div id="nextBtn" class="app-button">Go to Next Page</div>
-			</div>
-		</div>
-</div>
-```	
-2)Write your controllers in Java:
+##Service annotations:
 
-``` java
-	@Controller(page = "mainPage")
-  	public class MainPageController {
-	private WebApp<?> app;
-	
-	public MainPageController(WebApp<?> app) {
-		this.app = app;
-	}
-	@ViewHandler(viewId = "nextBtn", eventType = "click")
-	public void onNextPageClick() {
-		this.app.moveTo("childPage");
-	}
-  }
-```
-3)Define your Model and bind it to your App:
-``` java
-@JsonAutoDetect
-public class AppModel implements Serializable {
-	private String title;
-	private String content;
-}
-
-@it.appify.annotations.WebApp(appStateType = AppModel.class)
-public interface ExampleApp extends WebApp<AppModel> {
-
-}
-```
-
-4)Congratulations, you have developed a mobile web app in a just few seconds :) ... let's start our newly app:
-``` java
-ExampleApp myApp = GWT.create(ExampleApp.class);
-myApp.startApp(initializeAppState());
-```
-5)If you prefer, you can use the Javascript Api version of Appify:
+#Javascript API
+If you prefer, you can use the Javascript Api version of Appify:
 ``` javascript
 //construct your appify object
 var myapp = new appify.app();
@@ -189,13 +139,14 @@ myapp.updateAppState(mymodel);
 ```
 #Updates:
 Actually Appify rely on these modules:
-  - App.Js for the View and the Page transition
-  - VueJs for the MVVM pattern
-  - GWT for compiling your Java Controllers and Models in Javascript
+  - App.Js for the View and the Page transition.
+  - VueJs for the MVVM pattern.
+  - Zepto or Jquery for access the DOM.
+  - Ratchet for view components
+  - Some other libraries like popover and snapjs for particular view behavior 
+  - GWT for compiling your Java Controllers and Models in Javasvcript
 
 These modules (except of GWT) are not mandatory and you can use what you prefer, for example for the MVVM instead of VueJs you can use AngularJs. This is not a priority requirement, but it's planned in the road-map and will be provided in the next future.
-All other features such as Geolocation, Notification and PushState are offered with Java API.
-
 
 #License 
 GNU GPLv3
