@@ -30,6 +30,7 @@ dependencies {
 	compile('com.squareup:javapoet:1.0.0')	
 	compile('org.timepedia.exporter:gwtexporter:2.4.0')
 	compile('org.realityforge.gwt.websockets:gwt-websockets:1.1.2')
+	compile('org.reflections:reflections:0.9.9-RC1')	 
 	testCompile 'junit:junit:4.9'
 
 

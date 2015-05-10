@@ -69,5 +69,12 @@ public interface WebApp<AppState> {
 	public <E> E getViewFragment(String viewId);
 
 	public WebPage getCurrentPage();
+	
+	
+	
+	//TODO: implementare metodo restore per recuperare l'ultimo stato dell'app
+	//memorizzare l'ultima pagina visualizzata e il relativo modello dati con timestamp
+	//public void backup();
+	//public void restore();
 
 }
