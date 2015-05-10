@@ -1,8 +1,5 @@
 package it.appify.examples.emsmobile.controller;
 
-import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.Element;
-
 import it.appify.annotations.Controller;
 import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
@@ -10,6 +7,12 @@ import it.appify.annotations.ViewModelHandler;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.model.Item;
+import it.appify.examples.emsmobile.util.ViewUtils;
+
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
+import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.Element;
 
 @Controller(page = "vehiclesPage")
 public class VehicleListController {
@@ -30,21 +33,32 @@ public class VehicleListController {
 
 	@ViewHandler(eventType = "click", viewId = "closeWaitModalBtn")
 	public void onCloseModal() {
-		showModal("waitModal");
+		ViewUtils.showModal(app, "waitModal");
 	}
 
 	@ViewModelHandler(modelType = Item.class, viewId = "vehicleList")
-	public void onItemReceived(Item i) {
+	public void onItemReceived(final Item i) {
 		GWT.log("Received item from listOfItems1: " + i.getCode() + " - "
 				+ i.getName());
 		waitModalText.setInnerText("Hai selezionato: " + i.getCode() + " - "
 				+ i.getName());
-		showModal("waitModal");
-		//request checkin to service
-	}
+		ViewUtils.showModal(app, "waitModal");
+		/* emulate remote request */
+		Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
 
-	protected void showModal(String name) {
-		app.getCurrentPage().toggleClassViewStyle(name, "active");
+			@Override
+			public boolean execute() {
+				ViewUtils.showModal(app, "waitModal");
+				EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
+				model.setVehicleCode(i.getName());
+				model.setCheckInLabel("Fine Turno");
+				app.updateAppState(model);
+				app.back();
+				return false;
+			}
+		}, 5000);
+		/**/
+		// request checkin to service
 	}
 
 	public Element getWaitModalText() {

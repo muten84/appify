@@ -27,10 +27,14 @@ public class EmsMobileModel implements Serializable {
 	private List<Item> items;
 	private List<String> items2;
 	private BarStatus barStatus;
+	private String vehicleCode;
+	private String checkInLabel;
 
 	public EmsMobileModel() {
 		barStatus = new BarStatus();
-		items = Arrays.asList(new Item[] { new Item("1", "Name1"), new Item("2", "Name2") });
+		checkInLabel = "Inizio Turno";
+		items = Arrays.asList(new Item[] { new Item("1", "Name1"),
+				new Item("2", "Name2") });
 		items2 = Arrays.asList(new String[] { "Item 1", "Item 2", "Item 3" });
 	}
 
@@ -96,6 +100,22 @@ public class EmsMobileModel implements Serializable {
 
 	public void setBarStatus(BarStatus barStatus) {
 		this.barStatus = barStatus;
+	}
+
+	public String getVehicleCode() {
+		return vehicleCode;
+	}
+
+	public void setVehicleCode(String vehicleCode) {
+		this.vehicleCode = vehicleCode;
+	}
+
+	public String getCheckInLabel() {
+		return checkInLabel;
+	}
+
+	public void setCheckInLabel(String checkInLabel) {
+		this.checkInLabel = checkInLabel;
 	}
 
 }

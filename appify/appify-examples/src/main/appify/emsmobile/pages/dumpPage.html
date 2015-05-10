@@ -16,7 +16,7 @@
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left">
 			<div class="app-section">
-				<a id="checkInBtn" class="btn btn-block">Inizio Turno</a>
+				<a id="checkInBtn" class="btn btn-block">{{checkInLabel}}</a>
 				<button id="manageEquipButton" class="btn btn-block">Gestione
 					Equipaggio</button>
 				<button id="lastEmergencyBtn" class="btn btn-block">Ultima
@@ -26,12 +26,15 @@
 		<div class="snap-drawer snap-drawer-right"></div>
 	</div>
 	<div id="content" class="content snap-content">
-		
+
 		<div class="app-topbar">
 			<header class="bar bar-nav app-title topbar-height">
-				
+
 				<button id="showMenuBtn" class="btn btn-nav pull-left">
 					<span class="icon icon-bars"></span>
+				</button>
+				<button class="btn btn-nav pull-left">
+					<span class="fa fa-ambulance fa-2x pull-left">{{vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">

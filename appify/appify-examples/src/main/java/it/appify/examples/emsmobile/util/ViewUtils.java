@@ -6,7 +6,8 @@ import com.google.gwt.core.shared.GWT;
 
 public class ViewUtils {
 
-	public static <E> void updateBtnStatus(WebApp<E> app, String current, String viewId) {
+	public static <E> void updateBtnStatus(WebApp<E> app, String current,
+			String viewId) {
 		GWT.log("updateBtnStatus");
 		if (app.getCurrentPage().hasStyle(viewId, current)) {
 			return;
@@ -25,5 +26,9 @@ public class ViewUtils {
 
 		}
 
+	}
+
+	public static void showModal(WebApp<?> app, String name) {
+		app.getCurrentPage().toggleClassViewStyle(name, "active");
 	}
 }
