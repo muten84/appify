@@ -50,7 +50,7 @@ public class VehicleListController {
 			public boolean execute() {
 				ViewUtils.showModal(app, "waitModal");
 				EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
-				model.setVehicleCode(i.getName());
+				model.getBarStatus().setVehicleCode(i.getName());
 				model.setCheckInLabel("Fine Turno");
 				app.updateAppState(model);
 				app.back();

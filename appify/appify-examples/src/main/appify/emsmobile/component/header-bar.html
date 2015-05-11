@@ -1,0 +1,28 @@
+<!--HEADER BAR COMPONENT -->
+<script type="text/javascript">
+	Vue
+			.component(
+					'emsmobile-headerbar',
+					{
+						template : ""
+								+ "<header class='bar bar-nav app-title topbar-height'>"
+								+ "	<button id='showMenuBtn' class='btn btn-nav pull-left'>"
+								+ "		<span class='icon icon-bars'></span>"
+								+ "	</button>"
+								+ "	<button class='btn btn-nav pull-left'>"
+								+ "		<span class='fa fa-ambulance fa-2x pull-left'>{{vehicleCode}}</span>"
+								+ "	</button>"
+								+ "	<button id='gpsStateBtn'"+
+			"		class='btn btn-nav pull-right {{gpsStatus}}'>"
+								+ "		<span class='fa fa-map-marker fa-2x'></span>"
+								+ "	</button>"
+								+ "	<button id='batteryStateBtn'"+
+			"		class='btn btn-nav pull-right {{batteryStatus}}'>"
+								+ "		<span class='fa fa-bolt fa-2x'></span>"
+								+ "	</button>"
+								+ "	<button id='connectionStateBtn'"+
+			"		class='btn btn-nav pull-right {{connectionStatus}}'>"
+								+ "		<span class='fa fa-rss fa-2x'></span>"
+								+ "	</button>" + "</header>"
+					});
+</script>

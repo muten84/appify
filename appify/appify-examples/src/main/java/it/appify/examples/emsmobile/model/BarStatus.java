@@ -15,6 +15,7 @@ public class BarStatus implements Serializable {
 	private String gpsStatus;
 	private String batteryStatus;
 	private String connectionStatus;
+	private String vehicleCode;
 
 	public BarStatus() {
 		// this.gpsStatus = "btn btn-nav pull-right";
@@ -47,6 +48,14 @@ public class BarStatus implements Serializable {
 
 	public void setConnectionStatus(String connectionStatus) {
 		this.connectionStatus = connectionStatus;
+	}
+
+	public String getVehicleCode() {
+		return vehicleCode;
+	}
+
+	public void setVehicleCode(String vehicleCode) {
+		this.vehicleCode = vehicleCode;
 	}
 
 }

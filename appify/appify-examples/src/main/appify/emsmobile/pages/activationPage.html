@@ -1,22 +1,13 @@
 <div class="app-page" id="activationPage" data-page="activationPage">
-	<div id="waitModal" class="modal">
-		<header class="bar bar-nav">
-			<a id="closeWaitModalBtn" class="icon icon-close pull-right"></a>
-			<h1 class="title">Nuovo Intervento</h1>
-		</header>
-
-		<div class="content">
-			<div class="loader"></div>
-			<div id="waitModalText" class="app-section"
-				style="text-align: center;">Nuovo Intervento dalla Centrale Operativa!!</div>
-		</div>
-	</div>
 	<div id="content" class="content snap-content">
 		<div class="app-topbar">
 			<header class="bar bar-nav app-title topbar-height">
 				<!-- <button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button> -->
+				<button class="btn btn-nav pull-left">
+					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
+				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
 					<span class="fa fa-map-marker fa-2x"></span>

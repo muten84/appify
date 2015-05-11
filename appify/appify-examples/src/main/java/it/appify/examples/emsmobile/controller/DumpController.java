@@ -28,6 +28,12 @@ public class DumpController {
 		EmsMobileModel model = app.getCurrentAppState();
 		_refreshFrame(dumpFrameElement.cast(), model.getDumpUrl());
 	}
+	
+	@ViewHandler(eventType = "click", viewId = "confirmModalBtn")
+	public void onActivatioConfirm() {
+		app.getCurrentPage().closeModal("intervIncomeModal");
+		app.moveTo("activationPage");
+	}
 
 	private native void _refreshFrame(JavaScriptObject frame, String url)/*-{
 		frame.src = url;

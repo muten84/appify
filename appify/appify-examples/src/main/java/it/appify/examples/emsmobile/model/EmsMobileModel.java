@@ -19,7 +19,7 @@ public class EmsMobileModel implements Serializable {
 	 */
 	private static final long serialVersionUID = -3307757463809870356L;
 
-	private BatteryStatus batteryStatus;
+	private BatteryStatus batteryStatusObject;
 	private Geoposition position;
 	private Screen screen;
 	private ScreenOrientation screenOrientation;
@@ -27,23 +27,21 @@ public class EmsMobileModel implements Serializable {
 	private List<Item> items;
 	private List<String> items2;
 	private BarStatus barStatus;
-	private String vehicleCode;
 	private String checkInLabel;
 
 	public EmsMobileModel() {
 		barStatus = new BarStatus();
 		checkInLabel = "Inizio Turno";
-		items = Arrays.asList(new Item[] { new Item("1", "Name1"),
-				new Item("2", "Name2") });
+		items = Arrays.asList(new Item[] { new Item("1", "Name1"), new Item("2", "Name2") });
 		items2 = Arrays.asList(new String[] { "Item 1", "Item 2", "Item 3" });
 	}
 
-	public BatteryStatus getBatteryStatus() {
-		return batteryStatus;
+	public BatteryStatus getBatteryStatusObject() {
+		return batteryStatusObject;
 	}
 
-	public void setBatteryStatus(BatteryStatus batteryStatus) {
-		this.batteryStatus = batteryStatus;
+	public void setBatteryStatusObject(BatteryStatus batteryStatusObject) {
+		this.batteryStatusObject = batteryStatusObject;
 	}
 
 	public Geoposition getPosition() {
@@ -100,14 +98,6 @@ public class EmsMobileModel implements Serializable {
 
 	public void setBarStatus(BarStatus barStatus) {
 		this.barStatus = barStatus;
-	}
-
-	public String getVehicleCode() {
-		return vehicleCode;
-	}
-
-	public void setVehicleCode(String vehicleCode) {
-		this.vehicleCode = vehicleCode;
 	}
 
 	public String getCheckInLabel() {

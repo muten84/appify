@@ -1,5 +1,21 @@
 <div class="app-page" id="dumpPage" data-page="dumpPage">
 	<!-- MODAL -->
+	<div id="intervIncomeModal" class="modal">
+		<header class="bar bar-nav">
+			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
+			<h1 class="title">Nuovo Intervento</h1>
+		</header>
+
+		<div class="content">
+			<div class="loader"></div>
+			<div id="intervIncomeModalText" class="app-section"
+				style="text-align: center;">Nuovo Intervento dalla Centrale Operativa!!</div>
+			<button id="confirmModalBtn"
+					class="btn btn-block">
+					<span class="fa fa-check-circle-o fa-4x"></span>
+			</button>
+		</div>
+	</div>
 	<div id="waitModal" class="modal">
 		<header class="bar bar-nav">
 			<a id="closeWaitModalBtn" class="icon icon-close pull-right"></a>
@@ -34,7 +50,7 @@
 					<span class="icon icon-bars"></span>
 				</button>
 				<button class="btn btn-nav pull-left">
-					<span class="fa fa-ambulance fa-2x pull-left">{{vehicleCode}}</span>
+					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
