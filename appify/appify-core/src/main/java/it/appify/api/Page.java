@@ -27,9 +27,18 @@ public interface Page<E> extends HasViewHandlers {
 	public void toggleClassViewStyle(String viewId, String className);
 
 	public boolean hasStyle(String viewId, String className);
+
+	public boolean isModalActive(String modalId);
+
+	public void showModal(String modalId);
 	
-	/*provisional api
-	 * https://github.com/sandywalker/webui-popover*/
+	public void closeModal(String modalId);
+
+	/*
+	 * provisional api https://github.com/sandywalker/webui-popover
+	 */
 	public void popover(String viewId, String title, String content, String animation);
+
+	
 
 }

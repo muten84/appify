@@ -52,8 +52,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_addViewHandler(id, type, obj, h);
 	}
 
-	private native void _addViewHandler(String id, String type,
-			JavaScriptObject p, ViewHandler h)/*-{
+	private native void _addViewHandler(String id, String type, JavaScriptObject p, ViewHandler h)/*-{
 		var that = this;
 		$wnd
 				.$(p)
@@ -86,8 +85,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		return _getElementInPage(obj, "#" + elemId).cast();
 	}
 
-	private native JavaScriptObject _getElementInPage(JavaScriptObject obj,
-			String elemId)/*-{
+	private native JavaScriptObject _getElementInPage(JavaScriptObject obj, String elemId)/*-{
 		return $wnd.$(obj).find(elemId)[0];
 	}-*/;
 
@@ -120,6 +118,25 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		return _hasStyle(viewId, className);
 	}
 
+	@Override
+	public boolean isModalActive(String modalId) {
+		return _hasStyle(modalId, "active");
+	}
+
+	@Override
+	public void showModal(String modalId) {
+		if (!isModalActive(modalId)) {
+			toggleClassViewStyle(modalId, "active");
+		}
+	}
+	
+	@Override
+	public void closeModal(String modalId) {
+		if(isModalActive(modalId)) {
+			toggleClassViewStyle(modalId, "active");
+		}
+	}
+
 	// classie.has( element, 'my-class' )
 	private native boolean _hasStyle(String viewId, String className)/*-{
 		//console.log('_hasStyle: ' + viewId + " - " + className);
@@ -141,44 +158,43 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	}-*/;
 
 	@Override
-	public void popover(String viewId, String title, String content,
-			String animation) {
+	public void popover(String viewId, String title, String content, String animation) {
 
 		_popover(viewId, title, content, animation);
 
 	}
 
-	private native void _popover(String viewId, String title, String content,
-			String animation)/*-{
-		$wnd.currentPopover = $wnd.$('#' + viewId).webuiPopover('destroy').webuiPopover({
-			title : title,
-			content : content,
-			animation : animation,
-			placement : 'auto',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
-			width : 'auto',//can be set with  number
-			height : 'auto',//can be set with  number
-			trigger : 'click',//values:click,hover
-			style : '',//values:'',inverse
-			constrains : null, // constrains the direction when placement is  auto,  values: horizontal,vertical
-			animation : animation, //pop with animation,values: pop,fade (only take effect in the browser which support css3 transition)
-			delay : {//show and hide delay time of the popover, works only when trigger is 'hover',the value can be number or object
-				show : null,
-				hide : 300
-			},
-			async : {
-				before : function(that, xhr) {
-				},//executed before ajax request
-				success : function(that, data) {
-				}//executed after successful ajax request
-			},
-			cache : false,//if cache is set to false,popover will destroy and recreate
-			multi : true,//allow other popovers in page at same time
-			arrow : true,//show arrow or not			
-			padding : true,//content padding
-			type : 'html',//content type, values:'html','iframe','async'
-			url : ''//if not empty ,plugin will load content by url
+	private native void _popover(String viewId, String title, String content, String animation)/*-{
+		$wnd.currentPopover = $wnd.$('#' + viewId).webuiPopover('destroy')
+				.webuiPopover({
+					title : title,
+					content : content,
+					animation : animation,
+					placement : 'auto',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
+					width : 'auto',//can be set with  number
+					height : 'auto',//can be set with  number
+					trigger : 'click',//values:click,hover
+					style : '',//values:'',inverse
+					constrains : null, // constrains the direction when placement is  auto,  values: horizontal,vertical
+					animation : animation, //pop with animation,values: pop,fade (only take effect in the browser which support css3 transition)
+					delay : {//show and hide delay time of the popover, works only when trigger is 'hover',the value can be number or object
+						show : null,
+						hide : 300
+					},
+					async : {
+						before : function(that, xhr) {
+						},//executed before ajax request
+						success : function(that, data) {
+						}//executed after successful ajax request
+					},
+					cache : false,//if cache is set to false,popover will destroy and recreate
+					multi : true,//allow other popovers in page at same time
+					arrow : true,//show arrow or not			
+					padding : true,//content padding
+					type : 'html',//content type, values:'html','iframe','async'
+					url : ''//if not empty ,plugin will load content by url
 
-		});
+				});
 	}-*/;
 
 }

@@ -63,7 +63,7 @@ public interface PageManager<E> {
 
 	public void closeContextMenu();
 
-	public boolean isContextMenuOpened();
+	public boolean isContextMenuOpened();	
 
 	public void showPage(String pageName, String transitionType);
 
