@@ -46,6 +46,9 @@
 	<#if js??>
    		<#include "${js}.html" parse=false>
 	</#if>
+	<#list components as component>
+	<#include "${component.name}.html" parse=false>
+	</#list>
 	
 </body>
 </html>

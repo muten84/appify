@@ -28,13 +28,13 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 
 public class PageGenerator {
-	public static class Page implements Serializable {
+	public static class Resource implements Serializable {
 		private String name;
 
-		public Page() {
+		public Resource() {
 		}
 
-		public Page(String name) {
+		public Resource(String name) {
 			this.name = name;
 		}
 
@@ -53,6 +53,7 @@ public class PageGenerator {
 		File pagesDir = new File(templateDirPath + "/pages");
 		File cssDir = new File(templateDirPath + "/css");
 		File jsDir = new File(templateDirPath + "/js");
+		File componentDir = new File(templateDirPath + "/component");
 		FileTemplateLoader pagesTemplatesLoader = null;
 		if (pagesDir != null && pagesDir.isDirectory()) {
 			System.out.println("Adding pages dir: " + pagesDir.getAbsolutePath());
@@ -70,6 +71,13 @@ public class PageGenerator {
 			System.out.println("Adding jsDir dir: " + cssDir.getAbsolutePath());
 			jsTemplatesLoader = new FileTemplateLoader(jsDir);
 			loadersList.add(jsTemplatesLoader);
+		}
+
+		FileTemplateLoader componentTemplatesLoader = null;
+		if (componentDir != null && componentDir.isDirectory()) {
+			System.out.println("Adding componentDir dir: " + componentDir.getAbsolutePath());
+			componentTemplatesLoader = new FileTemplateLoader(componentDir);
+			loadersList.add(componentTemplatesLoader);
 		}
 
 		URL url = PageGenerator.class.getResource("appify.ftl");
@@ -99,7 +107,7 @@ public class PageGenerator {
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		Template temp = cfg.getTemplate("appify");
 
-		List<Page> pages = new ArrayList<PageGenerator.Page>();
+		List<Resource> pages = new ArrayList<PageGenerator.Resource>();
 		if (pagesDir != null && pagesDir.isDirectory()) {
 			String[] pageList = pagesDir.list();
 
@@ -107,18 +115,32 @@ public class PageGenerator {
 				for (String pageName : pageList) {
 					if (pageName.equals(matchPage)) {
 						String name = pageName.substring(0, pageName.indexOf(".html"));
-						pages.add(new Page(name));
+						pages.add(new Resource(name));
 					}
 				}
 			} else {
 				for (String pageName : pageList) {
 					if (pageName.contains("html")) {
 						String name = pageName.substring(0, pageName.indexOf(".html"));
-						pages.add(new Page(name));
+						pages.add(new Resource(name));
 					}
 				}
 			}
 		}
+
+		List<Resource> components = new ArrayList<PageGenerator.Resource>();
+		if (componentDir != null && componentDir.isDirectory()) {
+			String[] componentList = componentDir.list();
+			if (componentList != null && componentList.length > 0) {
+				for (String componentName : componentList) {
+					if (componentName.contains("html")) {
+						String name = componentName.substring(0, componentName.indexOf(".html"));
+						components.add(new Resource(name));
+					}
+				}
+			}
+		}
+
 		String css = "";
 		if (cssDir != null && cssDir.isDirectory()) {
 			System.out.println("Css dir OK");
@@ -131,12 +153,14 @@ public class PageGenerator {
 			js = jsDir.list()[0];
 
 		}
+
 		System.out.println("CSS snippet: " + css);
 		/* Merge data-model with template */
 		Map root = new HashMap();
 		root.put("title", pageTitle);
 		root.put("gwtModule", gwtModule);
 		root.put("pages", pages);
+		root.put("components", components);
 		if (css.length() > 0) {
 			String name = css.substring(0, css.indexOf(".html"));
 			root.put("css", name);
