@@ -24,39 +24,73 @@
 		</div>
 		<div class="app-content">
 			<div class="segmented-control">
-				<a class="control-item active" href="#item1mobile"> Thing one </a> <a
-					class="control-item" href="#item2mobile"> Thing two </a> <a
-					class="control-item" href="#item3mobile"> Thing three </a>
+				<a id="itemEmergencyData"
+					class="control-item activation-bar-height active">Dati
+					Emergenza </a> <a id="itemAddressData"
+					class="control-item activation-bar-height">Dettaglio Indirizzo
+				</a> <a id="itemNoteData" class="control-item activation-bar-height">Dettaglio
+					Note </a>
 			</div>
 			<div class="card">
-				<span id="item1mobile" class="control-content active">Item 1</span>
-				<span id="item2mobile" class="control-content">Item 2</span> <span
-					id="item3mobile" class="control-content">Item 3</span>
+				<div id="cardEmergencyData" class="control-content active">
+					<ul class="table-view">
+						<li
+							class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
+							Emergenza {{activation.emergencyId}} -
+							{{activation.place}}{{activation.pathology}}{{activation.criticity}}
+						</li>
+						<li class="table-view-divider">Indirizzo</li>
+						<li class="table-view-cell">{{activation.addressSummary}}</li>
+						<li class="table-view-divider">Note</li>
+						<li class="table-view-cell">{{activation.noteSummary}}</li>
+					</ul>
+				</div>
+				<div id="cardAddressData" class="control-content"
+					<ul class="table-view">
+						<li
+							class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
+							Emergenza {{activation.emergencyId}} -
+							{{activation.place}}{{activation.pathology}}{{activation.criticity}}
+						</li>
+						<li class="table-view-divider">Indirizzo</li>
+						<li class="table-view-cell">{{activation.addressSummary}}</li>
+						<li class="table-view-divider">Note strada:</li>
+						<li class="table-view-cell">{{activation.address.addressSummary}}</li>
+						<li class="table-view-divider">Note</li>
+						<li class="table-view-cell">{{activation.noteSummary}}</li>
+					</ul>
+				</div>
+				<div id="cardNoteData" class="control-content"
+					<span>Dettaglio Note</span>
+				</div>
 			</div>
+			<nav class="bottombar-height bar bar-tab">
+				<a class="tab-item">
+					<button id="sendBtn" class="btn btn-block">
+						<span class="fa fa-play-circle-o fa-2x"></span> <span
+							class="tab-label">PARTENZA</span>
+					</button>
+				</a> <a class="tab-item">
+					<button id="placeArrivalBtn" class="btn btn-block">
+						<span class="fa fa-map-marker fa-2x"></span> <span
+							class="tab-label">ARRIVO</span>
+					</button>
+				</a> <a class="tab-item">
+					<button id="departureBtn" class="btn btn-block">
+						<span class="fa fa-arrow-circle-right fa-2x"></span> <span
+							class="tab-label">PARTENZA</span>
+					</button>
+				</a> <a class="tab-item">
+					<button id="hospitalArrivalBtn" class="btn btn-block">
+						<span class="fa fa-hospital-o fa-2x"></span> <span
+							class="tab-label">OSPEDALE</span>
+					</button>
+				</a> <a class="tab-item">
+					<button id="clousureBtn" class="btn btn-block">
+						<span class="fa fa-flag-checkered fa-2x"></span> <span
+							class="tab-label">CHIUSURA</span>
+					</button>
+				</a>
+			</nav>
 		</div>
-		<nav class="bottombar-height bar bar-tab">
-			<a class="tab-item">
-				<button id="refreshDumpBtn" class="btn btn-nav">
-					<span class="icon fa fa-refresh"></span> <span class="tab-label">Aggiorna
-						Dump</span>
-				</button>
-			</a> <a class="tab-item">
-				<button class="btn btn-nav">
-					<span class="icon fa fa-exclamation-circle"></span> <span
-						class="tab-label">Codici Rossi</span>
-				</button>
-			</a>
-			<!-- <a class="tab-item" href="#"> <span
-				class="icon fa fa-exclamation-circle fa-4x"></span> <span
-				class="tab-label">Cod. Rossi</span></a> <a class="tab-item" href="#">
-				<span class="icon icon-person"></span> <span class="tab-label">Profile</span>
-			</a> <a class="tab-item" href="#"> <span
-				class="icon icon-star-filled"></span> <span class="tab-label">Favorites</span>
-			</a> <a class="tab-item" href="#"> <span class="icon icon-search"></span>
-				<span class="tab-label">Search</span>
-			</a> <a class="tab-item" href="#"> <span class="icon icon-gear"></span>
-				<span class="tab-label">Settings</span>
-			</a> -->
-		</nav>
 	</div>
-</div>

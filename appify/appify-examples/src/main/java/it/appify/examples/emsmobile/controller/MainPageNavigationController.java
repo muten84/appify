@@ -23,7 +23,7 @@ public class MainPageNavigationController {
 	public void onCheckInStart() {
 		GWT.log("onCheckInStart");
 		if (app.<EmsMobileModel> getCurrentAppState().getBarStatus().getVehicleCode() == null) {
-			app.getScreenOrientationService().requestFullScreen();
+			//app.getScreenOrientationService().requestFullScreen();
 			app.moveTo("vehiclesPage");
 		} else {
 			// start checkout request...

@@ -18,6 +18,35 @@
 	background-color:#EFBB4A !important;
 }
 
+.activation-criticity-R{
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #DF3737 !important;
+}
+
+.activation-criticity-B{
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #EAE9E9 !important;
+}
+
+.activation-criticity-V{
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #92DB8A !important;
+}
+
+.activation-criticity-G{
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #E4E255 !important;
+}
+.activation-bar-height{
+	line-height: 3 !important;	  
+	font-weight: bold;
+  	font-size: 1.2em;
+}
+
 /*LOADER*/
 .loader,
 .loader:before,

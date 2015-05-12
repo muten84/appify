@@ -28,8 +28,10 @@ public class EmsMobileModel implements Serializable {
 	private List<String> items2;
 	private BarStatus barStatus;
 	private String checkInLabel;
+	private Activation activation;
 
 	public EmsMobileModel() {
+		activation = new Activation();
 		barStatus = new BarStatus();
 		checkInLabel = "Inizio Turno";
 		items = Arrays.asList(new Item[] { new Item("1", "Name1"), new Item("2", "Name2") });
@@ -106,6 +108,14 @@ public class EmsMobileModel implements Serializable {
 
 	public void setCheckInLabel(String checkInLabel) {
 		this.checkInLabel = checkInLabel;
+	}
+
+	public Activation getActivation() {
+		return activation;
+	}
+
+	public void setActivation(Activation activation) {
+		this.activation = activation;
 	}
 
 }
