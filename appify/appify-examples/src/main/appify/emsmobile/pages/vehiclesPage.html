@@ -34,11 +34,15 @@
 		</div>
 		<div class="app-content">
 			<div class="app-section">
-				<ul id="vehicleList" class="table-view">
-					<li v-repeat="items" v-on="click: onData(this,$event)"
+				<ul id="vehicleList" v-repeat="section: vehicles" class="table-view">
+				<li	class="table-view-cell media">
+							<span class="media-object pull-left fa fa-flag"></span>
+							<div class="media-body">{{section.sectionName}}</div>
+					</li>				
+					<li v-repeat="vehicle: section.items " v-on="click: onData(this,$event)"
 						class="table-view-cell media"><a class="navigate-right">
 							<span class="media-object pull-left fa fa-ambulance"></span>
-							<div class="media-body">{{name}}</div>
+							<div class="media-body">{{vehicle.itemName}}</div>
 					</a></li>
 				</ul>
 			</div>

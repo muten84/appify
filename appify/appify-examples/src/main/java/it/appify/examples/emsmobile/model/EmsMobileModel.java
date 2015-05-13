@@ -6,7 +6,7 @@ import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -24,18 +24,16 @@ public class EmsMobileModel implements Serializable {
 	private Screen screen;
 	private ScreenOrientation screenOrientation;
 	private String dumpUrl;
-	private List<Item> items;
-	private List<String> items2;
 	private BarStatus barStatus;
 	private String checkInLabel;
 	private Activation activation;
+	private List<Section> vehicles;
 
 	public EmsMobileModel() {
 		activation = new Activation();
 		barStatus = new BarStatus();
 		checkInLabel = "Inizio Turno";
-		items = Arrays.asList(new Item[] { new Item("1", "Name1"), new Item("2", "Name2") });
-		items2 = Arrays.asList(new String[] { "Item 1", "Item 2", "Item 3" });
+		vehicles = new ArrayList<Section>();
 	}
 
 	public BatteryStatus getBatteryStatusObject() {
@@ -78,22 +76,6 @@ public class EmsMobileModel implements Serializable {
 		this.dumpUrl = dumpUrl;
 	}
 
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
-	public List<String> getItems2() {
-		return items2;
-	}
-
-	public void setItems2(List<String> items2) {
-		this.items2 = items2;
-	}
-
 	public BarStatus getBarStatus() {
 		return barStatus;
 	}
@@ -116,6 +98,14 @@ public class EmsMobileModel implements Serializable {
 
 	public void setActivation(Activation activation) {
 		this.activation = activation;
+	}
+
+	public List<Section> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(List<Section> vehicles) {
+		this.vehicles = vehicles;
 	}
 
 }

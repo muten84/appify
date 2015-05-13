@@ -12,7 +12,7 @@ public class Item implements Serializable {
 	 */
 	private static final long serialVersionUID = 4066396088201664918L;
 
-	private String name;
+	private String itemName;
 
 	private String code;
 
@@ -21,16 +21,16 @@ public class Item implements Serializable {
 	}
 
 	public Item(String code, String name) {
-		this.name = name;
+		this.itemName = name;
 		this.code = code;
 	}
 
-	public String getName() {
-		return name;
+	public String getItemName() {
+		return itemName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public String getCode() {

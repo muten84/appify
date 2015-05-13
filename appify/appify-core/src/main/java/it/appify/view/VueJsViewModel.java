@@ -19,12 +19,14 @@ package it.appify.view;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.Event;
 
@@ -78,8 +80,7 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 		_create(viewId, jsObj);
 	}
 
-	protected void onDataReceived(JavaScriptObject view,
-			JavaScriptObject model, JavaScriptObject event) {
+	protected void onDataReceived(JavaScriptObject view, JavaScriptObject model, JavaScriptObject event) {
 		Element e = view.cast();
 		JSONObject modelJson = new JSONObject(model);
 		Event gwtEvent = event.cast();
@@ -90,25 +91,33 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 		// GWT.log("getCurrentEventTarget: "
 		// + gwtEvent.getCurrentEventTarget().toString());
 		// GWT.log("getParentElement: " + e.getParentElement().getId());
-		VMKey key = new VMKey(getViewId(), e.getParentElement().getId());
-
+		String viewId = getViewId();
+		String parentId = e.getParentElement().getId();
+		VMKey key = new VMKey(viewId, parentId);
+		JSONArray array = modelJson.isArray();
+		if (array != null) {
+			modelJson = array.get(0).isObject();
+		}
+		Set<String> keySet = modelJson.keySet();
+		if(keySet.size()==1) {
+			modelJson = modelJson.get(keySet.iterator().next()).isObject();
+					
+		}		
 		// TODO: important!! model event disaptching!!
 		ViewModelHandlerHolder<?> holder = handlers.get(key);
 		if (holder != null) {
-			Serializable o = (Serializable) holder.getObjectMapper().read(
-					modelJson.toString());
-			holder.getHandler().onEvent(gwtEvent.getType(),
-					getViewId(), e.getParentElement().getId(), o);
+			GWT.log("-->" + modelJson.toString());
+			Serializable o = (Serializable) holder.getObjectMapper().read(modelJson.toString());
+			holder.getHandler().onEvent(gwtEvent.getType(), getViewId(), e.getParentElement().getId(), o);
 		} else {
-			GWT.log("holder is null");
+			GWT.log("holder is null: " + viewId + " - " + parentId);
 		}
 		// TODO: important!! model event disaptching!!
 
 	}
 
 	@Override
-	public void addViewModelHandler(String pageId, String viewId,
-			ViewModelHandlerHolder holder) {
+	public void addViewModelHandler(String pageId, String viewId, ViewModelHandlerHolder holder) {
 		VMKey key = new VMKey(pageId, viewId);
 		handlers.put(key, holder);
 	}
