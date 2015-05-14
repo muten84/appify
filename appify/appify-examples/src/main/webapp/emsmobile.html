@@ -33,6 +33,7 @@
 <div class="app-page" id="activationPage" data-page="activationPage">
 	<div id="content" class="content snap-content">
 		<div class="app-topbar">
+			<!-- HEADER SECTION -->
 			<header class="bar bar-nav app-title topbar-height">
 				<!-- <button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-2x"></span>
@@ -53,79 +54,110 @@
 					<span class="fa fa-rss fa-2x"></span>
 				</button>
 			</header>
+
 		</div>
-		<div class="app-content">
-			<div class="segmented-control">
-				<a id="itemEmergencyData"
-					class="control-item activation-bar-height active">Dati
-					Emergenza </a> <a id="itemAddressData"
-					class="control-item activation-bar-height">Dettaglio Indirizzo
-				</a> <a id="itemNoteData" class="control-item activation-bar-height">Dettaglio
-					Note </a>
+		<!--END  HEADER SECTION -->
+
+		<div id="activationContent" class="app-content">
+			<!--CONTENT SECTION -->
+			<div class="app-section">
+				<!--CONTENT SECTION -->
+				<!-- TAB SWITCH DELLE CARD -->
+				<div class="segmented-control">
+					<a id="itemEmergencyData"
+						class="control-item activation-bar-height active">Dati
+						Emergenza </a> <a id="itemAddressData"
+						class="control-item activation-bar-height">Dettaglio Indirizzo
+					</a> <a id="itemNoteData" class="control-item activation-bar-height">Dettaglio
+						Note </a>
+				</div>
+				<!-- CARDS-->
+				<div class="card">
+
+					<!-- CARD EMERGENCY DATA -->
+					<div id="cardEmergencyData"
+						class="app-section control-content active">
+
+						<ul class="table-view">
+							<li
+								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
+								Emergenza {{activation.emergencyId}} -
+								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
+							</li>
+							<li class="table-view-divider">Indirizzo</li>
+							<li class="table-view-cell">{{activation.addressSummary}}</li>
+							<li class="table-view-divider">Note</li>
+							<li class="table-view-cell">{{activation.noteSummary}}</li>
+						</ul>
+					</div>
+					<!-- END CARD EMERGENCY DATA -->
+
+					<!-- CARD ADDRESS DATA -->
+					<div id="cardAddressData" class="app-section control-content">
+
+						<ul class="table-view">
+							<li
+								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
+								Emergenza {{activation.emergencyId}} -
+								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
+							</li>
+							<li class="table-view-divider">Indirizzo</li>
+							<li class="table-view-cell">{{activation.addressSummary}}</li>
+							<li class="table-view-divider">Note Strada:</li>
+							<li class="table-view-cell">{{activation.address.streetNote}}</li>
+							<li class="table-view-divider">Note Localit&grave;:</li>
+							<li class="table-view-cell">{{activation.address.localityNote}}</li>
+							<li class="table-view-divider">Note Luogo Pubblico:</li>
+							<li class="table-view-cell">{{activation.address.pLocationNote}}</li>
+						</ul>
+					</div>
+					<!-- END CARD ADDRESS DATA -->
+
+					<!-- CARD NOTE DATA -->
+					<div id="cardNoteData" class="app-section control-content">
+
+						<span>Dettaglio Note</span>
+					</div>
+					<!-- END CARD NOTE DATA -->
+
+				</div>
+				<!-- END CARDS-->
 			</div>
-			<div class="card">
-				<div id="cardEmergencyData" class="control-content active">
-					<ul class="table-view">
-						<li
-							class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
-							Emergenza {{activation.emergencyId}} -
-							{{activation.place}}{{activation.pathology}}{{activation.criticity}}
-						</li>
-						<li class="table-view-divider">Indirizzo</li>
-						<li class="table-view-cell">{{activation.addressSummary}}</li>
-						<li class="table-view-divider">Note</li>
-						<li class="table-view-cell">{{activation.noteSummary}}</li>
-					</ul>
-				</div>
-				<div id="cardAddressData" class="control-content">
-					<ul class="table-view">
-						<li
-							class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
-							Emergenza {{activation.emergencyId}} -
-							{{activation.place}}{{activation.pathology}}{{activation.criticity}}
-						</li>
-						<li class="table-view-divider">Indirizzo</li>
-						<li class="table-view-cell">{{activation.addressSummary}}</li>
-						<li class="table-view-divider">Note strada:</li>
-						<li class="table-view-cell">{{activation.address.addressSummary}}</li>
-						<li class="table-view-divider">Note</li>
-						<li class="table-view-cell">{{activation.noteSummary}}</li>
-					</ul>
-				</div>
-				<div id="cardNoteData" class="control-content"
-					<span>Dettaglio Note</span>
-				</div>
-			</div>
-			<nav class="bottombar-height bar bar-tab">
-				<a class="tab-item">
-					<button id="sendBtn" class="btn btn-block">
-						<span class="fa fa-play-circle-o fa-2x"></span> <span
-							class="tab-label">PARTENZA</span>
-					</button>
-				</a> <a class="tab-item">
-					<button id="placeArrivalBtn" class="btn btn-block">
-						<span class="fa fa-map-marker fa-2x"></span> <span
-							class="tab-label">ARRIVO</span>
-					</button>
-				</a> <a class="tab-item">
-					<button id="departureBtn" class="btn btn-block">
-						<span class="fa fa-arrow-circle-right fa-2x"></span> <span
-							class="tab-label">PARTENZA</span>
-					</button>
-				</a> <a class="tab-item">
-					<button id="hospitalArrivalBtn" class="btn btn-block">
-						<span class="fa fa-hospital-o fa-2x"></span> <span
-							class="tab-label">OSPEDALE</span>
-					</button>
-				</a> <a class="tab-item">
-					<button id="clousureBtn" class="btn btn-block">
-						<span class="fa fa-flag-checkered fa-2x"></span> <span
-							class="tab-label">CHIUSURA</span>
-					</button>
-				</a>
-			</nav>
+
 		</div>
-	</div><div class="app-page" id="dumpPage" data-page="dumpPage">
+
+
+		<!--  -->
+		<nav class="bar bar-standard bar-footer bottombar-height">
+			<a class="pull-left">
+				<button id="sendBtn" class="btn btn-block pull-left">
+					<span class="fa fa-play-circle-o fa-2x"></span> <span
+						class="tab-label">PARTENZA</span>
+				</button>
+			</a> <a class="pull-left">
+				<button id="placeArrivalBtn" class="btn btn-block pull-left">
+					<span class="fa fa-map-marker fa-2x"></span> <span
+						class="tab-label">ARRIVO</span>
+				</button>
+			</a> <a class="pull-left">
+				<button id="departureBtn" class="btn btn-block pull-left">
+					<span class="fa fa-arrow-circle-right fa-2x"></span> <span
+						class="tab-label">PARTENZA</span>
+				</button>
+			</a> <a class="pull-left">
+				<button id="hospitalArrivalBtn" class="btn btn-block pull-left">
+					<span class="fa fa-hospital-o fa-2x"></span> <span
+						class="tab-label">OSPEDALE</span>
+				</button>
+			</a> <a class="pull-left">
+				<button id="clousureBtn" class="btn btn-block pull-left">
+					<span class="fa fa-flag-checkered fa-2x"></span> <span
+						class="tab-label">CHIUSURA</span>
+				</button>
+			</a>
+		</nav>
+	</div>
+</div><div class="app-page" id="dumpPage" data-page="dumpPage">
 	<!-- MODAL -->
 	<div id="intervIncomeModal" class="modal">
 		<header class="bar bar-nav">
