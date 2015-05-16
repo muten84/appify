@@ -12,8 +12,9 @@ import it.appify.examples.client.model.AppModel;
 // inject battery status service in your app
 @Battery
 // inject geolocation service in your app
-@Geolocation(type= Geolocation.HTML5,enableHighAccuracy = true, maxAge = 5000, timeout = 5000)
-// inject storage service of type LOCAL STORAGE for storing and reading AppModel type
+@Geolocation(type = Geolocation.HTML5, enableHighAccuracy = true, maxAge = 5000, timeout = 5000)
+// inject storage service of type LOCAL STORAGE for storing and reading AppModel
+// type
 @Storage(type = it.appify.api.Storage.LOCAL_STORAGE, modelType = AppModel.class)
 // inject screen orientation service
 @ScreenOrientation
