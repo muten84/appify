@@ -275,7 +275,40 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 * @param pageId
 	 */
 	@Override
-	public void moveTo(String pageId) {
+	public void moveTo(final String pageId) {
+		Element elRef = null;
+		Element[] els = dynamicLoader
+				.scanDynamicMarkerElements("data-appify-ref");
+		for (Element element : els) {
+			if (element.getAttribute("data-appify-ref") != null
+					&& element.getAttribute("data-appify-ref").equals(pageId)) {
+				elRef = element;
+				break;
+			}
+		}
+		if (elRef != null) {
+			final String url = elRef.getAttribute("data-appify-template");
+			dynamicLoader.load(elRef, url, new ContentLoadedListener() {
+
+				@Override
+				public void error() {
+					GWT.log("error while load:  " + url);
+
+				}
+
+				@Override
+				public void done() {
+					GWT.log("done  move to :  " + pageId);
+					doMoveTo(pageId);
+
+				}
+			});
+		} else {
+			doMoveTo(pageId);
+		}
+	}
+
+	protected void doMoveTo(String pageId) {
 		if (pageManager.getCurrentPage() == null) {
 			throw new RuntimeException(
 					"Main page not started  maybe you need to call start app first??");
@@ -287,7 +320,6 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		pageStack.add(pageManager.getCurrentPage().getPageId());
 		loader.loadPage(pageId, modelView.getCurrentModel(),
 				pageViewHandlers.get(pageId));
-
 	}
 
 	/**
@@ -358,32 +390,39 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	protected void scandDynamicContent(final ContentLoadedListener l) {
 		GWT.log("scandDynamicContent");
-		Element[] els = dynamicLoader
-				.scanDynamicMarkerElements("data-appify-template");
+		Element[] els = dynamicLoader.scanDynamicMarkerElementsExcept(
+				"data-appify-template", "data-appify-ref");
 		final int size = els.length;
 		GWT.log("found : " + size);
-		for (Element element : els) {
-			String url = element.getAttribute("data-appify-template");
-			// String url = element.getPropertyString("data-appify-template");
-			dynamicLoader.load(element, url, new ContentLoadedListener() {
+		if (size == 0) {
+			l.done();
+		} else {
+			for (Element element : els) {
+				// String lazy = element.getAttribute("data-appify-ref");
+				// if (lazy != null && !lazy.isEmpty()) {
+				// continue;
+				// }
+				String url = element.getAttribute("data-appify-template");
+				dynamicLoader.load(element, url, new ContentLoadedListener() {
 
-				@Override
-				public void error() {
-					l.error();
-				}
-
-				@Override
-				public void done() {
-					// TODO Auto-generated method stub
-
-					if (_cnt == size - 1) {
-						GWT.log("all resources loaded");
-						_cnt = 0;
-						l.done();
+					@Override
+					public void error() {
+						l.error();
 					}
-					_cnt++;
-				}
-			});
+
+					@Override
+					public void done() {
+						// TODO Auto-generated method stub
+
+						if (_cnt == size - 1) {
+							GWT.log("all resources loaded");
+							_cnt = 0;
+							l.done();
+						}
+						_cnt++;
+					}
+				});
+			}
 		}
 	};
 

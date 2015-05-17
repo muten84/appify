@@ -18,6 +18,13 @@ public class AppifyDynamicContentLoader implements DynamicContentLoader {
 	}
 
 	@Override
+	public Element[] scanDynamicMarkerElementsExcept(String inAttribute,
+			String notAttribute) {
+		return _scanDynamicMarkerElements(inAttribute, notAttribute);
+
+	}
+
+	@Override
 	public void load(Element element, String url, ContentLoadedListener l) {
 		_load(element, url, l);
 
@@ -25,6 +32,11 @@ public class AppifyDynamicContentLoader implements DynamicContentLoader {
 
 	private native Element[] _scanDynamicMarkerElements(String attribute)/*-{
 		return $wnd.$("[" + attribute + "]");
+	}-*/;
+
+	private native Element[] _scanDynamicMarkerElements(String attribute1,
+			String attribute2)/*-{
+		return $wnd.$("[" + attribute1 + "]:not([" + attribute2 + "])");
 	}-*/;
 
 	private void done() {

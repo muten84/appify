@@ -16,4 +16,7 @@ public interface DynamicContentLoader {
 
 	public Element[] scanDynamicMarkerElements(String attribute);
 
+	public Element[] scanDynamicMarkerElementsExcept(String inAttribute,
+			String notAttribute);
+
 }
