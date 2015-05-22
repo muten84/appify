@@ -65,9 +65,7 @@ public class PageLoader<V, M> {
 			List<ViewHandlerHolder> h = pageHandlers.get(page.getPageId());
 			if (h != null) {
 				for (ViewHandlerHolder viewHandlerHolder : h) {
-					page.addViewHandler(viewHandlerHolder.getViewId(),
-							viewHandlerHolder.getEventType(),
-							viewHandlerHolder.getHandler());
+					page.addViewHandler(viewHandlerHolder.getViewId(), viewHandlerHolder.getEventType(), viewHandlerHolder.getHandler());
 				}
 			}
 			if (outerPl != null) {
@@ -99,8 +97,7 @@ public class PageLoader<V, M> {
 		this(pm, vm, null);
 	}
 
-	public PageLoader(PageManager<V> pm, final ModelView<M, V> vm,
-			final PageListener<V> pl) {
+	public PageLoader(PageManager<V> pm, final ModelView<M, V> vm, final PageListener<V> pl) {
 		this.pageHandlers = new HashMap<String, List<ViewHandlerHolder>>();
 		this.pm = pm;
 		this.vm = vm;
@@ -118,8 +115,7 @@ public class PageLoader<V, M> {
 		this.pageHandlers.get(pageId).add(handler);
 		// if current page is attached to DOM
 		if (pageId.equals(pm.getCurrentPage().getPageId())) {
-			pm.getCurrentPage().addViewHandler(handler.getViewId(),
-					handler.getEventType(), handler.getHandler());
+			pm.getCurrentPage().addViewHandler(handler.getViewId(), handler.getEventType(), handler.getHandler());
 		}
 
 	}
@@ -128,12 +124,10 @@ public class PageLoader<V, M> {
 		loadPage(pageId, model, null);
 	}
 
-	public void loadPage(final String pageId, final M model,
-			List<ViewHandlerHolder> handlers) {
+	public void loadPage(final String pageId, final M model, List<ViewHandlerHolder> handlers) {
 		this.modelInstance = model;
 		if (handlers != null) {
-			List<ViewHandlerHolder> pageHandlers = this.pageHandlers
-					.get(pageId);
+			List<ViewHandlerHolder> pageHandlers = this.pageHandlers.get(pageId);
 			if (pageHandlers == null) {
 				pageHandlers = new ArrayList<ViewHandlerHolder>();
 				this.pageHandlers.put(pageId, pageHandlers);
@@ -144,35 +138,40 @@ public class PageLoader<V, M> {
 		final boolean showed = false;
 		final boolean bound = false;
 		GWT.log("SCHEULING LOAD PAGE: " + pageId);
-		Scheduler.get().scheduleIncremental(new RepeatingCommand() {
+		Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
 			private boolean _showed = showed;
 			private boolean _bound = bound;
 
 			@Override
 			public boolean execute() {
-				GWT.log(pageId + " executing: " + _showed + " - " + _bound);
-				if (!_showed) {
-					if (getCurrentTransition() == null) {
-						pm.showPage(pageId);
-					} else {
-						pm.showPage(pageId, getCurrentTransition());
+				try {
+					GWT.log(pageId + " executing: " + _showed + " - " + _bound);
+					if (!_showed) {
+						if (getCurrentTransition() == null) {
+							pm.showPage(pageId);
+						} else {
+							pm.showPage(pageId, getCurrentTransition());
+						}
+						_showed = true;
+						return true;
 					}
-					_showed = true;
-					return true;
-				}
-				if (_showed && !_bound) {
-					vm.bindModelToView(pageId, model);
-					_showed = true;
-					_bound = true;
-					return true;
-				}
-				if (_showed && _bound) {
-					pl.onPageReady(currentShowingPage);
+					if (_showed && !_bound) {
+						vm.bindModelToView(pageId, model);
+						_showed = true;
+						_bound = true;
+						return true;
+					}
+					if (_showed && _bound) {
+						pl.onPageReady(currentShowingPage);
+						return false;
+					}
+					return false;
+				} catch (Exception e) {
+					GWT.log(pageId + " error: " + e.getMessage(), e);
 					return false;
 				}
-				return false;
 			}
-		});
+		}, 500);
 
 	}
 

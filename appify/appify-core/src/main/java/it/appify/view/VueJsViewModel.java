@@ -99,10 +99,10 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 			modelJson = array.get(0).isObject();
 		}
 		Set<String> keySet = modelJson.keySet();
-		if(keySet.size()==1) {
+		if (keySet.size() == 1) {
 			modelJson = modelJson.get(keySet.iterator().next()).isObject();
-					
-		}		
+
+		}
 		// TODO: important!! model event disaptching!!
 		ViewModelHandlerHolder<?> holder = handlers.get(key);
 		if (holder != null) {
@@ -123,6 +123,8 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 	}
 
 	private native JavaScriptObject _create(String viewId, JavaScriptObject json)/*-{
+		console.log('_create mvvm: ' + viewId + " - " + json);
+		console.log('element is: '+$wnd.$('#' + viewId).prop('id'));
 		var that = this;
 		$wnd.vm = new $wnd.Vue(
 				{
