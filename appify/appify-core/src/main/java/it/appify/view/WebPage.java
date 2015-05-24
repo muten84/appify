@@ -52,7 +52,8 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_addViewHandler(id, type, obj, h);
 	}
 
-	private native void _addViewHandler(String id, String type, JavaScriptObject p, ViewHandler h)/*-{
+	private native void _addViewHandler(String id, String type,
+			JavaScriptObject p, ViewHandler h)/*-{
 		var that = this;
 		$wnd
 				.$(p)
@@ -85,7 +86,8 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		return _getElementInPage(obj, "#" + elemId).cast();
 	}
 
-	private native JavaScriptObject _getElementInPage(JavaScriptObject obj, String elemId)/*-{
+	private native JavaScriptObject _getElementInPage(JavaScriptObject obj,
+			String elemId)/*-{
 		return $wnd.$(obj).find(elemId)[0];
 	}-*/;
 
@@ -129,10 +131,10 @@ public class WebPage implements Page<Element>, HasView<Element> {
 			toggleClassViewStyle(modalId, "active");
 		}
 	}
-	
+
 	@Override
 	public void closeModal(String modalId) {
-		if(isModalActive(modalId)) {
+		if (isModalActive(modalId)) {
 			toggleClassViewStyle(modalId, "active");
 		}
 	}
@@ -158,13 +160,40 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	}-*/;
 
 	@Override
-	public void popover(String viewId, String title, String content, String animation) {
-
+	public void popover(String viewId, String title, String content,
+			String animation) {
 		_popover(viewId, title, content, animation);
 
 	}
 
-	private native void _popover(String viewId, String title, String content, String animation)/*-{
+	@Override
+	public void mask(String label) {
+		String pageId = getRootElement().getId();
+		_mask(pageId, 50, label);
+	}
+
+	@Override
+	public void unmask() {
+		String pageId = getRootElement().getId();
+		_unmask(pageId);
+	}
+
+	private native void _unmask(String pageId)/*-{
+		$wnd.$('#' + pageId).unmask();
+	}-*/;
+
+	private native void _mask(String pageId, int spinRadius, String sLabel)/*-{
+		$wnd.$('#' + pageId).mask({
+			label : sLabel,
+			spinner : {
+				length : 10,
+				radius : spinRadius
+			}
+		});
+	}-*/;
+
+	private native void _popover(String viewId, String title, String content,
+			String animation)/*-{
 		$wnd.currentPopover = $wnd.$('#' + viewId).webuiPopover('destroy')
 				.webuiPopover({
 					title : title,

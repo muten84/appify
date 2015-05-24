@@ -31,14 +31,17 @@ public interface Page<E> extends HasViewHandlers {
 	public boolean isModalActive(String modalId);
 
 	public void showModal(String modalId);
-	
+
 	public void closeModal(String modalId);
 
 	/*
 	 * provisional api https://github.com/sandywalker/webui-popover
 	 */
-	public void popover(String viewId, String title, String content, String animation);
+	public void popover(String viewId, String title, String content,
+			String animation);
 
-	
+	public void mask(String label);
+
+	public void unmask();
 
 }

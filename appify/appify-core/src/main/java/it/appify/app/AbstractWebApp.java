@@ -41,6 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 //TODO: add an update and store method
@@ -82,10 +84,13 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 			GWT.log("AbstractWebApp onPageShow");
 			loader.setCurrentTransition(null);
 			// inject all ui elements in the controller....
-			List<ControllerHolder<?>> controllers = pageControllers.get(page.getPageId());
+			List<ControllerHolder<?>> controllers = pageControllers.get(page
+					.getPageId());
 			if (controllers != null) {
 				for (ControllerHolder<?> controllerHolder : controllers) {
-					GWT.log("injecting elements: " + controllerHolder.pageId + " - " + controllerHolder.viewId + " - " + controllerHolder.fieldName);
+					GWT.log("injecting elements: " + controllerHolder.pageId
+							+ " - " + controllerHolder.viewId + " - "
+							+ controllerHolder.fieldName);
 					controllerHolder.injectViewElements();
 				}
 			}
@@ -93,7 +98,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 		@Override
 		public void onPageReady(Page<Element> page) {
-			GWT.log("AbstractWebApp onPageReady: " + mainPage + " - " + page.getPageId() + " - " + firstLoad);
+			GWT.log("AbstractWebApp onPageReady: " + mainPage + " - "
+					+ page.getPageId() + " - " + firstLoad);
 
 			/**/
 
@@ -109,7 +115,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 							s.start();
 							GWT.log("Service started: " + s);
 						} catch (Exception e) {
-							GWT.log("error while starting service: " + s.getClass());
+							GWT.log("error while starting service: "
+									+ s.getClass());
 						}
 					}
 				}
@@ -159,8 +166,10 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 * @param viewId
 	 * @param eventType
 	 */
-	public void addHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
-		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType, handler);
+	public void addHandler(String pageId, String viewId, String eventType,
+			ViewHandler handler) {
+		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType,
+				handler);
 		loader.addPageViewHandler(pageId, holder);
 	}
 
@@ -173,7 +182,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		pageViewHandlers.put(pageId, holders);
 	}
 
-	protected void bindControllerToPage(String pageId, ControllerHolder<?> holder) {
+	protected void bindControllerToPage(String pageId,
+			ControllerHolder<?> holder) {
 		List<ControllerHolder<?>> holders = pageControllers.get(pageId);
 		if (holders == null) {
 			holders = new ArrayList<ControllerHolder<?>>();
@@ -196,7 +206,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		services.add(service);
 	}
 
-	protected ViewHandlerHolder createViewHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
+	protected ViewHandlerHolder createViewHandler(String pageId, String viewId,
+			String eventType, ViewHandler handler) {
 		ViewHandlerHolder holder = new ViewHandlerHolder();
 		holder.setEventType(eventType);
 		holder.setHandler(handler);
@@ -223,19 +234,22 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 			public void done() {
 				GWT.log("starting app...");
 				if (mainPage == null || mainPage.isEmpty()) {
-					throw new RuntimeException("main page cannot be null or empty");
+					throw new RuntimeException(
+							"main page cannot be null or empty");
 				}
 				if (pageManager.getCurrentPage() == null) {
 					GWT.log("initializing services");
 					initializeServices();
 					GWT.log("initializing controllers");
 					initializeControllers();
-					List<ViewHandlerHolder> handlers = pageViewHandlers.get(mainPage);
+					List<ViewHandlerHolder> handlers = pageViewHandlers
+							.get(mainPage);
 					loader.loadPage(mainPage, initialState, handlers);
 
 					pageStack.add(mainPage);
 				} else {
-					throw new RuntimeException("App just started use moveTo and back to create navigation in your app");
+					throw new RuntimeException(
+							"App just started use moveTo and back to create navigation in your app");
 				}
 
 			}
@@ -243,7 +257,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	}
 
-	public void startApp(AppState initialAppState, AppListener<AppState> callback) {
+	public void startApp(AppState initialAppState,
+			AppListener<AppState> callback) {
 		this.callback = callback;
 		startApp(initialAppState);
 	}
@@ -266,10 +281,13 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 */
 	@Override
 	public void moveTo(final String pageId) {
+		getCurrentPage().mask("");
 		Element elRef = null;
-		Element[] els = dynamicLoader.scanDynamicMarkerElements("data-appify-ref");
+		Element[] els = dynamicLoader
+				.scanDynamicMarkerElements("data-appify-ref");
 		for (Element element : els) {
-			if (element.getAttribute("data-appify-ref") != null && element.getAttribute("data-appify-ref").equals(pageId)) {
+			if (element.getAttribute("data-appify-ref") != null
+					&& element.getAttribute("data-appify-ref").equals(pageId)) {
 				elRef = element;
 				break;
 			}
@@ -277,6 +295,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		WebPage cachedPage = pagesCache.get(pageId);
 		if (elRef != null && cachedPage == null) {
 			final String url = elRef.getAttribute("data-appify-template");
+
 			dynamicLoader.load(elRef, url, new ContentLoadedListener() {
 
 				@Override
@@ -289,17 +308,36 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 				public void done() {
 					GWT.log("done  move to :  " + pageId);
 					doMoveTo(pageId);
+					Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+
+						@Override
+						public boolean execute() {
+							// getCurrentPage().unmask();
+							return false;
+						}
+					}, 500);
 
 				}
 			});
 		} else {
 			doMoveTo(pageId);
+			Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+
+				@Override
+				public boolean execute() {
+					// getCurrentPage().unmask();
+					return false;
+				}
+			}, 500);
+
 		}
+
 	}
 
 	protected void doMoveTo(String pageId) {
 		if (pageManager.getCurrentPage() == null) {
-			throw new RuntimeException("Main page not started  maybe you need to call start app first??");
+			throw new RuntimeException(
+					"Main page not started  maybe you need to call start app first??");
 		}
 		if (pageManager.getCurrentPage().getPageId().equals(pageId)) {
 			// no need to move to the current page
@@ -308,7 +346,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		Page<Element> currentPage = pageManager.getCurrentPage();
 		pageStack.add(currentPage.getPageId());
 		pagesCache.put(pageId, (WebPage) currentPage);
-		loader.loadPage(pageId, modelView.getCurrentModel(), pageViewHandlers.get(pageId));
+		loader.loadPage(pageId, modelView.getCurrentModel(),
+				pageViewHandlers.get(pageId));
 	}
 
 	/**
@@ -316,10 +355,23 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 */
 	@Override
 	public void back() {
+		getCurrentPage().mask("");
 		String pageId = pageStack.pop();
 		AppState state = modelView.getCurrentModel();
 		loader.setCurrentTransition(Transitions.SLIDE_RIGHT);
 		loader.loadPage(pageId, state);
+		// Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+		//
+		// @Override
+		// public boolean execute() {
+		// String pageId = pageStack.pop();
+		// AppState state = modelView.getCurrentModel();
+		// loader.setCurrentTransition(Transitions.SLIDE_RIGHT);
+		// loader.loadPage(pageId, state);
+		// return false;
+		// }
+		// }, 1000);
+
 	}
 
 	@Override
@@ -379,7 +431,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	protected void scandDynamicContent(final ContentLoadedListener l) {
 		GWT.log("scandDynamicContent");
-		Element[] els = dynamicLoader.scanDynamicMarkerElementsExcept("data-appify-template", "data-appify-ref");
+		Element[] els = dynamicLoader.scanDynamicMarkerElementsExcept(
+				"data-appify-template", "data-appify-ref");
 		final int size = els.length;
 		GWT.log("found : " + size);
 		if (size == 0) {

@@ -70,17 +70,25 @@ public class GeolocationJsObject {
 	protected void onPositionSuccess(JavaScriptObject position) {
 		String positionString = JsonUtils.stringify(position);
 		GWT.log("position info is: " + positionString);
+
 		JavaScriptObject jsObj = JsonUtils.safeEval(positionString);
 		JSONObject obj = new JSONObject(jsObj);
-		long timestamp = Long.parseLong(""
-				+ obj.get("timestamp").isNumber().doubleValue());
-		double latitude = obj.get("coords").isObject().get("latitude")
-				.isNumber().doubleValue();
-		double longitude = obj.get("coords").isObject().get("longitude")
-				.isNumber().doubleValue();
-		double accuracy = obj.get("coords").isObject().get("accuracy")
-				.isNumber().doubleValue();
-
+		long timestamp = System.currentTimeMillis();
+		double latitude = 0.0;
+		double longitude = 0.0;
+		double accuracy = 0.0;
+		try {
+			timestamp = Long.parseLong(""
+					+ obj.get("timestamp").isNumber().doubleValue());
+			latitude = obj.get("coords").isObject().get("latitude").isNumber()
+					.doubleValue();
+			longitude = obj.get("coords").isObject().get("longitude")
+					.isNumber().doubleValue();
+			accuracy = obj.get("coords").isObject().get("accuracy").isNumber()
+					.doubleValue();
+		} catch (Exception e) {
+			return;
+		}
 		Geoposition positionObj = new Geoposition();
 		positionObj.setTimestamp(timestamp);
 		Coordinates coords = new Coordinates();
