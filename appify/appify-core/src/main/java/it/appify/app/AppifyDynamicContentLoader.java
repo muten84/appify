@@ -52,7 +52,7 @@ public class AppifyDynamicContentLoader implements DynamicContentLoader {
 						url,
 						function(response, status, xhr) {
 							if (status == "success") {
-								console.log("dynamic content loaded");
+								console.log("dynamic content loaded: "+response+" - "+status+" - "+xhr);
 								l.@it.appify.api.DynamicContentLoader.ContentLoadedListener::done()();
 
 							} else if (status == "error") {
@@ -74,7 +74,7 @@ public class AppifyDynamicContentLoader implements DynamicContentLoader {
 	private native void _load(String selector, String url)/*-{
 		$wnd.$(selector).load(url, function(response, status, xhr) {
 			if (status == "success") {
-				console.log("dynamic content loaded");
+				console.log("dynamic content loaded: "+response+" - "+status+" - "+xhr);
 			} else if (status == "error") {
 				console.log("Error: " + xhr.status + ": " + xhr.statusText);
 			}

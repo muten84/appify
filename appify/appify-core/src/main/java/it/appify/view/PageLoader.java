@@ -47,6 +47,10 @@ public class PageLoader<V, M> {
 
 	private String currentTransition = null;
 
+	private final static boolean USE_MASK = false;
+	
+	private final static boolean AUTO_UNMASK = true;
+
 	private final PageListener<V> pl = new PageListener<V>() {
 		@Override
 		public void onPageHide(Page<V> page) {
@@ -58,16 +62,16 @@ public class PageLoader<V, M> {
 
 		@Override
 		public void onPageShow(Page<V> page) {
-			pm.getCurrentPage().mask("");
+			if (USE_MASK) {
+				pm.getCurrentPage().mask("");
+			}
 			GWT.log("PageLoader onPageShow: " + page.getPageId());
 			// vm.bindModelToView(page.getPageId(), modelInstance);
 			// currentShowedPage = page;
 			List<ViewHandlerHolder> h = pageHandlers.get(page.getPageId());
 			if (h != null) {
 				for (ViewHandlerHolder viewHandlerHolder : h) {
-					page.addViewHandler(viewHandlerHolder.getViewId(),
-							viewHandlerHolder.getEventType(),
-							viewHandlerHolder.getHandler());
+					page.addViewHandler(viewHandlerHolder.getViewId(), viewHandlerHolder.getEventType(), viewHandlerHolder.getHandler());
 				}
 			}
 			if (outerPl != null) {
@@ -92,7 +96,9 @@ public class PageLoader<V, M> {
 			if (outerPl != null) {
 				outerPl.onPageReady(page);
 			}
-			pm.getCurrentPage().unmask();
+			if (AUTO_UNMASK) {
+				pm.getCurrentPage().unmask();
+			}
 		}
 
 	};
@@ -101,14 +107,12 @@ public class PageLoader<V, M> {
 		this(pm, vm, null);
 	}
 
-	public PageLoader(PageManager<V> pm, final ModelView<M, V> vm,
-			final PageListener<V> pl) {
+	public PageLoader(PageManager<V> pm, final ModelView<M, V> vm, final PageListener<V> pl) {
 		this.pageHandlers = new HashMap<String, List<ViewHandlerHolder>>();
 		this.pm = pm;
 		this.vm = vm;
 		pm.setPageListener(this.pl);
 		this.outerPl = pl;
-
 	}
 
 	public void addPageViewHandler(String pageId, ViewHandlerHolder handler) {
@@ -120,8 +124,7 @@ public class PageLoader<V, M> {
 		this.pageHandlers.get(pageId).add(handler);
 		// if current page is attached to DOM
 		if (pageId.equals(pm.getCurrentPage().getPageId())) {
-			pm.getCurrentPage().addViewHandler(handler.getViewId(),
-					handler.getEventType(), handler.getHandler());
+			pm.getCurrentPage().addViewHandler(handler.getViewId(), handler.getEventType(), handler.getHandler());
 		}
 
 	}
@@ -130,12 +133,10 @@ public class PageLoader<V, M> {
 		loadPage(pageId, model, null);
 	}
 
-	public void loadPage(final String pageId, final M model,
-			List<ViewHandlerHolder> handlers) {
+	public void loadPage(final String pageId, final M model, List<ViewHandlerHolder> handlers) {
 		this.modelInstance = model;
 		if (handlers != null) {
-			List<ViewHandlerHolder> pageHandlers = this.pageHandlers
-					.get(pageId);
+			List<ViewHandlerHolder> pageHandlers = this.pageHandlers.get(pageId);
 			if (pageHandlers == null) {
 				pageHandlers = new ArrayList<ViewHandlerHolder>();
 				this.pageHandlers.put(pageId, pageHandlers);
@@ -160,11 +161,21 @@ public class PageLoader<V, M> {
 						} else {
 							pm.showPage(pageId, getCurrentTransition());
 						}
+						/*
+						 * if view model binding starts here times results faster.This is because the compilation of
+						 * view elements is hidden and execute while page transition. There is no grants about model
+						 * binding success compilation because the shoe page callback is not called here
+						 */
+						vm.bindModelToView(pageId, model);
 						_showed = true;
 						return true;
 					}
 					if (_showed && !_bound) {
-						vm.bindModelToView(pageId, model);
+						/*
+						 * if view model binding starts here times results slower. Here we have the grant to page showed
+						 * in DOM
+						 */
+						// vm.bindModelToView(pageId, model);
 						_showed = true;
 						_bound = true;
 						return true;
@@ -175,7 +186,7 @@ public class PageLoader<V, M> {
 					}
 					return false;
 				} catch (Exception e) {
-					GWT.log(pageId + " error: " + e.getMessage(), e);
+					GWT.log(" error: " + e.getMessage(), e);
 					return false;
 				}
 			}
@@ -192,3 +203,4 @@ public class PageLoader<V, M> {
 	}
 
 }
+
