@@ -1,4 +1,4 @@
-<div class="app-page" id="activationPage" data-page="activationPage">
+<div class="app-page" id="activationPage" data-page="activationPage" >
 	<div id="content" class="content snap-content">
 		<div class="app-topbar">
 			<!-- HEADER SECTION -->
@@ -7,7 +7,7 @@
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button> -->
 				<button class="btn btn-nav pull-left">
-					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
+					<span class="fa fa-ambulance fa-2x pull-left" >{{barStatus.vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
@@ -26,7 +26,7 @@
 		</div>
 		<!--END  HEADER SECTION -->
 
-		<div id="activationContent" class="app-content">
+		<div id="activationContent" class="app-content" >
 			<!--CONTENT SECTION -->
 			<div class="app-section">
 				<!--CONTENT SECTION -->
@@ -44,45 +44,45 @@
 
 					<!-- CARD EMERGENCY DATA -->
 					<div id="cardEmergencyData"
-						class="app-section control-content active">
+						class="app-section control-content active" >
 
-						<ul class="table-view">
+						<ul class="table-view" >
 							<li
-								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
+								class="table-view-divider activation-criticity-{{activation.criticity}}" >Dati
 								Emergenza {{activation.emergencyId}} -
 								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
 							</li>
 							<li class="table-view-divider">Indirizzo</li>
-							<li class="table-view-cell">{{activation.addressSummary}}</li>
+							<li class="table-view-cell" >{{activation.addressSummary}}</li>
 							<li class="table-view-divider">Note</li>
-							<li class="table-view-cell">{{activation.noteSummary}}</li>
+							<li class="table-view-cell" >{{activation.noteSummary}}</li>
 						</ul>
 					</div>
 					<!-- END CARD EMERGENCY DATA -->
 
 					<!-- CARD ADDRESS DATA -->
-					<div id="cardAddressData" class="app-section control-content">
+					<div  id="cardAddressData" class="app-section control-content">
 
-						<ul class="table-view">
-							<li
+						<ul class="table-view" >
+							<li 
 								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
 								Emergenza {{activation.emergencyId}} -
 								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
 							</li>
-							<li class="table-view-divider">Indirizzo</li>
-							<li class="table-view-cell">{{activation.addressSummary}}</li>
-							<li class="table-view-divider">Note Strada:</li>
-							<li class="table-view-cell">{{activation.address.streetNote}}</li>
-							<li class="table-view-divider">Note Localit&grave;:</li>
-							<li class="table-view-cell">{{activation.address.localityNote}}</li>
-							<li class="table-view-divider">Note Luogo Pubblico:</li>
-							<li class="table-view-cell">{{activation.address.pLocationNote}}</li>
+							<li  class="table-view-divider">Indirizzo</li>
+							<li  class="table-view-cell">{{activation.addressSummary}}</li>
+							<li  class="table-view-divider">Note Strada:</li>
+							<li  class="table-view-cell">{{activation.address.streetNote}}</li>
+							<li  class="table-view-divider">Note Localit&grave;:</li>
+							<li  class="table-view-cell">{{activation.address.localityNote}}</li>
+							<li  class="table-view-divider">Note Luogo Pubblico:</li>
+							<li  class="table-view-cell">{{activation.address.pLocationNote}}</li>
 						</ul>
 					</div>
 					<!-- END CARD ADDRESS DATA -->
 
 					<!-- CARD NOTE DATA -->
-					<div id="cardNoteData" class="app-section control-content">
+					<div  id="cardNoteData" class="app-section control-content">
 
 						<span>Dettaglio Note</span>
 					</div>

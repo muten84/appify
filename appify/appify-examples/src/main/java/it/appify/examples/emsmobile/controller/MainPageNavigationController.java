@@ -22,8 +22,9 @@ public class MainPageNavigationController {
 	@ViewHandler(eventType = "click", viewId = "checkInBtn")
 	public void onCheckInStart() {
 		GWT.log("onCheckInStart");
+		app.getCurrentPage().mask("");
 		if (app.<EmsMobileModel> getCurrentAppState().getBarStatus().getVehicleCode() == null) {
-			//app.getScreenOrientationService().requestFullScreen();
+			// app.getScreenOrientationService().requestFullScreen();
 			app.moveTo("vehiclesPage");
 		} else {
 			// start checkout request...
@@ -31,12 +32,12 @@ public class MainPageNavigationController {
 			Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
 
 				@Override
-				public boolean execute() {				
+				public boolean execute() {
 					ViewUtils.showModal(app, "waitModal");
 					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 					model.getBarStatus().setVehicleCode(null);
 					model.setCheckInLabel("Inizio Turno");
-					app.updateAppState(model);					
+					app.updateAppState(model);
 					return false;
 				}
 			}, 5000);

@@ -40,13 +40,14 @@ public class VehicleListController {
 	public void onItemReceived(final Item i) {
 		GWT.log("Received item from listOfItems1: " + i.getCode() + " - " + i.getItemName());
 		waitModalText.setInnerText("Hai selezionato: " + i.getCode() + " - " + i.getItemName());
-		ViewUtils.showModal(app, "waitModal");
+		app.getCurrentPage().mask("");
+//		ViewUtils.showModal(app, "waitModal");
 		/* emulate remote request */
 		Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
 
 			@Override
 			public boolean execute() {
-				ViewUtils.showModal(app, "waitModal");
+//				ViewUtils.showModal(app, "waitModal");
 				EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 				model.getBarStatus().setVehicleCode(i.getItemName());
 				model.setCheckInLabel("Fine Turno");
