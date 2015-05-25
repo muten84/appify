@@ -1247,72 +1247,64 @@ App._Scroll = function (Scrollable, App, Utils) {
 		}
 	}
 })(document, App, App._Utils);
-App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Events, Metrics, Scroll) {
-	var PAGE_NAME             = 'data-page',
-		PAGE_CLASS            = 'app-page',
-		APP_LOADED            = 'app-loaded',
-		APP_IOS_STATUSBAR     = 'app-ios-statusbar',
-		APP_ANDROID_STATUSBAR = 'app-android-statusbar',
-		PAGE_READY_VAR        = '__appjsFlushReadyQueue',
-		PAGE_MANAGER_VAR      = '__appjsPageManager',
-		EVENTS = {
-			SHOW        : 'show'    ,
-			HIDE        : 'hide'    ,
-			BACK        : 'back'    ,
-			FORWARD     : 'forward' ,
-			BEFORE_BACK : 'beforeBack' ,
-			READY       : 'ready'   ,
-			DESTROY     : 'destroy' ,
-			LAYOUT      : 'layout'  ,
-			ONLINE      : 'online'  ,
-			OFFLINE     : 'offline'
-		};
+App._Pages = function(window, document, Clickable, Scrollable, App, Utils,
+		Events, Metrics, Scroll) {
+	var PAGE_NAME = 'data-page', PAGE_CLASS = 'app-page', APP_LOADED = 'app-loaded', APP_IOS_STATUSBAR = 'app-ios-statusbar', APP_ANDROID_STATUSBAR = 'app-android-statusbar', PAGE_READY_VAR = '__appjsFlushReadyQueue', PAGE_MANAGER_VAR = '__appjsPageManager', EVENTS = {
+		SHOW : 'show',
+		HIDE : 'hide',
+		BACK : 'back',
+		FORWARD : 'forward',
+		BEFORE_BACK : 'beforeBack',
+		READY : 'ready',
+		DESTROY : 'destroy',
+		LAYOUT : 'layout',
+		ONLINE : 'online',
+		OFFLINE : 'offline'
+	};
 
-	var preloaded        = false,
-		forceIScroll     = !!window['APP_FORCE_ISCROLL'],
-		pages            = {},
-		controllers      = {},
-		cleanups         = {},
-		statusBarEnabled = false;
+	var preloaded = false, forceIScroll = !!window['APP_FORCE_ISCROLL'], pages = {}, controllers = {}, cleanups = {}, statusBarEnabled = false;
 
 	setupPageListeners();
 	if (window.APP_ENABLE_STATUSBAR || window.APP_ENABLE_IOS_STATUSBAR) {
 		enableStatusBar();
 	}
 
-
-	App.add = function (pageName, page) {
+	App.add = function(pageName, page) {
 		if (typeof pageName !== 'string') {
-			page     = pageName;
+			page = pageName;
 			pageName = undefined;
 		}
 
-		if ( !Utils.isNode(page) ) {
-			throw TypeError('page template node must be a DOM node, got ' + page);
+		if (!Utils.isNode(page)) {
+			throw TypeError('page template node must be a DOM node, got '
+					+ page);
 		}
 
 		addPage(page, pageName);
 	};
 
-	App.controller = function (pageName, controller, cleanup) {
+	App.controller = function(pageName, controller, cleanup) {
 		if (typeof pageName !== 'string') {
 			throw TypeError('page name must be a string, got ' + pageName);
 		}
 
 		if (typeof controller !== 'function') {
-			throw TypeError('page controller must be a function, got ' + controller);
+			throw TypeError('page controller must be a function, got '
+					+ controller);
 		}
 
 		switch (typeof cleanup) {
-			case 'undefined':
-				cleanup = function(){};
-				break;
+		case 'undefined':
+			cleanup = function() {
+			};
+			break;
 
-			case 'function':
-				break;
+		case 'function':
+			break;
 
-			default:
-				throw TypeError('page cleanup handler must be a function, got ' + cleanup);
+		default:
+			throw TypeError('page cleanup handler must be a function, got '
+					+ cleanup);
 		}
 
 		if (controller) {
@@ -1324,90 +1316,90 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 	};
 	App.populator = App.controller; // backwards compat
 
-	App.generate = function (pageName, args) {
+	App.generate = function(pageName, args) {
 		if (typeof pageName !== 'string') {
 			throw TypeError('page name must be a string, got ' + pageName);
 		}
 
 		switch (typeof args) {
-			case 'undefined':
-				args = {};
-				break;
+		case 'undefined':
+			args = {};
+			break;
 
-			case 'object':
-				break;
+		case 'object':
+			break;
 
-			default:
-				throw TypeError('page arguments must be an object if defined, got ' + args);
+		default:
+			throw TypeError('page arguments must be an object if defined, got '
+					+ args);
 		}
 
 		return generatePage(pageName, args);
 	};
 
-	App.destroy = function (page) {
-		if ( !Utils.isNode(page) ) {
+	App.destroy = function(page) {
+		if (!Utils.isNode(page)) {
 			throw TypeError('page node must be a DOM node, got ' + page);
 		}
 
 		return destroyPage(page);
 	};
 
-	App._layout             = triggerPageSizeFix;
-	App._enableStatusBar    = enableStatusBar;
+	App._layout = triggerPageSizeFix;
+	App._enableStatusBar = enableStatusBar;
 	App._enableIOSStatusBar = enableStatusBar;
 
-
 	return {
-		EVENTS                : EVENTS                 ,
-		has                   : hasPage                ,
-		createManager         : createPageManager      ,
-		startGeneration       : startPageGeneration    ,
-		finishGeneration      : finishPageGeneration   ,
-		fire                  : firePageEvent          ,
-		startDestruction      : startPageDestruction   ,
-		finishDestruction     : finishPageDestruction  ,
-		fixContent            : fixContentHeight       ,
-		populateBackButton    : populatePageBackButton
+		EVENTS : EVENTS,
+		has : hasPage,
+		createManager : createPageManager,
+		startGeneration : startPageGeneration,
+		finishGeneration : finishPageGeneration,
+		fire : firePageEvent,
+		startDestruction : startPageDestruction,
+		finishDestruction : finishPageDestruction,
+		fixContent : fixContentHeight,
+		populateBackButton : populatePageBackButton
 	};
-
-
 
 	/* Page elements */
 
-	function preloadPages () {
-	//		if (preloaded) {
-	//			return;
-	//		}
-	//		preloaded = true;				
-
+	function preloadPages() {
+		// if (preloaded) {
+		// return;
+		// }
 		var pageNodes = document.getElementsByClassName(PAGE_CLASS);
 
-		for (var i=pageNodes.length; i--;) {
-			if(isPageLoaded(pageNodes[i])){
+		for (var i = pageNodes.length; i--;) {
+			if (isPageLoaded(pageNodes[i])) {
 				continue;
 			}
-			addPage( pageNodes[i] );
+			addPage(pageNodes[i]);
 		}
 
-		document.body.className += ' ' + APP_LOADED;
+		if (!preloaded) {
+			document.body.className += ' ' + APP_LOADED;
+		}
+
+		preloaded = true;
 	}
-	
-	function isPageLoaded(page, pageName){
-		if ( !pageName ) {
+
+	function isPageLoaded(page, pageName) {
+		if (!pageName) {
 			pageName = page.getAttribute(PAGE_NAME);
 		}
-		if ( !pageName ) {
+		if (!pageName) {
 			throw TypeError('isPageLoaded page name was not specified');
 		}
 		return (pageName in pages);
 	}
 
-	function addPage (page, pageName) {
-		if ( !pageName ) {
+	function addPage(page, pageName) {
+		if (!pageName) {
 			pageName = page.getAttribute(PAGE_NAME);
 		}
 
-		if ( !pageName ) {
+		if (!pageName) {
 			throw TypeError('page name was not specified');
 		}
 
@@ -1418,47 +1410,46 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		pages[pageName] = page.cloneNode(true);
 	}
 
-	function hasPage (pageName) {
+	function hasPage(pageName) {
 		preloadPages();
 		return (pageName in pages);
 	}
 
-	function clonePage (pageName) {
-		if ( !hasPage(pageName) ) {
+	function clonePage(pageName) {
+		if (!hasPage(pageName)) {
 			throw TypeError(pageName + ' is not a known page');
 		}
 		return pages[pageName].cloneNode(true);
 	}
 
-
-
 	/* Page controllers */
 
-	function addController (pageName, controller) {
+	function addController(pageName, controller) {
 		controllers[pageName] = controller;
 	}
 
-	function addCleanup (pageName, cleanup) {
+	function addCleanup(pageName, cleanup) {
 		cleanups[pageName] = cleanup;
 	}
 
-	function populatePage (pageName, pageManager, page, args) {
+	function populatePage(pageName, pageManager, page, args) {
 		var controller = controllers[pageName];
-		if ( !controller ) {
+		if (!controller) {
 			return;
 		}
-		for (var prop in controller) {
+		for ( var prop in controller) {
 			pageManager[prop] = controller[prop];
 		}
-		for (var prop in controller.prototype) {
+		for ( var prop in controller.prototype) {
 			pageManager[prop] = controller.prototype[prop];
 		}
-		pageManager.page = page; //TODO: getter
-		pageManager.args = args; //TODO: getter (dont want this to hit localStorage)
+		pageManager.page = page; // TODO: getter
+		pageManager.args = args; // TODO: getter (dont want this to hit
+									// localStorage)
 		controller.call(pageManager, page, args);
 	}
 
-	function unpopulatePage (pageName, pageManager, page, args) {
+	function unpopulatePage(pageName, pageManager, page, args) {
 		var cleanup = cleanups[pageName];
 		if (cleanup) {
 			cleanup.call(pageManager, page, args);
@@ -1466,22 +1457,21 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		firePageEvent(pageManager, page, EVENTS.DESTROY);
 	}
 
-
-
 	/* Page generation */
 
-	function createPageManager (restored) {
+	function createPageManager(restored) {
 		var pageManager = {
-			restored : restored ,
-			showing  : false ,
-			online   : navigator.onLine
+			restored : restored,
+			showing : false,
+			online : navigator.onLine
 		};
 
 		var readyQueue = [];
 
-		pageManager.ready = function (func) {
+		pageManager.ready = function(func) {
 			if (typeof func !== 'function') {
-				throw TypeError('ready must be called with a function, got ' + func);
+				throw TypeError('ready must be called with a function, got '
+						+ func);
 			}
 
 			if (readyQueue) {
@@ -1491,17 +1481,17 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 			}
 		};
 
-		pageManager[PAGE_READY_VAR] = function () {
-			Utils.ready(function () {
-				if ( !readyQueue ) {
+		pageManager[PAGE_READY_VAR] = function() {
+			Utils.ready(function() {
+				if (!readyQueue) {
 					return;
 				}
 				var queue = readyQueue.slice();
 				readyQueue = null;
-				if ( Utils.isNode(pageManager.page) ) {
+				if (Utils.isNode(pageManager.page)) {
 					firePageEvent(pageManager, pageManager.page, EVENTS.READY);
 				}
-				Utils.forEach(queue, function (func) {
+				Utils.forEach(queue, function(func) {
 					func.call(pageManager);
 				});
 			});
@@ -1510,27 +1500,27 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		return pageManager;
 	}
 
-	function generatePage (pageName, args) {
-		var pageManager = {},
-			page        = startPageGeneration(pageName, pageManager, args);
+	function generatePage(pageName, args) {
+		var pageManager = {}, page = startPageGeneration(pageName, pageManager,
+				args);
 
 		finishPageGeneration(pageName, pageManager, page, args);
 
 		return page;
 	}
 
-	function destroyPage (page) {
+	function destroyPage(page) {
 		var pageName = page.getAttribute(PAGE_NAME);
 		startPageDestruction(pageName, {}, page, {});
 		finishPageDestruction(pageName, {}, page, {});
 	}
 
-	function startPageGeneration (pageName, pageManager, args) {
+	function startPageGeneration(pageName, pageManager, args) {
 		var page = clonePage(pageName);
 
 		var eventNames = [];
-		for (var evt in EVENTS) {
-			eventNames.push( eventTypeToName(EVENTS[evt]) );
+		for ( var evt in EVENTS) {
+			eventNames.push(eventTypeToName(EVENTS[evt]));
 		}
 		Events.init(page, eventNames);
 		Metrics.watchPage(page, pageName, args);
@@ -1541,18 +1531,18 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 
 		Utils.forEach(page.querySelectorAll('.app-button'), attachButtonEvent);
 
-		//Attach click events for buttons added later on
-		page.addEventListener('DOMNodeInserted', function (e) {
+		// Attach click events for buttons added later on
+		page.addEventListener('DOMNodeInserted', function(e) {
 			var element = e.srcElement;
-			if ( element.classList && element.classList.contains('app-button') ) {
+			if (element.classList && element.classList.contains('app-button')) {
 				attachButtonEvent(element);
 			}
 		});
 
 		populatePage(pageName, pageManager, page, args);
 
-		page.addEventListener(eventTypeToName(EVENTS.SHOW), function () {
-			setTimeout(function () {
+		page.addEventListener(eventTypeToName(EVENTS.SHOW), function() {
+			setTimeout(function() {
 				if (typeof pageManager[PAGE_READY_VAR] === 'function') {
 					pageManager[PAGE_READY_VAR]();
 				}
@@ -1568,55 +1558,56 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		}
 
 		Clickable(button);
-		button.addEventListener('click', function () {
-			var target     = button.getAttribute('data-target'),
-				targetArgs = button.getAttribute('data-target-args'),
-				back       = (button.getAttribute('data-back') !== null),
-				manualBack = (button.getAttribute('data-manual-back') !== null),
-				args;
+		button
+				.addEventListener(
+						'click',
+						function() {
+							var target = button.getAttribute('data-target'), targetArgs = button
+									.getAttribute('data-target-args'), back = (button
+									.getAttribute('data-back') !== null), manualBack = (button
+									.getAttribute('data-manual-back') !== null), args;
 
-			try {
-				args = JSON.parse(targetArgs);
-			} catch (err) {}
-			if ((typeof args !== 'object') || (args === null)) {
-				args = {};
-			}
+							try {
+								args = JSON.parse(targetArgs);
+							} catch (err) {
+							}
+							if ((typeof args !== 'object') || (args === null)) {
+								args = {};
+							}
 
-			if (!back && !target) {
-				return;
-			}
-			if (back && manualBack) {
-				return;
-			}
+							if (!back && !target) {
+								return;
+							}
+							if (back && manualBack) {
+								return;
+							}
 
-			var clickableClass = button.getAttribute('data-clickable-class');
-			if (clickableClass) {
-				button.disabled = true;
-				button.classList.add(clickableClass);
-			}
+							var clickableClass = button
+									.getAttribute('data-clickable-class');
+							if (clickableClass) {
+								button.disabled = true;
+								button.classList.add(clickableClass);
+							}
 
-			if (back) {
-				App.back(finish);
-			}
-			else if (target) {
-				App.load(target, args, {}, finish);
-			}
+							if (back) {
+								App.back(finish);
+							} else if (target) {
+								App.load(target, args, {}, finish);
+							}
 
-			function finish () {
-				if (clickableClass) {
-					button.disabled = false;
-					button.classList.remove(clickableClass);
-				}
-			}
+							function finish() {
+								if (clickableClass) {
+									button.disabled = false;
+									button.classList.remove(clickableClass);
+								}
+							}
 
-		}, false);
+						}, false);
 	}
 
-	function firePageEvent (pageManager, page, eventType) {
-		var eventName = eventTypeToName(eventType),
-			funcName  = eventTypeToFunctionName(eventType),
-			success   = true;
-		if ( !Events.fire(page, eventName) ) {
+	function firePageEvent(pageManager, page, eventType) {
+		var eventName = eventTypeToName(eventType), funcName = eventTypeToFunctionName(eventType), success = true;
+		if (!Events.fire(page, eventName)) {
 			success = false;
 		}
 		if (typeof pageManager[funcName] === 'function') {
@@ -1627,19 +1618,19 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		return success;
 	}
 
-	function eventTypeToName (eventType) {
+	function eventTypeToName(eventType) {
 		return 'app' + eventType[0].toUpperCase() + eventType.slice(1);
 	}
 
-	function eventTypeToFunctionName (eventType) {
+	function eventTypeToFunctionName(eventType) {
 		return 'on' + eventType[0].toUpperCase() + eventType.slice(1);
 	}
 
-	function finishPageGeneration (pageName, pageManager, page, args) {
+	function finishPageGeneration(pageName, pageManager, page, args) {
 		Scroll.setup(page);
 	}
 
-	function startPageDestruction (pageName, pageManager, page, args) {
+	function startPageDestruction(pageName, pageManager, page, args) {
 		if (!Utils.os.ios || Utils.os.version < 6) {
 			Scroll.disable(page);
 		}
@@ -1649,31 +1640,29 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		}
 	}
 
-	function finishPageDestruction (pageName, pageManager, page, args) {
+	function finishPageDestruction(pageName, pageManager, page, args) {
 		unpopulatePage(pageName, pageManager, page, args);
 	}
 
-
-
 	/* Page layout */
 
-	function setupPageListeners () {
+	function setupPageListeners() {
 		window.addEventListener('orientationchange', triggerPageSizeFix);
-		window.addEventListener('resize'           , triggerPageSizeFix);
-		window.addEventListener('load'             , triggerPageSizeFix);
+		window.addEventListener('resize', triggerPageSizeFix);
+		window.addEventListener('load', triggerPageSizeFix);
 		setTimeout(triggerPageSizeFix, 0);
 
-		window.addEventListener('online', function () {
+		window.addEventListener('online', function() {
 			if (App._Stack) {
-				Utils.forEach(App._Stack.get(), function (pageInfo) {
+				Utils.forEach(App._Stack.get(), function(pageInfo) {
 					pageInfo[2].online = true;
 					firePageEvent(pageInfo[2], pageInfo[3], EVENTS.ONLINE);
 				});
 			}
 		}, false);
-		window.addEventListener('offline', function () {
+		window.addEventListener('offline', function() {
 			if (App._Stack) {
-				Utils.forEach(App._Stack.get(), function (pageInfo) {
+				Utils.forEach(App._Stack.get(), function(pageInfo) {
 					pageInfo[2].online = false;
 					firePageEvent(pageInfo[2], pageInfo[3], EVENTS.OFFLINE);
 				});
@@ -1681,7 +1670,7 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		}, false);
 	}
 
-	function triggerPageSizeFix () {
+	function triggerPageSizeFix() {
 		fixContentHeight();
 		var pageData;
 		if (App._Stack) {
@@ -1691,60 +1680,62 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 			firePageEvent(pageData[2], pageData[3], EVENTS.LAYOUT);
 		}
 
-		//TODO: turns out this isnt all that expensive, but still, lets kill it if we can
-		setTimeout(fixContentHeight,   0);
-		setTimeout(fixContentHeight,  10);
+		// TODO: turns out this isnt all that expensive, but still, lets kill it
+		// if we can
+		setTimeout(fixContentHeight, 0);
+		setTimeout(fixContentHeight, 10);
 		setTimeout(fixContentHeight, 100);
 	}
 
-	function fixContentHeight (page) {
-		if ( !page ) {
+	function fixContentHeight(page) {
+		if (!page) {
 			if (App._Navigation) {
 				page = App._Navigation.getCurrentNode();
 			}
-			if ( !page ) {
+			if (!page) {
 				return;
 			}
 		}
 
-		var topbar  = page.querySelector('.app-topbar'),
-			content = page.querySelector('.app-content'),
-			height  = window.innerHeight;
+		var topbar = page.querySelector('.app-topbar'), content = page
+				.querySelector('.app-content'), height = window.innerHeight;
 
-		if ( !content ) {
+		if (!content) {
 			return;
 		}
-		if ( !topbar ) {
+		if (!topbar) {
 			content.style.height = height + 'px';
 			return;
 		}
 
-		var topbarStyles = document.defaultView.getComputedStyle(topbar, null),
-			topbarHeight = Utils.os.android ? 56 : 44;
+		var topbarStyles = document.defaultView.getComputedStyle(topbar, null), topbarHeight = Utils.os.android ? 56
+				: 44;
 		if (statusBarEnabled) {
 			topbarHeight += Utils.os.android ? 24 : 20;
 		}
 		if (topbarStyles.height) {
 			topbarHeight = (parseInt(topbarStyles.height) || 0);
 			if ((topbarStyles.boxSizing || topbarStyles.webkitBoxSizing) !== 'border-box') {
-				topbarHeight += (parseInt(topbarStyles.paddingBottom) || 0) + (parseInt(topbarStyles.paddingTop) || 0);
-				topbarHeight += (parseInt(topbarStyles.borderBottomWidth) || 0) + (parseInt(topbarStyles.borderTopWidth) || 0);
+				topbarHeight += (parseInt(topbarStyles.paddingBottom) || 0)
+						+ (parseInt(topbarStyles.paddingTop) || 0);
+				topbarHeight += (parseInt(topbarStyles.borderBottomWidth) || 0)
+						+ (parseInt(topbarStyles.borderTopWidth) || 0);
 			}
 		}
 		content.style.height = (height - topbarHeight) + 'px';
 	}
 
-	function populatePageBackButton (page, oldPage) {
-		if ( !oldPage ) {
+	function populatePageBackButton(page, oldPage) {
+		if (!oldPage) {
 			return;
 		}
-		var backButton = page.querySelector('.app-topbar .left.app-button'),
-			oldTitle   = oldPage.querySelector('.app-topbar .app-title');
-		if (!backButton || !oldTitle || (backButton.getAttribute('data-autotitle') === null)) {
+		var backButton = page.querySelector('.app-topbar .left.app-button'), oldTitle = oldPage
+				.querySelector('.app-topbar .app-title');
+		if (!backButton || !oldTitle
+				|| (backButton.getAttribute('data-autotitle') === null)) {
 			return;
 		}
-		var oldText = oldTitle.textContent,
-			newText = backButton.textContent;
+		var oldText = oldTitle.textContent, newText = backButton.textContent;
 		if (!oldText || newText) {
 			return;
 		}
@@ -1754,7 +1745,7 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		backButton.textContent = oldText;
 	}
 
-	function enableStatusBar () {
+	function enableStatusBar() {
 		if (statusBarEnabled) {
 			return;
 		}
@@ -1764,11 +1755,12 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		} else {
 			document.body.className += ' ' + APP_IOS_STATUSBAR;
 		}
-		Utils.ready(function () {
+		Utils.ready(function() {
 			setTimeout(triggerPageSizeFix, 6);
 		});
 	}
-}(window, document, Clickable, Scrollable, App, App._Utils, App._Events, App._Metrics, App._Scroll);
+}(window, document, Clickable, Scrollable, App, App._Utils, App._Events,
+		App._Metrics, App._Scroll);
 App._Stack = function (window, document, App, Utils, Scroll, Pages) {
 	var STACK_KEY  = '__APP_JS_STACK__' + window.location.pathname,
 		STACK_TIME = '__APP_JS_TIME__'  + window.location.pathname;
