@@ -270,16 +270,16 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	public void moveTo(final String pageId) {
 		// getCurrentPage().mask("");
 		Element elRef = null;
-		Element[] els = dynamicLoader.scanDynamicMarkerElements("data-appify-ref");
+		Element[] els = dynamicLoader.scanDynamicMarkerElements("appify-page");
 		for (Element element : els) {
-			if (element.getAttribute("data-appify-ref") != null && element.getAttribute("data-appify-ref").equals(pageId)) {
+			if (element.getAttribute("appify-page") != null && element.getAttribute("appify-page").equals(pageId)) {
 				elRef = element;
 				break;
 			}
 		}
 		WebPage cachedPage = pagesCache.get(pageId);
 		if (elRef != null && cachedPage == null) {
-			final String url = elRef.getAttribute("data-appify-template");
+			final String url = elRef.getAttribute("appify-tpl");
 
 			dynamicLoader.load(elRef, url, new ContentLoadedListener() {
 
@@ -398,18 +398,18 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	protected void scandDynamicContent(final ContentLoadedListener l) {
 		GWT.log("scandDynamicContent");
-		Element[] els = dynamicLoader.scanDynamicMarkerElementsExcept("data-appify-template", "data-appify-ref");
+		Element[] els = dynamicLoader.scanDynamicMarkerElementsExcept("appify-tpl", "appify-page");
 		final int size = els.length;
 		GWT.log("found : " + size);
 		if (size == 0) {
 			l.done();
 		} else {
 			for (Element element : els) {
-				// String lazy = element.getAttribute("data-appify-ref");
+				// String lazy = element.getAttribute("appify-page");
 				// if (lazy != null && !lazy.isEmpty()) {
 				// continue;
 				// }
-				String url = element.getAttribute("data-appify-template");
+				String url = element.getAttribute("appify-tpl");
 				dynamicLoader.load(element, url, new ContentLoadedListener() {
 
 					@Override
