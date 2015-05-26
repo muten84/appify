@@ -7,7 +7,7 @@ var WebPullToRefresh = (function () {
 	 */	
 	var defaults = {
 		// ID of the element holding pannable content area
-		contentEl: 'content', 
+		contentEl: 'pullable', 
 
 		// ID of the element holding pull to refresh loading area
 		ptrEl: 'ptr', 

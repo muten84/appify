@@ -106,7 +106,7 @@ body {
 	}
 }
 
-#content {
+#pullable {
 	background: #fff;
 	min-height: 100%;
 	z-index: 20;
@@ -121,17 +121,17 @@ body {
 	box-sizing: border-box;
 }
 
-.ptr-loading #content, .ptr-reset #content,
+.ptr-loading #pullable, .ptr-reset #pullable,
 .ptr-loading #ptr, .ptr-reset #ptr {
 	transition: all .25s ease;
 }
 
-.ptr-reset #content {
+.ptr-reset #pullable {
 	-webkit-transform: translate3d( 0, 0, 0 );
 	transform: translate3d( 0, 0, 0 );
 }
 
-.ptr-loading #content {
+.ptr-loading #pullable {
 	-webkit-transform: translate3d( 0, 50px, 0 );
 	transform: translate3d( 0, 50px, 0 );
 }
