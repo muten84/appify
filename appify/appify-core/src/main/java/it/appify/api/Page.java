@@ -1,5 +1,7 @@
 package it.appify.api;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 /*
  * Appify - a tiny frontend framework to build complex mobile apps.
  * 
@@ -44,5 +46,9 @@ public interface Page<E> extends HasViewHandlers {
 	public void unmask();
 
 	public void decorate();
+
+	public static interface PageActionCallback {
+		public void refresh(JavaScriptObject resolve, JavaScriptObject reject);
+	}
 
 }

@@ -26,8 +26,57 @@ import java.util.List;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class WebPage implements Page<Element>, HasView<Element> {
+	public static class JsCallback implements AsyncCallback<Boolean> {
+		private JavaScriptObject resolve;
+
+		private JavaScriptObject reject;
+
+		private JsCallback() {
+			// this.reject = reject;
+			// this.resolve = resolve;
+		}
+
+		public static JsCallback create() {
+			return new JsCallback();
+		}
+
+		@Override
+		public void onFailure(Throwable caught) {
+			_callFunction(reject);
+		}
+
+		@Override
+		public void onSuccess(Boolean result) {
+			_callFunction(resolve);
+
+		}
+
+		private native void _callFunction(JavaScriptObject funk) /*-{
+			if (funk.call) {
+				funk.call();
+			}
+		}-*/;
+
+		public JavaScriptObject getResolve() {
+			return resolve;
+		}
+
+		public void setResolve(JavaScriptObject resolve) {
+			this.resolve = resolve;
+		}
+
+		public JavaScriptObject getReject() {
+			return reject;
+		}
+
+		public void setReject(JavaScriptObject reject) {
+			this.reject = reject;
+		}
+
+	}
 
 	private Element pageElement;
 
@@ -139,14 +188,27 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 	@Override
 	public void decorate() {
-		_pullify();
+		// _pullify();
 	}
 
-	private native void _pullify()/*-{
+	private native void _pullify(PageActionCallback callback)/*-{
 		var pullableEl = $wnd.$('#pullable');
+		var innerFunction = function() {
+			return new Promise(
+					function(resolve, reject) {
+						console.log('innerFunction....');
+						var jscallback = @it.appify.view.WebPage.JsCallback::create()();
+						jscallback.@it.appify.view.WebPage.JsCallback::setResolve()
+						//						var myCall = callback.@it.appify.api.Page.PageActionCallback::refresh(
+
+					});
+
+		};
 		if (pullableEl) {
 			try {
-				$wnd.WebPullToRefresh.init({});
+				$wnd.WebPullToRefresh.init({
+					loadingFunction : innerFunction
+				});
 			} catch (err) {
 				console.log(err);
 			}
