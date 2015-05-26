@@ -37,11 +37,12 @@ public interface Page<E> extends HasViewHandlers {
 	/*
 	 * provisional api https://github.com/sandywalker/webui-popover
 	 */
-	public void popover(String viewId, String title, String content,
-			String animation);
+	public void popover(String viewId, String title, String content, String animation);
 
 	public void mask(String label);
 
 	public void unmask();
+
+	public void decorate();
 
 }
