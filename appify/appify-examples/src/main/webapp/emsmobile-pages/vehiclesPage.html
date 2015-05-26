@@ -1,5 +1,11 @@
-<div class="app-page"  id="vehiclesPage"
-	data-page="vehiclesPage">
+<div class="app-page" id="vehiclesPage" data-page="vehiclesPage">
+	<div id="ptr" style="z-index: -10">
+		<span class="genericon genericon-next"></span>
+
+		<div class="loading">
+			<span id="l1"></span> <span id="l2"></span> <span id="l3"></span>
+		</div>
+	</div>
 	<div v-pre id="waitModal" class="modal">
 		<header class="bar bar-nav">
 			<a id="closeWaitModalBtn" class="icon icon-close pull-right"></a>
@@ -12,39 +18,42 @@
 				style="text-align: center;">...</div>
 		</div>
 	</div>
-	<div id="content" class="content snap-content">
-		<div class="app-topbar">
-			<header class="bar bar-nav app-title topbar-height">
-				<button id="backBtn" class="btn btn-nav pull-left">
-					<span class="fa fa-arrow-left  fa-2x"></span>
-				</button>
-				<button id="gpsStateBtn"
-					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
-					<span class="fa fa-map-marker fa-2x"></span>
-				</button>
-				<button id="batteryStateBtn"
-					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
-					<span class="fa fa-bolt fa-2x"></span>
-				</button>
-				<button id="connectionStateBtn"
-					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
-					<span class="fa fa-rss fa-2x"></span>
-				</button>
-			</header>
-		</div>
-		<div class="app-content">
-			<div class="app-section">
-				<ul id="vehicleList"  v-repeat="section: vehicles" class="table-view">
-					<li class="table-view-cell media"><span
-						class="media-object pull-left fa fa-flag"></span>
-						<div class="media-body">{{section.sectionName}}</div></li>
-					<li v-repeat="vehicle: section.items "
-						v-on="click: onData(this,$event)" class="table-view-cell media"><a
-						class="navigate-right"> <span
-							class="media-object pull-left fa fa-ambulance"></span>
-							<div class="media-body">{{vehicle.itemName}}</div>
-					</a></li>
-				</ul>
+	<div id="pullable" appify-pullable>
+		<div id="content" class="content snap-content">
+			<div class="app-topbar" style="border: 1">
+				<header class="bar bar-nav app-title topbar-height">
+					<button id="backBtn" class="btn btn-nav pull-left">
+						<span class="fa fa-arrow-left  fa-2x"></span>
+					</button>
+					<button id="gpsStateBtn"
+						class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
+						<span class="fa fa-map-marker fa-2x"></span>
+					</button>
+					<button id="batteryStateBtn"
+						class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
+						<span class="fa fa-bolt fa-2x"></span>
+					</button>
+					<button id="connectionStateBtn"
+						class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
+						<span class="fa fa-rss fa-2x"></span>
+					</button>
+				</header>
+			</div>
+			<div class="app-content">
+				<div class="app-section">
+					<ul id="vehicleList" v-repeat="section: vehicles"
+						class="table-view">
+						<li class="table-view-cell media"><span
+							class="media-object pull-left fa fa-flag"></span>
+							<div class="media-body">{{section.sectionName}}</div></li>
+						<li v-repeat="vehicle: section.items "
+							v-on="click: onData(this,$event)" class="table-view-cell media"><a
+							class="navigate-right"> <span
+								class="media-object pull-left fa fa-ambulance"></span>
+								<div class="media-body">{{vehicle.itemName}}</div>
+						</a></li>
+					</ul>
+				</div>
 			</div>
 			<!-- <div class="app-section">
 				<ul id="listOfItems2" class="table-view">
