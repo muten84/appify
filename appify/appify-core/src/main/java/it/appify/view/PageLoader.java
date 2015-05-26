@@ -48,7 +48,7 @@ public class PageLoader<V, M> {
 	private String currentTransition = null;
 
 	private final static boolean USE_MASK = false;
-	
+
 	private final static boolean AUTO_UNMASK = true;
 
 	private final PageListener<V> pl = new PageListener<V>() {
@@ -93,6 +93,7 @@ public class PageLoader<V, M> {
 		public void onPageReady(Page<V> page) {
 			GWT.log("PageLoader onPageReady: " + page.getPageId());
 			// page.unmask();
+			page.decorate();
 			if (outerPl != null) {
 				outerPl.onPageReady(page);
 			}
@@ -203,4 +204,3 @@ public class PageLoader<V, M> {
 	}
 
 }
-
