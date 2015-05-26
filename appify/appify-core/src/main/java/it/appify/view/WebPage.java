@@ -137,6 +137,24 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		}
 	}
 
+	@Override
+	public void decorate() {
+		_pullify();
+	}
+
+	private native void _pullify()/*-{
+		var pullableEl = $wnd.$('#pullable');
+		if (pullableEl) {
+			try {
+				$wnd.WebPullToRefresh.init({});
+			} catch (err) {
+				console.log(err);
+			}
+		} else {
+			console.log('page has not a pullable element...');
+		}
+	}-*/;
+
 	// classie.has( element, 'my-class' )
 	private native boolean _hasStyle(String viewId, String className)/*-{
 		//console.log('_hasStyle: ' + viewId + " - " + className);
