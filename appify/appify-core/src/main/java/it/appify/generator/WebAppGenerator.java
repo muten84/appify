@@ -20,6 +20,7 @@ import it.appify.annotations.Battery;
 import it.appify.annotations.Controller;
 import it.appify.annotations.Geolocation;
 import it.appify.annotations.Offline;
+import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ScreenOrientation;
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
@@ -45,6 +46,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 
@@ -85,8 +87,14 @@ public class WebAppGenerator extends Generator {
 
 	private Map<Class<?>, TypeSpec> objectMappersInterfaces;
 
+	private Map<String, TypeSpec.Builder> controllerHolderSpecs;
+
+	private Map<String, MethodSpec.Builder> initializeControllerBuilders;
+
 	public WebAppGenerator() {
 		this.objectMappersInterfaces = new HashMap<Class<?>, TypeSpec>();
+		controllerHolderSpecs = new HashMap<String, TypeSpec.Builder>();
+		initializeControllerBuilders = new HashMap<String, MethodSpec.Builder>();
 	}
 
 	@Override
@@ -451,16 +459,23 @@ public class WebAppGenerator extends Generator {
 						// collect all elements to inject in the controller
 						initializeControllerBuilder.addStatement(
 								"this.bindElementToPage($S,$S)", pageId, elId);
-						TypeSpec innerControllerHandler = createControllerHolder(
+						TypeSpec.Builder innerControllerBuilder = createControllerHolderBuilder(
 								controllerClass,
 								pageId,
 								elId,
 								jField.getName(),
 								"controller" + jClassType.getSimpleSourceName(),
 								false);
-						initializeControllerBuilder.addStatement(
-								"this.bindControllerToPage($S,$L)", pageId,
-								innerControllerHandler);
+						controllerHolderSpecs
+								.put("controller"
+										+ jClassType.getSimpleSourceName()
+										+ "##" + pageId, innerControllerBuilder);
+						initializeControllerBuilders.put("controller"
+								+ jClassType.getSimpleSourceName(),
+								initializeControllerBuilder);
+						// initializeControllerBuilder.addStatement(
+						// "this.bindControllerToPage($S,$L)", pageId,
+						// innerControllerHandler);
 					}
 				} else if (jField.isPrivate() || jField.isProtected()) {
 					if (el != null) {
@@ -468,29 +483,39 @@ public class WebAppGenerator extends Generator {
 						// collect all elements to inject in the controller
 						initializeControllerBuilder.addStatement(
 								"this.bindElementToPage($S,$S)", pageId, elId);
-						TypeSpec innerControllerHandler = createControllerHolder(
+						TypeSpec.Builder innerControllerBuilder = createControllerHolderBuilder(
 								controllerClass,
 								pageId,
 								elId,
 								jField.getName(),
 								"controller" + jClassType.getSimpleSourceName(),
 								true);
-						initializeControllerBuilder.addStatement(
-								"this.bindControllerToPage($S,$L)", pageId,
-								innerControllerHandler);
+						controllerHolderSpecs
+								.put("controller"
+										+ jClassType.getSimpleSourceName()
+										+ "##" + pageId, innerControllerBuilder);
+						initializeControllerBuilders.put("controller"
+								+ jClassType.getSimpleSourceName(),
+								initializeControllerBuilder);
+						// initializeControllerBuilder.addStatement(
+						// "this.bindControllerToPage($S,$L)", pageId,
+						// innerControllerHandler);
 					}
 				}
 			}
 			// scan handlers
+			boolean pageReadyAdd = false;
 			for (JMethod jMethod : methods) {
 				ViewHandler vhAnnotation = jMethod
 						.getAnnotation(ViewHandler.class);
 				ViewModelHandler vhModelAnnotation = jMethod
 						.getAnnotation(ViewModelHandler.class);
+				OnPageReady onPageReady = jMethod
+						.getAnnotation(OnPageReady.class);
 
-				if (vhAnnotation == null && vhModelAnnotation == null) {
-					continue;
-				}
+				// if (vhAnnotation == null && vhModelAnnotation == null) {
+				// continue;
+				// }
 				if (vhAnnotation != null) {
 					// initialize the view handler to be invoked when an event
 					// occurs
@@ -511,7 +536,38 @@ public class WebAppGenerator extends Generator {
 					initializeControllerBuilder.addStatement(
 							"this.bindHandlerToPage(\"$L\", holder" + pageId
 									+ "_" + viewId + ")", pageId);
-				} else if (vhModelAnnotation != null) {
+				}
+				if (onPageReady != null) {
+					if (!pageReadyAdd) {
+						TypeSpec.Builder controllerHolderBuilder = controllerHolderSpecs
+								.get("controller"
+										+ jClassType.getSimpleSourceName()
+										+ "##" + pageId);
+						controllerHolderBuilder = callPageReadyMethod(
+								controllerHolderBuilder, jMethod.getName());
+						controllerHolderSpecs.put(
+								"controller" + jClassType.getSimpleSourceName()
+										+ "##" + pageId,
+								controllerHolderBuilder);
+						pageReadyAdd = true;
+					}
+
+				} else {
+					// TypeSpec.Builder controllerHolderBuilder =
+					// controllerHolderSpecs
+					// .get("controller"
+					// + jClassType.getSimpleSourceName() + "##"
+					// + pageId);
+					// if (controllerHolderBuilder != null) {
+					// controllerHolderBuilder = callPageReadyMethod(
+					// controllerHolderBuilder, "");
+					// controllerHolderSpecs.put(
+					// "controller" + jClassType.getSimpleSourceName()
+					// + "##" + pageId,
+					// controllerHolderBuilder);
+					// }
+				}
+				if (vhModelAnnotation != null) {
 					// initialize the view model handler to be invoked when an
 					// event on model occurs
 					Class<?> modelType = vhModelAnnotation.modelType();
@@ -532,8 +588,35 @@ public class WebAppGenerator extends Generator {
 							pageId, viewId, vmh);
 
 				}
+
+			}
+			if (!pageReadyAdd) {
+				TypeSpec.Builder controllerHolderBuilder = controllerHolderSpecs
+						.get("controller" + jClassType.getSimpleSourceName()
+								+ "##" + pageId);
+				if (controllerHolderBuilder != null) {
+					controllerHolderBuilder = callPageReadyMethod(
+							controllerHolderBuilder, "");
+					controllerHolderSpecs.put(
+							"controller" + jClassType.getSimpleSourceName()
+									+ "##" + pageId, controllerHolderBuilder);
+				}
+			}
+
+		}
+		Set<String> keys = controllerHolderSpecs.keySet();
+
+		for (String s : keys) {
+			String[] splitted = s.split("##");
+			TypeSpec.Builder controllerHolderBuilder = controllerHolderSpecs
+					.get(s);
+			if (controllerHolderBuilder != null) {
+				initializeControllerBuilder.addStatement(
+						"this.bindControllerToPage($S,$L)", splitted[1],
+						controllerHolderBuilder.build());
 			}
 		}
+
 		return initializeControllerBuilder.build();
 	}
 
@@ -606,9 +689,29 @@ public class WebAppGenerator extends Generator {
 		return serviceHandler;
 	}
 
-	private TypeSpec createControllerHolder(Class<?> controllerClass,
-			String pageId, String viewId, String fieldName, String controller,
-			boolean useSetter) {
+	private TypeSpec.Builder callPageReadyMethod(
+			TypeSpec.Builder controllerHolderSpec, String pageReadyHandlerMethod) {
+		MethodSpec.Builder callPageReadyMethodBuilder = MethodSpec
+				.methodBuilder("callPageReadyHandler")
+				.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+		if (pageReadyHandlerMethod != null
+				&& pageReadyHandlerMethod.length() > 0) {
+			callPageReadyMethodBuilder.addStatement("this.controller.$L()",
+					pageReadyHandlerMethod);
+		}
+		controllerHolderSpec.addMethod(callPageReadyMethodBuilder.build());
+		return controllerHolderSpec;
+	}
+
+	private TypeSpec createControllerHolder(
+			TypeSpec.Builder controllerHolderBuilder) {
+		TypeSpec controllerHolderSpec = controllerHolderBuilder.build();
+		return controllerHolderSpec;
+	}
+
+	private TypeSpec.Builder createControllerHolderBuilder(
+			Class<?> controllerClass, String pageId, String viewId,
+			String fieldName, String controller, boolean useSetter) {
 
 		MethodSpec.Builder injectViewElementsBuilder = MethodSpec
 				.methodBuilder("injectViewElements")
@@ -632,8 +735,9 @@ public class WebAppGenerator extends Generator {
 						ParameterizedTypeName.get(ControllerHolder.class,
 								controllerClass))
 				.addMethod(injectViewElementsBuilder.build());
-		TypeSpec controllerHolderSpec = controllerHolderBuilder.build();
-		return controllerHolderSpec;
+
+		// TypeSpec controllerHolderSpec = controllerHolderBuilder.build();
+		return controllerHolderBuilder;
 
 	}
 

@@ -1,6 +1,6 @@
 package it.appify.api;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /*
  * Appify - a tiny frontend framework to build complex mobile apps.
@@ -39,7 +39,8 @@ public interface Page<E> extends HasViewHandlers {
 	/*
 	 * provisional api https://github.com/sandywalker/webui-popover
 	 */
-	public void popover(String viewId, String title, String content, String animation);
+	public void popover(String viewId, String title, String content,
+			String animation);
 
 	public void mask(String label);
 
@@ -48,7 +49,9 @@ public interface Page<E> extends HasViewHandlers {
 	public void decorate();
 
 	public static interface PageActionCallback {
-		public void refresh(JavaScriptObject resolve, JavaScriptObject reject);
+		public void refresh(AsyncCallback<Boolean> cb);
 	}
+
+	public void addPullToRefreshHandler(PageActionCallback paCb);
 
 }

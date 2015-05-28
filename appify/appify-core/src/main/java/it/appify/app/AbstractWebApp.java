@@ -84,21 +84,34 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 			GWT.log("AbstractWebApp onPageShow");
 			loader.setCurrentTransition(null);
 			// inject all ui elements in the controller....
-			List<ControllerHolder<?>> controllers = pageControllers.get(page.getPageId());
-			if (controllers != null) {
-				for (ControllerHolder<?> controllerHolder : controllers) {
-					GWT.log("injecting elements: " + controllerHolder.pageId + " - " + controllerHolder.viewId + " - " + controllerHolder.fieldName);
-					controllerHolder.injectViewElements();
-				}
-			}
+//			List<ControllerHolder<?>> controllers = pageControllers.get(page
+//					.getPageId());
+//			if (controllers != null) {
+//				for (ControllerHolder<?> controllerHolder : controllers) {
+//					GWT.log("injecting elements: " + controllerHolder.pageId
+//							+ " - " + controllerHolder.viewId + " - "
+//							+ controllerHolder.fieldName);
+//					controllerHolder.injectViewElements();
+//				}
+//			}
 		}
 
 		@Override
 		public void onPageReady(Page<Element> page) {
-			GWT.log("AbstractWebApp onPageReady: " + mainPage + " - " + page.getPageId() + " - " + firstLoad);
+			GWT.log("AbstractWebApp onPageReady: " + mainPage + " - "
+					+ page.getPageId() + " - " + firstLoad);
 
 			/**/
-
+			List<ControllerHolder<?>> controllers = pageControllers.get(page
+					.getPageId());
+			if (controllers != null) {
+				for (ControllerHolder<?> controllerHolder : controllers) {
+					GWT.log("injecting elements: " + controllerHolder.pageId
+							+ " - " + controllerHolder.viewId + " - "
+							+ controllerHolder.fieldName);
+					controllerHolder.injectViewElements();
+				}
+			}
 			// if occurs first load of main page it's a good idea to start app
 			// services
 			if (page.getPageId().equals(mainPage) && firstLoad) {
@@ -111,13 +124,21 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 							s.start();
 							GWT.log("Service started: " + s);
 						} catch (Exception e) {
-							GWT.log("error while starting service: " + s.getClass());
+							GWT.log("error while starting service: "
+									+ s.getClass());
 						}
 					}
 				}
-				// all service started launch app start
+				// all service started launch app start only for main page app start and page ready is redundant!!
 				if (callback != null) {
 					callback.onAppStart(AbstractWebApp.this);
+				}
+			} else {
+				//all childs page can detected page ready event
+				List<ControllerHolder<?>> ctrlHolders = pageControllers
+						.get(page.getPageId());
+				for (ControllerHolder<?> controllerHolder : ctrlHolders) {
+					controllerHolder.callPageReadyHandler();
 				}
 			}
 
@@ -161,8 +182,10 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 * @param viewId
 	 * @param eventType
 	 */
-	public void addHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
-		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType, handler);
+	public void addHandler(String pageId, String viewId, String eventType,
+			ViewHandler handler) {
+		ViewHandlerHolder holder = createViewHandler(pageId, viewId, eventType,
+				handler);
 		loader.addPageViewHandler(pageId, holder);
 	}
 
@@ -175,7 +198,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		pageViewHandlers.put(pageId, holders);
 	}
 
-	protected void bindControllerToPage(String pageId, ControllerHolder<?> holder) {
+	protected void bindControllerToPage(String pageId,
+			ControllerHolder<?> holder) {
 		List<ControllerHolder<?>> holders = pageControllers.get(pageId);
 		if (holders == null) {
 			holders = new ArrayList<ControllerHolder<?>>();
@@ -198,7 +222,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		services.add(service);
 	}
 
-	protected ViewHandlerHolder createViewHandler(String pageId, String viewId, String eventType, ViewHandler handler) {
+	protected ViewHandlerHolder createViewHandler(String pageId, String viewId,
+			String eventType, ViewHandler handler) {
 		ViewHandlerHolder holder = new ViewHandlerHolder();
 		holder.setEventType(eventType);
 		holder.setHandler(handler);
@@ -225,19 +250,22 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 			public void done() {
 				GWT.log("starting app...");
 				if (mainPage == null || mainPage.isEmpty()) {
-					throw new RuntimeException("main page cannot be null or empty");
+					throw new RuntimeException(
+							"main page cannot be null or empty");
 				}
 				if (pageManager.getCurrentPage() == null) {
 					GWT.log("initializing services");
 					initializeServices();
 					GWT.log("initializing controllers");
 					initializeControllers();
-					List<ViewHandlerHolder> handlers = pageViewHandlers.get(mainPage);
+					List<ViewHandlerHolder> handlers = pageViewHandlers
+							.get(mainPage);
 					loader.loadPage(mainPage, initialState, handlers);
 
 					pageStack.add(mainPage);
 				} else {
-					throw new RuntimeException("App just started use moveTo and back to create navigation in your app");
+					throw new RuntimeException(
+							"App just started use moveTo and back to create navigation in your app");
 				}
 
 			}
@@ -245,7 +273,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	}
 
-	public void startApp(AppState initialAppState, AppListener<AppState> callback) {
+	public void startApp(AppState initialAppState,
+			AppListener<AppState> callback) {
 		this.callback = callback;
 		startApp(initialAppState);
 	}
@@ -272,7 +301,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		Element elRef = null;
 		Element[] els = dynamicLoader.scanDynamicMarkerElements("appify-page");
 		for (Element element : els) {
-			if (element.getAttribute("appify-page") != null && element.getAttribute("appify-page").equals(pageId)) {
+			if (element.getAttribute("appify-page") != null
+					&& element.getAttribute("appify-page").equals(pageId)) {
 				elRef = element;
 				break;
 			}
@@ -305,7 +335,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	protected void doMoveTo(String pageId) {
 		if (pageManager.getCurrentPage() == null) {
-			throw new RuntimeException("Main page not started  maybe you need to call start app first??");
+			throw new RuntimeException(
+					"Main page not started  maybe you need to call start app first??");
 		}
 		if (pageManager.getCurrentPage().getPageId().equals(pageId)) {
 			// no need to move to the current page
@@ -314,7 +345,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		Page<Element> currentPage = pageManager.getCurrentPage();
 		pageStack.add(currentPage.getPageId());
 		pagesCache.put(pageId, (WebPage) currentPage);
-		loader.loadPage(pageId, modelView.getCurrentModel(), pageViewHandlers.get(pageId));
+		loader.loadPage(pageId, modelView.getCurrentModel(),
+				pageViewHandlers.get(pageId));
 	}
 
 	/**
@@ -398,7 +430,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	protected void scandDynamicContent(final ContentLoadedListener l) {
 		GWT.log("scandDynamicContent");
-		Element[] els = dynamicLoader.scanDynamicMarkerElementsExcept("appify-tpl", "appify-page");
+		Element[] els = dynamicLoader.scanDynamicMarkerElementsExcept(
+				"appify-tpl", "appify-page");
 		final int size = els.length;
 		GWT.log("found : " + size);
 		if (size == 0) {

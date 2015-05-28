@@ -36,4 +36,5 @@ public abstract class ControllerHolder<Controller> {
 
 	public abstract void injectViewElements();
 
+	public abstract void callPageReadyHandler();
 }

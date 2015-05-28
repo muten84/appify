@@ -29,54 +29,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class WebPage implements Page<Element>, HasView<Element> {
-	public static class JsCallback implements AsyncCallback<Boolean> {
-		private JavaScriptObject resolve;
-
-		private JavaScriptObject reject;
-
-		private JsCallback() {
-			// this.reject = reject;
-			// this.resolve = resolve;
-		}
-
-		public static JsCallback create() {
-			return new JsCallback();
-		}
-
-		@Override
-		public void onFailure(Throwable caught) {
-			_callFunction(reject);
-		}
-
-		@Override
-		public void onSuccess(Boolean result) {
-			_callFunction(resolve);
-
-		}
-
-		private native void _callFunction(JavaScriptObject funk) /*-{
-			if (funk.call) {
-				funk.call();
-			}
-		}-*/;
-
-		public JavaScriptObject getResolve() {
-			return resolve;
-		}
-
-		public void setResolve(JavaScriptObject resolve) {
-			this.resolve = resolve;
-		}
-
-		public JavaScriptObject getReject() {
-			return reject;
-		}
-
-		public void setReject(JavaScriptObject reject) {
-			this.reject = reject;
-		}
-
-	}
 
 	private Element pageElement;
 
@@ -101,7 +53,8 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_addViewHandler(id, type, obj, h);
 	}
 
-	private native void _addViewHandler(String id, String type, JavaScriptObject p, ViewHandler h)/*-{
+	private native void _addViewHandler(String id, String type,
+			JavaScriptObject p, ViewHandler h)/*-{
 		var that = this;
 		$wnd
 				.$(p)
@@ -134,7 +87,8 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		return _getElementInPage(obj, "#" + elemId).cast();
 	}
 
-	private native JavaScriptObject _getElementInPage(JavaScriptObject obj, String elemId)/*-{
+	private native JavaScriptObject _getElementInPage(JavaScriptObject obj,
+			String elemId)/*-{
 		return $wnd.$(obj).find(elemId)[0];
 	}-*/;
 
@@ -191,19 +145,26 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		// _pullify();
 	}
 
-	private native void _pullify(PageActionCallback callback)/*-{
+	@Override
+	public void addPullToRefreshHandler(PageActionCallback paCb) {
+		_addPtrHandler(paCb);
+	}
+
+	private native void _addPtrHandler(final PageActionCallback paCb)/*-{
 		var pullableEl = $wnd.$('#pullable');
 		var innerFunction = function() {
+			$wnd.$('#ptr').attr('style', 'z-index: 10');
 			return new Promise(
 					function(resolve, reject) {
 						console.log('innerFunction....');
-						var jscallback = @it.appify.view.WebPage.JsCallback::create()();
-						jscallback.@it.appify.view.WebPage.JsCallback::setResolve()
-						//						var myCall = callback.@it.appify.api.Page.PageActionCallback::refresh(
-
+						var jscallback = @it.appify.view.JsCallback::create()();
+						jscallback.@it.appify.view.JsCallback::setResolve(Lcom/google/gwt/core/client/JavaScriptObject;)(resolve);
+						jscallback.@it.appify.view.JsCallback::setReject(Lcom/google/gwt/core/client/JavaScriptObject;)(reject);
+						paCb.@it.appify.api.Page.PageActionCallback::refresh(Lcom/google/gwt/user/client/rpc/AsyncCallback;)(jscallback);
+						$wnd.setTimeout(function(){$wnd.$('#ptr').attr('style', 'z-index: -10');}, 3000);
+						
 					});
-
-		};
+		}
 		if (pullableEl) {
 			try {
 				$wnd.WebPullToRefresh.init({
@@ -215,6 +176,33 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		} else {
 			console.log('page has not a pullable element...');
 		}
+
+	}-*/;
+
+	private native void _pullify(PageActionCallback callback)/*-{
+//		var pullableEl = $wnd.$('#pullable');
+//		var innerFunction = function() {
+//			return new Promise(
+//					function(resolve, reject) {
+//						console.log('innerFunction....');
+//						var jscallback = @it.appify.view.WebPage.JsCallback::create()();
+//						jscallback.@it.appify.view.WebPage.JsCallback::setResolve()
+//						//						var myCall = callback.@it.appify.api.Page.PageActionCallback::refresh(
+//
+//					});
+//
+//		};
+//		if (pullableEl) {
+//			try {
+//				$wnd.WebPullToRefresh.init({
+//					loadingFunction : innerFunction
+//				});
+//			} catch (err) {
+//				console.log(err);
+//			}
+//		} else {
+//			console.log('page has not a pullable element...');
+//		}
 	}-*/;
 
 	// classie.has( element, 'my-class' )
@@ -238,7 +226,8 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	}-*/;
 
 	@Override
-	public void popover(String viewId, String title, String content, String animation) {
+	public void popover(String viewId, String title, String content,
+			String animation) {
 		_popover(viewId, title, content, animation);
 
 	}
@@ -280,7 +269,8 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		});
 	}-*/;
 
-	private native void _popover(String viewId, String title, String content, String animation)/*-{
+	private native void _popover(String viewId, String title, String content,
+			String animation)/*-{
 		$wnd.currentPopover = $wnd.$('#' + viewId).webuiPopover('destroy')
 				.webuiPopover({
 					title : title,
