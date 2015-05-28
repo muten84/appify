@@ -1,9 +1,11 @@
 package it.appify.examples.emsmobile.controller;
 
 import it.appify.annotations.Controller;
+import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
 import it.appify.annotations.ViewModelHandler;
+import it.appify.api.Page.PageActionCallback;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.model.Item;
@@ -13,6 +15,7 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 @Controller(page = "vehiclesPage")
 public class VehicleListController {
@@ -24,6 +27,27 @@ public class VehicleListController {
 
 	public VehicleListController(WebApp<EmsMobileModel> app) {
 		this.app = app;
+	}
+
+	@OnPageReady
+	public void onPageReady() {
+		GWT.log("PAGE READY :) YEAAAAAAAAAAAAAAH!");
+		app.getCurrentPage().addPullToRefreshHandler(new PageActionCallback() {
+
+			@Override
+			public void refresh(final AsyncCallback<Boolean> cb) {
+				Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+
+					@Override
+					public boolean execute() {
+						GWT.log("executing async refresh request...");
+						cb.onSuccess(true);
+						return false;
+					}
+				}, 3000);
+
+			}
+		});
 	}
 
 	@ViewHandler(eventType = "click", viewId = "backBtn")
@@ -41,13 +65,13 @@ public class VehicleListController {
 		GWT.log("Received item from listOfItems1: " + i.getCode() + " - " + i.getItemName());
 		waitModalText.setInnerText("Hai selezionato: " + i.getCode() + " - " + i.getItemName());
 		app.getCurrentPage().mask("");
-//		ViewUtils.showModal(app, "waitModal");
+		// ViewUtils.showModal(app, "waitModal");
 		/* emulate remote request */
 		Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
 
 			@Override
 			public boolean execute() {
-//				ViewUtils.showModal(app, "waitModal");
+				// ViewUtils.showModal(app, "waitModal");
 				EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 				model.getBarStatus().setVehicleCode(i.getItemName());
 				model.setCheckInLabel("Fine Turno");

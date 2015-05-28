@@ -1,13 +1,14 @@
 package it.appify.examples.emsmobile.controller;
 
-import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.Element;
-
 import it.appify.annotations.Controller;
+import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
+
+import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.Element;
 
 @Controller(page = "activationPage")
 public class ActivationController {
@@ -17,8 +18,32 @@ public class ActivationController {
 	@ViewElement("activationContent")
 	private Element activationContent;
 
+	@ViewElement("bottomBar")
+	private Element bottomBar;
+
 	public ActivationController(WebApp<EmsMobileModel> app) {
 		this.app = app;
+	}
+
+	@OnPageReady
+	public void onPageReady() {
+//		GWT.log("activationPage onPageReady " + );
+//		GWT.log("activationPage " + 0 + " - " + bottomHeight);
+//		String currentStyle = activationContent.getAttribute("style");
+//		int activationHeight = activationContent.getOffsetHeight();
+//		int bottomHeight = bottomBar.getOffsetHeight();
+//		
+//		String[] props = currentStyle.split(";");
+//		currentStyle = "";
+//		for (String p : props) {
+//			if (p.contains("height")) {
+//				// currentStyle+="height"
+//			} else {
+//				currentStyle += p;
+//			}
+//
+//		}
+//		
 	}
 
 	@ViewHandler(eventType = "click", viewId = "confirmModalBtn")
@@ -88,6 +113,14 @@ public class ActivationController {
 
 	public void setActivationContent(Element activationContent) {
 		this.activationContent = activationContent;
+	}
+
+	public Element getBottomBar() {
+		return bottomBar;
+	}
+
+	public void setBottomBar(Element bottomBar) {
+		this.bottomBar = bottomBar;
 	}
 
 }

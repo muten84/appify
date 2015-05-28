@@ -1,5 +1,5 @@
 [v-cloak] {
-    display: none;
+	display: none;
 }
 
 .topbar-height {
@@ -10,113 +10,155 @@
 	height: 70px !important;
 }
 
-.status-on{
-	background-color:#4BC73E !important;
+.status-on {
+	background-color: #4BC73E !important;
 }
 
-.status-off{
-	background-color:#DA4141 !important;
+.status-off {
+	background-color: #DA4141 !important;
 }
 
-.status-idle{
-	background-color:#EFBB4A !important;
+.status-idle {
+	background-color: #EFBB4A !important;
 }
 
-.activation-criticity-R{
+.activation-criticity-R {
 	font-weight: bold !important;
 	color: #1D0F0F !important;
 	background-color: #DF3737 !important;
 }
 
-.activation-criticity-B{
+.activation-criticity-B {
 	font-weight: bold !important;
 	color: #1D0F0F !important;
 	background-color: #EAE9E9 !important;
 }
 
-.activation-criticity-V{
+.activation-criticity-V {
 	font-weight: bold !important;
 	color: #1D0F0F !important;
 	background-color: #92DB8A !important;
 }
 
-.activation-criticity-G{
+.activation-criticity-G {
 	font-weight: bold !important;
 	color: #1D0F0F !important;
 	background-color: #E4E255 !important;
 }
-.activation-bar-height{
-	line-height: 3 !important;	  
+
+.activation-bar-height {
+	line-height: 3 !important;
 	font-weight: bold;
-  	font-size: 1.2em;
+	font-size: 1.2em;
+}
+
+.app-content {
+	background-color: #BEBEC0 !important;
+}
+
+.app-page {
+	background-color: #BEBEC0 !important;
+}
+
+.zero-margin-section {
+	margin: 16px !important;
 }
 
 
 /*LOADER*/
-.loader,
-.loader:before,
-.loader:after {
-  border-radius: 50%;
+.loader, .loader:before, .loader:after {
+	border-radius: 50%;
 }
-.loader:before,
-.loader:after {
-  position: absolute;
-  content: '';
+
+.loader:before, .loader:after {
+	position: absolute;
+	content: '';
 }
+
 .loader:before {
-  width: 5.2em;
-  height: 10.2em;
-  background: #FFFFFF;
-  border-radius: 10.2em 0 0 10.2em;
-  top: -0.1em;
-  left: -0.1em;
-  -webkit-transform-origin: 5.2em 5.1em;
-  transform-origin: 5.2em 5.1em;
-  -webkit-animation: load2 2s infinite ease 1.5s;
-  animation: load2 2s infinite ease 1.5s;
+	width: 5.2em;
+	height: 10.2em;
+	background: #FFFFFF;
+	border-radius: 10.2em 0 0 10.2em;
+	top: -0.1em;
+	left: -0.1em;
+	-webkit-transform-origin: 5.2em 5.1em;
+	transform-origin: 5.2em 5.1em;
+	-webkit-animation: load2 2s infinite ease 1.5s;
+	animation: load2 2s infinite ease 1.5s;
 }
+
 .loader {
-  font-size: 11px;
-  text-indent: -99999em;
-  margin: 5em auto;
-  position: relative;
-  width: 10em;
-  height: 10em;
-  box-shadow: inset 0 0 0 1em #8B7E7E;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
+	font-size: 11px;
+	text-indent: -99999em;
+	margin: 5em auto;
+	position: relative;
+	width: 10em;
+	height: 10em;
+	box-shadow: inset 0 0 0 1em #8B7E7E;
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
 }
+
 .loader:after {
-  width: 5.2em;
-  height: 10.2em;
-  background: #FFFFFF;
-  border-radius: 0 10.2em 10.2em 0;
-  top: -0.1em;
-  left: 5.1em;
-  -webkit-transform-origin: 0px 5.1em;
-  transform-origin: 0px 5.1em;
-  -webkit-animation: load2 2s infinite ease;
-  animation: load2 2s infinite ease;
+	width: 5.2em;
+	height: 10.2em;
+	background: #FFFFFF;
+	border-radius: 0 10.2em 10.2em 0;
+	top: -0.1em;
+	left: 5.1em;
+	-webkit-transform-origin: 0px 5.1em;
+	transform-origin: 0px 5.1em;
+	-webkit-animation: load2 2s infinite ease;
+	animation: load2 2s infinite ease;
 }
-@-webkit-keyframes load2 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+
+@
+-webkit-keyframes load2 { 0% {
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
 }
-@keyframes load2 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+
+100%
+{
+-webkit-transform
+:
+ 
+rotate
+(360deg);
+
+    
+transform
+:
+ 
+rotate
+(360deg);
+
+  
+}
+}
+@
+keyframes load2 { 0% {
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+100%
+{
+-webkit-transform
+:
+ 
+rotate
+(360deg);
+
+    
+transform
+:
+ 
+rotate
+(360deg);
+
+  
+}
 }
 /*END LOADER*/
