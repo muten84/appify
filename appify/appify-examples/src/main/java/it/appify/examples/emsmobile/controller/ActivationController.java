@@ -27,23 +27,28 @@ public class ActivationController {
 
 	@OnPageReady
 	public void onPageReady() {
-//		GWT.log("activationPage onPageReady " + );
-//		GWT.log("activationPage " + 0 + " - " + bottomHeight);
-//		String currentStyle = activationContent.getAttribute("style");
-//		int activationHeight = activationContent.getOffsetHeight();
-//		int bottomHeight = bottomBar.getOffsetHeight();
-//		
-//		String[] props = currentStyle.split(";");
-//		currentStyle = "";
-//		for (String p : props) {
-//			if (p.contains("height")) {
-//				// currentStyle+="height"
-//			} else {
-//				currentStyle += p;
-//			}
-//
-//		}
-//		
+		String currentStyle = activationContent.getAttribute("style");
+
+		int activationHeight = activationContent.getOffsetHeight();
+		int bottomHeight = bottomBar.getOffsetHeight();
+
+		// GWT.log("activationPage activationContent: " + activationContent.getId());
+		GWT.log("activationPage activationHeight: " + activationHeight);
+		GWT.log("activationPage bottomHeight: " + bottomHeight);
+		String[] props = currentStyle.split(";");
+		currentStyle = "";
+
+		for (String p : props) {
+			GWT.log("activationPage currentStyle: " + p);
+			if (p.contains("height")) {
+				currentStyle += "height: " + (activationHeight - bottomHeight) + "px; ";
+			} else {
+				currentStyle += p + "; ";
+			}
+			//
+		}
+		//activationContent.setAttribute("style", currentStyle);
+		//
 	}
 
 	@ViewHandler(eventType = "click", viewId = "confirmModalBtn")
