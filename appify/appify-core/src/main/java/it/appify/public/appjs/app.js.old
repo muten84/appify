@@ -1445,7 +1445,7 @@ App._Pages = function(window, document, Clickable, Scrollable, App, Utils,
 		}
 		pageManager.page = page; // TODO: getter
 		pageManager.args = args; // TODO: getter (dont want this to hit
-		// localStorage)
+									// localStorage)
 		controller.call(pageManager, page, args);
 	}
 
@@ -1700,7 +1700,6 @@ App._Pages = function(window, document, Clickable, Scrollable, App, Utils,
 		var topbar = page.querySelector('.app-topbar'), content = page
 				.querySelector('.app-content'), height = window.innerHeight;
 
-		var bottombar = page.querySelector('.app-bottombar');
 		if (!content) {
 			return;
 		}
@@ -1709,56 +1708,21 @@ App._Pages = function(window, document, Clickable, Scrollable, App, Utils,
 			return;
 		}
 
-		if (!bottombar) {
-			var topbarStyles = document.defaultView.getComputedStyle(topbar,
-					null), topbarHeight = Utils.os.android ? 56 : 44;
-			if (statusBarEnabled) {
-				topbarHeight += Utils.os.android ? 24 : 20;
-			}
-
-			if (topbarStyles.height) {
-				topbarHeight = (parseInt(topbarStyles.height) || 0);
-				if ((topbarStyles.boxSizing || topbarStyles.webkitBoxSizing) !== 'border-box') {
-					topbarHeight += (parseInt(topbarStyles.paddingBottom) || 0)
-							+ (parseInt(topbarStyles.paddingTop) || 0);
-					topbarHeight += (parseInt(topbarStyles.borderBottomWidth) || 0)
-							+ (parseInt(topbarStyles.borderTopWidth) || 0);
-				}
-			}
-			content.style.height = (height - topbarHeight) + 'px';
-		} else {
-			var topbarStyles = document.defaultView.getComputedStyle(topbar,
-					null), topbarHeight = Utils.os.android ? 56 : 44;
-			if (statusBarEnabled) {
-				topbarHeight += Utils.os.android ? 24 : 20;
-			}
-
-			if (topbarStyles.height) {
-				topbarHeight = (parseInt(topbarStyles.height) || 0);
-				if ((topbarStyles.boxSizing || topbarStyles.webkitBoxSizing) !== 'border-box') {
-					topbarHeight += (parseInt(topbarStyles.paddingBottom) || 0)
-							+ (parseInt(topbarStyles.paddingTop) || 0);
-					topbarHeight += (parseInt(topbarStyles.borderBottomWidth) || 0)
-							+ (parseInt(topbarStyles.borderTopWidth) || 0);
-				}
-			}
-
-			var bottomBarStyles = document.defaultView.getComputedStyle(
-					bottombar, null), bottombarHeight = Utils.os.android ? 56
-					: 44;
-
-			if (bottomBarStyles.height) {
-				bottombarHeight = (parseInt(bottomBarStyles.height) || 0);
-				if ((bottomBarStyles.boxSizing || bottomBarStyles.webkitBoxSizing) !== 'border-box') {
-					bottombarHeight += (parseInt(bottomBarStyles.paddingBottom) || 0)
-							+ (parseInt(bottomBarStyles.paddingTop) || 0);
-					bottombarHeight += (parseInt(bottomBarStyles.borderBottomWidth) || 0)
-							+ (parseInt(bottomBarStyles.borderTopWidth) || 0);
-				}
-			}
-			content.style.height = (height - (topbarHeight + bottombarHeight +10 )) + 'px';
+		var topbarStyles = document.defaultView.getComputedStyle(topbar, null), topbarHeight = Utils.os.android ? 56
+				: 44;
+		if (statusBarEnabled) {
+			topbarHeight += Utils.os.android ? 24 : 20;
 		}
-
+		if (topbarStyles.height) {
+			topbarHeight = (parseInt(topbarStyles.height) || 0);
+			if ((topbarStyles.boxSizing || topbarStyles.webkitBoxSizing) !== 'border-box') {
+				topbarHeight += (parseInt(topbarStyles.paddingBottom) || 0)
+						+ (parseInt(topbarStyles.paddingTop) || 0);
+				topbarHeight += (parseInt(topbarStyles.borderBottomWidth) || 0)
+						+ (parseInt(topbarStyles.borderTopWidth) || 0);
+			}
+		}
+		content.style.height = (height - topbarHeight) + 'px';
 	}
 
 	function populatePageBackButton(page, oldPage) {
