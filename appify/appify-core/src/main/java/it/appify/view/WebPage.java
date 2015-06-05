@@ -26,7 +26,6 @@ import java.util.List;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class WebPage implements Page<Element>, HasView<Element> {
 
@@ -231,6 +230,53 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_popover(viewId, title, content, animation);
 
 	}
+	
+	@Override
+	public void setElementValue(String viewId, String val) {
+	    _setElementValue(viewId, val);
+	}
+	
+	@Override
+	public String getElementValue(String viewId) {
+	  return _getElementValue(viewId);
+	}
+	
+	private native void _setElementValue(String viewId, String val) /*-{
+	    $wnd.$('#'+viewId).val(val);
+	}-*/;
+	
+	private native String _getElementValue(String viewId) /*-{
+	   return $wnd.$('#'+viewId).val();
+	}-*/;
+	
+	
+	@Override
+	public void keyboard(String viewId, KeyboardActionCallback cb) {
+	    _keyboard(viewId, cb);
+	}
+	
+	private native void _keyboard(String viewId, KeyboardActionCallback cb) /*-{
+	    var that = this;
+	    try{
+	    	$wnd.$('#'+viewId).keyboard({
+	    	    layout: 'qwerty',
+	    	    accepted: function(event, keyboard, el){
+	    	         console.log('The content "' + el.value + '" was accepted!');
+	    	         cb.@it.appify.api.Page.KeyboardActionCallback::accepted(Ljava/lang/String;)(el.value);
+	    	    }});
+	    }catch(err){
+	        console.log('error adding keyboard on element: '+viewId);
+	    }
+	}-*/;
+	
+	@Override
+	public void triggerEvent(String viewId, String eventType) {
+	    _triggerEvent(viewId, eventType);
+	}
+	
+	private native void _triggerEvent(String viewId, String eventType) /*-{
+	   	$wnd.$('#'+viewId).trigger(eventType);
+	}-*/;
 
 	@Override
 	public void mask(String label) {

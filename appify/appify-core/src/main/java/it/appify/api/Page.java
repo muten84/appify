@@ -19,6 +19,15 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 public interface Page<E> extends HasViewHandlers {
+    
+    public static interface PageActionCallback {
+		public void refresh(AsyncCallback<Boolean> cb);		
+    	}
+
+    public static interface KeyboardActionCallback{
+    		public void accepted(String text);
+	}
+
 
 	public String getPageId();
 
@@ -48,10 +57,15 @@ public interface Page<E> extends HasViewHandlers {
 
 	public void decorate();
 
-	public static interface PageActionCallback {
-		public void refresh(AsyncCallback<Boolean> cb);
-	}
-
+	
 	public void addPullToRefreshHandler(PageActionCallback paCb);
+
+	public void keyboard(String viewId, KeyboardActionCallback cb);
+
+	public void triggerEvent(String viewId, String eventType);
+	
+	public void setElementValue(String viewId, String val);
+
+	public String getElementValue(String viewId);
 
 }
