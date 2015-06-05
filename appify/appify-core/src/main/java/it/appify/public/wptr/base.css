@@ -113,11 +113,11 @@ body {
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
 	padding: 50px 20px;
-	text-align: center;
+	/*text-align: center;*/
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 24px;
-	font-weight: 200;
-	color: #555;
+	/*font-weight: 200;*/
+	/*color: #555;*/
 	box-sizing: border-box;
 }
 
