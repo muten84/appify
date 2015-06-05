@@ -40,13 +40,18 @@
 				</header>
 			</div>
 			<div class="app-content">
+				<!-- <div class="app-section">
+					
+				</div> -->
 				<div class="app-section">
+					<input id="vehicleSearchText" v-model="searchText | uppercase">
+					<input id="keyboard">
 					<ul id="vehicleList" v-repeat="section: vehicles"
 						class="table-view">
 						<li class="table-view-cell media"><span
 							class="media-object pull-left fa fa-flag"></span>
-							<div class="media-body">{{section.sectionName}}</div></li>
-						<li v-repeat="vehicle: section.items "
+							<div class="text-center media-body">{{section.sectionName}}</div></li>
+						<li v-repeat="vehicle: section.items | filterBy searchText in vehicle"
 							v-on="click: onData(this,$event)" class="table-view-cell media"><a
 							class="navigate-right"> <span
 								class="media-object pull-left fa fa-ambulance"></span>

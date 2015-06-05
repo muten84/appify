@@ -28,12 +28,14 @@ public class EmsMobileModel implements Serializable {
 	private String checkInLabel;
 	private Activation activation;
 	private List<Section> vehicles;
+	private String searchText;
 
 	public EmsMobileModel() {
 		activation = new Activation();
 		barStatus = new BarStatus();
 		checkInLabel = "Inizio Turno";
 		vehicles = new ArrayList<Section>();
+		searchText = "";
 	}
 
 	public BatteryStatus getBatteryStatusObject() {
@@ -106,6 +108,14 @@ public class EmsMobileModel implements Serializable {
 
 	public void setVehicles(List<Section> vehicles) {
 		this.vehicles = vehicles;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
 	}
 
 }
