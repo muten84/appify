@@ -9,7 +9,7 @@
 	<inherits name="it.appify.Offline" />
 	<inherits name="it.appify.Storage" />
 	<inherits name="it.appify.ScreenOrientation" />
-	<inherits name="it.appify.Ssound" />
+	<inherits name="it.appify.Sound" />
 
 	<source path="app" />
 
