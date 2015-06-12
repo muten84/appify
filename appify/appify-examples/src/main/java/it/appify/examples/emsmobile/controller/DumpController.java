@@ -3,8 +3,10 @@ package it.appify.examples.emsmobile.controller;
 import it.appify.annotations.Controller;
 import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
+import it.appify.api.Sound;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
+import it.appify.examples.emsmobile.util.Registry;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
@@ -32,6 +34,8 @@ public class DumpController {
 	@ViewHandler(eventType = "click", viewId = "confirmModalBtn")
 	public void onActivatioConfirm() {
 		app.getCurrentPage().closeModal("intervIncomeModal");
+		Sound sound = Registry.get("activationSound");
+		sound.stop();
 		app.moveTo("activationPage");
 	}
 

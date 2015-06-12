@@ -3,10 +3,12 @@ package it.appify.examples.emsmobile.service;
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
 import it.appify.annotations.ViewHandler;
+import it.appify.api.Sound;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.Activation;
 import it.appify.examples.emsmobile.model.AddressDetail;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
+import it.appify.examples.emsmobile.util.Registry;
 import it.appify.examples.emsmobile.util.ViewUtils;
 import it.appify.sound.BuzzSound;
 
@@ -18,8 +20,8 @@ import com.google.gwt.core.shared.GWT;
 public class ActivationService {
 
 	private WebApp<EmsMobileModel> app;
+
 	
-	private BuzzSound sound; 
 
 	public ActivationService(WebApp<EmsMobileModel> app) {
 		GWT.log("ActivationService built..");
@@ -29,8 +31,9 @@ public class ActivationService {
 	@Start
 	public void startActivationService() {
 		GWT.log("ActivationService start..");
-		sound = new BuzzSound("sounds/sound.mp3");
 		scheduleActivation();
+		
+		
 	}
 
 	protected void scheduleActivation() {
@@ -46,7 +49,12 @@ public class ActivationService {
 					GWT.log(">>Activation terminal not in turn...");
 					return true;
 				} else {
-					sound.play();
+					try {
+						Sound sound = Registry.get("activationSound");
+						sound.play();
+					} catch (Exception e) {
+						GWT.log("unable to play sound", e);
+					}
 					EmsMobileModel currentModel = app.<EmsMobileModel> getCurrentAppState();
 					Activation a = new Activation("16000001");
 					a.setCriticity("R");
