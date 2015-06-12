@@ -2,6 +2,9 @@
 <!-- Could not determine the version of your GWT SDK; using the module DTD from GWT 1.6.4. You may want to change this. -->
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit//EN" "http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
 <module rename-to="emsmobile">
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.gwt.json.JSON" />
+	<inherits name="com.google.gwt.i18n.I18N"/>
 	<inherits name="it.appify.App" />
 	<source path="emsmobile" />
 	<entry-point class="it.appify.examples.emsmobile.EmsMobileEntryPoint"></entry-point>
