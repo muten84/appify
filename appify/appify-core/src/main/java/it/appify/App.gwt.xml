@@ -3,6 +3,7 @@
 <module>
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.google.gwt.json.JSON" />
+	<inherits name="com.google.gwt.i18n.I18N"/>
 	<inherits name="it.appify.Presenter" />
 	<inherits name="it.appify.Battery" />
 	<inherits name="it.appify.Geolocation" />

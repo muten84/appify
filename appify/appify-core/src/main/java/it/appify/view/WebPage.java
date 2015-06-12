@@ -241,12 +241,30 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	  return _getElementValue(viewId);
 	}
 	
+	@Override
+	public void setElementText(String viewId, String text) {
+	    _setElementText(viewId, text);
+	}
+	
+	@Override
+	public String getElementText(String viewId) {
+	  return _getElementText(viewId);
+	}
+	
 	private native void _setElementValue(String viewId, String val) /*-{
 	    $wnd.$('#'+viewId).val(val);
 	}-*/;
 	
 	private native String _getElementValue(String viewId) /*-{
 	   return $wnd.$('#'+viewId).val();
+	}-*/;
+	
+	private native void _setElementText(String viewId, String val) /*-{
+	    $wnd.$('#'+viewId).text(val);
+	}-*/;
+	
+	private native String _getElementText(String viewId) /*-{
+	   return $wnd.$('#'+viewId).text();
 	}-*/;
 	
 	

@@ -112,6 +112,9 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 					controllerHolder.injectViewElements();
 				}
 			}
+			else {
+			    GWT.log("warning control holders injectViewElements no elements: "+controllers + " - "+page.getPageId());
+			}
 			// if occurs first load of main page it's a good idea to start app
 			// services
 			if (page.getPageId().equals(mainPage) && firstLoad) {
@@ -134,11 +137,16 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 					callback.onAppStart(AbstractWebApp.this);
 				}
 			} else {
-				//all childs page can detected page ready event
+				//all childs page can detected page ready event			    	
 				List<ControllerHolder<?>> ctrlHolders = pageControllers
 						.get(page.getPageId());
-				for (ControllerHolder<?> controllerHolder : ctrlHolders) {
-					controllerHolder.callPageReadyHandler();
+				if(ctrlHolders!=null) {
+				    for (ControllerHolder<?> controllerHolder : ctrlHolders) {
+						controllerHolder.callPageReadyHandler();
+					}
+				}
+				else {
+				    GWT.log("warning callPageReadyHandler no elements: "+ctrlHolders+ " - "+page.getPageId());
 				}
 			}
 

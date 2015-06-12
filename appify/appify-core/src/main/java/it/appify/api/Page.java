@@ -68,4 +68,8 @@ public interface Page<E> extends HasViewHandlers {
 
 	public String getElementValue(String viewId);
 
+	public void setElementText(String viewId, String text);
+
+	public String getElementText(String viewId);
+
 }
