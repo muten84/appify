@@ -1,6 +1,8 @@
 package it.appify.examples.emsmobile.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -19,8 +21,11 @@ public class Activation implements Serializable {
 	private String addressSummary;
 	private String noteSummary;
 	private AddressDetail address;
+	private List<Phase> phases;
+	private long timestamp;
 
 	public Activation() {
+		phases = new ArrayList<Phase>();
 	}
 
 	public Activation(String emergencyId) {
@@ -90,5 +95,30 @@ public class Activation implements Serializable {
 	public void setAddress(AddressDetail address) {
 		this.address = address;
 	}
+
+	public List<Phase> getPhases() {
+		return phases;
+	}
+
+	public void setPhases(List<Phase> phases) {
+		this.phases = phases;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
+	public void addPhase(Phase p) {
+		if(getPhases()==null) {
+			this.phases = new ArrayList<Phase>();			
+		}
+		getPhases().add(p);
+	}
+	
+	
 
 }

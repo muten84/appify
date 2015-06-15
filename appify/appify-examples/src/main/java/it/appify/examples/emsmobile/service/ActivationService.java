@@ -2,18 +2,16 @@ package it.appify.examples.emsmobile.service;
 
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
-import it.appify.annotations.ViewHandler;
 import it.appify.api.Sound;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.Activation;
-import it.appify.examples.emsmobile.model.AddressDetail;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.util.Registry;
-import it.appify.examples.emsmobile.util.ViewUtils;
-import it.appify.sound.BuzzSound;
+import it.appify.examples.emsmobile.util.Utils;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
+import com.google.gwt.core.client.impl.SchedulerImpl;
 import com.google.gwt.core.shared.GWT;
 
 @Service
@@ -21,7 +19,7 @@ public class ActivationService {
 
 	private WebApp<EmsMobileModel> app;
 
-	
+	private boolean scheduling;
 
 	public ActivationService(WebApp<EmsMobileModel> app) {
 		GWT.log("ActivationService built..");
@@ -31,55 +29,66 @@ public class ActivationService {
 	@Start
 	public void startActivationService() {
 		GWT.log("ActivationService start..");
+		Registry.register("ActivationService", this);
 		scheduleActivation();
-		
-		
+
 	}
 
-	protected void scheduleActivation() {
-		Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
+	public void scheduleActivation() {
+		if (!scheduling) {
+			Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
 
-			@Override
-			public boolean execute() {
-				GWT.log(">>Activation scheduled...");
-				EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
-				String vehicleCode = model.getBarStatus().getVehicleCode();
-				if (vehicleCode == null || vehicleCode.isEmpty()) {
-					// not in turn retry next iteration
-					GWT.log(">>Activation terminal not in turn...");
-					return true;
-				} else {
-					try {
-						Sound sound = Registry.get("activationSound");
-						sound.play();
-					} catch (Exception e) {
-						GWT.log("unable to play sound", e);
+				@Override
+				public boolean execute() {
+					GWT.log(">>Activation scheduled...");
+					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
+					String vehicleCode = model.getBarStatus().getVehicleCode();
+					Activation current = model.getActivation();
+					if (vehicleCode == null || vehicleCode.isEmpty() || current != null) {
+						// not in turn retry next iteration
+						GWT.log(">>Activation terminal not in turn or activation stored...");
+						scheduling = true;
+						return true;
+					} else {
+						try {
+							Sound sound = Registry.get("activationSound");
+							sound.play();
+						} catch (Exception e) {
+							GWT.log("unable to play sound", e);
+						}
+						EmsMobileModel currentModel = app.<EmsMobileModel> getCurrentAppState();
+						Activation a = Utils.restoreActivation(app);
+
+						if (currentModel.getActivation() != null) {
+							if (a == null) {
+								a = Utils.createActivation();
+								if (currentModel.getActivation().getPhases() != null) {
+									GWT.log("ACTIVATION REFRESHED: " + currentModel.getActivation().getPhases().size());
+								} else {
+									GWT.log("ACTIVATION REFRESHED WITHOUT PHASES");
+								}
+								GWT.log("ACTIVATION CREATED");
+							} else {
+								if (currentModel.getActivation().getPhases() != null) {
+									GWT.log("ACTIVATION REFRESHED: " + currentModel.getActivation().getPhases().size());
+								} else {
+									GWT.log("ACTIVATION REFRESHED WITHOUT PHASES");
+								}
+								GWT.log("ACTIVATION RESTORED");
+							}
+						} else {
+							currentModel.setActivation(Utils.createActivation());
+							app.updateAppState(currentModel);
+						}
+						GWT.log(">>Activation showing...");
+
+						app.getCurrentPage().showModal("intervIncomeModal");
+						scheduling = false;
+						return false;
 					}
-					EmsMobileModel currentModel = app.<EmsMobileModel> getCurrentAppState();
-					Activation a = new Activation("16000001");
-					a.setCriticity("R");
-					a.setPathology("C01");
-					a.setPlace("S");
-					a.setAddressSummary("LARGO NIGRISOLI 22, BOLOGNA");
-					StringBuffer buff = new StringBuffer();
-					buff.append("C01: TRAUMATICA\n");
-					buff.append("ENTI ATTIVATI: CARABINIERI\n");
-					a.setNoteSummary(buff.toString());
-					AddressDetail address = new AddressDetail();
-					address.setStreetNote("DA VIA CALABRIA TRA I CIVICI 31 E 33 NEL TRATTO COMPRESO TRA VIA BELLARIA E VIA SARDEGNA, INCROCIA VIA UMBRIA E TERMINA SENZA USCITA. I CIVICI  3 - 4 - 5 SONO TRA VIA UMBRIA E IL TRATTO SENZA USCITA. IL 7 E' TRA VIA UMBRIA E VIA CALABRIA (SENSO UNICO)");
-					address.setLocalityNote("ACCESSO LATERALE CHIUSO AI MEZZI PESANTI");
-					address.setpLocationNote(" - ");
-					a.setAddress(address);
-
-					currentModel.setActivation(a);
-					app.updateAppState(currentModel);
-					GWT.log(">>Activation showing...");
-
-					app.getCurrentPage().showModal("intervIncomeModal");
-					return false;
 				}
-			}
-		}, 10000);
+			}, 10000);
+		}
 	}
 
 }

@@ -1,4 +1,4 @@
-<div class="app-page" id="activationPage" data-page="activationPage" >
+<div class="app-page" id="activationPage" data-page="activationPage">
 	<div id="content" class="content snap-content">
 		<div class="app-topbar">
 			<!-- HEADER SECTION -->
@@ -7,7 +7,7 @@
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button> -->
 				<button class="btn btn-nav pull-left">
-					<span class="fa fa-ambulance fa-2x pull-left" >{{barStatus.vehicleCode}}</span>
+					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
@@ -26,7 +26,7 @@
 		</div>
 		<!--END  HEADER SECTION -->
 
-		<div id="activationContent" class="app-content" >
+		<div id="activationContent" class="app-content">
 			<!--CONTENT SECTION -->
 			<div class="app-section">
 				<!--CONTENT SECTION -->
@@ -44,45 +44,48 @@
 
 					<!-- CARD EMERGENCY DATA -->
 					<div id="cardEmergencyData"
-						class="app-section control-content active" >
+						class="app-section control-content active">
 
-						<ul class="table-view" >
+						<ul class="table-view">
 							<li
-								class="table-view-divider activation-criticity-{{activation.criticity}}" >Dati
-								Emergenza {{activation.emergencyId}} -
-								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
-							</li>
-							<li class="table-view-divider">Indirizzo</li>
-							<li class="table-view-cell" >{{activation.addressSummary}}</li>
-							<li class="table-view-divider">Note</li>
-							<li class="table-view-cell" >{{activation.noteSummary}}</li>
-						</ul>
-					</div>
-					<!-- END CARD EMERGENCY DATA -->
-
-					<!-- CARD ADDRESS DATA -->
-					<div  id="cardAddressData" class="app-section control-content">
-
-						<ul class="table-view" >
-							<li 
 								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
 								Emergenza {{activation.emergencyId}} -
 								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
 							</li>
-							<li  class="table-view-divider">Indirizzo</li>
-							<li  class="table-view-cell">{{activation.addressSummary}}</li>
-							<li  class="table-view-divider">Note Strada:</li>
-							<li  class="table-view-cell">{{activation.address.streetNote}}</li>
-							<li  class="table-view-divider">Note Localit&grave;:</li>
-							<li  class="table-view-cell">{{activation.address.localityNote}}</li>
-							<li  class="table-view-divider">Note Luogo Pubblico:</li>
-							<li  class="table-view-cell">{{activation.address.pLocationNote}}</li>
+							<li class="table-view-divider">Indirizzo</li>
+							<li class="table-view-cell">{{activation.addressSummary}}</li>
+							<li class="table-view-divider">Note</li>
+							<li class="table-view-cell">{{activation.noteSummary}}</li>
+						</ul>
+						<!-- <div  id="map-canvas" class="app-section"  style="padding: 0; margin: 0; width: 100%; height: 100%;"></div> -->
+						<div  id="map"
+							style="padding: 0; margin: 0; width: 100%; height: 100%;"></div>
+					</div>
+					<!-- END CARD EMERGENCY DATA -->
+
+					<!-- CARD ADDRESS DATA -->
+					<div id="cardAddressData" class="app-section control-content">
+
+						<ul class="table-view">
+							<li
+								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
+								Emergenza {{activation.emergencyId}} -
+								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
+							</li>
+							<li class="table-view-divider">Indirizzo</li>
+							<li class="table-view-cell">{{activation.addressSummary}}</li>
+							<li class="table-view-divider">Note Strada:</li>
+							<li class="table-view-cell">{{activation.address.streetNote}}</li>
+							<li class="table-view-divider">Note Localit&grave;:</li>
+							<li class="table-view-cell">{{activation.address.localityNote}}</li>
+							<li class="table-view-divider">Note Luogo Pubblico:</li>
+							<li class="table-view-cell">{{activation.address.pLocationNote}}</li>
 						</ul>
 					</div>
 					<!-- END CARD ADDRESS DATA -->
 
 					<!-- CARD NOTE DATA -->
-					<div  id="cardNoteData" class="app-section control-content">
+					<div id="cardNoteData" class="app-section control-content">
 
 						<span>Dettaglio Note</span>
 					</div>
@@ -96,40 +99,55 @@
 
 
 		<!--  -->
-		<nav id="bottomBar" class="auto-center-min auto-center app-bottombar bar bar-standard bar-footer bottombar-height pull-center">
-			
-				<button id="sendBtn" class="btn btn-outlined badge" style="margin: 1% !important;">
-					<span class="fa fa-play-circle-o fa-2x"></span>
-					 <span id="sendLabel" 
-						class="tab-label">PARTENZA</span>
-				</button>
-			
-				<button id="placeArrivalBtn" class="btn btn-outlined badge"  style="margin: 1% !important;">
-					<span class="fa fa-map-marker fa-2x"></span> 
-					<span id="placeArrivalLabel"
-						class="tab-label">ARRIVO</span>
-				</button>
-				
-				<button id="departureBtn" class="btn btn-outlined badge"  style="margin: 1% !important;">
-					<span class="fa fa-arrow-circle-right fa-2x"></span> 
-					<span
-						id="departureLabel"
-						class="tab-label">PARTENZA</span>
-				</button>
-			
-				<button id="hospitalArrivalBtn" class="btn btn-outlined badge"  style="margin: 1% !important;">
-					<span class="fa fa-hospital-o fa-2x"></span>
-					 <span
-					 	id="hospitalArrivalLabel"
-						class="tab-label">OSPEDALE</span>
-				</button>
-			
-				<button id="closureBtn" class="btn btn-outlined badge"  style="margin: 1% !important;">
-					<span class="fa fa-flag-checkered fa-2x"></span> 
-					<span
-						id="closureLabel"
-						class="tab-label">CHIUSURA</span>
-				</button>					
+		<nav id="bottomBar"
+			class="auto-center-min auto-center app-bottombar bar bar-standard bar-footer bottombar-height pull-center">
+
+			<button id="sendBtn" class="btn btn-outlined badge"
+				style="margin: 1% !important;">
+				<span class="fa fa-play-circle-o fa-2x"></span> <span id="sendLabel"
+					class="tab-label">PARTENZA</span>
+			</button>
+
+			<button id="placeArrivalBtn" class="btn btn-outlined badge"
+				style="margin: 1% !important;">
+				<span class="fa fa-map-marker fa-2x"></span> <span
+					id="placeArrivalLabel" class="tab-label">ARRIVO</span>
+			</button>
+
+			<button id="departureBtn" class="btn btn-outlined badge"
+				style="margin: 1% !important;">
+				<span class="fa fa-arrow-circle-right fa-2x"></span> <span
+					id="departureLabel" class="tab-label">PARTENZA</span>
+			</button>
+
+			<button id="hospitalArrivalBtn" class="btn btn-outlined badge"
+				style="margin: 1% !important;">
+				<span class="fa fa-hospital-o fa-2x"></span> <span
+					id="hospitalArrivalLabel" class="tab-label">OSPEDALE</span>
+			</button>
+
+			<button id="closureBtn" class="btn btn-outlined badge"
+				style="margin: 1% !important;">
+				<span class="fa fa-flag-checkered fa-2x"></span> <span
+					id="closureLabel" class="tab-label">CHIUSURA</span>
+			</button>
 		</nav>
 	</div>
 </div>
+<script>
+	window.setTimeout(function() {
+		/* var map = new ol.Map({
+		 target: 'map',
+		 layers: [
+		 new ol.layer.Tile({
+		 source: new ol.source.MapQuest({layer: 'osm'})
+		 })
+		 ],
+		 view: new ol.View({
+		 center: ol.proj.transform(
+		 [11.311359, 44.505829], 'EPSG:4326', 'EPSG:3857'),
+		 zoom: 16
+		 })
+		 }); */
+	}, 2000);
+</script>

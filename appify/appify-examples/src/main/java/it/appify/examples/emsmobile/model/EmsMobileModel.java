@@ -4,6 +4,7 @@ import it.appify.api.BatteryStatus;
 import it.appify.api.Geoposition;
 import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
+import it.appify.api.Storable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
-public class EmsMobileModel implements Serializable {
+public class EmsMobileModel implements Serializable, Storable {
 
 	/**
 	 * 
@@ -29,6 +30,7 @@ public class EmsMobileModel implements Serializable {
 	private Activation activation;
 	private List<Section> vehicles;
 	private String searchText;
+	private long timestamp;
 
 	public EmsMobileModel() {
 		activation = new Activation();
@@ -117,5 +119,25 @@ public class EmsMobileModel implements Serializable {
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
 	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
+	
+	public boolean hasTurn() {
+		return getBarStatus().getVehicleCode() != null;
+	}
+	
+	public boolean hasActivation() {
+		return (getActivation() != null && getActivation().getEmergencyId()!=null && !getActivation().getEmergencyId().isEmpty());
+	}
+	
+	
+	
 
 }
