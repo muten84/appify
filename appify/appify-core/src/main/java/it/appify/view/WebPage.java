@@ -366,5 +366,29 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 				});
 	}-*/;
+	
+	@Override
+	public void disableElement(String viewId) {
+	    _disableElement(viewId);
+	}
+	
+	@Override
+	public void enableElement(String viewId) {
+	    _enableElement(viewId);
+	}
+	
+	private native void _disableElement(String viewId) /*-{
+	    var btn = $wnd.$('#'+viewId);
+	    if(btn){
+	    	btn.attr('disabled','');
+	    }
+	}-*/;
+	
+	private native void _enableElement(String viewId) /*-{
+	    var btn = $wnd.$('#'+viewId);
+	    if(btn){
+	    	btn.removeAttr('diasble');
+	    }
+	}-*/;
 
 }

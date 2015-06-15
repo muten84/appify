@@ -170,7 +170,7 @@ public class WebAppGenerator extends Generator {
 	return packageName + "." + className;
     }
 
-    protected TypeSpec.Builder overrideStoreCurrentAppState(
+    protected TypeSpec.Builder overrideStoreCurrentAppState(	    
 	    TypeSpec.Builder webappBuilder, Class<?> webAppModel) {
 	return webappBuilder.addMethod(MethodSpec
 		.methodBuilder("storeCurrentAppState")
@@ -179,6 +179,7 @@ public class WebAppGenerator extends Generator {
 		.addCode(
 			"if(getStorageService()!=null){"
 				+ "$T model = ($T) getCurrentAppState();"
+				+ "model.setTimestamp(System.currentTimeMillis());"
 				+ "getStorageService().store($S,model);" + "}",
 			webAppModel, webAppModel, webAppModel.toString())
 		.build());
