@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.6
+version = '1.0'
+
+repositories { mavenCentral() }
+
+dependencies{
+	runtime group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+}
+
+eclipse {
+	jdt {
+		sourceCompatibility = 1.6
+		targetCompatibility = 1.6
+	}
+	classpath{
+		containers.clear()
+		containers.add('org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7')		
+	}
+}
