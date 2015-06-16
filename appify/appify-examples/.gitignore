@@ -1,3 +1,5 @@
 /build/
 /.settings/
 /war/
+/.classpath
+/.project

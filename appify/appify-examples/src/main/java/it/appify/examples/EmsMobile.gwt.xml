@@ -6,6 +6,14 @@
 	<inherits name="com.google.gwt.json.JSON" />
 	<inherits name="com.google.gwt.i18n.I18N"/>
 	<inherits name="it.appify.App" />
+	
 	<source path="emsmobile" />
+	
+	<define-linker
+		name="AppCacheLinker"
+		class="it.appify.offline.linker.ApplicationCacheLinker" />
+		
+	<add-linker name="AppCacheLinker" />
+	
 	<entry-point class="it.appify.examples.emsmobile.EmsMobileEntryPoint"></entry-point>
 </module>

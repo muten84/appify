@@ -1,1 +1,1 @@
-include 'appify-core', 'appify-poc', 'appify-examples', 'appify-server-poc', 'appify-page-generator'
+include 'appify-core', 'appify-poc', 'appify-examples', 'appify-server-poc', 'appify-page-generator', 'appify-remote'

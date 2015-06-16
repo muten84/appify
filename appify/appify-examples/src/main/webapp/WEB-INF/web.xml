@@ -24,6 +24,16 @@
       <url-pattern>/*</url-pattern>
       <dispatcher>REQUEST</dispatcher>
    </filter-mapping>
+   
+   	<!-- questa servlet serve per generare il manifest -->
+	<servlet>
+		<servlet-name>ManifestGenerator</servlet-name>
+		<servlet-class>it.appify.remote.offline.ManifestGenerator</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManifestGenerator</servlet-name>
+		<url-pattern>/manifest.appcache</url-pattern>
+	</servlet-mapping>
 	
 	<!-- <servlet>
 		<servlet-name>ManifestGenerator</servlet-name>

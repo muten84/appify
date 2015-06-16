@@ -21,7 +21,7 @@ public class SoundService {
 	
 	@Start
 	public void start() {
-		activationSound = new BuzzSound("sounds/sound");
+		activationSound = new BuzzSound("to-cache/sounds/sound");
 		Registry.register("activationSound", activationSound);
 	}
 }

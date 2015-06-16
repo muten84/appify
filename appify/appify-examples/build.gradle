@@ -37,6 +37,7 @@ dependencies {
 	gwt('com.googlecode.gwtquery:gwtquery:1.4.3')
 	gwt('com.github.nmorel.gwtjackson:gwt-jackson:0.9.0')
 	runtime('fr.xebia.web:xebia-servlet-extras:1.0.8')
+	runtime project(':appify-remote')
 	generate project(':appify-page-generator')
 	
 

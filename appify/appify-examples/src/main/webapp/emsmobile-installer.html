@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <!-- Stylesheet -->
+	  	<link rel="stylesheet" href="no-cache/installer/style.css" type="text/css" media="screen, print"/>
+		<script type="text/javascript" src="no-cache/installer/jquery.js"></script>	
+	</head>
+	<body>
+<body>
+<!-- Preloader -->
+<div id="preloader">
+	<div id="logo">&nbsp;</div>
+</div>
+<div id="loader-wrapper">
+    <div id="loader"></div>    
+    <div id="tooltip" style="position: relative; left: 60%; top: 55%;" ></div>
+</div>
+
+<iframe id="appcacheInstaller" style="display: none;" src="dynamic-emsmobile-offline.html"></iframe>
+
+<!-- Preloader -->
+<script type="text/javascript">
+	//<![CDATA[
+		$(window).load(function(response, status, xhr) {
+			// makes sure the whole site is loaded
+			if (status == "success") {
+				$('#status').fadeOut(); // will first fade out the loading animation
+				$('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+				$('body').delay(350).css({'overflow':'visible'});
+			}else{
+				console.log("Error: " + xhr.status + ": "
+						+ xhr.statusText);
+			}
+		});
+	//]]>
+</script>
+
+
+</html>

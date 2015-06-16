@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html manifest="manifest.appcache">
 <head>
 <meta charset="utf-8">
 <title>Ems Mobile App</title>
@@ -11,7 +11,7 @@
 <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+<script src="emsmobile/cache-utils/cache-utils.js"></script>
 
 <link href="emsmobile/ratchet/css/ratchet.css" rel="stylesheet">
 <link href="emsmobile/snapjs/snap.css" rel="stylesheet">
@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="emsmobile/keyboard/css/keyboard.min.css">
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
+
 <link rel="stylesheet" href="to-cache/ol/ol.css">
 
 <!-- PUT HERE ALL YOUR CUSTOM CSS REFS -->
@@ -36,23 +37,25 @@
 }
 </style>
 </head>
-<body>
+<body style="background-color: white;">
 
 	<iframe v-pre src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
 		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
 	<script type="text/javascript" language="javascript"
 		src="emsmobile/emsmobile.nocache.js"></script>
+	
+	<div id="cacheEl"></div>
 
 	<!-- <div data-appify-template="emsmobile-pages/activationPage.html" data-appify-ref="activationPage"></div> -->
 
-	<div appify-tpl="emsmobile-pages/activationPage.html"
+	<div appify-tpl="to-cache/emsmobile-pages/activationPage.html"
 		appify-page="activationPage"></div>
 
-	<div appify-tpl="emsmobile-pages/dumpPage.html"></div>
+	<div appify-tpl="to-cache/emsmobile-pages/dumpPage.html"></div>
 	
-	<div appify-tpl="emsmobile-pages/pullable.html" appify-page="pullablePage"></div>
+	<div appify-tpl="to-cache/emsmobile-pages/pullable.html" appify-page="pullablePage"></div>
 
-	<div appify-tpl="emsmobile-pages/vehiclesPage.html"
+	<div appify-tpl="to-cache/emsmobile-pages/vehiclesPage.html"
 		appify-page="vehiclesPage"></div>
 
 
