@@ -7,6 +7,7 @@ import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.model.Item;
 import it.appify.examples.emsmobile.model.Section;
 import it.appify.examples.emsmobile.util.Utils;
+import it.appify.logging.ConsoleLogger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,7 @@ public class EmsMobileEntryPoint implements EntryPoint {
 
 			@Override
 			public void onAppStart(final WebApp<EmsMobileModel> app) {
-				GWT.log("App started: " + app.<EmsMobileModel> getCurrentAppState().getBarStatus().getGpsStatus());				
+				ConsoleLogger.getConsoleLogger().log("App started: " + app.<EmsMobileModel> getCurrentAppState().getBarStatus().getGpsStatus());				
 				Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
 
 					@Override
@@ -33,12 +34,12 @@ public class EmsMobileEntryPoint implements EntryPoint {
 						EmsMobileModel model = app.getCurrentAppState();
 
 						if (model.hasTurn() && model.hasActivation()) {
-							GWT.log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
+							ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
 							app.moveTo("activationPage");
 						} else {
 							model.setActivation(null);
 							app.updateAppState(model);
-							GWT.log("ACTIVATION IS NULL");
+							ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NULL");
 						}
 						return false;
 					}
@@ -53,9 +54,9 @@ public class EmsMobileEntryPoint implements EntryPoint {
 		EmsMobileModel persistentModel = app.getStorageService().get(EmsMobileModel.class.toString());
 		if (persistentModel != null && Utils.checkStorableFreshness(persistentModel, (60 * 60 * 1000))) {
 			if (persistentModel.getActivation() != null && persistentModel.getActivation().getPhases() != null) {
-				GWT.log("MODEL REFRESHED: " + persistentModel.getActivation().getPhases().size());
+				ConsoleLogger.getConsoleLogger().log("MODEL REFRESHED: " + persistentModel.getActivation().getPhases().size());
 			} else {
-				GWT.log("MODEL REFRESHED WITHOUT PHASES");
+				ConsoleLogger.getConsoleLogger().log("MODEL REFRESHED WITHOUT PHASES");
 			}
 			return persistentModel;
 		} else {

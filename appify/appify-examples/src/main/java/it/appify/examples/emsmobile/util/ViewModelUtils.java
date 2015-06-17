@@ -1,6 +1,5 @@
 package it.appify.examples.emsmobile.util;
 
-import it.appify.app.WebApp;
 
 public class ViewModelUtils {
 

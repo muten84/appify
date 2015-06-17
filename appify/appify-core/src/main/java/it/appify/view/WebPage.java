@@ -18,13 +18,13 @@ package it.appify.view;
 
 import it.appify.api.HasView;
 import it.appify.api.Page;
+import it.appify.logging.ConsoleLogger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 
 public class WebPage implements Page<Element>, HasView<Element> {
@@ -111,7 +111,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 	@Override
 	public void toggleClassViewStyle(String viewId, String className) {
-		GWT.log("toggleClassViewStyle: " + viewId + " - " + className);
+		ConsoleLogger.getConsoleLogger().log("toggleClassViewStyle: " + viewId + " - " + className);
 		_toggleClassOnElem(viewId, className);
 	}
 

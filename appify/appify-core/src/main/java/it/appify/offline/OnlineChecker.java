@@ -1,5 +1,7 @@
 package it.appify.offline;
 
+import it.appify.logging.ConsoleLogger;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
@@ -48,14 +50,14 @@ public class OnlineChecker {
 
 			@Override
 			public void onError(Request request, Throwable exception) {
-				GWT.log("!!!onError!!!", exception);
+				ConsoleLogger.getConsoleLogger().log("!!!onError!!!", exception);
 				callback.onOffline();
 			}
 		});
 		try {
 			builder.send();
 		} catch (RequestException e) {
-			GWT.log("!!!onError!!!", e);
+			ConsoleLogger.getConsoleLogger().log("!!!onError!!!", e);
 
 		}
 	}

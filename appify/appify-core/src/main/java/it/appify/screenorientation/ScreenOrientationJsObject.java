@@ -19,6 +19,7 @@ package it.appify.screenorientation;
 import it.appify.api.ScrOrientation.ScreenOrientationCallback;
 import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
+import it.appify.logging.ConsoleLogger;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -44,6 +45,7 @@ public class ScreenOrientationJsObject {
 	}
 
 	protected ScreenOrientation getScreenOrientationDetails() {
+	    	ConsoleLogger.getConsoleLogger().log("getScreenOrientationDetails");
 		ScreenOrientation or = new ScreenOrientation();
 		or.setAngle(_getSceenAngle());
 		or.setType(_getScreenType());
@@ -60,7 +62,14 @@ public class ScreenOrientationJsObject {
 	}
 
 	private native final String _getScreenType() /*-{
-		return $wnd.screenOrientation.type;
+	    var media = $wnd.matchMedia('(orientation: portrait)');
+	    if(media && media.matches){
+	        return "portrait-primary";
+	    }
+	    else{
+	        return $wnd.screenOrientation.type;
+	    }
+	    //return $wnd.screenOrientation.type;
 	}-*/;
 
 	private native final double _getSceenAngle() /*-{
@@ -157,31 +166,42 @@ public class ScreenOrientationJsObject {
 		return fullscreen;
 	}
 
-	private void onNewScreenDetails() {
-		if (this.callback != null) {
-			ScreenOrientation newOrientation = getScreenOrientationDetails();
-			this.callback.onScreenOrientationChange(newOrientation);
-		}
+	public void onChange() {
+	    ConsoleLogger.getConsoleLogger().log("onNewScreenDetails");	    
+	    ScreenOrientation newOrientation = getScreenOrientationDetails();
+            this.callback.onScreenOrientationChange(newOrientation);
+	    
 	}
 
-	protected void addChangeHandler(ScreenOrientationCallback callback) {
-		if (this.callback == null) {
-			this.callback = callback;
-			_addChangeHandler();
-		}
-
+	protected void addChangeHandler(ScreenOrientationCallback callback) {		
+	    this.callback = callback;
+	    _addChangeHandler();		
 	}
-
-	protected native void _addChangeHandler()/*-{
-		var that = this;
-		$wnd.screenOrientation
-				.addEventListener(
-						'change',
-						function() {
-							//something is changed... what?? -> read all
-							that
-									.@it.appify.screenorientation.ScreenOrientationJsObject::onNewScreenDetails();
-						});
+	
+	private native void _addChangeHandler()/*-{
+	    var media = $wnd.matchMedia('(orientation: portrait)');
+	    var that = this;
+	    if(media){
+	        media.addListener(function(){
+	            var isPortrait = media.matches;
+	            console.log('orientation change portrait is: '+isPortrait);
+	            that.@it.appify.screenorientation.ScreenOrientationJsObject::onChange()();
+	          });
+	    }
 	}-*/;
+
+//	protected native void _addChangeHandler()/*-{
+//	    	console.log('add screen change handler');
+//		var that = this;
+//		$wnd.screenOrientation
+//				.addEventListener(
+//						'change',
+//						function() {
+//						    	console.log('screen changed');
+//							//something is changed... what?? -> read all
+//							that
+//									.@it.appify.screenorientation.ScreenOrientationJsObject::onNewScreenDetails();
+//						});
+//	}-*/;
 
 }

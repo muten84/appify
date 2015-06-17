@@ -6,10 +6,10 @@ import it.appify.api.Battery.BatteryStatusCallback;
 import it.appify.api.BatteryStatus;
 import it.appify.app.WebApp;
 import it.appify.examples.client.model.AppModel;
+import it.appify.logging.ConsoleLogger;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-import com.google.gwt.core.shared.GWT;
 
 @Service
 public class BatteryService {
@@ -17,14 +17,14 @@ public class BatteryService {
 	private WebApp<AppModel> app;
 
 	public BatteryService(final WebApp<AppModel> app) {
-		GWT.log("BatteryService built...");
+		ConsoleLogger.getConsoleLogger().log("BatteryService built...");
 		this.app = app;
 
 	}
 
 	@Start
 	public void startService() {
-		GWT.log("BatteryService started...");
+		ConsoleLogger.getConsoleLogger().log("BatteryService started...");
 		this.app.getBatteryService().getBatteryStatus(new BatteryStatusCallback() {
 
 			@Override
@@ -33,7 +33,7 @@ public class BatteryService {
 
 					@Override
 					public void execute() {
-						GWT.log("onBatteryStatus update: " + currentStatus);
+						ConsoleLogger.getConsoleLogger().log("onBatteryStatus update: " + currentStatus);
 						AppModel model = app.<AppModel> getCurrentAppState();
 						model.setBatteryStatus(currentStatus);
 						app.updateAppState((AppModel) model);

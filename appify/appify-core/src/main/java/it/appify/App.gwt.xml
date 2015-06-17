@@ -11,6 +11,7 @@
 	<inherits name="it.appify.Storage" />
 	<inherits name="it.appify.ScreenOrientation" />
 	<inherits name="it.appify.Sound" />
+	<inherits name="it.appify.Logging" />
 
 	<source path="app" />
 

@@ -1,14 +1,13 @@
 package it.appify.examples.emsmobile.util;
 
 import it.appify.app.WebApp;
-
-import com.google.gwt.core.shared.GWT;
+import it.appify.logging.ConsoleLogger;
 
 public class ViewUtils {
 
 	public static <E> void updateBtnStatus(WebApp<E> app, String current,
 			String viewId) {
-		GWT.log("updateBtnStatus");
+		ConsoleLogger.getConsoleLogger().log("updateBtnStatus");
 		if (app.getCurrentPage().hasStyle(viewId, current)) {
 			return;
 		} else {

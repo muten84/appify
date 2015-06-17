@@ -7,11 +7,11 @@ import it.appify.annotations.ViewHandler;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.model.Phase;
+import it.appify.logging.ConsoleLogger;
 
 import java.util.Date;
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.dom.client.Element;
@@ -77,7 +77,7 @@ public class ActivationController {
 			}
 			app.getCurrentPage().unmask();
 		} else {
-			GWT.log("THERE ARE NO PHASES TO PROCESS IN THE ACTIVATION");
+			ConsoleLogger.getConsoleLogger().log("THERE ARE NO PHASES TO PROCESS IN THE ACTIVATION");
 		}
 	}
 
@@ -115,31 +115,31 @@ public class ActivationController {
 
 	@ViewHandler(eventType = "click", viewId = "sendBtn")
 	public void send() {
-		GWT.log("send....");
+		ConsoleLogger.getConsoleLogger().log("send....");
 		nextStage("sendLabel", "sendBtn", new Phase(Phase.SEND, System.currentTimeMillis()));
 	}
 
 	@ViewHandler(eventType = "click", viewId = "placeArrivalBtn")
 	public void placeArrival() {
-		GWT.log("departure....");
+		ConsoleLogger.getConsoleLogger().log("departure....");
 		nextStage("placeArrivalLabel", "placeArrivalBtn", new Phase(Phase.PL_ARRIVAL, System.currentTimeMillis()));
 	}
 
 	@ViewHandler(eventType = "click", viewId = "departureBtn")
 	public void departure() {
-		GWT.log("departure....");
+		ConsoleLogger.getConsoleLogger().log("departure....");
 		nextStage("departureLabel", "departureBtn", new Phase(Phase.PL_DEPARTURE, System.currentTimeMillis()));
 	}
 
 	@ViewHandler(eventType = "click", viewId = "hospitalArrivalBtn")
 	public void hospitalArrival() {
-		GWT.log("hospitalArrival....");
+		ConsoleLogger.getConsoleLogger().log("hospitalArrival....");
 		nextStage("hospitalArrivalLabel", "hospitalArrivalBtn", new Phase(Phase.HOSP_ARRIVAL, System.currentTimeMillis()));
 	}
 
 	@ViewHandler(eventType = "click", viewId = "closureBtn")
 	public void clousure() {
-		GWT.log("clousure....");
+		ConsoleLogger.getConsoleLogger().log("clousure....");
 		closure();
 
 	}
@@ -191,9 +191,9 @@ public class ActivationController {
 	}
 
 	protected void showFooterInfo() {
-		GWT.log("confirmModalBtn onActivatioConfirm ....");
+		ConsoleLogger.getConsoleLogger().log("confirmModalBtn onActivatioConfirm ....");
 		String height = activationContent.getPropertyString("height");
-		GWT.log("activation content height is: " + height);
+		ConsoleLogger.getConsoleLogger().log("activation content height is: " + height);
 	}
 
 	private void disableSection(String suffix) {

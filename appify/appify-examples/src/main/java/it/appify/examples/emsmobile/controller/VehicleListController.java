@@ -13,13 +13,13 @@ import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.model.Item;
 import it.appify.examples.emsmobile.model.Section;
 import it.appify.examples.emsmobile.util.ViewUtils;
+import it.appify.logging.ConsoleLogger;
 
 import java.util.Arrays;
 import java.util.List;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -37,12 +37,12 @@ public class VehicleListController {
 
 	@OnPageReady
 	public void onPageReady() {
-		GWT.log("PAGE READY :) YEAAAAAAAAAAAAAAH!");
+		ConsoleLogger.getConsoleLogger().log("PAGE READY :) YEAAAAAAAAAAAAAAH!");
 		app.getCurrentPage().keyboard("keyboard", new KeyboardActionCallback() {
 
 			@Override
 			public void accepted(String text) {
-				GWT.log("keyboard accepted text: " + text);
+				ConsoleLogger.getConsoleLogger().log("keyboard accepted text: " + text);
 				Element vehicleSearchTextEl = app.getCurrentPage().getElementInPage("vehicleSearchText");
 				vehicleSearchTextEl.setInnerText(text);
 				app.getCurrentPage().setElementValue("vehicleSearchText", text);
@@ -63,7 +63,7 @@ public class VehicleListController {
 
 					@Override
 					public boolean execute() {
-						GWT.log("executing async refresh request...");
+						ConsoleLogger.getConsoleLogger().log("executing async refresh request...");
 						app.updateAppState(model);
 						cb.onSuccess(true);
 						return false;
@@ -90,7 +90,7 @@ public class VehicleListController {
 
 			@Override
 			public void onEvent(String type, String source) {
-				GWT.log("onEvent source: " + source + " - type: " + type);
+				ConsoleLogger.getConsoleLogger().log("onEvent source: " + source + " - type: " + type);
 				showKeyboardEl.setAttribute("id", "keyboard");
 				
 
@@ -106,7 +106,7 @@ public class VehicleListController {
 
 	@ViewModelHandler(modelType = Item.class, viewId = "vehicleList")
 	public void onItemReceived(final Item i) {
-		GWT.log("Received item from listOfItems1: " + i.getCode() + " - " + i.getItemName());
+		ConsoleLogger.getConsoleLogger().log("Received item from listOfItems1: " + i.getCode() + " - " + i.getItemName());
 		waitModalText.setInnerText("Hai selezionato: " + i.getCode() + " - " + i.getItemName());
 		app.getCurrentPage().mask("");
 		// ViewUtils.showModal(app, "waitModal");

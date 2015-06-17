@@ -9,12 +9,11 @@ import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.service.ActivationService;
 import it.appify.examples.emsmobile.util.Registry;
-import it.appify.examples.emsmobile.util.ViewUtils;
+import it.appify.logging.ConsoleLogger;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 
 @Controller(page = "dumpPage")
@@ -32,21 +31,22 @@ public class DumpController {
 	
 	@OnPageReady
 	public void onPageReady() {
-		GWT.log("onPageReady DumpController");
+		ConsoleLogger.getConsoleLogger().log("onPageReady DumpController");
 		EmsMobileModel model = this.app.getCurrentAppState();
 		if(model.getActivation()!=null) {		
-			GWT.log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
+			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
 			app.moveTo("activationPage");
 		}
 		else {
-			GWT.log("ACTIVATION IS NULL");
+			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NULL");
 		}
 	}
 	
 	@ViewHandler(eventType = "click", viewId = "checkInBtn")
 	public void onCheckInStart() {
-		GWT.log("onCheckInStart");
-		app.getCurrentPage().mask("");
+		ConsoleLogger.getConsoleLogger().log("onCheckInStart");
+		app.getScreenOrientationService().requestFullScreen();
+		app.getCurrentPage().mask("");		
 		if (app.<EmsMobileModel> getCurrentAppState().getBarStatus().getVehicleCode() == null) {
 			// app.getScreenOrientationService().requestFullScreen();
 			app.moveTo("vehiclesPage");
@@ -58,6 +58,7 @@ public class DumpController {
 				@Override
 				public boolean execute() {
 					//ViewUtils.showModal(app, "waitModal");
+					app.getScreenOrientationService().exitFullScreen();
 					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 					model.getBarStatus().setVehicleCode(null);
 					model.setCheckInLabel("Inizio Turno");

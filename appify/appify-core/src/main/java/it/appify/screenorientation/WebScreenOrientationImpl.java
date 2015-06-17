@@ -18,8 +18,7 @@ package it.appify.screenorientation;
 
 import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
-
-import com.google.gwt.core.shared.GWT;
+import it.appify.logging.ConsoleLogger;
 
 public class WebScreenOrientationImpl implements WebScreenOrientation {
 
@@ -31,7 +30,7 @@ public class WebScreenOrientationImpl implements WebScreenOrientation {
 
 	@Override
 	public void requestFullScreen() {
-		GWT.log("requestFullScreen:_ ");
+		ConsoleLogger.getConsoleLogger().log("requestFullScreen:_ ");
 		screenObject._requestFullScreen();
 
 	}

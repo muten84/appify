@@ -47,7 +47,7 @@ public class ManifestGenerator extends HttpServlet {
 		String moduleName = readPropertyFrom("/no-cache/manifest.properties", "gwtModuleName");
 		readFile("/"+moduleName + "-artifacts.lst", resp.getWriter());
 
-		listFiles("/to-cache/", resp.getWriter());
+		listFiles("to-cache/", resp.getWriter());
 //		listFiles("util.js/", resp.getWriter());
 
 		/* NETWORK SECTION */
@@ -65,10 +65,11 @@ public class ManifestGenerator extends HttpServlet {
 		resp.getWriter().println("");
 		resp.getWriter().println("FALLBACK:");
 		resp.getWriter().println("no-cache/online.json to-cache/offline.json");
+		readFile("/"+moduleName + "-fallback.lst", resp.getWriter());
 		resp.getWriter().println("");
 
-		resp.getWriter().println("SETTINGS:");
-		resp.getWriter().println("prefer-online");
+//		resp.getWriter().println("SETTINGS:");
+//		resp.getWriter().println("prefer-online");
 	}
 
 	private String readPropertyFrom(String file, String propKey) throws IOException {

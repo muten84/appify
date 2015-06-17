@@ -76,15 +76,15 @@ public class HTML5ApplicationCache implements ApplicationCache {
 
 	@Override
 	public void getConnetionStatus(final CheckConnectedCallback callback) {
-		if (cache != null) {
-			boolean connected = cache.isOnline();
-			if (connected) {
-				callback.onOnline();
-			} else {
-				callback.onOffline();
-			}
-
-		} else {
+//		if (cache != null) {
+//			boolean connected = cache.isOnline();
+//			if (connected) {
+//				callback.onOnline();
+//			} else {
+//				callback.onOffline();
+//			}
+//
+//		} else {
 			checkConnection.checkOnline(new CheckOnlineCallback() {
 
 				@Override
@@ -99,7 +99,7 @@ public class HTML5ApplicationCache implements ApplicationCache {
 
 				}
 			});
-		}
+//		}
 
 	}
 

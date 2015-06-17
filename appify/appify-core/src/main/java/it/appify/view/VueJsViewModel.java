@@ -16,6 +16,8 @@
  */
 package it.appify.view;
 
+import it.appify.logging.ConsoleLogger;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +26,6 @@ import java.util.Set;
 import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -84,13 +85,13 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 		Element e = view.cast();
 		JSONObject modelJson = new JSONObject(model);
 		Event gwtEvent = event.cast();
-		// GWT.log("getViewId: " + getViewId());
-		// GWT.log("onDataReceived View  is: " + e.toString());
-		// GWT.log("onDataReceived Model is: " + modelJson.toString());
-		// GWT.log("onDataReceived Event is: " + gwtEvent.getType());
-		// GWT.log("getCurrentEventTarget: "
+		// ConsoleLogger.getConsoleLogger().log("getViewId: " + getViewId());
+		// ConsoleLogger.getConsoleLogger().log("onDataReceived View  is: " + e.toString());
+		// ConsoleLogger.getConsoleLogger().log("onDataReceived Model is: " + modelJson.toString());
+		// ConsoleLogger.getConsoleLogger().log("onDataReceived Event is: " + gwtEvent.getType());
+		// ConsoleLogger.getConsoleLogger().log("getCurrentEventTarget: "
 		// + gwtEvent.getCurrentEventTarget().toString());
-		// GWT.log("getParentElement: " + e.getParentElement().getId());
+		// ConsoleLogger.getConsoleLogger().log("getParentElement: " + e.getParentElement().getId());
 		String viewId = getViewId();
 		String parentId = e.getParentElement().getId();
 		VMKey key = new VMKey(viewId, parentId);
@@ -106,11 +107,11 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 		// TODO: important!! model event disaptching!!
 		ViewModelHandlerHolder<?> holder = handlers.get(key);
 		if (holder != null) {
-			GWT.log("-->" + modelJson.toString());
+			ConsoleLogger.getConsoleLogger().log("-->" + modelJson.toString());
 			Serializable o = (Serializable) holder.getObjectMapper().read(modelJson.toString());
 			holder.getHandler().onEvent(gwtEvent.getType(), getViewId(), e.getParentElement().getId(), o);
 		} else {
-			GWT.log("holder is null: " + viewId + " - " + parentId);
+			ConsoleLogger.getConsoleLogger().log("holder is null: " + viewId + " - " + parentId);
 		}
 		// TODO: important!! model event disaptching!!
 

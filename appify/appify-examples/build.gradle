@@ -57,7 +57,7 @@ eclipse {
 
 gwt {
 	gwtVersion='2.7.0'
-	//modules 'it.appify.poc.MobileOfflinePoc', 'it.appify.poc.MobilePoc', 'it.appify.poc.MobileGeolocationPoc'
+	modules 'it.appify.examples.EmsMobile'
 	
 	superDev { noPrecompile=true }
 	src += files(project(':appify-core').sourceSets.main.allJava.srcDirs)

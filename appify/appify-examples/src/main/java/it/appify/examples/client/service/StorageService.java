@@ -4,8 +4,7 @@ import it.appify.annotations.Service;
 import it.appify.annotations.Start;
 import it.appify.app.WebApp;
 import it.appify.examples.client.model.AppModel;
-
-import com.google.gwt.core.shared.GWT;
+import it.appify.logging.ConsoleLogger;
 
 @Service
 public class StorageService {
@@ -20,12 +19,12 @@ public class StorageService {
 	@Start
 	public void start() {
 		AppModel model = this.webapp.<AppModel> getCurrentAppState();
-		GWT.log("StorageService initialized:  " + model.getTitle() + " - "
+		ConsoleLogger.getConsoleLogger().log("StorageService initialized:  " + model.getTitle() + " - "
 				+ model.getContent());
 		this.webapp.getStorageService().store(AppModel.class.toString(), model);
 		model = this.webapp.getStorageService().<AppModel> get(
 				AppModel.class.toString());
-		GWT.log("StorageService test, model stored: " + model);
+		ConsoleLogger.getConsoleLogger().log("StorageService test, model stored: " + model);
 	}
 
 }

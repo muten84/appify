@@ -6,8 +6,7 @@ import it.appify.api.Geolocation.GeolocationCallback;
 import it.appify.api.Geoposition;
 import it.appify.app.WebApp;
 import it.appify.examples.client.model.AppModel;
-
-import com.google.gwt.core.shared.GWT;
+import it.appify.logging.ConsoleLogger;
 
 @Service
 public class GeolocationService {
@@ -26,7 +25,7 @@ public class GeolocationService {
 
 					@Override
 					public void onPosition(Geoposition position) {
-						GWT.log("New Position: " + position);
+						ConsoleLogger.getConsoleLogger().log("New Position: " + position);
 						AppModel model = webapp.<AppModel> getCurrentAppState();
 						model.setPosition(position);
 						webapp.updateAppState((AppModel) model);
@@ -37,7 +36,7 @@ public class GeolocationService {
 					@Override
 					public void onError(int code, String msg) {
 
-						GWT.log("Position error: " + code + " - " + msg);
+						ConsoleLogger.getConsoleLogger().log("Position error: " + code + " - " + msg);
 
 					}
 				});

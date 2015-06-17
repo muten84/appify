@@ -5,6 +5,7 @@ import it.appify.app.WebApp.AppListener;
 import it.appify.examples.client.app.ExampleApp;
 import it.appify.examples.client.model.AppModel;
 import it.appify.examples.client.model.ChildModel;
+import it.appify.logging.ConsoleLogger;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
@@ -20,13 +21,13 @@ public class AppifyEntryPoint implements EntryPoint {
 			@Override
 			public void onAppStart(WebApp<AppModel> app) {
 				AppModel model = myApp.getCurrentAppState();
-				GWT.log("onAppStart Current App state is: " + model.getTitle() + " - " + model.getContent());
+				ConsoleLogger.getConsoleLogger().log("onAppStart Current App state is: " + model.getTitle() + " - " + model.getContent());
 				app.updateAppState(model);
 
 			}
 		});
 		AppModel model = myApp.getCurrentAppState();
-		GWT.log("Current App state is: " + model.getTitle() + " - " + model.getContent());
+		ConsoleLogger.getConsoleLogger().log("Current App state is: " + model.getTitle() + " - " + model.getContent());
 
 	}
 

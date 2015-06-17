@@ -18,12 +18,12 @@ package it.appify.view;
 
 import it.appify.api.Page;
 import it.appify.api.PageManager;
+import it.appify.logging.ConsoleLogger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 
 public class AppJsPageManager implements PageManager<Element> {
@@ -66,7 +66,7 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	protected void onPageShow(Page<Element> p) {
-		GWT.log("AppJsPageManager onPageShow: " + p.getPageId());
+		ConsoleLogger.getConsoleLogger().log("AppJsPageManager onPageShow: " + p.getPageId());
 		currentPage = p.getPageId();
 		this.pages.put(p.getPageId(), p);
 		// if (p.isWasHidden()) {
@@ -85,7 +85,7 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	private void onPageShowed(String name, JavaScriptObject e) {
-		GWT.log("AppJsPageManager onPageShowed: " + name);
+		ConsoleLogger.getConsoleLogger().log("AppJsPageManager onPageShowed: " + name);
 		Page<Element> currentPage = this.pages.get(name);
 		Element el = e.cast();
 		if (currentPage == null) {
@@ -98,7 +98,7 @@ public class AppJsPageManager implements PageManager<Element> {
 	}
 
 	private void onPageHidden(String name, JavaScriptObject e) {
-		GWT.log("Page " + name + "destroyed");
+		ConsoleLogger.getConsoleLogger().log("Page " + name + "destroyed");
 		Page<Element> p = this.pages.get(name);
 		this.pages.remove(name);
 		onPageHide(p);

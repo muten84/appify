@@ -7,7 +7,7 @@ version = '1.0'
 repositories { mavenCentral() }
 
 dependencies{
-	runtime group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+	compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
 }
 
 eclipse {

@@ -20,12 +20,12 @@ import it.appify.api.Coordinates;
 import it.appify.api.GeoOptions;
 import it.appify.api.Geolocation.GeolocationCallback;
 import it.appify.api.Geoposition;
+import it.appify.logging.ConsoleLogger;
 
 import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.json.client.JSONObject;
 
 public class GeolocationJsObject {
 
@@ -67,30 +67,32 @@ public class GeolocationJsObject {
 		return $wnd.navigator.geolocation;
 	}-*/;
 
-	protected void onPositionSuccess(JavaScriptObject position) {
-		String positionString = JsonUtils.stringify(position);
-		GWT.log("position info is: " + positionString);
+	protected void onPositionSuccess(double latitude, double longitude, double timestamp) {
+		//String positionString = JsonUtils.stringify(position);		
+		
+		ConsoleLogger.getConsoleLogger().log("position info is: " + latitude+" - "+longitude+" - "+timestamp);
 
-		JavaScriptObject jsObj = JsonUtils.safeEval(positionString);
-		JSONObject obj = new JSONObject(jsObj);
-		long timestamp = System.currentTimeMillis();
-		double latitude = 0.0;
-		double longitude = 0.0;
+		//JavaScriptObject jsObj = JsonUtils.safeEval(positionString);
+		//JSONObject obj = new JSONObject(jsObj);
+//		 timestamp = System.currentTimeMillis();
+//		 latitude = 0.0;
+//		 longitude = 0.0;
 		double accuracy = 0.0;
 		try {
-			timestamp = Long.parseLong(""
-					+ obj.get("timestamp").isNumber().doubleValue());
-			latitude = obj.get("coords").isObject().get("latitude").isNumber()
-					.doubleValue();
-			longitude = obj.get("coords").isObject().get("longitude")
-					.isNumber().doubleValue();
-			accuracy = obj.get("coords").isObject().get("accuracy").isNumber()
-					.doubleValue();
+//			timestamp = Long.parseLong(""
+//					+ obj.get("timestamp").isNumber().doubleValue());
+//			latitude = obj.get("coords").isObject().get("latitude").isNumber()
+//					.doubleValue();
+//			longitude = obj.get("coords").isObject().get("longitude")
+//					.isNumber().doubleValue();
+//			accuracy = obj.get("coords").isObject().get("accuracy").isNumber()
+//					.doubleValue();
 		} catch (Exception e) {
+		    	onPositionError(-1, "Internal error while processing onPositionSuccess");
 			return;
 		}
 		Geoposition positionObj = new Geoposition();
-		positionObj.setTimestamp(timestamp);
+		positionObj.setTimestamp(Long.parseLong(String.valueOf(timestamp)));
 		Coordinates coords = new Coordinates();
 		coords.setLatitude(latitude);
 		coords.setLongitude(longitude);
@@ -117,7 +119,7 @@ public class GeolocationJsObject {
 	}
 
 	public void getCurrentPosition(GeolocationCallback callback) {
-		GWT.log("getCurrentPosition .. " + callback);
+		ConsoleLogger.getConsoleLogger().log("getCurrentPosition .. " + callback);
 		// if (this.callback != null && lastPosition !=null) {
 		// // libero la callback pendente con l'ultime posizione e registro la
 		// nuova
@@ -135,7 +137,7 @@ public class GeolocationJsObject {
 	}
 
 	public void watchPosition(GeolocationCallback callback) {
-		GWT.log("watchPosition .. " + callback);
+		ConsoleLogger.getConsoleLogger().log("watchPosition .. " + callback);
 		this.callback = callback;
 		JavaScriptObject geoOpt = null;
 		if (this.options != null) {
@@ -168,9 +170,13 @@ public class GeolocationJsObject {
 		return $wnd.navigator.geolocation
 				.watchPosition(
 						function(position) {
-							that.@it.appify.geolocation.GeolocationJsObject::onPositionSuccess(Lcom/google/gwt/core/client/JavaScriptObject;)(position);
+						    	if(position){
+						    		console.log('received position: '+position.coords.latitude+ ' - ' + position.coords.longitude);
+						    	}
+							that.@it.appify.geolocation.GeolocationJsObject::onPositionSuccess(DDD)(position.coords.latitude,position.coords.longitude,position.timestamp);
 						},
 						function(error) {
+						    	console.log('receievd position error: '+error.code+" - "+error.message);
 							that.@it.appify.geolocation.GeolocationJsObject::onPositionError(ILjava/lang/String;)(error.code,error.message);
 						}, options);
 	}-*/;
@@ -181,7 +187,7 @@ public class GeolocationJsObject {
 		$wnd.navigator.geolocation
 				.getCurrentPosition(
 						function(position) {
-							that.@it.appify.geolocation.GeolocationJsObject::onPositionSuccess(Lcom/google/gwt/core/client/JavaScriptObject;)(position);
+							that.@it.appify.geolocation.GeolocationJsObject::onPositionSuccess(DDD)(position.coords.latitude,position.coords.longitude,position.timestamp);
 						},
 						function(error) {
 							that.@it.appify.geolocation.GeolocationJsObject::onPositionError(ILjava/lang/String;)(error.code,error.message);

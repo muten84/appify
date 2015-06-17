@@ -1,8 +1,8 @@
 package it.appify.app;
 
 import it.appify.api.DynamicContentLoader;
+import it.appify.logging.ConsoleLogger;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 
 public class AppifyDynamicContentLoader implements DynamicContentLoader {
@@ -40,7 +40,7 @@ public class AppifyDynamicContentLoader implements DynamicContentLoader {
 	}-*/;
 
 	private void done() {
-		GWT.log("done...");
+		ConsoleLogger.getConsoleLogger().log("done...");
 	}
 
 	private native void _load(Element el, String url, ContentLoadedListener l)/*-{

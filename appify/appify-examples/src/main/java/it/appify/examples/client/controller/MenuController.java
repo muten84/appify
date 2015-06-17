@@ -3,8 +3,7 @@ package it.appify.examples.client.controller;
 import it.appify.annotations.Controller;
 import it.appify.annotations.ViewHandler;
 import it.appify.app.WebApp;
-
-import com.google.gwt.core.shared.GWT;
+import it.appify.logging.ConsoleLogger;
 
 @Controller
 public class MenuController {
@@ -17,13 +16,13 @@ public class MenuController {
 
 	@ViewHandler(viewId = "firstMenuBtn", eventType = "click")
 	public void onFirstBtnClicked() {
-		GWT.log("First menu button clicked");
+		ConsoleLogger.getConsoleLogger().log("First menu button clicked");
 		this.app.moveTo("childPage");
 	}
 
 	@ViewHandler(viewId = "showLeft", eventType = "click")
 	public void onMenuClick() {
-		GWT.log("menu show clicked");	
+		ConsoleLogger.getConsoleLogger().log("menu show clicked");	
 		if (!this.app.isMenuOpen()) {
 			this.app.openContextMenu("content");
 		} else {

@@ -16,7 +16,11 @@
       <init-param>
          <param-name>ExpiresByType text/cache-manifest</param-name>
          <param-value>access plus 0 seconds</param-value>
-      </init-param>     
+      </init-param> 
+      <init-param>
+         <param-name>ExpiresByType application/json</param-name>
+         <param-value>access plus 0 seconds</param-value>
+      </init-param>    
    </filter>
    
    <filter-mapping>

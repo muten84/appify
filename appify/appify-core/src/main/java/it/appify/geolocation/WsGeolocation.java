@@ -19,13 +19,13 @@ package it.appify.geolocation;
 import it.appify.api.Coordinates;
 import it.appify.api.Geolocation;
 import it.appify.api.Geoposition;
+import it.appify.logging.ConsoleLogger;
 
 import org.realityforge.gwt.websockets.client.WebSocket;
 import org.realityforge.gwt.websockets.client.WebSocketListener;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.typedarrays.shared.ArrayBuffer;
@@ -52,7 +52,7 @@ public class WsGeolocation implements Geolocation {
 		if (webSocket == null) {
 			this.connect();
 		} else {
-			GWT.log("WebSocket just initialized");
+			ConsoleLogger.getConsoleLogger().log("WebSocket just initialized");
 		}
 	}
 
@@ -63,7 +63,7 @@ public class WsGeolocation implements Geolocation {
 		if (webSocket.isConnected()) {
 			webSocket.send("getCurrentPosition");
 		} else {
-			GWT.log("web socket not connected");
+			ConsoleLogger.getConsoleLogger().log("web socket not connected");
 		}
 	}
 
@@ -79,7 +79,7 @@ public class WsGeolocation implements Geolocation {
 
 			}
 		} else {
-			GWT.log("web socket not connected");
+			ConsoleLogger.getConsoleLogger().log("web socket not connected");
 		}
 
 	}
@@ -125,7 +125,7 @@ public class WsGeolocation implements Geolocation {
 
 			@Override
 			public void onOpen(WebSocket webSocket) {
-				GWT.log("onOpen: " + webSocket.isConnected());
+				ConsoleLogger.getConsoleLogger().log("onOpen: " + webSocket.isConnected());
 				if (currentRequest != null) {
 					if (currentRequest.equals("watchPosition")) {
 						watchPosition(WsGeolocation.this.callback);
@@ -137,13 +137,13 @@ public class WsGeolocation implements Geolocation {
 
 			@Override
 			public void onMessage(WebSocket webSocket, ArrayBuffer data) {
-				GWT.log("onMessage ArrayBuffer: " + data);
+				ConsoleLogger.getConsoleLogger().log("onMessage ArrayBuffer: " + data);
 
 			}
 
 			@Override
 			public void onMessage(WebSocket webSocket, String data) {
-				GWT.log("RECEIVED: " + data);
+				ConsoleLogger.getConsoleLogger().log("RECEIVED: " + data);
 				JavaScriptObject jsonObj = JsonUtils.safeEval(data);
 				onPositionSuccess(jsonObj);
 				// parse string
@@ -151,7 +151,7 @@ public class WsGeolocation implements Geolocation {
 
 			@Override
 			public void onError(WebSocket webSocket) {
-				GWT.log("onError: ");
+				ConsoleLogger.getConsoleLogger().log("onError: ");
 				// onPositionError(errorCode, msg);
 
 			}
@@ -159,7 +159,7 @@ public class WsGeolocation implements Geolocation {
 			@Override
 			public void onClose(WebSocket webSocket, boolean wasClean,
 					int code, String reason) {
-				GWT.log("onClose: " + wasClean + " - " + code + " - " + reason);
+				ConsoleLogger.getConsoleLogger().log("onClose: " + wasClean + " - " + code + " - " + reason);
 
 			}
 		});

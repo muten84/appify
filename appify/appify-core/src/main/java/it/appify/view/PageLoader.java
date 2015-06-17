@@ -21,6 +21,7 @@ import it.appify.api.ModelView;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
 import it.appify.api.PageManager.PageListener;
+import it.appify.logging.ConsoleLogger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +30,6 @@ import java.util.Map;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-import com.google.gwt.core.shared.GWT;
 
 public class PageLoader<V, M> {
 
@@ -54,7 +54,7 @@ public class PageLoader<V, M> {
 	private final PageListener<V> pl = new PageListener<V>() {
 		@Override
 		public void onPageHide(Page<V> page) {
-			GWT.log("PageLoader onPageHide: " + page.getPageId());
+			ConsoleLogger.getConsoleLogger().log("PageLoader onPageHide: " + page.getPageId());
 			if (outerPl != null) {
 				outerPl.onPageHide(page);
 			}
@@ -66,7 +66,7 @@ public class PageLoader<V, M> {
 				pm.getCurrentPage().mask("");
 			}
 //			page.keyboard("keyboard");
-			GWT.log("PageLoader onPageShow: " + page.getPageId());
+			ConsoleLogger.getConsoleLogger().log("PageLoader onPageShow: " + page.getPageId());
 			// vm.bindModelToView(page.getPageId(), modelInstance);
 			// currentShowedPage = page;
 			List<ViewHandlerHolder> h = pageHandlers.get(page.getPageId());
@@ -83,7 +83,7 @@ public class PageLoader<V, M> {
 		@Override
 		public void onPageCreate(Page<V> page) {
 			currentShowingPage = page;
-			GWT.log("PageLoader onPageCreate: " + page.getPageId());
+			ConsoleLogger.getConsoleLogger().log("PageLoader onPageCreate: " + page.getPageId());
 			if (outerPl != null) {
 				outerPl.onPageCreate(page);
 			}
@@ -92,7 +92,7 @@ public class PageLoader<V, M> {
 
 		@Override
 		public void onPageReady(Page<V> page) {
-			GWT.log("PageLoader onPageReady: " + page.getPageId());
+			ConsoleLogger.getConsoleLogger().log("PageLoader onPageReady: " + page.getPageId());
 			// page.unmask();
 			page.decorate();
 			if (outerPl != null) {
@@ -148,7 +148,7 @@ public class PageLoader<V, M> {
 		}
 		final boolean showed = false;
 		final boolean bound = false;
-		GWT.log("SCHEULING LOAD PAGE: " + pageId);
+		ConsoleLogger.getConsoleLogger().log("SCHEULING LOAD PAGE: " + pageId);
 		Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
 			private boolean _showed = showed;
 			private boolean _bound = bound;
@@ -156,7 +156,7 @@ public class PageLoader<V, M> {
 			@Override
 			public boolean execute() {
 				try {
-					GWT.log(pageId + " executing: " + _showed + " - " + _bound);
+					ConsoleLogger.getConsoleLogger().log(pageId + " executing: " + _showed + " - " + _bound);
 					if (!_showed) {
 						if (getCurrentTransition() == null) {
 							pm.showPage(pageId);
@@ -188,7 +188,7 @@ public class PageLoader<V, M> {
 					}
 					return false;
 				} catch (Exception e) {
-					GWT.log(" error: " + e.getMessage(), e);
+					ConsoleLogger.getConsoleLogger().log(" error: " + e.getMessage(), e);
 					return false;
 				}
 			}

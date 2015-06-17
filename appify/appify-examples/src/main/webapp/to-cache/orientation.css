@@ -1,0 +1,9 @@
+@media(orientation: portrait) { 
+	
+}
+
+@media(orientation: landscape) { 
+	.hide-activation-bottom-bar{
+		display: none;
+	}
+}

@@ -6,7 +6,6 @@ import it.appify.api.Battery.BatteryStatusCallback;
 import it.appify.api.BatteryStatus;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
-import it.appify.examples.emsmobile.util.ViewUtils;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
