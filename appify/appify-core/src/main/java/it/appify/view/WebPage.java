@@ -377,6 +377,31 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	    _enableElement(viewId);
 	}
 	
+	@Override
+	public void disableElements(String clazz) {
+	    _disableElements(clazz);
+	}
+	
+	@Override
+	public void enableElements(String clazz) {
+	    _enableElements(clazz);
+	}
+	
+	
+	private native void _disableElements(String clazz) /*-{
+	    var els = $wnd.$('.'+clazz);
+	    console.log('trying to switch: '+els);	    
+	    els.attr('disabled','');
+	    
+	}-*/;
+	
+	private native void _enableElements(String clazz) /*-{
+	    var btn = $wnd.$('.'+clazz);
+	    if(btn){
+	    	btn.removeAttr('disabled');
+	    }
+	}-*/;
+	
 	private native void _disableElement(String viewId) /*-{
 	    var btn = $wnd.$('#'+viewId);
 	    if(btn){
@@ -387,7 +412,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	private native void _enableElement(String viewId) /*-{
 	    var btn = $wnd.$('#'+viewId);
 	    if(btn){
-	    	btn.removeAttr('diasble');
+	    	btn.removeAttr('disabled');
 	    }
 	}-*/;
 

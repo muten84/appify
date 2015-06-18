@@ -5,5 +5,13 @@
 @media(orientation: landscape) { 
 	.hide-activation-bottom-bar{
 		display: none;
+		height: 0px !important;
+	}
+}
+
+@media(orientation: portrait) and (max-width: 699px){
+	.hide-activation-bottom-bar{
+		display: none;
+		height: 0px !important;
 	}
 }

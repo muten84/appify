@@ -76,4 +76,8 @@ public interface Page<E> extends HasViewHandlers {
 
 	public void enableElement(String viewId);
 
+	public void disableElements(String clazz);
+
+	public void enableElements(String clazz);
+
 }

@@ -1,4 +1,50 @@
 <div class="app-page" id="activationPage" data-page="activationPage">
+	<!-- MENU -->
+	<div class="snap-drawers">
+		<div class="snap-drawer snap-drawer-left menu-border">
+			<div class="app-section">
+				<button id="sendBtn"
+					class="sendBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin: 1% !important;">
+					<span class="fa fa-play-circle-o fa-2x"></span> <span
+						id="sendLabel" class="tab-label">PARTENZA</span>
+				</button>
+				<button id="placeArrivalBtn"
+					class="placeArrivalBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin: 1% !important;">
+					<span class="fa fa-map-marker fa-2x"></span> <span
+						id="placeArrivalLabel" class="tab-label">ARRIVO</span>
+				</button>
+				<button id="departureBtn"
+					class="departureBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin: 1% !important;">
+					<span class="fa fa-arrow-circle-right fa-2x"></span> <span
+						id="departureLabel" class="tab-label">PARTENZA</span>
+				</button>
+				<button id="hospitalArrivalBtn"
+					class="hospitalArrivalBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin: 1% !important;">
+					<span class="fa fa-hospital-o fa-2x"></span> <span
+						id="hospitalArrivalLabel" class="tab-label">OSPEDALE</span>
+				</button>
+				<button id="closureBtn"
+					class="closureBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin: 1% !important;">
+					<span class="fa fa-flag-checkered fa-2x"></span> <span
+						id="closureLabel" class="tab-label">CHIUSURA</span>
+				</button>
+			</div>
+			<div class="app-section">
+				<button id="dump118Btn" class="btn-background btn btn-block">Dump118</button>
+				<button id="patientsBtn" class="btn-background btn btn-block">
+				<span class="fa fa-bed"></span> <span
+						id="patientsLabel" class="tab-label">Pazienti</span></button>
+				<button id="lastEmergencyBtn" class="btn-background btn btn-block"><span class="fa fa-users"></span> <span
+						id="equipLabel" class="tab-label">Equipaggio</span></button>
+			</div>
+		</div>
+		<div class="snap-drawer snap-drawer-right"></div>
+	</div>
 	<div id="content" class="content snap-content">
 		<div class="app-topbar">
 			<!-- HEADER SECTION -->
@@ -6,11 +52,11 @@
 				<!-- <button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button> -->
-				<button class="btn btn-nav pull-left">
+				<button id="showMenuBtn" class="btn-border btn btn-nav pull-left">
 					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
-					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
+					class="btn-border btn btn-nav pull-right {{barStatus.gpsStatus}}">
 					<span class="fa fa-map-marker fa-2x"></span>
 				</button>
 				<button id="batteryStateBtn"
@@ -22,7 +68,6 @@
 					<span class="fa fa-rss fa-2x"></span>
 				</button>
 			</header>
-
 		</div>
 		<!--END  HEADER SECTION -->
 
@@ -46,7 +91,7 @@
 					<div id="cardEmergencyData"
 						class="app-section control-content active">
 
-						<ul class="table-view">
+						<ul class="table-view table-border">
 							<li
 								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
 								Emergenza {{activation.emergencyId}} -
@@ -58,7 +103,7 @@
 							<li class="table-view-cell">{{activation.noteSummary}}</li>
 						</ul>
 						<!-- <div  id="map-canvas" class="app-section"  style="padding: 0; margin: 0; width: 100%; height: 100%;"></div> -->
-						<div  id="map"
+						<div id="map"
 							style="padding: 0; margin: 0; width: 100%; height: 100%;"></div>
 					</div>
 					<!-- END CARD EMERGENCY DATA -->
@@ -66,7 +111,7 @@
 					<!-- CARD ADDRESS DATA -->
 					<div id="cardAddressData" class="app-section control-content">
 
-						<ul class="table-view">
+						<ul class="table-view table-border">
 							<li
 								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
 								Emergenza {{activation.emergencyId}} -
@@ -102,31 +147,35 @@
 		<nav id="bottomBar"
 			class="hide-activation-bottom-bar auto-center-min auto-center app-bottombar bar bar-standard bar-footer bottombar-height pull-center">
 
-			<button id="sendBtn" class="btn btn-outlined badge"
+			<button id="sendBtn" class="btn-background sendBtn btn btn-outlined badge menu-btn-bottom"
 				style="margin: 1% !important;">
 				<span class="fa fa-play-circle-o fa-2x"></span> <span id="sendLabel"
 					class="tab-label">PARTENZA</span>
 			</button>
 
-			<button id="placeArrivalBtn" class="btn btn-outlined badge"
+			<button id="placeArrivalBtn"
+				class="btn-background placeArrivalBtn btn btn-outlined badge menu-btn-bottom"
 				style="margin: 1% !important;">
 				<span class="fa fa-map-marker fa-2x"></span> <span
 					id="placeArrivalLabel" class="tab-label">ARRIVO</span>
 			</button>
 
-			<button id="departureBtn" class="btn btn-outlined badge"
+			<button id="departureBtn"
+				class="btn-background departureBtn btn btn-outlined badge menu-btn-bottom"
 				style="margin: 1% !important;">
 				<span class="fa fa-arrow-circle-right fa-2x"></span> <span
 					id="departureLabel" class="tab-label">PARTENZA</span>
 			</button>
 
-			<button id="hospitalArrivalBtn" class="btn btn-outlined badge"
+			<button id="hospitalArrivalBtn"
+				class="btn-background hospitalArrivalBtn btn btn-outlined badge menu-btn-bottom"
 				style="margin: 1% !important;">
 				<span class="fa fa-hospital-o fa-2x"></span> <span
 					id="hospitalArrivalLabel" class="tab-label">OSPEDALE</span>
 			</button>
 
-			<button id="closureBtn" class="btn btn-outlined badge"
+			<button id="closureBtn"
+				class="btn-background closureBtn btn btn-outlined badge menu-btn-bottom"
 				style="margin: 1% !important;">
 				<span class="fa fa-flag-checkered fa-2x"></span> <span
 					id="closureLabel" class="tab-label">CHIUSURA</span>

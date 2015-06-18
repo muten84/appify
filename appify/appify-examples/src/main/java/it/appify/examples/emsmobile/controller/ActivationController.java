@@ -80,6 +80,15 @@ public class ActivationController {
 			ConsoleLogger.getConsoleLogger().log("THERE ARE NO PHASES TO PROCESS IN THE ACTIVATION");
 		}
 	}
+	
+	@ViewHandler(eventType = "click", viewId = "showMenuBtn")
+	public void controlMenu() {
+		if (app.isMenuOpen()) {
+			app.closeContextMenu();
+		} else {
+			app.openContextMenu("content");
+		}
+	}
 
 	@ViewHandler(eventType = "click", viewId = "confirmModalBtn")
 	public void onActivatioConfirm() {
@@ -187,7 +196,7 @@ public class ActivationController {
 	}
 
 	protected void disableStageBtn(String btnId) {
-		app.getCurrentPage().disableElement(btnId);
+		app.getCurrentPage().disableElements(btnId);
 	}
 
 	protected void showFooterInfo() {
