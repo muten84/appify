@@ -13,25 +13,29 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <script src="emsmobile/cache-utils/cache-utils.js"></script>
 
-<link href="emsmobile/ratchet/css/ratchet.css" rel="stylesheet">
+<!--  <link href="emsmobile/ratchet/css/ratchet.css" rel="stylesheet">
 <link href="emsmobile/snapjs/snap.css" rel="stylesheet">
 <link href="emsmobile/css/font-awesome.min.css" rel="stylesheet">
-<!-- for docs http://fortawesome.github.io/Font-Awesome/emsmobiles/ -->
 <link href="emsmobile/appjs/app.min.css" rel="stylesheet">
 <link href="emsmobile/popover/popover.css" rel="stylesheet">
 <link href="emsmobile/mask/loadmask.css" rel="stylesheet">
 <link rel="stylesheet" href="emsmobile/wptr/genericons/genericons.css">
 <link rel="stylesheet" href="emsmobile/wptr/base.css">
 <link href="emsmobile/keyboard/css/jquery-ui.min.css" rel="stylesheet">	
+<link rel="stylesheet" href="emsmobile/keyboard/css/keyboard.min.css"> -->
+<link rel="stylesheet" href="emsmobile/appify/appify.min.css">
 <link rel="stylesheet" href="emsmobile/keyboard/css/keyboard.min.css">
+
+
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
-
-<link rel="stylesheet" href="to-cache/ol/ol.css">
-
 <!-- PUT HERE ALL YOUR CUSTOM CSS REFS -->
-<link href="to-cache/custom.css" rel="stylesheet">
-<link href="to-cache/orientation.css" rel="stylesheet">
+<link rel="stylesheet" href="to-cache/ol/ol.css">
+<link href="to-cache/css/keyboard.css" rel="stylesheet">
+<link href="to-cache/css/loader.css" rel="stylesheet">
+<link href="to-cache/css/theme.aqua.css" rel="stylesheet">
+<link href="to-cache/css/custom.css" rel="stylesheet">
+<link href="to-cache/css/orientation.css" rel="stylesheet">
 <style>
 [v-cloak] {
 	display: none;
@@ -60,10 +64,9 @@
 		appify-page="vehiclesPage"></div>
 
 
-	<script src="emsmobile/appjs/zepto.js"></script>
+	<!-- <script src="emsmobile/appjs/zepto.js"></script>
 	<script src="emsmobile/vuejs/vue.min.js"></script>
-	<script src="emsmobile/appjs/app.min.js"></script>
-	<!-- <script src="emsmobile/appjs/app.js" /> -->
+	<script src="emsmobile/appjs/app.min.js"></script>	
 	<script src="emsmobile/ratchet/js/ratchet.js"></script>
 	<script src="emsmobile/snapjs/snap.js"></script>
 	<script src="emsmobile/popover/jquery.js" type="text/javascript"></script>
@@ -72,39 +75,12 @@
 	<script src="emsmobile/mask/spin.min.js" type="text/javascript"></script>
 	<script src="emsmobile/mask/loadmask.js" type="text/javascript"></script>
 	<script src="emsmobile/wptr/hammer.2.0.4.js"></script>
-	<script src="emsmobile/wptr/wptr.1.1.js"></script>
-	<!-- <script src="docs/js/jquery.min.js"></script> -->
-	<script src="emsmobile/keyboard/js/jquery-ui.min.js"></script>
-	<!-- <script src="emsmobile/keyboard/js/jquery-migrate-1.2.1.min.js"></script> -->
+	<script src="emsmobile/wptr/wptr.1.1.js"></script>	
+	<script src="emsmobile/keyboard/js/jquery-ui.min.js"></script>	
 	<script src="emsmobile/keyboard/js/jquery.keyboard.min.js"></script>
-	<script src="emsmobile/buzz/buzz.min.js"></script>
-	<script src="to-cache/ol/ol.js"></script>
-	<script>
-		/* window.onload = function() {
-			WebPullToRefresh.init({
-				//contentEl : document.getElementById('pullable'),
-				loadingFunction : exampleLoadingFunction
-			});
-		}; */
-
-		// Just an example loading function that returns a
-		// promise that WebPullToRefresh can use.
-		var exampleLoadingFunction = function() {
-			return new Promise(function(resolve, reject) {
-				// Run some async loading code here
-				console.log('exampleLoadingFunction....');
-				if (true /* if the loading worked */) {
-					console.log('resolve');
-					resolve();					
-				} else {
-					console.log('reject');
-					reject();
-					
-				}
-			});
-		};
-	</script>
-
-
+	<script src="emsmobile/buzz/buzz.min.js"></script> -->	
+	<script src="emsmobile/appify/appify.min.js"></script>
+	<script src="emsmobile/keyboard/js/jquery.keyboard.min.js"></script>
+	<script src="to-cache/ol/ol.js"></script>	
 </body>
 </html>

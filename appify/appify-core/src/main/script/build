@@ -1,0 +1,7 @@
+cd C:\Users\Luigi\git\appify\appify\appify-core\src\main\java\it\appify\public
+copy /b  appjs\zepto.js+vuejs\vue.min.js+appjs\app.min.js+ratchet\js\ratchet.js+snapjs\snap.js+popover\jquery.js+classie\classie.js+popover\popover.js+mask\spin.min.js+mask\loadmask.js+wptr\hammer.2.0.4.js+wptr\wptr.1.1.js+keyboard\js\jquery-ui.min.js+buzz\buzz.min.js+keyboard\js\jquery.keyboard.min.js appify.all.js
+java -jar yui-compressor.jar --type js -o appify.min.js appify.all.js
+
+
+copy /b  appjs\app.min.css+css\font-awesome.min.css+keyboard\css\jquery-ui.min.css+keyboard\css\keyboard-ui.min.css+mask\loadmask.css+popover\popover.css+ratchet\css\ratchet.css+snapjs\snap.css+wptr\base.css+wptr\genericons\genericons.css appify.all.css
+java -jar yui-compressor.jar --type css -o appify.min.css appify.all.css

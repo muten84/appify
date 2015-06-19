@@ -1,0 +1,74 @@
+[v-cloak] {
+	display: none;
+}
+
+@media (min-width: 768px){
+	.auto-center-min {
+    	margin-left: auto !important;
+    	margin-right: auto !important;
+    	width: 100% !important;   
+    	padding-left: 10% !important;
+   		 /*padding-right: 10% !important;*/ 
+	}
+}
+
+@media (min-width: 769px){
+.auto-center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 50em !important;   
+    padding-left: 10% !important;
+    /*padding-right: 10% !important;*/ 
+	}
+}
+
+.status-on {
+	/*verde*/
+	background-color: #4BC73E !important;
+}
+
+.status-off {
+	/**/
+	background-color: #DA4141 !important;
+}
+
+.status-idle {
+	background-color: #EFBB4A !important;
+}
+
+.activation-criticity-R {
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #DF3737 !important;
+}
+
+.activation-criticity-B {
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #EAE9E9 !important;
+}
+
+.activation-criticity-V {
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #92DB8A !important;
+}
+
+.activation-criticity-G {
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #E4E255 !important;
+}
+
+.activation-bar-height {
+	line-height: 3 !important;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+
+
+
+
+
+
