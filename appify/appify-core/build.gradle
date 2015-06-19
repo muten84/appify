@@ -51,4 +51,6 @@ eclipse {
 	}
 }
 
+/*TODO: CREATE A TASK THAT ENABLES YUI-COMPRESSOR TO CREATE appify.all and appify.min files
+ * exclude keyboard libs */
 

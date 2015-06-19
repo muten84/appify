@@ -26,38 +26,46 @@ public class DumpController {
 
 	public DumpController(WebApp<EmsMobileModel> app) {
 		this.app = app;
-		
+
 	}
-	
+
 	@OnPageReady
 	public void onPageReady() {
 		ConsoleLogger.getConsoleLogger().log("onPageReady DumpController");
 		EmsMobileModel model = this.app.getCurrentAppState();
-		if(model.getActivation()!=null) {		
+		if (model.getActivation() != null) {
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
 			app.moveTo("activationPage");
-		}
-		else {
+		} else {
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NULL");
 		}
 	}
-	
+
 	@ViewHandler(eventType = "click", viewId = "checkInBtn")
 	public void onCheckInStart() {
+		checkIn();
+	}
+
+	@ViewHandler(eventType = "click", viewId = "checkInAccels")
+	public void onCheckInAccel() {
+		checkIn();
+	}
+
+	protected void checkIn() {
 		ConsoleLogger.getConsoleLogger().log("onCheckInStart");
 		app.getScreenOrientationService().requestFullScreen();
-		app.getCurrentPage().mask("");		
+		app.getCurrentPage().mask("");
 		if (app.<EmsMobileModel> getCurrentAppState().getBarStatus().getVehicleCode() == null) {
 			// app.getScreenOrientationService().requestFullScreen();
 			app.moveTo("vehiclesPage");
 		} else {
 			// start checkout request...
-			//ViewUtils.showModal(app, "waitModal");
+			// ViewUtils.showModal(app, "waitModal");
 			Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
 
 				@Override
 				public boolean execute() {
-					//ViewUtils.showModal(app, "waitModal");
+					// ViewUtils.showModal(app, "waitModal");
 					app.getScreenOrientationService().exitFullScreen();
 					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 					model.getBarStatus().setVehicleCode(null);
@@ -70,9 +78,7 @@ public class DumpController {
 				}
 			}, 5000);
 		}
-
 	}
-	
 
 	@ViewHandler(eventType = "click", viewId = "refreshDumpBtn")
 	public void onRefreshDump() {
@@ -80,7 +86,7 @@ public class DumpController {
 		EmsMobileModel model = app.getCurrentAppState();
 		_refreshFrame(dumpFrameElement.cast(), model.getDumpUrl());
 	}
-	
+
 	@ViewHandler(eventType = "click", viewId = "confirmModalBtn")
 	public void onActivatioConfirm() {
 		app.getCurrentPage().closeModal("intervIncomeModal");

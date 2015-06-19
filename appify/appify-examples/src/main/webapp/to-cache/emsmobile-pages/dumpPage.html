@@ -49,13 +49,13 @@
 	</div>
 	<div id="content" class="content snap-content">
 
-		<div class="app-topbar">
-			<header class="bar bar-nav app-title topbar-height">
+		<div class="box-shadow app-topbar">
+			<header class="box-shadow bar bar-nav app-title topbar-height">
 
 				<button id="showMenuBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-bars fa-2x"></span>
 				</button>
-				<button class="btn btn-nav pull-left">
+				<button  id="checkInAccels" class="btn btn-nav pull-left">
 					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
@@ -72,12 +72,12 @@
 				</button>
 			</header>
 		</div>
-		<div class="app-content">
+		<div class="box-shadow app-content">
 			<iframe id="dumpFrame" class="app-section zero-margin-section"
 				style="width: 95%; height: 95%" src="{{dumpUrl}}"></iframe>
 
 		</div>
-		<nav class=" app-bottombar bar-footer bar bar-tab bottombar-height">
+		<nav class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
 			<a class="tab-item">
 				<button id="refreshDumpBtn" class="btn-background btn btn-nav">
 					<span class="fa fa-refresh fa-2x"></span> <span class="tab-label">Aggiorna
