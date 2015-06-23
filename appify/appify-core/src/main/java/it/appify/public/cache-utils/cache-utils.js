@@ -40,7 +40,7 @@
 								.log("There was an error in the manifest, downloading cached files or you're offline: "
 										+ e);
 						if (el) {
-							el.innerHTML = "There was an error in the manifest, downloading cached files or you're offline: "
+							el.innerHTML = "There was an error downloading cached files or you're offline: "
 						}
 					}, false);
 	cache.addEventListener("noupdate", function() {
