@@ -10,6 +10,10 @@
 		PhoneGap use is encouraged for native app ditribution.
 	</description>
 	
+	<welcome-file-list>
+		<welcome-file>emsmobile-installer.html</welcome-file>
+	</welcome-file-list>
+	
 	<filter>
       <filter-name>ExpiresFilter</filter-name>
       <filter-class>fr.xebia.servlet.filter.ExpiresFilter</filter-class>
