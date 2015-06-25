@@ -9,11 +9,11 @@
 				<!-- <button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button> -->
+				<button id="showMenuBtn" class="btn-border btn btn-nav pull-left">
+					<span class="fa fa-bars fa-2x pull-left"></span>
+				</button>
 				<button id="backBtn" class="btn-border btn btn-nav pull-left">
 					<span class="fa fa-chevron-left fa-2x pull-left"></span>
-				</button>
-				<button id="showMenuBtn" class="btn-border btn btn-nav pull-left">
-					<span class="fa fa-bars fa-2x pull-left">{{barStatus.vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn-border btn btn-nav pull-right {{barStatus.gpsStatus}}">
@@ -32,7 +32,16 @@
 		<!--END  HEADER SECTION -->
 		<div id="patientDataContent" class="app-content">
 			<div class="app-section">
-				<form class="input-group" onsubmit="javascript:return false;">
+				<div class="segmented-control">
+					<a class="control-item active">0</a>
+					<a class="control-item">1</a>
+					<a class="control-item">2</a>
+					<a class="control-item">3</a>
+					<a class="control-item">4</a>
+				</div>
+			</div>
+			<div class="app-section">
+				<form onsubmit="javascript:return false;">
 					<input type="text" placeholder="Nome"> <input type="text"
 						placeholder="Cognome">
 					<textarea rows="5" placeholder="Note Paziente"></textarea>
