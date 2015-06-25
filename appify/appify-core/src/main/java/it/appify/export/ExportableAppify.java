@@ -200,6 +200,12 @@ public class ExportableAppify extends AbstractWebApp<JavaScriptObject>
 		
 	}
 
+	@Override
+	public boolean isVisible() {
+	    // TODO Auto-generated method stub
+	    return false;
+	}
+
 	
 
 }

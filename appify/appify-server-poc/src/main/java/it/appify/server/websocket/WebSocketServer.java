@@ -30,9 +30,10 @@ public final class WebSocketServer {
     public static void main(String[] args) throws Exception {
     	UiHelper.addTrayIcon();
     	TrayIconHelper.launchBrowser();
-    	EselGps gps = new EselGps();    	
+    	EselGps gps = new EselGps();   
+    	System.out.println("STARTING GPS WITH: "+GPS_COM_PORT+" - "+GPS_RATE);
     	gps.config(GPS_COM_PORT, GPS_RATE);
-    	
+    	gps.startup();
 
         // Configure SSL.
         final SslContext sslCtx;

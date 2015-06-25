@@ -35,6 +35,12 @@ public interface WebApp<AppState> {
 
 	public interface AppListener<AppState> {
 		public void onAppStart(WebApp<AppState> app);
+		
+		public void onAppHidden();
+		
+		public void onAppVisible();
+		
+		public void onAppClose();
 	}
 
 	public void updateAppState(AppState state);
@@ -69,6 +75,9 @@ public interface WebApp<AppState> {
 	public <E> E getViewFragment(String viewId);
 
 	public WebPage getCurrentPage();
+	
+	public boolean isVisible();
+	
 	
 	
 	

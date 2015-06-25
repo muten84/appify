@@ -1,0 +1,44 @@
+<div class="app-page" id="patientPage" data-page="patientPage">
+	<div class="snap-drawers">
+		<div class="snap-drawer snap-drawer-left menu-border"></div>
+	</div>
+	<div id="content" class="content snap-content">
+		<div class="app-topbar">
+			<!-- HEADER SECTION -->
+			<header class="bar bar-nav app-title topbar-height">
+				<!-- <button id="backBtn" class="btn btn-nav pull-left">
+					<span class="fa fa-arrow-left  fa-2x"></span>
+				</button> -->
+				<button id="backBtn" class="btn-border btn btn-nav pull-left">
+					<span class="fa fa-chevron-left fa-2x pull-left"></span>
+				</button>
+				<button id="showMenuBtn" class="btn-border btn btn-nav pull-left">
+					<span class="fa fa-bars fa-2x pull-left">{{barStatus.vehicleCode}}</span>
+				</button>
+				<button id="gpsStateBtn"
+					class="btn-border btn btn-nav pull-right {{barStatus.gpsStatus}}">
+					<span class="fa fa-map-marker fa-2x"></span>
+				</button>
+				<button id="batteryStateBtn"
+					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
+					<span class="fa fa-bolt fa-2x"></span>
+				</button>
+				<button id="connectionStateBtn"
+					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
+					<span class="fa fa-rss fa-2x"></span>
+				</button>
+			</header>
+		</div>
+		<!--END  HEADER SECTION -->
+		<div id="patientDataContent" class="app-content">
+			<div class="app-section">
+				<form class="input-group" onsubmit="javascript:return false;">
+					<input type="text" placeholder="Nome"> <input type="text"
+						placeholder="Cognome">
+					<textarea rows="5" placeholder="Note Paziente"></textarea>
+					<button class="btn btn-positive btn-block">Salva i Dati</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

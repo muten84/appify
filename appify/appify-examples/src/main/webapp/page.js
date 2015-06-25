@@ -1,4 +1,9 @@
+//TODO: portare su page visibility api
+
 (function() {
+  setInterval(function(){console.log('page is hidden: '+document.hidden);},1000);
+  setInterval(function(){console.log('page is hidden: '+document.visibilityState);},1000);
+  
   var hidden = "hidden";
 
   // Standards:

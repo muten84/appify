@@ -122,4 +122,10 @@ public class App extends AbstractWebApp<GenericModel> implements Exportable {
 		
 	}
 
+	@Override
+	public boolean isVisible() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

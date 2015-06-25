@@ -63,6 +63,12 @@ public class WebAppEntryPoint implements EntryPoint {
 				
 			}
 
+			@Override
+			public boolean isVisible() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
 		};
 
 		webapp.startApp(myappState);

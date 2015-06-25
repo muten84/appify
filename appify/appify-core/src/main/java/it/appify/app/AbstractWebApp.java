@@ -16,6 +16,8 @@
  */
 package it.appify.app;
 
+import it.appify.api.AppVisibility;
+import it.appify.api.AppVisibility.VisibilityCallback;
 import it.appify.api.Battery;
 import it.appify.api.DynamicContentLoader;
 import it.appify.api.DynamicContentLoader.ContentLoadedListener;
@@ -29,6 +31,7 @@ import it.appify.api.PageManager.PageListener;
 import it.appify.api.PageManager.Transitions;
 import it.appify.api.Service;
 import it.appify.api.Storage;
+import it.appify.appvisibility.SinglePageAppVisibility;
 import it.appify.logging.ConsoleLogger;
 import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.view.AppJsPageManager;
@@ -48,6 +51,8 @@ import com.google.gwt.dom.client.Element;
 //new ScheduledCommand() {
 
 public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
+    
+    protected AppVisibility visibility;
 
     protected PageLoader<Element, AppState> loader;
 
@@ -141,6 +146,20 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		// all service started launch app start only for main page app
 		// start and page ready is redundant!!
 		if (callback != null) {
+		    visibility.addVisibilityHandler(new VisibilityCallback() {
+		        
+		        @Override
+		        public void onVisible() {
+		    		callback.onAppVisible();
+		    	
+		        }
+		        
+		        @Override
+		        public void onHidden() {
+		            	callback.onAppHidden();
+		    	
+		        }
+		    });
 		    callback.onAppStart(AbstractWebApp.this);
 		}
 	    } else {
@@ -177,6 +196,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
     public AbstractWebApp(String mainPage) {
 	this.mainPage = mainPage;
+	visibility = new SinglePageAppVisibility();
 	pagesCache = new HashMap<String, WebPage>();
 	dynamicLoader = new AppifyDynamicContentLoader();
 	services = new ArrayList<Service>();
@@ -487,6 +507,12 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	    }
 	}
     };
+    
+    @Override
+    public boolean isVisible() {
+	return visibility.isAppVisible();
+    } 
+    
 
     protected abstract WebModelView<AppState> getAppStateModelView();
 

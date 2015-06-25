@@ -46,6 +46,24 @@ public class EmsMobileEntryPoint implements EntryPoint {
 				}, 2000);
 
 			}
+
+			@Override
+			public void onAppHidden() {
+				//here we can alert the user with a sound cause app is hidden
+				
+			}
+
+			@Override
+			public void onAppVisible() {
+				//here we can stop the sound alert cause app is visible
+				
+			}
+
+			@Override
+			public void onAppClose() {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 
 	}

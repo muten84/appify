@@ -81,6 +81,11 @@ public class ActivationController {
 		}
 	}
 	
+	@ViewHandler(eventType="click", viewId = "patientsBtn")
+	public void showPatientPage() {
+		app.moveTo("patientPage");
+	}
+	
 	@ViewHandler(eventType = "click", viewId = "showMenuBtn")
 	public void controlMenu() {
 		if (app.isMenuOpen()) {

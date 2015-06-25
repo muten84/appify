@@ -12,7 +12,7 @@
 <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<script src="page.js"></script>
+<!-- <script src="page.js"></script> -->
 <!-- <script src="emsmobile/cache-utils/cache-utils.js"></script> -->
 <script>
 if ('serviceWorker' in navigator){
@@ -79,6 +79,9 @@ else{
 
 	<div appify-tpl="to-cache/emsmobile-pages/vehiclesPage.html"
 		appify-page="vehiclesPage"></div>
+		
+	<div appify-tpl="to-cache/emsmobile-pages/patientPage.html"
+		appify-page="patientPage"></div>
 
 
 	<!-- <script src="emsmobile/appjs/zepto.js"></script>

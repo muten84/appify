@@ -424,5 +424,9 @@ public class EselGps implements IChannel{
 		}
 		return normtime;
 	}
+	
+	public static void main(String[] args) {
+		
+	}
 
 }

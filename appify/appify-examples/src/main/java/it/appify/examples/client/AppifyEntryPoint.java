@@ -25,6 +25,24 @@ public class AppifyEntryPoint implements EntryPoint {
 				app.updateAppState(model);
 
 			}
+
+			@Override
+			public void onAppHidden() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onAppVisible() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onAppClose() {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 		AppModel model = myApp.getCurrentAppState();
 		ConsoleLogger.getConsoleLogger().log("Current App state is: " + model.getTitle() + " - " + model.getContent());
