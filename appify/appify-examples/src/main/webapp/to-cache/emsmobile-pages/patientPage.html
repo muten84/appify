@@ -1,6 +1,11 @@
 <div class="app-page" id="patientPage" data-page="patientPage">
 	<div class="snap-drawers">
-		<div class="snap-drawer snap-drawer-left menu-border"></div>
+		<div class="snap-drawer snap-drawer-left menu-border">
+			<div class="app-section">
+				<button id="patientsBtn" class="btn-background btn btn-block">
+			</div>
+		</div>
+		<div class="snap-drawer snap-drawer-right"></div>
 	</div>
 	<div id="content" class="content snap-content">
 		<div class="app-topbar">
@@ -9,11 +14,11 @@
 				<!-- <button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button> -->
-				<button id="showMenuBtn" class="btn-border btn btn-nav pull-left">
-					<span class="fa fa-bars fa-2x pull-left"></span>
+				<button id="showPatientMenuBtn" class="btn-border btn btn-nav pull-left">
+					<span class="fa fa-bars fa-2x"></span>
 				</button>
 				<button id="backBtn" class="btn-border btn btn-nav pull-left">
-					<span class="fa fa-chevron-left fa-2x pull-left"></span>
+					<span class="fa fa-chevron-left fa-2x"></span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn-border btn btn-nav pull-right {{barStatus.gpsStatus}}">
@@ -30,24 +35,25 @@
 			</header>
 		</div>
 		<!--END  HEADER SECTION -->
-		<div id="patientDataContent" class="app-content">
-			<div class="app-section">
+		<div id="patientDataContent" class="app-content" v-repeat="p: patients">		 
+			<div v-show="p.show" class="app-section">
 				<div class="segmented-control">
-					<a class="control-item active">0</a>
-					<a class="control-item">1</a>
-					<a class="control-item">2</a>
-					<a class="control-item">3</a>
-					<a class="control-item">4</a>
+					<a id="sanEval0" class="control-item">0</a>
+					<a id="sanEval1" class="control-item">1</a>
+					<a id="sanEval2" class="control-item">2</a>
+					<a id="sanEval3" class="control-item">3</a>
+					<a id="sanEval4" class="control-item">4</a>
 				</div>
 			</div>
-			<div class="app-section">
+			<!-- <div class="app-section"> -->
 				<form onsubmit="javascript:return false;">
 					<input type="text" placeholder="Nome"> <input type="text"
 						placeholder="Cognome">
 					<textarea rows="5" placeholder="Note Paziente"></textarea>
 					<button class="btn btn-positive btn-block">Salva i Dati</button>
+					<button class="btn btn-negative btn-block">Pulisci</button>
 				</form>
-			</div>
+			<!-- </div> -->
 		</div>
 	</div>
 </div>
