@@ -60,7 +60,7 @@ public class ActivationService {
 
 						if (currentModel.getActivation() != null) {
 							if (a == null) {
-								a = Utils.createActivation();
+								a = Utils.createActivation(true);
 								if (currentModel.getActivation().getPhases() != null) {
 									ConsoleLogger.getConsoleLogger().log("ACTIVATION REFRESHED: " + currentModel.getActivation().getPhases().size());
 								} else {
@@ -76,7 +76,7 @@ public class ActivationService {
 								ConsoleLogger.getConsoleLogger().log("ACTIVATION RESTORED");
 							}
 						} else {
-							currentModel.setActivation(Utils.createActivation());
+							currentModel.setActivation(Utils.createActivation(true));
 							app.updateAppState(currentModel);
 						}
 						ConsoleLogger.getConsoleLogger().log(">>Activation showing...");

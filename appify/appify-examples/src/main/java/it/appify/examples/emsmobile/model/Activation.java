@@ -22,10 +22,12 @@ public class Activation implements Serializable {
 	private String noteSummary;
 	private AddressDetail address;
 	private List<Phase> phases;
+	private List<Patient> patients;
 	private long timestamp;
 
 	public Activation() {
 		phases = new ArrayList<Phase>();
+		patients = new ArrayList<Patient>();
 	}
 
 	public Activation(String emergencyId) {
@@ -110,13 +112,29 @@ public class Activation implements Serializable {
 
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
-	}
+	}	
 	
+	
+	public List<Patient> getPatients() {
+		return patients;
+	}
+
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
+
 	public void addPhase(Phase p) {
 		if(getPhases()==null) {
 			this.phases = new ArrayList<Phase>();			
 		}
 		getPhases().add(p);
+	}
+	
+	public void addPatient(Patient p) {
+		if(getPatients()==null) {
+			this.patients = new ArrayList<Patient>();			
+		}
+		getPatients().add(p);
 	}
 	
 	

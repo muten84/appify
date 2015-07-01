@@ -1,10 +1,13 @@
 package it.appify.examples.emsmobile.controller;
 
+import java.util.List;
+
 import it.appify.annotations.Controller;
 import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewHandler;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
+import it.appify.examples.emsmobile.model.Patient;
 import it.appify.logging.ConsoleLogger;
 
 @Controller(page = "patientPage")
@@ -16,9 +19,20 @@ public class PatientController {
 		this.app = app;
 	}
 	
-	//@OnPageReady
+	@OnPageReady
 	public void onPatientsPageReady() {
 		disableAllSanEval();		
+		EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+		List<Patient> pats = model.getActivation().getPatients();
+		if(pats.size()>0){
+			for (Patient patient : pats) {
+				if(patient.isShow()){
+					int se = patient.getSanEval();
+					enableSanEval(String.valueOf(se));
+				}
+			}
+		}
+		
 	}
 	
 	@ViewHandler(eventType = "click", viewId = "backBtn")
@@ -68,6 +82,7 @@ public class PatientController {
 	}
 
 	private void enableSanEval(String code) {
+		disableAllSanEval();
 		if (!app.getCurrentPage().hasStyle("sanEval" + code, "active")) {
 			app.getCurrentPage().toggleClassViewStyle("sanEval" + code, "active");
 		}

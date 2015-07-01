@@ -5,10 +5,11 @@ import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.Activation;
 import it.appify.examples.emsmobile.model.AddressDetail;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
+import it.appify.examples.emsmobile.model.Patient;
 
 public class Utils {
 
-	public static Activation createActivation() {
+	public static Activation createActivation(boolean withPatients) {
 		Activation a = new Activation("16000001");
 		a.setCriticity("R");
 		a.setPathology("C01");
@@ -23,7 +24,21 @@ public class Utils {
 		address.setLocalityNote("ACCESSO LATERALE CHIUSO AI MEZZI PESANTI");
 		address.setpLocationNote(" - ");
 		a.setAddress(address);
+		if(withPatients){
+			a.addPatient(createPatient());
+		}
 		return a;
+	}
+	
+	private static Patient createPatient(){
+		Patient p = new Patient();
+		p.setLastName("PAZIENTE");
+		p.setName("TEST");
+		p.setNote("Paziente rifiuta il trasporto");
+		p.setSanEval(0);
+		p.setShow(true);
+		return p;
+		
 	}
 
 	public static boolean checkStorableFreshness(Storable model, long timeout) {

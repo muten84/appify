@@ -31,14 +31,13 @@ public class EmsMobileModel implements Serializable, Storable {
 	private List<Section> vehicles;
 	private String searchText;
 	private long timestamp;
-	private List<Patient> patients;
+	
 
 	public EmsMobileModel() {
 		activation = new Activation();
 		barStatus = new BarStatus();
 		checkInLabel = "Inizio Turno";
-		vehicles = new ArrayList<Section>();
-		patients = new ArrayList<Patient>();
+		vehicles = new ArrayList<Section>();		
 		searchText = "";
 	}
 
@@ -139,13 +138,7 @@ public class EmsMobileModel implements Serializable, Storable {
 		return (getActivation() != null && getActivation().getEmergencyId()!=null && !getActivation().getEmergencyId().isEmpty());
 	}
 
-	public List<Patient> getPatients() {
-		return patients;
-	}
-
-	public void setPatients(List<Patient> patients) {
-		this.patients = patients;
-	}
+	
 	
 	
 	
