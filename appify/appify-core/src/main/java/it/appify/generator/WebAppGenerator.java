@@ -553,6 +553,26 @@ public class WebAppGenerator extends Generator {
 				.get("controller"
 					+ jClassType.getSimpleSourceName()
 					+ "##" + pageId);
+			
+			if(controllerHolderBuilder==null){
+				TypeSpec.Builder innerControllerBuilder = createControllerHolderBuilder(
+						controllerClass,
+						pageId,
+						null,
+						null,
+						"controller" + jClassType.getSimpleSourceName(),
+						false);
+					controllerHolderSpecs
+						.put("controller"
+							+ jClassType.getSimpleSourceName()
+							+ "##" + pageId, innerControllerBuilder);
+//					initializeControllerBuilders.put("controller"
+//						+ jClassType.getSimpleSourceName(),
+//						initializeControllerBuilder);
+					addInjectViewElementsMethod(null,innerControllerBuilder);
+					controllerHolderBuilder = innerControllerBuilder;
+			}
+			
 			controllerHolderBuilder = callPageReadyMethod(
 				controllerHolderBuilder, jMethod.getName());
 			controllerHolderSpecs.put(
@@ -701,7 +721,7 @@ public class WebAppGenerator extends Generator {
     }
 
     private TypeSpec.Builder callPageReadyMethod(
-	    TypeSpec.Builder controllerHolderSpec, String pageReadyHandlerMethod) {
+	    TypeSpec.Builder controllerHolderSpec, String pageReadyHandlerMethod) {    	
 	MethodSpec.Builder callPageReadyMethodBuilder = MethodSpec
 		.methodBuilder("callPageReadyHandler")
 		.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
@@ -725,6 +745,11 @@ public class WebAppGenerator extends Generator {
 	MethodSpec.Builder injectViewElementsBuilder = MethodSpec
 		.methodBuilder("injectViewElements")
 		.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+	
+	if(jFields==null || jFields.length==0){
+		controllerHolderSpec.addMethod(injectViewElementsBuilder.build());
+		return controllerHolderSpec;
+	}
 
 	for (JField jField : jFields) {
 	    ViewElement el = jField.getAnnotation(ViewElement.class);
