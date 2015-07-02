@@ -8,6 +8,7 @@ import it.appify.api.Storable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -31,14 +32,16 @@ public class EmsMobileModel implements Serializable, Storable {
 	private List<Section> vehicles;
 	private String searchText;
 	private long timestamp;
+	private List<Item> sanEvals;
 	
 
 	public EmsMobileModel() {
 		activation = new Activation();
 		barStatus = new BarStatus();
 		checkInLabel = "Inizio Turno";
-		vehicles = new ArrayList<Section>();		
+		vehicles = new ArrayList<Section>();
 		searchText = "";
+		sanEvals = Arrays.asList(new Item[] { new Item("0", "0"), new Item("1", "1"), new Item("2", "2"), new Item("3", "3"), new Item("4", "4") });
 	}
 
 	public BatteryStatus getBatteryStatusObject() {
@@ -128,21 +131,22 @@ public class EmsMobileModel implements Serializable, Storable {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
-	
-	
+
 	public boolean hasTurn() {
 		return getBarStatus().getVehicleCode() != null;
 	}
-	
+
 	public boolean hasActivation() {
-		return (getActivation() != null && getActivation().getEmergencyId()!=null && !getActivation().getEmergencyId().isEmpty());
+		return (getActivation() != null && getActivation().getEmergencyId() != null && !getActivation().getEmergencyId().isEmpty());
+	}
+
+	public List<Item> getSanEvals() {
+		return sanEvals;
+	}
+
+	public void setSanEvals(List<Item> sanEvals) {
+		this.sanEvals = sanEvals;
 	}
 
 	
-	
-	
-	
-	
-	
-
 }

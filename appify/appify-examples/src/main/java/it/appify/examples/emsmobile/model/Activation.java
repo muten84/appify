@@ -24,6 +24,7 @@ public class Activation implements Serializable {
 	private List<Phase> phases;
 	private List<Patient> patients;
 	private long timestamp;
+	private Patient currentPatient;
 
 	public Activation() {
 		phases = new ArrayList<Phase>();
@@ -136,6 +137,24 @@ public class Activation implements Serializable {
 		}
 		getPatients().add(p);
 	}
+
+	public Patient getCurrentPatient() {
+		if(getPatients()!=null) {
+			for (Patient patient : patients) {
+				if(patient.isShow()){
+					currentPatient = patient;
+					break;
+				}
+			}
+		}
+		return currentPatient;
+	}
+
+	public void setCurrentPatient(Patient currentPatient) {
+		this.currentPatient = currentPatient;
+	}
+	
+	
 	
 	
 

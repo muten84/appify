@@ -1,4 +1,21 @@
 <div class="app-page" id="patientPage" data-page="patientPage">
+	<!-- MODALI -->
+	<!-- se non si vuole mostrare la modale a tutto schermo style="left: 35%; top: 5%; width: 35%; height: 35%" -->
+	<div id="sanEvalModal" class="modal">
+		<header class="bar bar-nav">
+			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
+			<h1 class="title">Selezionare una valutazione sanitaria</h1>
+		</header>
+		<div class="content">
+			<ul id="sanEvalList" class="table-view">
+				<div class="table-view-cell" v-repeat="i: sanEvals">
+					<li class="table-view-cell"><a
+						v-on="click: onData(this,$event)" class="navigate-right">{{i.itemName}}</a></li>
+				</div>
+			</ul>
+			<button id="backModal" class="btn btn-negative btn-block">Annulla</button>
+		</div>
+	</div>
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left menu-border">
 			<div class="app-section">
@@ -14,7 +31,8 @@
 				<!-- <button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button> -->
-				<button id="showPatientMenuBtn" class="btn-border btn btn-nav pull-left">
+				<button id="showPatientMenuBtn"
+					class="btn-border btn btn-nav pull-left">
 					<span class="fa fa-bars fa-2x"></span>
 				</button>
 				<button id="backBtn" class="btn-border btn btn-nav pull-left">
@@ -35,32 +53,51 @@
 			</header>
 		</div>
 		<!--END  HEADER SECTION -->
-		<div id="patientDataContent" class="app-content" v-repeat="p: activation.patients">		 
-			<div v-show="p.show" class="app-section">
+		<div id="patientDataContent" class="app-content">
+			<!-- v-repeat="p: activation.patients" >  -->
+			<div class="app-section zero-margin-section" style="height: 95%;">
+				<!-- v-show="p.show" -->
 				<div class="segmented-control" style="width: 100%;">
-					<a id="sanEval0" class="control-item">0</a>
-					<a id="sanEval1" class="control-item">1</a>
-					<a id="sanEval2" class="control-item">2</a>
-					<a id="sanEval3" class="control-item">3</a>
-					<a id="sanEval4" class="control-item">4</a>
+					<a id="sanEvalChoice" class="control-item">Valutazione
+						sanitaria: -</a>
+					<!--  <a id="sanEval1" class="control-item">1</a>
+						<a id="sanEval2" class="control-item">2</a>
+						<a id="sanEval3" class="control-item">3</a>
+						<a id="sanEval4" class="control-item">4</a>
+						-->
+				</div>
+
+				<!-- v-show="p.show" -->
+				<div>
+					<form onsubmit="javascript:return false;">
+						<!-- value="{{p.name}}"  -->
+						<input type="text" placeholder="Nome" v-model="activation.currentPatient.name">
+						<!-- value="{{p.lastName}}"  -->
+						<input type="text" placeholder="Cognome"></input>
+						<textarea rows="5" placeholder="Note Paziente"></textarea>
+						<button class="btn btn-positive btn-block">Salva i Dati</button>
+						<button class="btn btn-negative btn-block">Pulisci</button>
+					</form>
 				</div>
 			</div>
-			<div class="app-section">
-				<form onsubmit="javascript:return false;">
-					<input type="text" placeholder="Nome" value="{{p.name}}">
-					<input type="text"	placeholder="Cognome" value="{{p.lastName}}"></input>
-					<textarea rows="5" placeholder="Note Paziente"></textarea>
-					<button class="btn btn-positive btn-block">Salva i Dati</button>
-					<button class="btn btn-negative btn-block">Pulisci</button>
-				</form>
-			</div>
-		
 		</div>
-			<nav id="bottomBar"
-			class="app-bottombar bar bar-standard bar-footer bottombar-height">			
-				<button class="btn btn-primary  btn-outlined  pull-left"  style="height: 90%;"><span class="fa fa-arrow-left fa-2x"></span></button>
-				<button style="margin-left: 10%; margin-right: 10%" class="btn btn-primary  btn-outlined  pull-left"  style="height: 90%;"><span class="fa fa-user-plus fa-2x"></span></button>
-				<button class="btn btn-primary  btn-outlined  pull-right" style="height: 90%;"><span class="fa fa-arrow-right fa-2x"></span></button>					
-			</nav>
 	</div>
+	<nav id="bottomBar"
+		class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
+		<button class="btn btn-primary  btn-outlined  pull-left"
+			style="height: 90%;">
+			<span class="fa fa-arrow-left fa-2x"></span>
+		</button>
+		<button
+			style="margin: 0 auto !important; /* margin-right: 50%; */ /* position: relative; */ left: 45%; right: 45%;"
+			class="btn btn-primary  btn-outlined  pull-left">
+			<span class="fa fa-user-plus fa-2x"></span>
+		</button>
+
+		<button class="btn btn-primary  btn-outlined  pull-right"
+			style="height: 90%;">
+			<span class="fa fa-arrow-right fa-2x"></span>
+		</button>
+	</nav>
 </div>
+<!-- </div> -->

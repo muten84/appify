@@ -2,11 +2,17 @@ package it.appify.examples.emsmobile.controller;
 
 import java.util.List;
 
+import com.google.gwt.dom.client.Element;
+
 import it.appify.annotations.Controller;
 import it.appify.annotations.OnPageReady;
+import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
+import it.appify.annotations.ViewModelHandler;
 import it.appify.app.WebApp;
+import it.appify.examples.emsmobile.model.Activation;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
+import it.appify.examples.emsmobile.model.Item;
 import it.appify.examples.emsmobile.model.Patient;
 import it.appify.logging.ConsoleLogger;
 
@@ -14,27 +20,44 @@ import it.appify.logging.ConsoleLogger;
 public class PatientController {
 
 	private WebApp<EmsMobileModel> app;
+	
+	@ViewElement("sanEvalChoice")
+	private Element sanEvalChoice;
 
 	public PatientController(WebApp<EmsMobileModel> app) {
 		this.app = app;
 	}
-	
+
 	@OnPageReady
 	public void onPatientsPageReady() {
-		disableAllSanEval();		
 		EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-		List<Patient> pats = model.getActivation().getPatients();
-		if(pats.size()>0){
-			for (Patient patient : pats) {
-				if(patient.isShow()){
-					int se = patient.getSanEval();
-					enableSanEval(String.valueOf(se));
-				}
+		Activation act = model.getActivation();
+		if(act!=null){
+			Patient p = act.getPatients().get(0);
+			if(p!=null){
+				int sanEval = p.getSanEval();
 			}
 		}
-		
 	}
 	
+	@ViewModelHandler(modelType = Item.class, viewId = "sanEvalList")
+	public void onSanEvalReceived(final Item i) {
+		ConsoleLogger.getConsoleLogger().log("onSanEvalReceived: "+i.getCode());
+		app.getCurrentPage().closeModal("sanEvalModal");
+	}
+	
+	@ViewHandler(eventType = "click", viewId = "backModal")
+	public void onSanEvalCancel(){
+		app.getCurrentPage().closeModal("sanEvalModal");
+	}
+
+	@ViewHandler(eventType = "click", viewId = "sanEvalChoice")
+	public void selectSanEval() {
+		ConsoleLogger.getConsoleLogger().log("selectSanEval sanEvalChoice");
+		app.getCurrentPage().showModal("sanEvalModal");
+	}
+	
+
 	@ViewHandler(eventType = "click", viewId = "backBtn")
 	public void backBtnClicked() {
 		app.back();
@@ -49,49 +72,16 @@ public class PatientController {
 			app.openContextMenu("content");
 		}
 	}
-	
-	@ViewHandler(eventType = "click", viewId = "sanEval0")
-	public void sanEval0() {
-		enableSanEval("0");
-	}
-	
-	@ViewHandler(eventType = "click", viewId = "sanEval1")
-	public void sanEval1() {
-		enableSanEval("1");
-	}
-	
-	@ViewHandler(eventType = "click", viewId = "sanEval2")
-	public void sanEval2() {
-		enableSanEval("2");
-	}
-	
-	@ViewHandler(eventType = "click", viewId = "sanEval3")
-	public void sanEval3() {
-		enableSanEval("3");
-	}
-	
-	 @ViewHandler(eventType = "click", viewId = "sanEval4")
-	public void sanEval4() {
-		enableSanEval("4");
+
+
+	public Element getSanEvalChoice() {
+		return sanEvalChoice;
 	}
 
-	private void disableAllSanEval() {
-		for (int i = 0; i < 5; i++) {
-			disableSanEval("" + i);
-		}
+	public void setSanEvalChoice(Element sanEvalChoice) {
+		this.sanEvalChoice = sanEvalChoice;
 	}
-
-	private void enableSanEval(String code) {
-		disableAllSanEval();
-		if (!app.getCurrentPage().hasStyle("sanEval" + code, "active")) {
-			app.getCurrentPage().toggleClassViewStyle("sanEval" + code, "active");
-		}
-	}
-
-	private void disableSanEval(String code) {
-		if (app.getCurrentPage().hasStyle("sanEval" + code, "active")) {
-			app.getCurrentPage().toggleClassViewStyle("sanEval" + code, "active");
-		}
-	}
+	
+	
 
 }
