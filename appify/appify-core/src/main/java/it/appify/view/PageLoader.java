@@ -65,7 +65,7 @@ public class PageLoader<V, M> {
 			if (USE_MASK) {
 				pm.getCurrentPage().mask("");
 			}
-//			page.keyboard("keyboard");
+			// page.keyboard("keyboard");
 			ConsoleLogger.getConsoleLogger().log("PageLoader onPageShow: " + page.getPageId());
 			// vm.bindModelToView(page.getPageId(), modelInstance);
 			// currentShowedPage = page;
@@ -162,7 +162,7 @@ public class PageLoader<V, M> {
 							pm.showPage(pageId);
 						} else {
 							pm.showPage(pageId, getCurrentTransition());
-						}						
+						}
 						/*
 						 * if view model binding starts here times results faster.This is because the compilation of
 						 * view elements is hidden and execute while page transition. There is no grants about model
@@ -183,7 +183,11 @@ public class PageLoader<V, M> {
 						return true;
 					}
 					if (_showed && _bound) {
-						pl.onPageReady(currentShowingPage);
+						try {
+							pl.onPageReady(currentShowingPage);
+						} catch (Exception e) {
+							ConsoleLogger.getConsoleLogger().log("error on PAGE READY call", e);
+						}
 						return false;
 					}
 					return false;
