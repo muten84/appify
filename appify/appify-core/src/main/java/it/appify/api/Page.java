@@ -44,6 +44,8 @@ public interface Page<E> extends HasViewHandlers {
 	public void showModal(String modalId);
 
 	public void closeModal(String modalId);
+	
+	public void closeCurrentModal();
 
 	/*
 	 * provisional api https://github.com/sandywalker/webui-popover

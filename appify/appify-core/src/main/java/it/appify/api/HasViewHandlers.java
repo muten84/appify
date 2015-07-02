@@ -68,6 +68,8 @@ public interface HasViewHandlers {
 	}
 
 	public void addViewHandler(String id, String type, ViewHandler h);
+	
+	public void addViewsHandler(String _class, String type, ViewHandler h);
 
 	public Iterator<ViewHandlerHolder> getViewHandlers();
 
