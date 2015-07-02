@@ -1,6 +1,7 @@
 <div class="app-page" id="patientPage" data-page="patientPage">
 	<!-- MODALI -->
 	<!-- se non si vuole mostrare la modale a tutto schermo style="left: 35%; top: 5%; width: 35%; height: 35%" -->
+	<!-- valutazioni sanitarie -->
 	<div id="sanEvalModal" class="modal">
 		<header class="bar bar-nav">
 			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
@@ -13,9 +14,42 @@
 						v-on="click: onData(this,$event)" class="navigate-right">{{i.itemName}}</a></li>
 				</div>
 			</ul>
-			<button id="backModal" class="btn btn-negative btn-block">Annulla</button>
+			<button class="backModal btn btn-negative btn-block">Annulla</button>
 		</div>
 	</div>
+	<!-- criticita di uscita -->
+	<div id="criticityEndModal" class="modal">
+		<header class="bar bar-nav">
+			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
+			<h1 class="title">Selezionare una criticit&aacute; di uscita:</h1>
+		</header>
+		<div class="content">
+			<ul id="critictyEndList" class="table-view">
+				<div class="table-view-cell" v-repeat="c: criticityEnds">
+					<li class="table-view-cell"><a
+						v-on="click: onData(this,$event)" class="navigate-right">{{c.itemName}}</a></li>
+				</div>
+			</ul>
+			<button class="backModal btn btn-negative btn-block">Annulla</button>
+		</div>
+	</div>
+	<!-- esito modal -->
+	<div id="resultsModal" class="modal">
+		<header class="bar bar-nav">
+			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
+			<h1 class="title">Selezionare l'esito della missione:</h1>
+		</header>
+		<div class="content">
+			<ul id="resultsList" class="table-view">
+				<div class="table-view-cell" v-repeat="r: results">
+					<li class="table-view-cell"><a
+						v-on="click: onData(this,$event)" class="navigate-right">{{r.itemName}}</a></li>
+				</div>
+			</ul>
+			<button class="backModal btn btn-negative btn-block">Annulla</button>
+		</div>
+	</div>
+	<!--  -->
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left menu-border">
 			<div class="app-section">
@@ -55,28 +89,54 @@
 		<!--END  HEADER SECTION -->
 		<div id="patientDataContent" class="app-content">
 			<!-- v-repeat="p: activation.patients" >  -->
-			<div class="app-section zero-margin-section" style="height: 95%;">
+			<div class="app-section zero-margin-section">
 				<!-- v-show="p.show" -->
-				<div class="segmented-control" style="width: 100%;">
-					<a id="sanEvalChoice" class="control-item">Valutazione
-						sanitaria: -</a>
-					<!--  <a id="sanEval1" class="control-item">1</a>
+				<div class="app-section">
+					<div class="segmented-control">
+						<a id="itemSanEvalData"
+							class="control-item activation-bar-height active">Valutazione Sanitaria
+							 </a> <a id="itemResultData"
+							class="control-item activation-bar-height">Dati esito missione </a>
+					</div>
+					<div class="card">
+						<!-- san eval DATA -->
+						<div id="cardSanEvalData" class="app-section control-content active">
+							<button id="sanEvalChoice" class="btn btn-outlined btn-block">Val.
+								sanitaria: - {{activation.currentPatient.sanEval}}</button>
+							<button id="criticityEndChoice"
+								class="btn btn-outlined btn-block">Criticit&aacute;
+								fine: - {{activation.currentPatient.criticityEnd.itemName}}</button>
+						</div>
+						<!-- result DATA -->
+						<div id="cardResultData" class="app-section control-content">
+							<button id="resultChoice" class="btn btn-outlined btn-block">Esito:
+								- {{activation.currentPatient.result.itemName}}</button>
+							<button id="hospitalChoice" class="btn btn-outlined btn-block">Ospedale:
+								- {{activation.currentPatient.criticityEnd.itemName}}</button>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="segmented-control" style="width: 50%;">
+					
+					 <a id="sanEval1" class="control-item">1</a>
 						<a id="sanEval2" class="control-item">2</a>
 						<a id="sanEval3" class="control-item">3</a>
 						<a id="sanEval4" class="control-item">4</a>
-						-->
-				</div>
-
+						
+				</div> -->
 				<!-- v-show="p.show" -->
 				<div>
 					<form onsubmit="javascript:return false;">
 						<!-- value="{{p.name}}"  -->
-						<input type="text" placeholder="Nome" v-model="activation.currentPatient.name">
+						<input type="text" placeholder="Nome"
+							v-model="activation.currentPatient.name">
 						<!-- value="{{p.lastName}}"  -->
-						<input type="text" placeholder="Cognome"></input>
-						<textarea rows="5" placeholder="Note Paziente"></textarea>
-						<button class="btn btn-positive btn-block">Salva i Dati</button>
-						<button class="btn btn-negative btn-block">Pulisci</button>
+						<input type="text" placeholder="Cognome"
+							v-model="activation.currentPatient.lastName"></input>
+						<textarea rows="5" placeholder="Note Paziente"
+							v-model="activation.currentPatient.note"></textarea>
+						<!-- <button class="btn btn-positive btn-block">Salva i Dati</button> -->
+						<!-- <button class="btn btn-negative btn-block">Pulisci</button> -->
 					</form>
 				</div>
 			</div>
@@ -89,11 +149,13 @@
 			<span class="fa fa-arrow-left fa-2x"></span>
 		</button>
 		<button
-			style="margin: 0 auto !important; /* margin-right: 50%; */ /* position: relative; */ left: 45%; right: 45%;"
-			class="btn btn-primary  btn-outlined  pull-left">
+			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
 			<span class="fa fa-user-plus fa-2x"></span>
 		</button>
-
+		<button
+			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
+			<span class="fa fa-eraser fa-2x"></span>
+		</button>
 		<button class="btn btn-primary  btn-outlined  pull-right"
 			style="height: 90%;">
 			<span class="fa fa-arrow-right fa-2x"></span>

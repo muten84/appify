@@ -33,7 +33,9 @@ public class EmsMobileModel implements Serializable, Storable {
 	private String searchText;
 	private long timestamp;
 	private List<Item> sanEvals;
-	
+	private List<Item> criticityEnds;
+	private List<Item> results;
+	private List<Item> hospitals;
 
 	public EmsMobileModel() {
 		activation = new Activation();
@@ -42,6 +44,8 @@ public class EmsMobileModel implements Serializable, Storable {
 		vehicles = new ArrayList<Section>();
 		searchText = "";
 		sanEvals = Arrays.asList(new Item[] { new Item("0", "0"), new Item("1", "1"), new Item("2", "2"), new Item("3", "3"), new Item("4", "4") });
+		criticityEnds = Arrays.asList(new Item[] { new Item("0", "NON CRITICO"), new Item("1", "POCO CRITICO"), new Item("2", "MEDIAMENTE CRITICO"), new Item("3", "MOLTO CRITICO"), new Item("4", "DECEDUTO") });
+		results = Arrays.asList(new Item[] { new Item("0", "N1 - NON EFFETTUATO"), new Item("1", "N1 - PAZIENTE NON REPERITO"), new Item("2", "N3 - TRASPORTO IN PRONTO SOCCORSO"), new Item("3", "N3 - TRASPORTO IN PUNTO DI PRIMO INTERVENTO"), new Item("4", "DECESSO DURANTE IL TRASPORTO") });
 	}
 
 	public BatteryStatus getBatteryStatusObject() {
@@ -148,5 +152,28 @@ public class EmsMobileModel implements Serializable, Storable {
 		this.sanEvals = sanEvals;
 	}
 
-	
+	public List<Item> getCriticityEnds() {
+		return criticityEnds;
+	}
+
+	public void setCriticityEnds(List<Item> criticityEnds) {
+		this.criticityEnds = criticityEnds;
+	}
+
+	public List<Item> getResults() {
+		return results;
+	}
+
+	public void setResults(List<Item> results) {
+		this.results = results;
+	}
+
+	public List<Item> getHospitals() {
+		return hospitals;
+	}
+
+	public void setHospitals(List<Item> hospitals) {
+		this.hospitals = hospitals;
+	}
+
 }

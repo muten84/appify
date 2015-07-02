@@ -29,6 +29,8 @@ import com.google.gwt.dom.client.Element;
 
 public class WebPage implements Page<Element>, HasView<Element> {
 
+	private String currentModalId;
+
 	private Element pageElement;
 
 	private List<ViewHandlerHolder> handlers;
@@ -36,6 +38,20 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	public WebPage(Element el) {
 		this.pageElement = el;
 		this.handlers = new ArrayList<WebPage.ViewHandlerHolder>();
+	}
+
+	@Override
+	public void addViewsHandler(String _class, String type, ViewHandler h) {
+		ViewHandlerHolder holder = new ViewHandlerHolder();
+		holder.setViewId(_class);
+		holder.setEventType(type);
+		holder.setHandler(h);
+		this.handlers.add(holder);
+		JavaScriptObject obj = pageElement.cast();
+		if (!_class.startsWith(".")) {
+			_class = "." + _class;
+		}
+		_addViewHandler(_class, type, obj, h);
 	}
 
 	@Override
@@ -52,8 +68,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_addViewHandler(id, type, obj, h);
 	}
 
-	private native void _addViewHandler(String id, String type,
-			JavaScriptObject p, ViewHandler h)/*-{
+	private native void _addViewHandler(String id, String type, JavaScriptObject p, ViewHandler h)/*-{
 		var that = this;
 		$wnd
 				.$(p)
@@ -86,8 +101,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		return _getElementInPage(obj, "#" + elemId).cast();
 	}
 
-	private native JavaScriptObject _getElementInPage(JavaScriptObject obj,
-			String elemId)/*-{
+	private native JavaScriptObject _getElementInPage(JavaScriptObject obj, String elemId)/*-{
 		return $wnd.$(obj).find(elemId)[0];
 	}-*/;
 
@@ -111,12 +125,13 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 	@Override
 	public void toggleClassViewStyle(String viewId, String className) {
-		ConsoleLogger.getConsoleLogger().log("toggleClassViewStyle: " + viewId + " - " + className);
+		ConsoleLogger.getConsoleLogger().log("toggleClassViewStyle: " + viewId + " - " + className);		
 		_toggleClassOnElem(viewId, className);
 	}
 
 	@Override
 	public boolean hasStyle(String viewId, String className) {
+		
 		return _hasStyle(viewId, className);
 	}
 
@@ -127,6 +142,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 	@Override
 	public void showModal(String modalId) {
+		this.currentModalId = modalId;
 		if (!isModalActive(modalId)) {
 			toggleClassViewStyle(modalId, "active");
 		}
@@ -137,6 +153,15 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		if (isModalActive(modalId)) {
 			toggleClassViewStyle(modalId, "active");
 		}
+	}
+
+	@Override
+	public void closeCurrentModal() {
+		if (this.currentModalId != null) {
+			closeModal(currentModalId);
+			this.currentModalId = null;
+		}
+
 	}
 
 	@Override
@@ -160,8 +185,10 @@ public class WebPage implements Page<Element>, HasView<Element> {
 						jscallback.@it.appify.view.JsCallback::setResolve(Lcom/google/gwt/core/client/JavaScriptObject;)(resolve);
 						jscallback.@it.appify.view.JsCallback::setReject(Lcom/google/gwt/core/client/JavaScriptObject;)(reject);
 						paCb.@it.appify.api.Page.PageActionCallback::refresh(Lcom/google/gwt/user/client/rpc/AsyncCallback;)(jscallback);
-						$wnd.setTimeout(function(){$wnd.$('#ptr').attr('style', 'z-index: -10');}, 3000);
-						
+						$wnd.setTimeout(function() {
+							$wnd.$('#ptr').attr('style', 'z-index: -10');
+						}, 3000);
+
 					});
 		}
 		if (pullableEl) {
@@ -206,10 +233,11 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 	// classie.has( element, 'my-class' )
 	private native boolean _hasStyle(String viewId, String className)/*-{
-		//console.log('_hasStyle: ' + viewId + " - " + className);
+		console.log('_hasStyle: ' + viewId + " - " + className);
 		var el = $doc.getElementById(viewId);
+		//var el = $wnd.$(viewId);
 		if (el != 'undefined') {
-			//console.log("Element found: " + el);
+			console.log("Element found: " + el);
 			return $wnd.classie.has(el, className);
 		}
 	}-*/;
@@ -218,6 +246,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	private native void _toggleClassOnElem(String viewId, String className)/*-{
 		//console.log('_toggleClassOnElem: ' + viewId + " - " + className);
 		var el = $doc.getElementById(viewId);
+		//var el = $wnd.$(viewId);
 		if (el != 'undefined') {
 			//console.log("Element found: " + el);
 			$wnd.classie.toggle(el, className);
@@ -225,75 +254,78 @@ public class WebPage implements Page<Element>, HasView<Element> {
 	}-*/;
 
 	@Override
-	public void popover(String viewId, String title, String content,
-			String animation) {
+	public void popover(String viewId, String title, String content, String animation) {
 		_popover(viewId, title, content, animation);
 
 	}
-	
+
 	@Override
 	public void setElementValue(String viewId, String val) {
-	    _setElementValue(viewId, val);
+		_setElementValue(viewId, val);
 	}
-	
+
 	@Override
 	public String getElementValue(String viewId) {
-	  return _getElementValue(viewId);
+		return _getElementValue(viewId);
 	}
-	
+
 	@Override
 	public void setElementText(String viewId, String text) {
-	    _setElementText(viewId, text);
+		_setElementText(viewId, text);
 	}
-	
+
 	@Override
 	public String getElementText(String viewId) {
-	  return _getElementText(viewId);
+		return _getElementText(viewId);
 	}
-	
+
 	private native void _setElementValue(String viewId, String val) /*-{
-	    $wnd.$('#'+viewId).val(val);
+		$wnd.$('#' + viewId).val(val);
 	}-*/;
-	
+
 	private native String _getElementValue(String viewId) /*-{
-	   return $wnd.$('#'+viewId).val();
+		return $wnd.$('#' + viewId).val();
 	}-*/;
-	
+
 	private native void _setElementText(String viewId, String val) /*-{
-	    $wnd.$('#'+viewId).text(val);
+		$wnd.$('#' + viewId).text(val);
 	}-*/;
-	
+
 	private native String _getElementText(String viewId) /*-{
-	   return $wnd.$('#'+viewId).text();
+		return $wnd.$('#' + viewId).text();
 	}-*/;
-	
-	
+
 	@Override
 	public void keyboard(String viewId, KeyboardActionCallback cb) {
-	    _keyboard(viewId, cb);
+		_keyboard(viewId, cb);
 	}
-	
+
 	private native void _keyboard(String viewId, KeyboardActionCallback cb) /*-{
-	    var that = this;
-	    try{
-	    	$wnd.$('#'+viewId).keyboard({
-	    	    layout: 'qwerty',
-	    	    accepted: function(event, keyboard, el){
-	    	         console.log('The content "' + el.value + '" was accepted!');
-	    	         cb.@it.appify.api.Page.KeyboardActionCallback::accepted(Ljava/lang/String;)(el.value);
-	    	    }});
-	    }catch(err){
-	        console.log('error adding keyboard on element: '+viewId);
-	    }
+		var that = this;
+		try {
+			$wnd
+					.$('#' + viewId)
+					.keyboard(
+							{
+								layout : 'qwerty',
+								accepted : function(event, keyboard, el) {
+									console.log('The content "' + el.value
+											+ '" was accepted!');
+									cb.@it.appify.api.Page.KeyboardActionCallback::accepted(Ljava/lang/String;)(el.value);
+								}
+							});
+		} catch (err) {
+			console.log('error adding keyboard on element: ' + viewId);
+		}
 	}-*/;
-	
+
 	@Override
 	public void triggerEvent(String viewId, String eventType) {
-	    _triggerEvent(viewId, eventType);
+		_triggerEvent(viewId, eventType);
 	}
-	
+
 	private native void _triggerEvent(String viewId, String eventType) /*-{
-	   	$wnd.$('#'+viewId).trigger(eventType);
+		$wnd.$('#' + viewId).trigger(eventType);
 	}-*/;
 
 	@Override
@@ -333,8 +365,7 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		});
 	}-*/;
 
-	private native void _popover(String viewId, String title, String content,
-			String animation)/*-{
+	private native void _popover(String viewId, String title, String content, String animation)/*-{
 		$wnd.currentPopover = $wnd.$('#' + viewId).webuiPopover('destroy')
 				.webuiPopover({
 					title : title,
@@ -366,54 +397,53 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 				});
 	}-*/;
-	
+
 	@Override
 	public void disableElement(String viewId) {
-	    _disableElement(viewId);
+		_disableElement(viewId);
 	}
-	
+
 	@Override
 	public void enableElement(String viewId) {
-	    _enableElement(viewId);
+		_enableElement(viewId);
 	}
-	
+
 	@Override
 	public void disableElements(String clazz) {
-	    _disableElements(clazz);
+		_disableElements(clazz);
 	}
-	
+
 	@Override
 	public void enableElements(String clazz) {
-	    _enableElements(clazz);
+		_enableElements(clazz);
 	}
-	
-	
+
 	private native void _disableElements(String clazz) /*-{
-	    var els = $wnd.$('.'+clazz);
-	    console.log('trying to switch: '+els);	    
-	    els.attr('disabled','');
-	    
+		var els = $wnd.$('.' + clazz);
+		console.log('trying to switch: ' + els);
+		els.attr('disabled', '');
+
 	}-*/;
-	
+
 	private native void _enableElements(String clazz) /*-{
-	    var btn = $wnd.$('.'+clazz);
-	    if(btn){
-	    	btn.removeAttr('disabled');
-	    }
+		var btn = $wnd.$('.' + clazz);
+		if (btn) {
+			btn.removeAttr('disabled');
+		}
 	}-*/;
-	
+
 	private native void _disableElement(String viewId) /*-{
-	    var btn = $wnd.$('#'+viewId);
-	    if(btn){
-	    	btn.attr('disabled','');
-	    }
+		var btn = $wnd.$('#' + viewId);
+		if (btn) {
+			btn.attr('disabled', '');
+		}
 	}-*/;
-	
+
 	private native void _enableElement(String viewId) /*-{
-	    var btn = $wnd.$('#'+viewId);
-	    if(btn){
-	    	btn.removeAttr('disabled');
-	    }
+		var btn = $wnd.$('#' + viewId);
+		if (btn) {
+			btn.removeAttr('disabled');
+		}
 	}-*/;
 
 }

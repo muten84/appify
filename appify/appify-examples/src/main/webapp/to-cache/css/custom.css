@@ -2,23 +2,23 @@
 	display: none;
 }
 
-@media (min-width: 768px){
+@media ( min-width : 768px) {
 	.auto-center-min {
-    	margin-left: auto !important;
-    	margin-right: auto !important;
-    	width: 100% !important;   
-    	padding-left: 10% !important;
-   		 /*padding-right: 10% !important;*/ 
+		margin-left: auto !important;
+		margin-right: auto !important;
+		width: 100% !important;
+		padding-left: 10% !important;
+		/*padding-right: 10% !important;*/
 	}
 }
 
-@media (min-width: 769px){
-.auto-center {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    width: 50em !important;   
-    padding-left: 10% !important;
-    /*padding-right: 10% !important;*/ 
+@media ( min-width : 769px) {
+	.auto-center {
+		margin-left: auto !important;
+		margin-right: auto !important;
+		width: 50em !important;
+		padding-left: 10% !important;
+		/*padding-right: 10% !important;*/
 	}
 }
 
@@ -66,9 +66,32 @@
 	font-size: 1.2em;
 }
 
+@media ( max-width : 400px) {
+	.patient-center-bottom-btn {
+		margin-left: 10px !important;
+		margin-right: 10px !important;
+		left: 15% !important;
+		right: 5% !important;
+		margin-top: 3px !important;
+	}
+}
 
+@media ( max-width : 600px) {
+	.patient-center-bottom-btn {
+		margin-left: 10px !important;
+		margin-right: 10px !important;
+		left: 25% !important;
+		right: 15% !important;
+		margin-top: 3px !important;
+	}
+}
 
-
-
-
-
+@media ( min-width : 601px) {
+	.patient-center-bottom-btn {
+		margin-left: 10px !important;
+		margin-right: 10px !important;
+		left: 35% !important;
+		right: 45% !important;
+		margin-top: 3px !important;
+	}
+}

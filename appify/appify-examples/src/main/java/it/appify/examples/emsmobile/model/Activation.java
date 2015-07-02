@@ -135,6 +135,7 @@ public class Activation implements Serializable {
 		if(getPatients()==null) {
 			this.patients = new ArrayList<Patient>();			
 		}
+		p.setIndex(patients.size());
 		getPatients().add(p);
 	}
 
@@ -152,6 +153,10 @@ public class Activation implements Serializable {
 
 	public void setCurrentPatient(Patient currentPatient) {
 		this.currentPatient = currentPatient;
+	}
+	
+	public void updateCurrentPatient(Patient newPatient){
+		setCurrentPatient(newPatient);
 	}
 	
 	
