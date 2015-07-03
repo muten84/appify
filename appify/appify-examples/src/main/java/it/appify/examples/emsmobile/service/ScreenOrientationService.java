@@ -3,19 +3,16 @@ package it.appify.examples.emsmobile.service;
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
 import it.appify.api.ScrOrientation.ScreenOrientationCallback;
-import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.logging.ConsoleLogger;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-
 @Service
-public class ScreenOrientationService {
+public class ScreenOrientationService implements GenericService{
 
 	private WebApp<EmsMobileModel> webapp;
+	private boolean stop;
 
 	public ScreenOrientationService(WebApp<EmsMobileModel> webapp) {
 		this.webapp = webapp;
@@ -26,6 +23,7 @@ public class ScreenOrientationService {
 
 	@Start
 	public void start() {
+		stop = false;
 		ConsoleLogger.getConsoleLogger().log(">>>>>>>>>>>>>>>>>>>>>>>>>>>><ScreenOrientationService start");
 		webapp.getScreenOrientationService().addOrientationChangeHandler(new ScreenOrientationCallback() {
 			
@@ -54,10 +52,13 @@ public class ScreenOrientationService {
 //						model);
 //
 //			}
-//		});
-		
-	
+//		});	
+	}
 
+	@Override
+	public void stop() {
+		stop = true;
+		
 	}
 	
 	

@@ -12,6 +12,7 @@ import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.model.Item;
 import it.appify.examples.emsmobile.model.Patient;
+import it.appify.examples.emsmobile.service.ServiceHelper;
 import it.appify.logging.ConsoleLogger;
 
 @Controller(page = "patientPage")
@@ -21,6 +22,15 @@ public class PatientController {
 	
 	@ViewElement("sanEvalChoice")
 	private Element sanEvalChoice;
+	
+	@ViewElement("patientName")
+	public Element patientName;
+	
+	@ViewElement("patientSurname")
+	public Element patientSurname;
+	
+	@ViewElement("patientNote")
+	public Element patientNote;
 
 	public PatientController(WebApp<EmsMobileModel> app) {
 		this.app = app;
@@ -36,7 +46,7 @@ public class PatientController {
 //				int sanEval = p.getSanEval();
 //			}
 //		}
-			
+		ServiceHelper.stopAllService();
 		app.getCurrentPage().addViewsHandler("backModal", "click", new HasViewHandlers.ViewHandler() {
 			
 			@Override
@@ -45,6 +55,9 @@ public class PatientController {
 				
 			}
 		});
+		restoreForm();
+		
+		
 	}
 	
 	
@@ -106,6 +119,7 @@ public class PatientController {
 
 	@ViewHandler(eventType = "click", viewId = "backBtn")
 	public void backBtnClicked() {
+		updatePatientData();
 		app.back();
 	}
 
@@ -132,9 +146,18 @@ public class PatientController {
 	public void showResultData() {		
 		disableSection("SanEvalData");
 		enableSection("ResultData");
-		
-
 	}
+	
+	@ViewHandler(eventType = "click", viewId = "btnCleanPatientData")
+	public void cleanPatientData(){
+		cleanForm();		
+	}
+	
+	@ViewHandler(eventType = "click", viewId = "btnRestorePatientData")
+	public void restorePatientData(){
+		restoreForm();		
+	}
+	
 	
 	private void disableSection(String suffix) {
 		if (app.getCurrentPage().hasStyle("item" + suffix, "active")) {
@@ -169,6 +192,55 @@ public class PatientController {
 
 	public void setSanEvalChoice(Element sanEvalChoice) {
 		this.sanEvalChoice = sanEvalChoice;
+	}
+	
+	private void restoreForm(){
+		ConsoleLogger.getConsoleLogger().log("restoreForm");
+		EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+		Patient restore = model.getActivation().getCurrentBackupPatient();
+		if(restore==null){
+			restore = model.getActivation().getCurrentPatient();
+		}
+		restore = restore.clonePatient();
+//		model.getActivation().setCurrentBackupPatient(null);
+		model.getActivation().setCurrentPatient(restore);
+		app.updateAppState(model);		
+		ConsoleLogger.getConsoleLogger().log("restoreForm sucess");
+	}
+	
+	private void cleanForm() {
+		ConsoleLogger.getConsoleLogger().log("cleanForm");
+		EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+		Patient backup = model.getActivation().getCurrentPatient().clonePatient();
+		model.getActivation().setCurrentBackupPatient(backup);
+		Patient newP = new Patient();
+//		newP.setIndex(backup.getIndex());
+		newP.setIndex(0);
+		model.getActivation().updateCurrentPatient(newP);		
+		app.updateAppState(model);
+		ConsoleLogger.getConsoleLogger().log("cleanForm success");
+
+	}
+	
+	private void updatePatientData(){		
+		ConsoleLogger.getConsoleLogger().log("updatePatientData");
+		EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+		Patient p = model.getActivation().getCurrentPatient();
+	
+		String name = app.getCurrentPage().getElementValue("patientName");
+		String surname = app.getCurrentPage().getElementValue("patientSurname");
+		String note = app.getCurrentPage().getElementValue("patientNote");		
+		ConsoleLogger.getConsoleLogger().log("updatePatientData: "+name);
+		ConsoleLogger.getConsoleLogger().log("updatePatientData: "+surname);
+		ConsoleLogger.getConsoleLogger().log("updatePatientData: "+note);
+		p.setName(name);
+		p.setLastName(surname);
+		p.setNote(note);
+		model.getActivation().updateCurrentPatient(p);
+		model.getActivation().setCurrentBackupPatient(p);
+		app.updateAppState(model);	
+		ConsoleLogger.getConsoleLogger().log("updatePatientData sucess");
+		
 	}
 	
 	

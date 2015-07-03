@@ -1,5 +1,13 @@
 package it.appify.examples.emsmobile;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
+import com.google.gwt.core.shared.GWT;
+
 import it.appify.app.WebApp;
 import it.appify.app.WebApp.AppListener;
 import it.appify.examples.emsmobile.model.BarStatus;
@@ -8,14 +16,6 @@ import it.appify.examples.emsmobile.model.Item;
 import it.appify.examples.emsmobile.model.Section;
 import it.appify.examples.emsmobile.util.Utils;
 import it.appify.logging.ConsoleLogger;
-
-import java.util.Arrays;
-import java.util.List;
-
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-import com.google.gwt.core.shared.GWT;
 
 public class EmsMobileEntryPoint implements EntryPoint {
 

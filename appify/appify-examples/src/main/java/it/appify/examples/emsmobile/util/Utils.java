@@ -32,11 +32,11 @@ public class Utils {
 	
 	private static Patient createPatient(){
 		Patient p = new Patient();
-		p.setLastName("");
-		p.setName("");
-		p.setNote("");
-		p.setSanEval(-1);
-		p.setShow(true);
+//		p.setLastName("");
+//		p.setName("");
+//		p.setNote("");
+//		p.setSanEval(-1);
+//		p.setShow(true);
 		return p;
 		
 	}

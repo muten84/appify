@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import it.appify.logging.ConsoleLogger;
+
 @JsonAutoDetect
 public class Activation implements Serializable {
 
@@ -25,6 +27,8 @@ public class Activation implements Serializable {
 	private List<Patient> patients;
 	private long timestamp;
 	private Patient currentPatient;
+	private Patient currentBackupPatient;
+	
 
 	public Activation() {
 		phases = new ArrayList<Phase>();
@@ -132,32 +136,63 @@ public class Activation implements Serializable {
 	}
 	
 	public void addPatient(Patient p) {
+		ConsoleLogger.getConsoleLogger().log("adding patient: "+p.getIndex());
+		if(p.getIndex()>=0){
+			return;
+		}
 		if(getPatients()==null) {
 			this.patients = new ArrayList<Patient>();			
-		}
+		}		
 		p.setIndex(patients.size());
 		getPatients().add(p);
 	}
 
 	public Patient getCurrentPatient() {
-		if(getPatients()!=null) {
-			for (Patient patient : patients) {
-				if(patient.isShow()){
-					currentPatient = patient;
-					break;
-				}
-			}
-		}
+//		if(getPatients()!=null) {
+//			for (Patient patient : patients) {
+//				if(patient.isShow()){
+//					currentPatient = patient;
+//					break;
+//				}
+//			}
+//		}
+//		if(currentPatient==null){
+//			
+//		}
 		return currentPatient;
 	}
 
-	public void setCurrentPatient(Patient currentPatient) {
-		this.currentPatient = currentPatient;
+	public void setCurrentPatient(Patient newP) {
+//		if(getPatients()!=null) {
+//			for (Patient p : patients) {
+//				ConsoleLogger.getConsoleLogger().log("setCurrentPatient: "+p.getIndex()+" - "+newP.getIndex());
+//				if(p.getIndex()==newP.getIndex()){
+//					ConsoleLogger.getConsoleLogger().log("setCurrentPatient");
+//					p = null;
+//					p = newP;
+//					p.setIndex(newP.getIndex());
+//					newP.setShow(true);
+//					p.setShow(newP.isShow());
+//					break;
+//				}
+//			}
+//		}
+		this.currentPatient = newP;
 	}
 	
 	public void updateCurrentPatient(Patient newPatient){
 		setCurrentPatient(newPatient);
 	}
+
+	public Patient getCurrentBackupPatient() {
+		return currentBackupPatient;
+	}
+
+	public void setCurrentBackupPatient(Patient currentBackupPatient) {
+		this.currentBackupPatient = currentBackupPatient;
+	}
+	
+	
 	
 	
 	

@@ -100,7 +100,7 @@
 					</div>
 					<div class="card">
 						<!-- san eval DATA -->
-						<div id="cardSanEvalData" class="app-section control-content active">
+						<div id="cardSanEvalData" class="app-section-shadow app-section control-content active">
 							<button id="sanEvalChoice" class="btn btn-outlined btn-block">Val.
 								sanitaria: - {{activation.currentPatient.sanEval}}</button>
 							<button id="criticityEndChoice"
@@ -108,7 +108,7 @@
 								fine: - {{activation.currentPatient.criticityEnd.itemName}}</button>
 						</div>
 						<!-- result DATA -->
-						<div id="cardResultData" class="app-section control-content">
+						<div id="cardResultData" class="app-section-shadow app-section control-content">
 							<button id="resultChoice" class="btn btn-outlined btn-block">Esito:
 								- {{activation.currentPatient.result.itemName}}</button>
 							<button id="hospitalChoice" class="btn btn-outlined btn-block">Ospedale:
@@ -128,12 +128,12 @@
 				<div>
 					<form onsubmit="javascript:return false;">
 						<!-- value="{{p.name}}"  -->
-						<input type="text" placeholder="Nome"
+						<input id="patientName" type="text" placeholder="Nome"
 							v-model="activation.currentPatient.name">
 						<!-- value="{{p.lastName}}"  -->
-						<input type="text" placeholder="Cognome"
+						<input id="patientSurname" type="text" placeholder="Cognome"
 							v-model="activation.currentPatient.lastName"></input>
-						<textarea rows="5" placeholder="Note Paziente"
+						<textarea id="patientNote" rows="5" placeholder="Note Paziente"
 							v-model="activation.currentPatient.note"></textarea>
 						<!-- <button class="btn btn-positive btn-block">Salva i Dati</button> -->
 						<!-- <button class="btn btn-negative btn-block">Pulisci</button> -->
@@ -144,19 +144,24 @@
 	</div>
 	<nav id="bottomBar"
 		class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
-		<button class="btn btn-primary  btn-outlined  pull-left"
+		<button id="btnPrevPatient" class="btn btn-primary  btn-outlined  pull-left"
 			style="height: 90%;">
 			<span class="fa fa-arrow-left fa-2x"></span>
 		</button>
-		<button
+		<button id="btnAddPatient"
 			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
 			<span class="fa fa-user-plus fa-2x"></span>
 		</button>
-		<button
+		<button id="btnCleanPatientData"
 			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
 			<span class="fa fa-eraser fa-2x"></span>
 		</button>
-		<button class="btn btn-primary  btn-outlined  pull-right"
+		<button id="btnRestorePatientData"
+			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
+			<span class="fa fa-undo fa-2x"></span>
+		</button>
+		<button id="btnNextPatient" 
+		class="btn btn-primary  btn-outlined  pull-right"
 			style="height: 90%;">
 			<span class="fa fa-arrow-right fa-2x"></span>
 		</button>

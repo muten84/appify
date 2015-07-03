@@ -1,13 +1,13 @@
 package it.appify.examples.client.model;
 
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import it.appify.api.BatteryStatus;
 import it.appify.api.Geoposition;
 import it.appify.api.Screen;
 import it.appify.api.ScreenOrientation;
-
-import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
 public class AppModel implements Serializable {

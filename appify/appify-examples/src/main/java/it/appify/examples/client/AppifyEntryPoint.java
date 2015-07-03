@@ -1,14 +1,14 @@
 package it.appify.examples.client;
 
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.shared.GWT;
+
 import it.appify.app.WebApp;
 import it.appify.app.WebApp.AppListener;
 import it.appify.examples.client.app.ExampleApp;
 import it.appify.examples.client.model.AppModel;
 import it.appify.examples.client.model.ChildModel;
 import it.appify.logging.ConsoleLogger;
-
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.shared.GWT;
 
 public class AppifyEntryPoint implements EntryPoint {
 

@@ -23,7 +23,15 @@ public class Patient implements Serializable {
 	private boolean show;
 
 	public Patient() {
-
+		index = -1;
+		lastName="";
+		name="";
+		note="";
+		sanEval=-1;
+		criticityEnd = new Item("-1", "");
+		result = new Item("-1", "");
+		hospital = new Item("-1", "");
+		show = true;
 	}
 
 	public int getIndex() {
@@ -96,6 +104,36 @@ public class Patient implements Serializable {
 
 	public void setHospital(Item hospital) {
 		this.hospital = hospital;
+	}
+
+	protected Object clone() {
+		Patient copy = new Patient();
+		if (this.criticityEnd != null) {
+			copy.criticityEnd = new Item(this.criticityEnd.getCode(), this.criticityEnd.getItemName());
+		}
+		if (this.hospital != null) {
+			copy.hospital = new Item(this.hospital.getCode(), this.hospital.getItemName());
+		}
+		copy.index = this.index;
+		copy.lastName = new String(this.lastName);
+		copy.name = new String(this.name);
+		copy.note = new String(this.note);
+		if (this.result != null) {
+			copy.result = new Item(this.result.getCode(), this.result.getItemName());
+		}
+		copy.sanEval = this.sanEval;
+		copy.show = this.show;
+		return copy;
+	}
+
+	public Patient clonePatient() {
+		return (Patient) this.clone();
+
+	}
+
+	@Override
+	public String toString() {
+		return "Patient [index=" + index + ", lastName=" + lastName + ", name=" + name + ", show=" + show + "]";
 	}
 	
 	

@@ -1,5 +1,13 @@
 package it.appify.examples.emsmobile.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+
 import it.appify.annotations.Controller;
 import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewElement;
@@ -14,14 +22,6 @@ import it.appify.examples.emsmobile.model.Item;
 import it.appify.examples.emsmobile.model.Section;
 import it.appify.examples.emsmobile.util.ViewUtils;
 import it.appify.logging.ConsoleLogger;
-
-import java.util.Arrays;
-import java.util.List;
-
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 @Controller(page = "vehiclesPage")
 public class VehicleListController {

@@ -1,5 +1,8 @@
 package it.appify.examples.client.service;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
 import it.appify.api.Battery.BatteryStatusCallback;
@@ -7,9 +10,6 @@ import it.appify.api.BatteryStatus;
 import it.appify.app.WebApp;
 import it.appify.examples.client.model.AppModel;
 import it.appify.logging.ConsoleLogger;
-
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
 @Service
 public class BatteryService {

@@ -1,14 +1,5 @@
 package it.appify.examples.emsmobile.controller;
 
-import it.appify.annotations.Controller;
-import it.appify.annotations.OnPageReady;
-import it.appify.annotations.ViewElement;
-import it.appify.annotations.ViewHandler;
-import it.appify.app.WebApp;
-import it.appify.examples.emsmobile.model.EmsMobileModel;
-import it.appify.examples.emsmobile.model.Phase;
-import it.appify.logging.ConsoleLogger;
-
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +8,16 @@ import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
+
+import it.appify.annotations.Controller;
+import it.appify.annotations.OnPageReady;
+import it.appify.annotations.ViewElement;
+import it.appify.annotations.ViewHandler;
+import it.appify.app.WebApp;
+import it.appify.examples.emsmobile.model.EmsMobileModel;
+import it.appify.examples.emsmobile.model.Phase;
+import it.appify.examples.emsmobile.service.ServiceHelper;
+import it.appify.logging.ConsoleLogger;
 
 @Controller(page = "activationPage")
 public class ActivationController {
@@ -39,6 +40,7 @@ public class ActivationController {
 	@OnPageReady
 	public void onPageReady() {
 //		showGoogleMap();
+		ServiceHelper.resumeAllServices();
 		showMap();
 		EmsMobileModel model = app.getCurrentAppState();
 		List<Phase> phases = model.getActivation().getPhases();

@@ -1,17 +1,17 @@
 package it.appify.examples.emsmobile.model;
 
-import it.appify.api.BatteryStatus;
-import it.appify.api.Geoposition;
-import it.appify.api.Screen;
-import it.appify.api.ScreenOrientation;
-import it.appify.api.Storable;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import it.appify.api.BatteryStatus;
+import it.appify.api.Geoposition;
+import it.appify.api.Screen;
+import it.appify.api.ScreenOrientation;
+import it.appify.api.Storable;
 
 @JsonAutoDetect
 public class EmsMobileModel implements Serializable, Storable {

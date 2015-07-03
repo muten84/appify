@@ -1,5 +1,10 @@
 package it.appify.examples.emsmobile.controller;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
+import com.google.gwt.dom.client.Element;
+
 import it.appify.annotations.Controller;
 import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewElement;
@@ -10,11 +15,6 @@ import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.service.ActivationService;
 import it.appify.examples.emsmobile.util.Registry;
 import it.appify.logging.ConsoleLogger;
-
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-import com.google.gwt.dom.client.Element;
 
 @Controller(page = "dumpPage")
 public class DumpController {

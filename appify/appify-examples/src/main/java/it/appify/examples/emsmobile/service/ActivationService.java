@@ -1,5 +1,8 @@
 package it.appify.examples.emsmobile.service;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
+
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
 import it.appify.api.Sound;
@@ -10,11 +13,8 @@ import it.appify.examples.emsmobile.util.Registry;
 import it.appify.examples.emsmobile.util.Utils;
 import it.appify.logging.ConsoleLogger;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-
 @Service
-public class ActivationService {
+public class ActivationService implements GenericService{
 
 	private WebApp<EmsMobileModel> app;
 
@@ -24,11 +24,14 @@ public class ActivationService {
 		ConsoleLogger.getConsoleLogger().log("ActivationService built..");
 		this.app = app;
 	}
+	
+	boolean stop  = false;
 
 	@Start
 	public void startActivationService() {
 		ConsoleLogger.getConsoleLogger().log("ActivationService start..");
 		Registry.register("ActivationService", this);
+		ServiceHelper.register("ActivationService", this);
 		scheduleActivation();
 
 	}
@@ -39,6 +42,10 @@ public class ActivationService {
 
 				@Override
 				public boolean execute() {
+					if(stop){
+						scheduling = false;
+						return false;
+					}
 					ConsoleLogger.getConsoleLogger().log(">>Activation scheduled...");
 					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 					String vehicleCode = model.getBarStatus().getVehicleCode();
@@ -88,6 +95,18 @@ public class ActivationService {
 				}
 			}, 5000);
 		}
+	}
+
+	@Override
+	public void start() {
+		stop = false;
+		startActivationService();
+		
+	}
+
+	@Override
+	public void stop() {
+		stop = true;	
 	}
 
 }
