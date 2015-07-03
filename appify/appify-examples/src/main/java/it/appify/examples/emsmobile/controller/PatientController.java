@@ -9,10 +9,10 @@ import it.appify.annotations.ViewHandler;
 import it.appify.annotations.ViewModelHandler;
 import it.appify.api.HasViewHandlers;
 import it.appify.app.WebApp;
+import it.appify.app.service.ServiceManager;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.model.Item;
 import it.appify.examples.emsmobile.model.Patient;
-import it.appify.examples.emsmobile.service.ServiceHelper;
 import it.appify.logging.ConsoleLogger;
 
 @Controller(page = "patientPage")
@@ -46,7 +46,7 @@ public class PatientController {
 //				int sanEval = p.getSanEval();
 //			}
 //		}
-		ServiceHelper.stopAllService();
+		ServiceManager.stopAllService();
 		app.getCurrentPage().addViewsHandler("backModal", "click", new HasViewHandlers.ViewHandler() {
 			
 			@Override
@@ -55,6 +55,7 @@ public class PatientController {
 				
 			}
 		});
+		
 		restoreForm();
 		
 		
@@ -201,6 +202,9 @@ public class PatientController {
 		if(restore==null){
 			restore = model.getActivation().getCurrentPatient();
 		}
+		if(restore==null){
+			return;
+		}
 		restore = restore.clonePatient();
 //		model.getActivation().setCurrentBackupPatient(null);
 		model.getActivation().setCurrentPatient(restore);
@@ -226,7 +230,9 @@ public class PatientController {
 		ConsoleLogger.getConsoleLogger().log("updatePatientData");
 		EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
 		Patient p = model.getActivation().getCurrentPatient();
-	
+		if(p==null){
+			p = new Patient();
+		}
 		String name = app.getCurrentPage().getElementValue("patientName");
 		String surname = app.getCurrentPage().getElementValue("patientSurname");
 		String note = app.getCurrentPage().getElementValue("patientNote");		

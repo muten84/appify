@@ -14,9 +14,9 @@ import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
 import it.appify.app.WebApp;
+import it.appify.app.service.ServiceManager;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.model.Phase;
-import it.appify.examples.emsmobile.service.ServiceHelper;
 import it.appify.logging.ConsoleLogger;
 
 @Controller(page = "activationPage")
@@ -40,7 +40,7 @@ public class ActivationController {
 	@OnPageReady
 	public void onPageReady() {
 //		showGoogleMap();
-		ServiceHelper.resumeAllServices();
+		ServiceManager.resumeAllServices();
 		showMap();
 		EmsMobileModel model = app.getCurrentAppState();
 		List<Phase> phases = model.getActivation().getPhases();

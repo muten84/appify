@@ -8,7 +8,7 @@ import it.appify.examples.emsmobile.util.Registry;
 import it.appify.sound.BuzzSound;
 
 
-@Service
+@Service(name="emsmobile_SoundService")
 public class SoundService {
 	
 	WebApp<EmsMobileModel> app;
