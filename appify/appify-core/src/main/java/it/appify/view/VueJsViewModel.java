@@ -16,8 +16,6 @@
  */
 package it.appify.view;
 
-import it.appify.logging.ConsoleLogger;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +28,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.Event;
+
+import it.appify.logging.ConsoleLogger;
 
 public abstract class VueJsViewModel<M> implements WebModelView<M> {
 
@@ -149,7 +149,9 @@ public abstract class VueJsViewModel<M> implements WebModelView<M> {
 
 	@Override
 	public void updateModel(M model) {
+		ConsoleLogger.getConsoleLogger().log("1 updateModel: "+model.toString());
 		String json = getObjectMapper().write(model);
+		ConsoleLogger.getConsoleLogger().log("updateModel: "+json);		
 		JavaScriptObject jsObj = JsonUtils.safeEval(json);
 		_updateModel(jsObj);
 	}
