@@ -5,14 +5,15 @@ import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
+import it.appify.annotations.Stop;
 import it.appify.api.Geolocation.GeolocationCallback;
 import it.appify.api.Geoposition;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.logging.ConsoleLogger;
 
-@Service
-public class GeolocationService implements GenericService {
+@Service(name="emsmobile_GeolocationService")
+public class GeolocationService {
 
 	private WebApp<EmsMobileModel> app;
 
@@ -30,10 +31,10 @@ public class GeolocationService implements GenericService {
 	}
 
 	@Start
-	public void startGeolocationService() {
-		ServiceHelper.register("GeolocationService", this);
+	public void startGeolocationService() {		
 		if (!started) {
 			started = true;
+			stop = false;
 			watchForLocation();
 			Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
 
@@ -109,14 +110,8 @@ public class GeolocationService implements GenericService {
 		}
 	}
 
-	@Override
-	public void start() {
-		stop = false;
-		startGeolocationService();
-
-	}
-
-	@Override
+	
+	@Stop
 	public void stop() {
 		stop = true;
 		started = false;

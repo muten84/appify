@@ -5,6 +5,7 @@ import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
+import it.appify.annotations.Stop;
 import it.appify.api.Sound;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.Activation;
@@ -13,8 +14,8 @@ import it.appify.examples.emsmobile.util.Registry;
 import it.appify.examples.emsmobile.util.Utils;
 import it.appify.logging.ConsoleLogger;
 
-@Service
-public class ActivationService implements GenericService{
+@Service(name="emsmobile_ActivationService")
+public class ActivationService {
 
 	private WebApp<EmsMobileModel> app;
 
@@ -30,8 +31,7 @@ public class ActivationService implements GenericService{
 	@Start
 	public void startActivationService() {
 		ConsoleLogger.getConsoleLogger().log("ActivationService start..");
-		Registry.register("ActivationService", this);
-		ServiceHelper.register("ActivationService", this);
+		Registry.register("ActivationService", this);		
 		scheduleActivation();
 
 	}
@@ -97,14 +97,8 @@ public class ActivationService implements GenericService{
 		}
 	}
 
-	@Override
-	public void start() {
-		stop = false;
-		startActivationService();
-		
-	}
 
-	@Override
+	@Stop	
 	public void stop() {
 		stop = true;	
 	}

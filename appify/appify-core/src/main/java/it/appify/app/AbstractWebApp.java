@@ -16,6 +16,17 @@
  */
 package it.appify.app;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
+import com.google.gwt.dom.client.Element;
+//TODO: add an update and store method
+//for enqueue all read&write request Scheduler.get().scheduleDeferred(
+//new ScheduledCommand() {
+
 import it.appify.api.AppVisibility;
 import it.appify.api.AppVisibility.VisibilityCallback;
 import it.appify.api.Battery;
@@ -31,6 +42,7 @@ import it.appify.api.PageManager.PageListener;
 import it.appify.api.PageManager.Transitions;
 import it.appify.api.Service;
 import it.appify.api.Storage;
+import it.appify.app.service.ServiceManager;
 import it.appify.appvisibility.SinglePageAppVisibility;
 import it.appify.logging.ConsoleLogger;
 import it.appify.screenorientation.WebScreenOrientation;
@@ -38,17 +50,6 @@ import it.appify.view.AppJsPageManager;
 import it.appify.view.PageLoader;
 import it.appify.view.WebModelView;
 import it.appify.view.WebPage;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-
-import com.google.gwt.dom.client.Element;
-//TODO: add an update and store method
-//for enqueue all read&write request Scheduler.get().scheduleDeferred(
-//new ScheduledCommand() {
 
 public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
@@ -102,17 +103,20 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 		@Override
 		public void onPageReady(Page<Element> page) {
-			ConsoleLogger.getConsoleLogger().log("AbstractWebApp onPageReady: " + mainPage + " - " + page.getPageId() + " - " + firstLoad);
+			ConsoleLogger.getConsoleLogger()
+					.log("AbstractWebApp onPageReady: " + mainPage + " - " + page.getPageId() + " - " + firstLoad);
 
 			/**/
 			List<ControllerHolder<?>> controllers = pageControllers.get(page.getPageId());
 			if (controllers != null) {
 				for (ControllerHolder<?> controllerHolder : controllers) {
-					ConsoleLogger.getConsoleLogger().log("injecting elements: " + controllerHolder.pageId + " - " + controllerHolder.viewId + " - " + controllerHolder.fieldName);
+					ConsoleLogger.getConsoleLogger().log("injecting elements: " + controllerHolder.pageId + " - "
+							+ controllerHolder.viewId + " - " + controllerHolder.fieldName);
 					controllerHolder.injectViewElements();
 				}
 			} else {
-				ConsoleLogger.getConsoleLogger().log("warning control holders injectViewElements no elements: " + controllers + " - " + page.getPageId());
+				ConsoleLogger.getConsoleLogger().log("warning control holders injectViewElements no elements: "
+						+ controllers + " - " + page.getPageId());
 			}
 			// if occurs first load of main page it's a good idea to start app
 			// services
@@ -157,7 +161,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 						controllerHolder.callPageReadyHandler();
 					}
 				} else {
-					ConsoleLogger.getConsoleLogger().log("warning callPageReadyHandler no elements: " + ctrlHolders + " - " + page.getPageId());
+					ConsoleLogger.getConsoleLogger()
+							.log("warning callPageReadyHandler no elements: " + ctrlHolders + " - " + page.getPageId());
 				}
 			}
 
@@ -477,6 +482,11 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	@Override
 	public boolean isVisible() {
 		return visibility.isAppVisible();
+	}
+	
+	@Override
+	public Service getService(String name){
+		return ServiceManager.getService(name);
 	}
 
 	protected abstract WebModelView<AppState> getAppStateModelView();

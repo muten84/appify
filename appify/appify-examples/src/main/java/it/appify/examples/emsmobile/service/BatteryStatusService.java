@@ -5,13 +5,14 @@ import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
+import it.appify.annotations.Stop;
 import it.appify.api.Battery.BatteryStatusCallback;
 import it.appify.api.BatteryStatus;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 
-@Service
-public class BatteryStatusService implements GenericService {
+@Service(name="emsmobile_BatteryStatusService")
+public class BatteryStatusService {
 
 	private WebApp<EmsMobileModel> app;
 
@@ -24,10 +25,10 @@ public class BatteryStatusService implements GenericService {
 	private boolean started = false;
 
 	@Start
-	public void startBatteryMonitor() {
-		ServiceHelper.register("BatteryStatusService", this);
+	public void startBatteryMonitor() {		
 		if (!started) {
-			started = true;			
+			started = true;		
+			stop = false;
 			Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
 
 				@Override
@@ -63,14 +64,8 @@ public class BatteryStatusService implements GenericService {
 		});
 	}
 
-	@Override
-	public void start() {
-		stop = false;
-		startBatteryMonitor();
 
-	}
-
-	@Override
+	@Stop
 	public void stop() {
 		stop = true;
 		started = false;

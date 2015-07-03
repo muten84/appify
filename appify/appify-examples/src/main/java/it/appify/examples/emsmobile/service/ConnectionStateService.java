@@ -5,12 +5,13 @@ import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
+import it.appify.annotations.Stop;
 import it.appify.api.ApplicationCache.CheckConnectedCallback;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 
-@Service
-public class ConnectionStateService implements GenericService {
+@Service(name="emsmobile_ConnectionStateService")
+public class ConnectionStateService {
 
 	private WebApp<EmsMobileModel> app;
 	private boolean stop;
@@ -21,9 +22,9 @@ public class ConnectionStateService implements GenericService {
 	}
 
 	@Start
-	public void startCheckConnectionState() {
-		ServiceHelper.register("ConnectionStateService", this);
+	public void startCheckConnectionState() {		
 		if (!started) {
+			stop = false;
 			started = true;
 			Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
 
@@ -60,14 +61,9 @@ public class ConnectionStateService implements GenericService {
 		});
 	}
 
-	@Override
-	public void start() {
-		stop = false;
-		startCheckConnectionState();
+	
 
-	}
-
-	@Override
+	@Stop
 	public void stop() {
 		stop = true;
 		started  =false;

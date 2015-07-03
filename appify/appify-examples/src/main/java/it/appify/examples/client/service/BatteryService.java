@@ -11,7 +11,7 @@ import it.appify.app.WebApp;
 import it.appify.examples.client.model.AppModel;
 import it.appify.logging.ConsoleLogger;
 
-@Service
+@Service(name="examples.BatteryService")
 public class BatteryService {
 
 	private WebApp<AppModel> app;

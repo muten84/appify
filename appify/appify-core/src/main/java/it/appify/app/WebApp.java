@@ -19,6 +19,7 @@ package it.appify.app;
 import it.appify.api.ApplicationCache;
 import it.appify.api.Battery;
 import it.appify.api.Geolocation;
+import it.appify.api.Service;
 import it.appify.api.Storage;
 import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.view.WebPage;
@@ -77,6 +78,8 @@ public interface WebApp<AppState> {
 	public WebPage getCurrentPage();
 	
 	public boolean isVisible();
+	
+	public Service getService(String name);
 	
 	
 	

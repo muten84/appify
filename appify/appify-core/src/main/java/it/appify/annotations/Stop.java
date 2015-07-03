@@ -1,4 +1,9 @@
-package it.appify.api;
+package it.appify.annotations;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /*
  * Appify - a tiny frontend framework to build complex mobile apps.
@@ -16,10 +21,16 @@ package it.appify.api;
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public interface Service {
-
-	public void start();
-	
-	public void stop();
+/**
+ * Method of a Service class annotated with {@link Stop} annotation will be
+ * invoked when your app starts. A service class MUST be annotated with the
+ * {@link Service} annotation.
+ * 
+ * @author Luigi
+ *
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Stop {
 
 }

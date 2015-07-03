@@ -2,14 +2,15 @@ package it.appify.examples.emsmobile.service;
 
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
+import it.appify.annotations.Stop;
 import it.appify.api.ScrOrientation.ScreenOrientationCallback;
 import it.appify.api.ScreenOrientation;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.logging.ConsoleLogger;
 
-@Service
-public class ScreenOrientationService implements GenericService{
+@Service(name="emsmobile_ScreenOrientationService")
+public class ScreenOrientationService {
 
 	private WebApp<EmsMobileModel> webapp;
 	private boolean stop;
@@ -55,7 +56,7 @@ public class ScreenOrientationService implements GenericService{
 //		});	
 	}
 
-	@Override
+	@Stop
 	public void stop() {
 		stop = true;
 		
