@@ -29,6 +29,7 @@ public class EmsMobileModel implements Serializable, Storable {
 	private BarStatus barStatus;
 	private String checkInLabel;
 	private Activation activation;
+	private Activation precActivation;
 	private List<Section> vehicles;
 	private String searchText;
 	private long timestamp;
@@ -175,5 +176,34 @@ public class EmsMobileModel implements Serializable, Storable {
 	public void setHospitals(List<Item> hospitals) {
 		this.hospitals = hospitals;
 	}
+
+	public Activation getPrecActivation() {
+		return precActivation;
+	}
+
+	public void setPrecActivation(Activation precActivation) {
+		this.precActivation = precActivation;
+	}
+	
+	public void backupLastEmergency(){
+		Activation a = getActivation();
+		precActivation = new Activation();
+		if(a!=null){
+			precActivation.setAddress(a.getAddress());
+			precActivation.setAddressSummary(a.getAddressSummary());
+			precActivation.setCriticity(a.getCriticity());
+			precActivation.setEmergencyDate(a.getEmergencyDate());
+			precActivation.setEmergencyId(a.getEmergencyId());
+			precActivation.setNoteSummary(a.getNoteSummary());
+			precActivation.setPathology(a.getPathology());
+			precActivation.setPatients(a.getPatients());
+			precActivation.setPhases(a.getPhases());
+			precActivation.setPlace(a.getPlace());
+			precActivation.setTimestamp(a.getTimestamp());
+		}		
+		
+	}
+	
+	
 
 }

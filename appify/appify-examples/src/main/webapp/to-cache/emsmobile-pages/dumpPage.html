@@ -37,12 +37,20 @@
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left menu-border">
 			<div class="app-section">
-				<a id="checkInBtn" class="btn-background btn btn-block">{{checkInLabel}}</a>
-				<button id="parkingButton" class="btn-background btn btn-block">Parcheggio</button>
-				<button id="manageEquipButton" class="btn-background btn btn-block">Gestione
-					Equipaggio</button>
-				<button id="lastEmergencyBtn" class="btn-background btn btn-block">Ultima
-					Emergenza</button>
+				<a id="checkInBtn" class="btn-background badge btn btn-block" style="height: 50px"><span style="padding: 5px; float: left"
+					class="fa fa-user-md fa-2x"></span><span style="font-size: 18px; line-height:35px">{{checkInLabel}}</span></a>
+				<button id="parkingButton"
+					class="btn-background badge btn btn-block" style="height: 50px">
+					<span class="fa fa-flag-checkered fa-2x" style="padding: 5px; float: left"></span><span
+						style="font-size: 18px; line-height:35px">Parcheggio</span>
+				</button>
+				<!-- <button id="manageEquipButton" class="btn-background btn btn-block">Gestione
+					Equipaggio</button>  -->
+				<button id="lastEmergencyBtn"
+					class="btn-background badge btn btn-block" style="height: 50px">
+					<span class="fa fa-info-circle fa-2x" style="padding: 5px; float: left"></span><span
+						style="font-size: 18px; line-height:35px">Ultima Emergenza</span>
+				</button>
 			</div>
 		</div>
 		<div class="snap-drawer snap-drawer-right"></div>
@@ -55,7 +63,7 @@
 				<button id="showMenuBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-bars fa-2x"></span>
 				</button>
-				<button  id="checkInAccels" class="btn btn-nav pull-left">
+				<button id="checkInAccels" class="btn btn-nav pull-left">
 					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
@@ -73,11 +81,13 @@
 			</header>
 		</div>
 		<div class="box-shadow app-content">
-			<iframe id="dumpFrame" class="app-section-shadow app-section zero-margin-section"
+			<iframe id="dumpFrame"
+				class="app-section-shadow app-section zero-margin-section"
 				style="width: 95%; height: 95%" src="{{dumpUrl}}"></iframe>
 
 		</div>
-		<nav class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
+		<nav
+			class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
 			<a class="tab-item">
 				<button id="refreshDumpBtn" class="btn-background btn btn-nav">
 					<span class="fa fa-refresh fa-2x"></span> <span class="tab-label">Aggiorna

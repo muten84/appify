@@ -1,8 +1,26 @@
-<div class="app-page" id="activationPage" data-page="activationPage">
+<div class="app-page" id="activationPageRO" data-page="activationPageRO">
+	<div id="intervIncomeModal" class="modal">
+		<header class="bar bar-nav">
+			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
+			<h1 class="title">Nuovo Intervento</h1>
+		</header>
+		<div class="content">
+			<div class="spinner">
+				<div class="double-bounce1"></div>
+				<div class="double-bounce2"></div>
+			</div>
+			<div id="intervIncomeModalText" class="app-section"
+				style="text-align: center;">Nuovo Intervento dalla Centrale
+				Operativa!!</div>
+			<button id="confirmModalBtn" class="btn-background btn btn-block">
+				<span class="fa fa-check-circle-o fa-4x"></span>
+			</button>
+		</div>
+	</div>
 	<!-- MENU -->
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left menu-border">
-			<div class="app-section">
+				<div class="app-section">
 				<button id="sendBtn"
 					class="sendBtn btn-background btn btn-outlined badge menu-badge-font-18"
 					style="margin: 1% !important;">
@@ -58,6 +76,9 @@
 				<button id="showMenuBtn" class="btn-border btn btn-nav pull-left">
 					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
 				</button>
+				<button id="backBtn" class="btn-border btn btn-nav pull-left">
+					<span class="fa fa-chevron-left fa-2x"></span>
+				</button>
 				<button id="gpsStateBtn"
 					class="btn-border btn btn-nav pull-right {{barStatus.gpsStatus}}">
 					<span class="fa fa-map-marker fa-2x"></span>
@@ -96,14 +117,14 @@
 
 						<ul class="table-view table-border">
 							<li
-								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
-								Emergenza {{activation.emergencyId}} -
-								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
+								class="table-view-divider activation-criticity-{{precActivation.criticity}}">Dati
+								Emergenza {{precActivation.emergencyId}} -
+								{{precActivation.place}}{{precActivation.pathology}}{{precActivation.criticity}}
 							</li>
 							<li class="table-view-divider">Indirizzo</li>
-							<li class="table-view-cell">{{activation.addressSummary}}</li>
+							<li class="table-view-cell">{{precActivation.addressSummary}}</li>
 							<li class="table-view-divider">Note</li>
-							<li class="table-view-cell">{{activation.noteSummary}}</li>
+							<li class="table-view-cell">{{precActivation.noteSummary}}</li>
 						</ul>
 						<!-- <div  id="map-canvas" class="app-section"  style="padding: 0; margin: 0; width: 100%; height: 100%;"></div> -->
 						<div id="map"
@@ -112,28 +133,30 @@
 					<!-- END CARD EMERGENCY DATA -->
 
 					<!-- CARD ADDRESS DATA -->
-					<div id="cardAddressData" class="app-section-shadow app-section control-content">
+					<div id="cardAddressData"
+						class="app-section-shadow app-section control-content">
 
 						<ul class="table-view table-border">
 							<li
-								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
-								Emergenza {{activation.emergencyId}} -
-								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
+								class="table-view-divider activation-criticity-{{precActivation.criticity}}">Dati
+								Emergenza {{precActivation.emergencyId}} -
+								{{precActivation.place}}{{precActivation.pathology}}{{precActivation.criticity}}
 							</li>
 							<li class="table-view-divider">Indirizzo</li>
-							<li class="table-view-cell">{{activation.addressSummary}}</li>
+							<li class="table-view-cell">{{precActivation.addressSummary}}</li>
 							<li class="table-view-divider">Note Strada:</li>
-							<li class="table-view-cell">{{activation.address.streetNote}}</li>
+							<li class="table-view-cell">{{precActivation.address.streetNote}}</li>
 							<li class="table-view-divider">Note Localit&grave;:</li>
-							<li class="table-view-cell">{{activation.address.localityNote}}</li>
+							<li class="table-view-cell">{{precActivation.address.localityNote}}</li>
 							<li class="table-view-divider">Note Luogo Pubblico:</li>
-							<li class="table-view-cell">{{activation.address.pLocationNote}}</li>
+							<li class="table-view-cell">{{precActivation.address.pLocationNote}}</li>
 						</ul>
 					</div>
 					<!-- END CARD ADDRESS DATA -->
 
 					<!-- CARD NOTE DATA -->
-					<div id="cardNoteData" class="app-section-shadow app-section control-content">
+					<div id="cardNoteData"
+						class="app-section-shadow app-section control-content">
 
 						<span>Dettaglio Note</span>
 					</div>

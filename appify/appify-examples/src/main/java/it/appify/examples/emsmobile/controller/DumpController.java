@@ -41,6 +41,11 @@ public class DumpController {
 		}
 	}
 
+	@ViewHandler(eventType="click", viewId="lastEmergencyBtn")
+	public void viewLastEmergency(){
+		app.moveTo("activationPageRO");
+	}
+	
 	@ViewHandler(eventType = "click", viewId = "checkInBtn")
 	public void onCheckInStart() {
 		checkIn();

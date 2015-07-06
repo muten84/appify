@@ -93,7 +93,7 @@ public class ActivationService {
 						return false;
 					}
 				}
-			}, 5000);
+			}, 60000);
 		}
 	}
 

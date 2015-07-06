@@ -254,6 +254,9 @@ public class PatientController {
 	private void updatePatientData() {
 		ConsoleLogger.getConsoleLogger().log("updatePatientData");
 		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
+		if(model.getActivation()==null){
+			return;
+		}
 		Patient p = model.getActivation().getCurrentPatient();
 		if (p == null) {
 			p = new Patient();

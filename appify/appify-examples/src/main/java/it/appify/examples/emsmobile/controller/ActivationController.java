@@ -156,8 +156,7 @@ public class ActivationController {
 	@ViewHandler(eventType = "click", viewId = "closureBtn")
 	public void clousure() {
 		ConsoleLogger.getConsoleLogger().log("clousure....");
-		closure();
-
+		closure();		
 	}
 
 	protected void closure() {
@@ -173,6 +172,12 @@ public class ActivationController {
 			public boolean execute() {
 				String formattedTime = DateTimeFormat.getFormat(PredefinedFormat.TIME_MEDIUM).format(d);
 				app.getCurrentPage().setElementText("closureLabel", formattedTime);
+				EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+				Phase p = new Phase(Phase.CLOSURE, d.getTime());
+				model.getActivation().addPhase(p);
+				app.updateAppState(model);
+				model.backupLastEmergency();
+				ConsoleLogger.getConsoleLogger().log("clousure: backupLastEmergency -- "+model.getPrecActivation().getEmergencyId());				
 				model.setActivation(null);
 				app.updateAppState(model);
 				app.back();
