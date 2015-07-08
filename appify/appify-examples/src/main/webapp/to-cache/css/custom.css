@@ -1,7 +1,9 @@
 [v-cloak] {
 	display: none;
 }
-
+.btn{
+	top: 3px !important;
+}
 @media ( min-width : 768px) {
 	.auto-center-min {
 		margin-left: auto !important;
@@ -40,24 +42,28 @@
 	font-weight: bold !important;
 	color: #1D0F0F !important;
 	background-color: #DF3737 !important;
+	border-radius: 5px;
 }
 
 .activation-criticity-B {
 	font-weight: bold !important;
 	color: #1D0F0F !important;
 	background-color: #EAE9E9 !important;
+	border-radius: 5px;
 }
 
 .activation-criticity-V {
 	font-weight: bold !important;
 	color: #1D0F0F !important;
 	background-color: #92DB8A !important;
+	border-radius: 5px;
 }
 
 .activation-criticity-G {
 	font-weight: bold !important;
 	color: #1D0F0F !important;
 	background-color: #E4E255 !important;
+	border-radius: 5px;
 }
 
 .activation-bar-height {

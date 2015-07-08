@@ -156,9 +156,10 @@ public class Activation implements Serializable {
 //				}
 //			}
 //		}
-//		if(currentPatient==null){
-//			
-//		}
+		if(currentPatient==null){
+			currentPatient = new Patient();
+		}
+		
 		return currentPatient;
 	}
 

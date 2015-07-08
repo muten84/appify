@@ -47,6 +47,7 @@ public class EmsMobileModel implements Serializable, Storable {
 		sanEvals = Arrays.asList(new Item[] { new Item("0", "0"), new Item("1", "1"), new Item("2", "2"), new Item("3", "3"), new Item("4", "4") });
 		criticityEnds = Arrays.asList(new Item[] { new Item("0", "NON CRITICO"), new Item("1", "POCO CRITICO"), new Item("2", "MEDIAMENTE CRITICO"), new Item("3", "MOLTO CRITICO"), new Item("4", "DECEDUTO") });
 		results = Arrays.asList(new Item[] { new Item("0", "N1 - NON EFFETTUATO"), new Item("1", "N1 - PAZIENTE NON REPERITO"), new Item("2", "N3 - TRASPORTO IN PRONTO SOCCORSO"), new Item("3", "N3 - TRASPORTO IN PUNTO DI PRIMO INTERVENTO"), new Item("4", "DECESSO DURANTE IL TRASPORTO") });
+		hospitals = Arrays.asList(new Item[] { new Item("0", "MAGGIORE"), new Item("1", "S ORSOLA"), new Item("2", "TEST"), new Item("3", "CARPI"), new Item("4", "PARMA") }); 
 	}
 
 	public BatteryStatus getBatteryStatusObject() {

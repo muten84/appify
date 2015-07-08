@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- <html manifest="manifest.appcache"> -->
 <html manifest="manifest.appcache">
 <head>
 <meta charset="utf-8">
@@ -11,8 +12,8 @@
 <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<script src="page.js"></script>
-<script src="emsmobile/cache-utils/cache-utils.js"></script>
+<!-- <script src="page.js"></script> -->
+<!-- <script src="emsmobile/cache-utils/cache-utils.js"></script> -->
 <script>
 if ('serviceWorker' in navigator){
 	navigator.serviceWorker.register('sw.js').then(function(reg) {
@@ -78,6 +79,12 @@ else{
 
 	<div appify-tpl="to-cache/emsmobile-pages/vehiclesPage.html"
 		appify-page="vehiclesPage"></div>
+		
+	<div appify-tpl="to-cache/emsmobile-pages/patientPage.html"
+		appify-page="patientPage"></div>
+		
+	<div appify-tpl="to-cache/emsmobile-pages/activationPageRO.html"
+		appify-page="activationPageRO"></div>
 
 
 	<!-- <script src="emsmobile/appjs/zepto.js"></script>

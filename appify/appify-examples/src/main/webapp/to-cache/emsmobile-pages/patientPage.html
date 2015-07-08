@@ -63,26 +63,26 @@
 			<!-- HEADER SECTION -->
 			<header class="bar bar-nav app-title topbar-height">
 				<!-- <button id="backBtn" class="btn btn-nav pull-left">
-					<span class="fa fa-arrow-left  fa-2x"></span>
+					<span class="fa fa-arrow-left  fa-3x"></span>
 				</button> -->
 				<button id="showPatientMenuBtn"
 					class="btn-border btn btn-nav pull-left">
-					<span class="fa fa-bars fa-2x"></span>
+					<span class="fa fa-bars fa-3x"></span>
 				</button>
 				<button id="backBtn" class="btn-border btn btn-nav pull-left">
-					<span class="fa fa-chevron-left fa-2x"></span>
+					<span class="fa fa-chevron-left fa-3x"></span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn-border btn btn-nav pull-right {{barStatus.gpsStatus}}">
-					<span class="fa fa-map-marker fa-2x"></span>
+					<span class="fa fa-map-marker fa-3x"></span>
 				</button>
 				<button id="batteryStateBtn"
 					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
-					<span class="fa fa-bolt fa-2x"></span>
+					<span class="btn-adapt fa fa-bolt fa-3x"></span>
 				</button>
 				<button id="connectionStateBtn"
 					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
-					<span class="fa fa-rss fa-2x"></span>
+					<span class="fa fa-wifi fa-3x"></span>
 				</button>
 			</header>
 		</div>
@@ -92,14 +92,20 @@
 			<div class="app-section zero-margin-section">
 				<!-- v-show="p.show" -->
 				<div class="app-section">
+					<ul class="table-view table-border">
+						<li
+								class="table-view-divider activation-criticity-{{activation.criticity}}">Pazienti dell' Emergenza {{activation.emergencyId}} -
+								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
+							</li>
+					</ul>
 					<div class="segmented-control">
 						<a id="itemSanEvalData"
 							class="control-item activation-bar-height active">Valutazione Sanitaria
 							 </a> <a id="itemResultData"
 							class="control-item activation-bar-height">Dati esito missione </a>
-					</div>
+					</div>				
 					<div class="card">
-						<!-- san eval DATA -->
+						<!-- san eval DATA -->						
 						<div id="cardSanEvalData" class="app-section-shadow app-section control-content active">
 							<button id="sanEvalChoice" class="btn btn-outlined btn-block">Val.
 								sanitaria: - {{activation.currentPatient.sanEval}}</button>
@@ -112,7 +118,7 @@
 							<button id="resultChoice" class="btn btn-outlined btn-block">Esito:
 								- {{activation.currentPatient.result.itemName}}</button>
 							<button id="hospitalChoice" class="btn btn-outlined btn-block">Ospedale:
-								- {{activation.currentPatient.criticityEnd.itemName}}</button>
+								- {{activation.currentPatient.hospital.itemName}}</button>
 						</div>
 					</div>
 				</div>
@@ -146,24 +152,24 @@
 		class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
 		<button id="btnPrevPatient" class="btn btn-primary  btn-outlined  pull-left"
 			style="height: 90%;">
-			<span class="fa fa-arrow-left fa-2x"></span>
+			<span class="fa fa-arrow-left fa-3x"></span>
 		</button>
 		<button id="btnAddPatient"
 			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
-			<span class="fa fa-user-plus fa-2x"></span>
+			<span class="fa fa-user-plus fa-3x"></span>
 		</button>
 		<button id="btnCleanPatientData"
 			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
-			<span class="fa fa-eraser fa-2x"></span>
+			<span class="fa fa-eraser fa-3x"></span>
 		</button>
 		<button id="btnRestorePatientData"
 			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
-			<span class="fa fa-undo fa-2x"></span>
+			<span class="fa fa-undo fa-3x"></span>
 		</button>
 		<button id="btnNextPatient" 
 		class="btn btn-primary  btn-outlined  pull-right"
 			style="height: 90%;">
-			<span class="fa fa-arrow-right fa-2x"></span>
+			<span class="fa fa-arrow-right fa-3x"></span>
 		</button>
 	</nav>
 </div>

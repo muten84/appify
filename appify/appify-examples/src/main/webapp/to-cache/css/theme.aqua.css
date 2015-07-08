@@ -1,8 +1,9 @@
 /*see http://materializecss.com/badges.html#!*/
 .topbar-height {
-	height: 110% !important;
+	height: 130% !important;
 	background-color: #0F5959 !important;
 	border-bottom: 1px solid #17A697 !important;
+	margin-top:30px;
 }
 
 .badge {
@@ -16,6 +17,7 @@
 .app-content {
 	/* background-color: #BEBEC0 !important; */
 	background-color: #BFD4D9 !important;
+	margin-top: 25px !important;
 	/* background-color: rgba(223, 152, 59, 0.74) !important; */
 }
 

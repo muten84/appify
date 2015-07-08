@@ -1,4 +1,4 @@
-<div class="app-page" id="vehiclesPage" data-page="vehiclesPage">
+<div class="app-page" id="hospitalsPage" data-page="hospitalsPage">
 	<div id="ptr" style="z-index: -10">
 		<span class="genericon genericon-next"></span>
 
@@ -44,19 +44,11 @@
 					
 				</div> -->
 				<div class="app-section">
-					<input id="vehicleSearchText" v-model="searchText | uppercase">
-					<input id="keyboard">
-					<ul id="vehicleList" v-repeat="section: vehicles"
-						class="table-view">
-						<li class="table-view-cell media"><span
-							class="media-object pull-left fa fa-flag"></span>
-							<div class="text-center media-body">{{section.sectionName}}</div></li>
-						<li v-repeat="vehicle: section.items | filterBy searchText in vehicle"
-							v-on="click: onData(this,$event)" class="table-view-cell media"><a
-							class="navigate-right"> <span
-								class="media-object pull-left fa fa-ambulance"></span>
-								<div class="media-body">{{vehicle.itemName}}</div>
-						</a></li>
+					<ul id="hospitalList" class="table-view">
+						<div class="table-view-cell" v-repeat="i: hospitals">
+							<li class="table-view-cell"><a
+								v-on="click: onData(this,$event)" class="navigate-right">{{i.itemName}}</a></li>
+						</div>
 					</ul>
 				</div>
 			</div>

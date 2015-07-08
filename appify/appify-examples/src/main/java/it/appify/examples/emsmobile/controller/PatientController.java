@@ -67,10 +67,12 @@ public class PatientController {
 		ConsoleLogger.getConsoleLogger().log("onSanEvalReceived: " + i.getCode());
 		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 		Patient currP = model.getActivation().getCurrentPatient();
-		currP.setSanEval(Integer.valueOf(i.getCode()));
-		model.getActivation().updateCurrentPatient(currP);
-		app.updateAppState(model);
-		app.getCurrentPage().closeModal("sanEvalModal");
+		if(currP!=null){
+			currP.setSanEval(Integer.valueOf(i.getCode()));
+			model.getActivation().updateCurrentPatient(currP);
+			app.updateAppState(model);
+			app.getCurrentPage().closeModal("sanEvalModal");
+		}
 	}
 
 	@ViewModelHandler(modelType = Item.class, viewId = "critictyEndList")
@@ -105,6 +107,15 @@ public class PatientController {
 	public void selectSanEval() {
 		ConsoleLogger.getConsoleLogger().log("selectSanEval sanEvalChoice");
 		app.getCurrentPage().showModal("sanEvalModal");
+	}
+	
+	
+
+	@ViewHandler(eventType = "click", viewId = "hospitalChoice")
+	public void hospitalChoice() {
+		ConsoleLogger.getConsoleLogger().log("hospitalChoice");
+//		app.getCurrentPage().showModal("criticityEndModal");
+		app.moveTo("hospitalsPage");
 	}
 
 	@ViewHandler(eventType = "click", viewId = "criticityEndChoice")

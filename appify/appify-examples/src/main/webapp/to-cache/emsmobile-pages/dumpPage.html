@@ -14,7 +14,7 @@
 				style="text-align: center;">Nuovo Intervento dalla Centrale
 				Operativa!!</div>
 			<button id="confirmModalBtn" class="btn-background btn btn-block">
-				<span class="fa fa-check-circle-o fa-4x"></span>
+				<span class="fa fa-check-circle-o fa-3x"></span>
 			</button>
 		</div>
 	</div>
@@ -36,20 +36,20 @@
 	<!-- MENU -->
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left menu-border">
-			<div class="app-section">
-				<a id="checkInBtn" class="btn-background badge btn btn-block" style="height: 50px"><span style="padding: 5px; float: left"
-					class="fa fa-user-md fa-2x"></span><span style="font-size: 18px; line-height:35px">{{checkInLabel}}</span></a>
+			<div class="app-section" style="height:auto">
+				<a id="checkInBtn" class="btn-background badge btn btn-block btn-large"><span style="padding: 5px; float: left"
+					class="fa fa-user-md fa-3x"></span><span class="btn-font-large">{{checkInLabel}}</span></a>
 				<button id="parkingButton"
-					class="btn-background badge btn btn-block" style="height: 50px">
-					<span class="fa fa-flag-checkered fa-2x" style="padding: 5px; float: left"></span><span
-						style="font-size: 18px; line-height:35px">Parcheggio</span>
+					class="btn-background badge btn btn-block btn-large">
+					<span class="fa fa-flag-checkered fa-3x" style="padding: 5px; float: left"></span><span
+						class="btn-font-large">Parcheggio</span>
 				</button>
 				<!-- <button id="manageEquipButton" class="btn-background btn btn-block">Gestione
 					Equipaggio</button>  -->
 				<button id="lastEmergencyBtn"
-					class="btn-background badge btn btn-block" style="height: 50px">
-					<span class="fa fa-info-circle fa-2x" style="padding: 5px; float: left"></span><span
-						style="font-size: 18px; line-height:35px">Ultima Emergenza</span>
+					class="btn-background badge btn btn-block btn-large">
+					<span class="fa fa-info-circle fa-3x" style="padding: 5px; float: left"></span><span
+						class="btn-font-large">Emergenza Prec.</span>
 				</button>
 			</div>
 		</div>
@@ -61,22 +61,22 @@
 			<header class="box-shadow bar bar-nav app-title topbar-height">
 
 				<button id="showMenuBtn" class="btn btn-nav pull-left">
-					<span class="fa fa-bars fa-2x"></span>
+					<span class="fa fa-bars fa-3x"></span>
 				</button>
 				<button id="checkInAccels" class="btn btn-nav pull-left">
-					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
+					<span class="fa fa-ambulance fa-3x pull-left">{{barStatus.vehicleCode}}</span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
-					<span class="fa fa-map-marker fa-2x"></span>
+					<span class="fa fa-map-marker fa-3x"></span>
 				</button>
 				<button id="batteryStateBtn"
 					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
-					<span class="fa fa-bolt fa-2x"></span>
+					<span class="btn-adapt fa fa-bolt fa-3x"></span>
 				</button>
 				<button id="connectionStateBtn"
 					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
-					<span class="fa fa-rss fa-2x"></span>
+					<span class="fa fa-wifi fa-3x"></span>
 				</button>
 			</header>
 		</div>
