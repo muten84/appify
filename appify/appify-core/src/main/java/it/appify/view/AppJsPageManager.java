@@ -125,6 +125,8 @@ public class AppJsPageManager implements PageManager<Element> {
 
 			$wnd.App.load(name, function() {
 				console.log('page loaded ' + name)
+			$wnd.App._layout();
+			console.log('layout triggered ' + name)	
 
 			});
 		} catch (err) {
