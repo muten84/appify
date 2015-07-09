@@ -1,62 +1,47 @@
 <div class="app-page" id="activationPageRO" data-page="activationPageRO">
-	<div id="intervIncomeModal" class="modal">
-		<header class="bar bar-nav">
-			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
-			<h1 class="title">Nuovo Intervento</h1>
-		</header>
-		<div class="content">
-			<div class="spinner">
-				<div class="double-bounce1"></div>
-				<div class="double-bounce2"></div>
-			</div>
-			<div id="intervIncomeModalText" class="app-section"
-				style="text-align: center;">Nuovo Intervento dalla Centrale
-				Operativa!!</div>
-			<button id="confirmModalBtn" class="btn-background btn btn-block">
-				<span class="fa fa-check-circle-o fa-4x"></span>
-			</button>
-		</div>
-	</div>
 	<!-- MENU -->
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left menu-border">
-				<div class="app-section">
+			<div class="app-section" style="height:auto">
 				<button id="sendBtn"
-					class="sendBtn btn-background btn btn-outlined badge menu-badge-font-18"
-					style="margin: 1% !important;">
-					<span class="fa fa-play-circle-o fa-2x" style="float:left;"></span> <span
-						id="sendLabel" class="tab-label" style="line-height:35px;">PARTENZA</span>
+					class="sendBtn btn-background btn btn-outlined badge menu-badge-font-18 btn-medium"
+					style="margin-top: 10px">
+					<span class="fa fa-play-circle-o fa-3x" style="float:left;"></span> <span
+						id="sendLabel" class="tab-label btn-font-large" style="line-height:35px;"><span class="font-xxlarge">PARTENZA</span></span>
 				</button>
 				<button id="placeArrivalBtn"
-					class="placeArrivalBtn btn-background btn btn-outlined badge menu-badge-font-18"
-					style="margin: 1% !important;">
-					<span class="fa fa-map-marker fa-2x" style="float:left;"></span> <span
-						id="placeArrivalLabel" class="tab-label" style="line-height:35px;">ARRIVO</span>
+					class="btn-medium placeArrivalBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin-top: 10px">
+					<span class="fa fa-map-marker fa-3x" style="float:left;"></span> <span
+						id="placeArrivalLabel" class="tab-label btn-font-large" style="line-height:35px;"><span class="font-xxlarge">ARRIVO</span></span>
 				</button>
 				<button id="departureBtn"
-					class="departureBtn btn-background btn btn-outlined badge menu-badge-font-18"
-					style="margin: 1% !important;">
-					<span class="fa fa-arrow-circle-right fa-2x" style="float:left;"></span> <span
-						id="departureLabel" class="tab-label" style="line-height:35px;">PARTENZA</span>
+					class="btn-medium departureBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin-top: 10px">
+					<span class="fa fa-arrow-circle-right fa-3x" style="float:left;"></span> <span
+						id="departureLabel" class="tab-label btn-font-large" style="line-height:35px;"><span class="font-xxlarge">PARTENZA</span></span>
 				</button>
 				<button id="hospitalArrivalBtn"
-					class="hospitalArrivalBtn btn-background btn btn-outlined badge menu-badge-font-18"
-					style="margin: 1% !important;">
-					<span class="fa fa-hospital-o fa-2x" style="float:left;"></span> <span
-						id="hospitalArrivalLabel" class="tab-label" style="line-height:35px;">OSPEDALE</span>
+					class="btn-medium hospitalArrivalBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin-top: 10px">
+					<span class="fa fa-hospital-o fa-3x" style="float:left;"></span> <span
+						id="hospitalArrivalLabel" class="btn-font-large tab-label" style="line-height:35px;"><span class="font-xxlarge">OSPEDALE</span></span>
 				</button>
 				<button id="closureBtn"
-					class="closureBtn btn-background btn btn-outlined badge menu-badge-font-18"
-					style="margin: 1% !important;">
-					<span class="fa fa-flag-checkered fa-2x" style="float:left;"></span> <span
-						id="closureLabel" class="tab-label" style="line-height:35px;">CHIUSURA</span>
+					class="btn-medium closureBtn btn-background btn btn-outlined badge menu-badge-font-18"
+					style="margin-top: 10px">
+					<span class="fa fa-flag-checkered fa-3x" style="float:left;"></span> <span
+						id="closureLabel" class="btn-font-large tab-label" style="line-height:35px;"><span class="font-xxlarge">CHIUSURA</span></span>
 				</button>
 			</div>
 			<div class="app-section">
-				<button id="dump118Btn" class="btn-background btn btn-block">Dump118</button>
-				<button id="patientsBtn" class="btn-background btn btn-block">
-					<span class="fa fa-bed"></span> <span id="patientsLabel"
-						class="tab-label">Pazienti</span>
+				<button style="margin-top: 10px" id="patientsBtn" class="btn-medium closureBtn btn-background btn btn-outlined badge menu-badge-font-18">
+					<span class="fa fa-rss fa-3x" style="float:left;"></span> <span id="dumpLabel"
+						class="btn-font-large tab-label"  style="line-height:35px;"><span class="font-xxlarge">Dump 118</span></span>
+				</button>
+				<button style="margin-top: 10px" id="patientsBtn" class="btn-medium closureBtn btn-background btn btn-outlined badge menu-badge-font-18">
+					<span class="fa fa-bed fa-3x" style="float:left;"></span> <span id="patientsLabel"
+						class="btn-font-large tab-label"  style="line-height:35px;"><span class="font-xxlarge">Pazienti</span></span>
 				</button>
 				<!-- <button id="lastEmergencyBtn" class="btn-background btn btn-block">
 					<span class="fa fa-users"></span> <span id="equipLabel"
@@ -74,22 +59,19 @@
 					<span class="fa fa-arrow-left  fa-2x"></span>
 				</button> -->
 				<button id="showMenuBtn" class="btn-border btn btn-nav pull-left">
-					<span class="fa fa-ambulance fa-2x pull-left">{{barStatus.vehicleCode}}</span>
-				</button>
-				<button id="backBtn" class="btn-border btn btn-nav pull-left">
-					<span class="fa fa-chevron-left fa-2x"></span>
+					<span class="fa fa-ambulance fa-3x pull-left"><span class="font-xlarge">{{barStatus.vehicleCode}}</span></span>
 				</button>
 				<button id="gpsStateBtn"
-					class="btn-border btn btn-nav pull-right {{barStatus.gpsStatus}}">
-					<span class="btn-adapt fa fa-map-marker fa-2x"></span>
+					class=" btn-border btn btn-nav pull-right {{barStatus.gpsStatus}}">
+					<span class="btn-adapt fa fa-map-marker fa-3x"></span>
 				</button>
 				<button id="batteryStateBtn"
 					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
-					<span class="btn-adapt fa fa-bolt fa-2x"></span>
+					<span class="btn-adapt fa fa-bolt fa-3x"></span>
 				</button>
 				<button id="connectionStateBtn"
 					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
-					<span class="fa fa-wifi fa-2x"></span>
+					<span class="fa fa-wifi fa-3x"></span>
 				</button>
 			</header>
 		</div>
@@ -100,7 +82,7 @@
 			<div class="app-section">
 				<!--CONTENT SECTION -->
 				<!-- TAB SWITCH DELLE CARD -->
-				<div class="segmented-control">
+				<div class="font-xlarge segmented-control">
 					<a id="itemEmergencyData"
 						class="control-item activation-bar-height active">Dati
 						Emergenza </a> <a id="itemAddressData"
@@ -109,7 +91,7 @@
 						Note </a>
 				</div>
 				<!-- CARDS-->
-				<div class="card">
+				<div class="card font-xlarge ">
 
 					<!-- CARD EMERGENCY DATA -->
 					<div id="cardEmergencyData"
@@ -117,14 +99,14 @@
 
 						<ul class="table-view table-border">
 							<li
-								class="table-view-divider activation-criticity-{{precActivation.criticity}}">Dati
-								Emergenza {{precActivation.emergencyId}} -
-								{{precActivation.place}}{{precActivation.pathology}}{{precActivation.criticity}}
+								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
+								Emergenza {{activation.emergencyId}} -
+								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
 							</li>
 							<li class="table-view-divider">Indirizzo</li>
-							<li class="table-view-cell">{{precActivation.addressSummary}}</li>
+							<li class="table-view-cell">{{activation.addressSummary}}</li>
 							<li class="table-view-divider">Note</li>
-							<li class="table-view-cell">{{precActivation.noteSummary}}</li>
+							<li class="table-view-cell">{{activation.noteSummary}}</li>
 						</ul>
 						<!-- <div  id="map-canvas" class="app-section"  style="padding: 0; margin: 0; width: 100%; height: 100%;"></div> -->
 						<div id="map"
@@ -133,30 +115,28 @@
 					<!-- END CARD EMERGENCY DATA -->
 
 					<!-- CARD ADDRESS DATA -->
-					<div id="cardAddressData"
-						class="app-section-shadow app-section control-content">
+					<div id="cardAddressData" class="app-section-shadow app-section control-content">
 
 						<ul class="table-view table-border">
 							<li
-								class="table-view-divider activation-criticity-{{precActivation.criticity}}">Dati
-								Emergenza {{precActivation.emergencyId}} -
-								{{precActivation.place}}{{precActivation.pathology}}{{precActivation.criticity}}
+								class="table-view-divider activation-criticity-{{activation.criticity}}">Dati
+								Emergenza {{activation.emergencyId}} -
+								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
 							</li>
 							<li class="table-view-divider">Indirizzo</li>
-							<li class="table-view-cell">{{precActivation.addressSummary}}</li>
+							<li class="table-view-cell">{{activation.addressSummary}}</li>
 							<li class="table-view-divider">Note Strada:</li>
-							<li class="table-view-cell">{{precActivation.address.streetNote}}</li>
+							<li class="table-view-cell">{{activation.address.streetNote}}</li>
 							<li class="table-view-divider">Note Localit&grave;:</li>
-							<li class="table-view-cell">{{precActivation.address.localityNote}}</li>
+							<li class="table-view-cell">{{activation.address.localityNote}}</li>
 							<li class="table-view-divider">Note Luogo Pubblico:</li>
-							<li class="table-view-cell">{{precActivation.address.pLocationNote}}</li>
+							<li class="table-view-cell">{{activation.address.pLocationNote}}</li>
 						</ul>
 					</div>
 					<!-- END CARD ADDRESS DATA -->
 
 					<!-- CARD NOTE DATA -->
-					<div id="cardNoteData"
-						class="app-section-shadow app-section control-content">
+					<div id="cardNoteData" class="app-section-shadow app-section control-content">
 
 						<span>Dettaglio Note</span>
 					</div>
@@ -171,41 +151,41 @@
 
 		<!--  -->
 		<nav id="bottomBar"
-			class="hide-activation-bottom-bar auto-center-min auto-center app-bottombar bar bar-standard bar-footer bottombar-height pull-center">
+			class="hide-activation-bottom-bar auto-center-min auto-center app-bottombar bar bar-standard bottombar-height pull-center">
 
 			<button id="sendBtn"
 				class="btn-background sendBtn btn btn-outlined badge menu-btn-bottom"
-				style="margin: 1% !important;">
-				<span class="fa fa-play-circle-o fa-2x"></span> <span id="sendLabel"
-					class="tab-label">PARTENZA</span>
+				style="margin-left:0px; margin-top: 10px">
+				<span class="btn-adapt fa fa-play-circle-o fa-3x"></span> <span id="sendLabel"
+					class="tab-label"><span class="font-xlarge"></span></span>
 			</button>
 
 			<button id="placeArrivalBtn"
 				class="btn-background placeArrivalBtn btn btn-outlined badge menu-btn-bottom"
-				style="margin: 1% !important;">
-				<span class="fa fa-map-marker fa-2x"></span> <span
-					id="placeArrivalLabel" class="tab-label">ARRIVO</span>
+				style="margin-top: 10px">
+				<span class="btn-adapt fa fa-map-marker fa-3x"></span> <span
+					id="placeArrivalLabel" class="tab-label"><span class="font-xlarge"></span></span>
 			</button>
 
 			<button id="departureBtn"
 				class="btn-background departureBtn btn btn-outlined badge menu-btn-bottom"
-				style="margin: 1% !important;">
-				<span class="fa fa-arrow-circle-right fa-2x"></span> <span
-					id="departureLabel" class="tab-label">PARTENZA</span>
+				style="margin-top: 10px">
+				<span class="btn-adapt fa fa-arrow-circle-right fa-3x"></span> <span
+					id="departureLabel" class="tab-label"><span class="font-xlarge"></span></span>
 			</button>
 
 			<button id="hospitalArrivalBtn"
 				class="btn-background hospitalArrivalBtn btn btn-outlined badge menu-btn-bottom"
-				style="margin: 1% !important;">
-				<span class="fa fa-hospital-o fa-2x"></span> <span
-					id="hospitalArrivalLabel" class="tab-label">OSPEDALE</span>
+				style="margin-top: 10px">
+				<span class="btn-adapt fa fa-hospital-o fa-3x"></span> <span
+					id="hospitalArrivalLabel" class="tab-label"><span class="font-xlarge"></span></span>
 			</button>
 
 			<button id="closureBtn"
 				class="btn-background closureBtn btn btn-outlined badge menu-btn-bottom"
-				style="margin: 1% !important;">
-				<span class="fa fa-flag-checkered fa-2x"></span> <span
-					id="closureLabel" class="tab-label">CHIUSURA</span>
+				style="margin-top: 10px">
+				<span class="btn-adapt fa fa-flag-checkered fa-3x"></span> <span
+					id="closureLabel" class="tab-label"><span class="font-xlarge"></span></span>
 			</button>
 		</nav>
 	</div>

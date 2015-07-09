@@ -81,6 +81,8 @@ public interface WebApp<AppState> {
 	
 	public Service getService(String name);
 	
+	public void refresh();
+	
 	
 	
 	

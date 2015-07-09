@@ -50,6 +50,11 @@ public class DumpController {
 	public void onCheckInStart() {
 		checkIn();
 	}
+	
+	@ViewHandler(eventType = "click", viewId = "reloadBtn")
+	public void onReload(){
+		app.refresh();
+	}
 
 	@ViewHandler(eventType = "click", viewId = "checkInAccels")
 	public void onCheckInAccel() {

@@ -483,11 +483,21 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	public boolean isVisible() {
 		return visibility.isAppVisible();
 	}
-	
+
 	@Override
-	public Service getService(String name){
+	public Service getService(String name) {
 		return ServiceManager.getService(name);
 	}
+
+	@Override
+	public void refresh() {
+		_reload();
+
+	}
+
+	private native void _reload()/*-{
+		$wnd.location.reload();
+	}-*/;
 
 	protected abstract WebModelView<AppState> getAppStateModelView();
 
