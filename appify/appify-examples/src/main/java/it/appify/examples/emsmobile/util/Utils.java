@@ -22,7 +22,7 @@ public class Utils {
 		AddressDetail address = new AddressDetail();
 		address.setStreetNote("DA VIA CALABRIA TRA I CIVICI 31 E 33 NEL TRATTO COMPRESO TRA VIA BELLARIA E VIA SARDEGNA, INCROCIA VIA UMBRIA E TERMINA SENZA USCITA. I CIVICI  3 - 4 - 5 SONO TRA VIA UMBRIA E IL TRATTO SENZA USCITA. IL 7 E' TRA VIA UMBRIA E VIA CALABRIA (SENSO UNICO)");
 		address.setLocalityNote("ACCESSO LATERALE CHIUSO AI MEZZI PESANTI");
-		address.setpLocationNote(" - ");
+		address.setpLocationNote("DI FRONTE ALLA FONTANA ");
 		a.setAddress(address);
 		if(withPatients){
 			a.addPatient(createPatient());

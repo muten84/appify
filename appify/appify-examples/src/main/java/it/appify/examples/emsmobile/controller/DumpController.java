@@ -53,7 +53,7 @@ public class DumpController {
 
 	@ViewHandler(eventType = "click", viewId = "checkInAccels")
 	public void onCheckInAccel() {
-		checkIn();
+//		checkIn();
 	}
 
 	protected void checkIn() {

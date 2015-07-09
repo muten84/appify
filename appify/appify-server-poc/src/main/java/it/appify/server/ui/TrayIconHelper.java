@@ -191,18 +191,17 @@ public class TrayIconHelper {
 	}
 
 	public static void launchBrowser() {
-		String uri = System.getProperty("emsUri", "http://192.168.90.76:8989/emsmobile");
-		if (Desktop.isDesktopSupported()) {
-			try {
-				Desktop.getDesktop().browse(
-						new URI(uri));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		String uri = System.getProperty("emsUri", "http://10.118.32.103:8082/emsmobile2/dynamic-emsmobile-offline.html");
+//		if (Desktop.isDesktopSupported()) {
+//			try {
+//				Desktop.getDesktop().
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			} catch (URISyntaxException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 	}
 }

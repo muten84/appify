@@ -5,7 +5,7 @@
 			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
 			<h1 class="title">Nuovo Intervento</h1>
 		</header>
-		<div class="content">
+		<div class="content font-xlarge">
 			<div class="spinner">
 				<div class="double-bounce1"></div>
 				<div class="double-bounce2"></div>
@@ -38,18 +38,18 @@
 		<div class="snap-drawer snap-drawer-left menu-border">
 			<div class="app-section" style="height:auto">
 				<a id="checkInBtn" class="btn-background badge btn btn-block btn-large"><span style="padding: 5px; float: left"
-					class="fa fa-user-md fa-3x"></span><span class="btn-font-large">{{checkInLabel}}</span></a>
+					class="fa fa-user-md fa-3x"></span><span class="font-xxlarge btn-font-large">{{checkInLabel}}</span></a>
 				<button id="parkingButton"
 					class="btn-background badge btn btn-block btn-large">
 					<span class="fa fa-flag-checkered fa-3x" style="padding: 5px; float: left"></span><span
-						class="btn-font-large">Parcheggio</span>
+						class="font-xxlarge btn-font-large">Parcheggio</span>
 				</button>
 				<!-- <button id="manageEquipButton" class="btn-background btn btn-block">Gestione
 					Equipaggio</button>  -->
 				<button id="lastEmergencyBtn"
 					class="btn-background badge btn btn-block btn-large">
 					<span class="fa fa-info-circle fa-3x" style="padding: 5px; float: left"></span><span
-						class="btn-font-large">Emergenza Prec.</span>
+						class="font-xlarge btn-font-large">Emergenza Prec.</span>
 				</button>
 			</div>
 		</div>
@@ -64,11 +64,11 @@
 					<span class="fa fa-bars fa-3x"></span>
 				</button>
 				<button id="checkInAccels" class="btn btn-nav pull-left">
-					<span class="fa fa-ambulance fa-3x pull-left">{{barStatus.vehicleCode}}</span>
+					<span class="fa fa-ambulance fa-3x pull-left"><span class="font-xlarge">{{barStatus.vehicleCode}}</span></span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
-					<span class="fa fa-map-marker fa-3x"></span>
+					<span class="btn-adapt fa fa-map-marker fa-3x"></span>
 				</button>
 				<button id="batteryStateBtn"
 					class="btn btn-nav pull-right {{barStatus.batteryStatus}}">
@@ -90,13 +90,13 @@
 			class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
 			<a class="tab-item">
 				<button id="refreshDumpBtn" class="btn-background btn btn-nav">
-					<span class="fa fa-refresh fa-2x"></span> <span class="tab-label">Aggiorna
+					<span class="fa fa-refresh fa-2x"></span> <span class="font-xlarge tab-label">Aggiorna
 						Dump</span>
 				</button>
 			</a> <a class="tab-item">
 				<button class="btn-background btn btn-nav">
 					<span class="fa fa-exclamation-circle fa-2x"></span> <span
-						class="tab-label">Codici Rossi</span>
+						class="tab-label font-xlarge">Codici Rossi</span>
 				</button>
 			</a>
 		</nav>

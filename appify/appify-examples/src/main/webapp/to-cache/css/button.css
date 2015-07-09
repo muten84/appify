@@ -1,3 +1,6 @@
+#checkInAccels{
+	margin-right:7px;
+}
 .btn-large{
 	height: 6em;
 }
@@ -12,7 +15,7 @@
 }
 
 .btn-adapt{
-	padding-left: 3px;
-	padding-right: 3px;
+	padding-left: 8px;
+	padding-right: 8px;
 }
 
