@@ -247,10 +247,10 @@ public class WebAppGenerator extends Generator {
 	}
 
 	protected TypeSpec.Builder addOfflineApplicationCacheService(TypeSpec.Builder spec, Offline annotation) {
-
+		String version = annotation.version();
 		spec.addMethod(MethodSpec.methodBuilder("getApplicationCacheService").addModifiers(Modifier.PUBLIC)
 				.addAnnotation(Override.class).returns(ApplicationCache.class)
-				.addCode("return $T.createApplicationCache();", ServiceProvider.class).build());
+				.addCode("return $T.createApplicationCache($N);", ServiceProvider.class, version).build());
 		return spec;
 	}
 

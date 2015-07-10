@@ -40,6 +40,12 @@ public class HTML5ApplicationCache implements ApplicationCache {
 		checkConnection = new OnlineChecker();
 		monitor = new OfflineMonitor(checkConnection);
 	}
+	
+	public HTML5ApplicationCache(String version) {
+		this();
+		this.version = version;				
+	}
+	
 
 	@Override
 	public void addHandler(String type, final Handler h) {

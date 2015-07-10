@@ -41,9 +41,9 @@ public class ServiceProvider {
 	private static ApplicationCache applicationCache;
 	private static ScrOrientation<Element> webScreenOrientation;
 
-	public static ApplicationCache createApplicationCache() {
+	public static ApplicationCache createApplicationCache(String version) {
 		if (applicationCache == null) {
-			applicationCache = new HTML5ApplicationCache();
+			applicationCache = new HTML5ApplicationCache(version);
 		}
 		return applicationCache;
 	}
