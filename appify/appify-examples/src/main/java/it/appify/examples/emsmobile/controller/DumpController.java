@@ -10,6 +10,7 @@ import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
 import it.appify.api.Sound;
+import it.appify.api.HasHandlers.Handler;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.service.ActivationService;
@@ -19,10 +20,17 @@ import it.appify.logging.ConsoleLogger;
 @Controller(page = "dumpPage")
 public class DumpController {
 
-	private WebApp<EmsMobileModel> app;
+	private WebApp<EmsMobileModel> app;		
 
 	@ViewElement("dumpFrame")
 	private Element dumpFrameElement;
+	
+	@ViewElement("cacheProgress")
+	private Element cacheProgress;
+	
+	@ViewElement("dumpTopBar")
+	private Element dumpTopBar;
+	
 
 	public DumpController(WebApp<EmsMobileModel> app) {
 		this.app = app;
@@ -32,6 +40,24 @@ public class DumpController {
 	@OnPageReady
 	public void onPageReady() {
 		ConsoleLogger.getConsoleLogger().log("onPageReady DumpController");
+		
+		dumpTopBar.toggleClassName("progress-space");
+		/*test*/
+//		Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
+//			int perc = 0;
+//			@Override
+//			public boolean execute() {
+//				ConsoleLogger.getConsoleLogger().log("emsmobile progress event: "+perc+"%");
+//				perc++;
+//				app.getCurrentPage().width("cacheProgress", perc+"%");
+//				if(perc==100){
+//					return false;
+//				}
+//				return true;
+//			}
+//		}, 1000);
+		/*test*/
+		
 		EmsMobileModel model = this.app.getCurrentAppState();
 		if (model.getActivation() != null) {
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
@@ -39,6 +65,7 @@ public class DumpController {
 		} else {
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NULL");
 		}
+		
 	}
 
 	@ViewHandler(eventType="click", viewId="lastEmergencyBtn")
@@ -53,7 +80,12 @@ public class DumpController {
 	
 	@ViewHandler(eventType = "click", viewId = "reloadBtn")
 	public void onReload(){
-		app.refresh();
+		//app.refresh();
+		try {
+			app.getApplicationCacheService().update();
+		} catch (Exception e) {
+			ConsoleLogger.getConsoleLogger().log("on reload error", e);
+		}
 	}
 
 	@ViewHandler(eventType = "click", viewId = "checkInAccels")
@@ -63,7 +95,7 @@ public class DumpController {
 
 	protected void checkIn() {
 		ConsoleLogger.getConsoleLogger().log("onCheckInStart");
-		app.getScreenOrientationService().requestFullScreen();
+		//app.getScreenOrientationService().requestFullScreen();
 		app.getCurrentPage().mask("");
 		if (app.<EmsMobileModel> getCurrentAppState().getBarStatus().getVehicleCode() == null) {
 			// app.getScreenOrientationService().requestFullScreen();
@@ -76,7 +108,7 @@ public class DumpController {
 				@Override
 				public boolean execute() {
 					// ViewUtils.showModal(app, "waitModal");
-					app.getScreenOrientationService().exitFullScreen();
+					//app.getScreenOrientationService().exitFullScreen();
 					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 					model.getBarStatus().setVehicleCode(null);
 					model.setCheckInLabel("Inizio Turno");
@@ -118,4 +150,21 @@ public class DumpController {
 		this.dumpFrameElement = dumpFrameElement;
 	}
 
+	public Element getCacheProgress() {
+		return cacheProgress;
+	}
+
+	public void setCacheProgress(Element cacheProgress) {
+		this.cacheProgress = cacheProgress;
+	}
+
+	public Element getDumpTopBar() {
+		return dumpTopBar;
+	}
+
+	public void setDumpTopBar(Element dumpTopBar) {
+		this.dumpTopBar = dumpTopBar;
+	}
+
+	
 }

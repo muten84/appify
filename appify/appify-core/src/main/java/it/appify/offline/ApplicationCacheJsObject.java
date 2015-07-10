@@ -46,7 +46,7 @@ public class ApplicationCacheJsObject extends JavaScriptObject {
 	}-*/;
 
 	public final static native ApplicationCacheJsObject getApplicationCache() /*-{
-		return $wnd.cache;
+		return $wnd.cache | $wnd.applicationCache;
 	}-*/;
 
 	@SuppressWarnings("unused")

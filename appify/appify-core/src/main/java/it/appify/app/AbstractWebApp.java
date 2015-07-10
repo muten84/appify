@@ -28,6 +28,7 @@ import com.google.gwt.dom.client.Element;
 //new ScheduledCommand() {
 
 import it.appify.api.AppVisibility;
+import it.appify.api.ApplicationCache;
 import it.appify.api.AppVisibility.VisibilityCallback;
 import it.appify.api.Battery;
 import it.appify.api.DynamicContentLoader;
@@ -152,6 +153,16 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 						}
 					});
 					callback.onAppStart(AbstractWebApp.this);
+				}
+				// all childs page can detected page ready event
+				List<ControllerHolder<?>> ctrlHolders = pageControllers.get(page.getPageId());
+				if (ctrlHolders != null) {
+					for (ControllerHolder<?> controllerHolder : ctrlHolders) {
+						controllerHolder.callPageReadyHandler();
+					}
+				} else {
+					ConsoleLogger.getConsoleLogger()
+							.log("warning callPageReadyHandler no elements: " + ctrlHolders + " - " + page.getPageId());
 				}
 			} else {
 				// all childs page can detected page ready event
@@ -411,6 +422,12 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	public WebPage getCurrentPage() {
 		Page<Element> page = pageManager.getCurrentPage();
 		return (WebPage) page;
+	}
+	
+	@Override
+	public ApplicationCache getApplicationCacheService() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

@@ -6,50 +6,132 @@
 
 	<display-name>Example App</display-name>
 	<description>
-		Simple web app mobile with Presenter/VMMV/Controller patterns using Bootstrap, App.js, Jquery and or Angular all with GWT
+		Simple web app mobile with Presenter/VMMV/Controller
+		patterns using Bootstrap, App.js, Jquery and or Angular all with GWT
 		PhoneGap use is encouraged for native app ditribution.
 	</description>
-	
+
 	<welcome-file-list>
 		<welcome-file>emsmobile-installer.html</welcome-file>
 	</welcome-file-list>
 	
 	<filter>
-      <filter-name>ExpiresFilter</filter-name>
-      <filter-class>fr.xebia.servlet.filter.ExpiresFilter</filter-class>
-      <init-param>
-         <param-name>ExpiresByType text/cache-manifest</param-name>
-         <param-value>access plus 0 seconds</param-value>
-      </init-param> 
-      <init-param>
-         <param-name>ExpiresByType application/json</param-name>
-         <param-value>access plus 0 seconds</param-value>
-      </init-param>    
-   </filter>
-   
-   <filter-mapping>
-      <filter-name>ExpiresFilter</filter-name>
-      <url-pattern>/*</url-pattern>
-      <dispatcher>REQUEST</dispatcher>
-   </filter-mapping>
-   
-   	<!-- questa servlet serve per generare il manifest -->
+		<filter-name>default-cache-filter</filter-name>
+		<filter-class>fr.xebia.servlet.filter.ExpiresFilter</filter-class>		
+		<init-param>
+			<!-- supports case insensitive 'On' or 'true' -->
+			<param-name>ExpiresActive</param-name>
+			<param-value>On</param-value>
+		</init-param>
+		<init-param>
+         <param-name>ExpiresDefault</param-name>
+         <param-value>now 0 seconds</param-value>
+      </init-param>    		
+	</filter>
+	<filter>
+		<filter-name>gwt-nocache-filter</filter-name>
+		<filter-class>fr.xebia.servlet.filter.ExpiresFilter</filter-class>		
+		<init-param>
+			<!-- supports case insensitive 'On' or 'true' -->
+			<param-name>ExpiresActive</param-name>
+			<param-value>On</param-value>
+		</init-param>
+		<init-param>
+         <param-name>ExpiresByType application/x-javascript</param-name>
+         <param-value>now 0 seconds</param-value>
+      </init-param>    		
+	</filter>
+	<filter>
+		<filter-name>txt-nocache-filter</filter-name>
+		<filter-class>fr.xebia.servlet.filter.ExpiresFilter</filter-class>		
+		<init-param>
+			<!-- supports case insensitive 'On' or 'true' -->
+			<param-name>ExpiresActive</param-name>
+			<param-value>On</param-value>
+		</init-param>
+		<init-param>
+         <param-name>ExpiresByType text/javascript</param-name>
+         <param-value>now 0 seconds</param-value>
+      </init-param>    		
+	</filter>
+	
+	<!-- <filter>
+		<filter-name>page-cache-filter</filter-name>
+		<filter-class>fr.xebia.servlet.filter.ExpiresFilter</filter-class>		
+		<init-param>			
+			<param-name>ExpiresActive</param-name>
+			<param-value>On</param-value>
+		</init-param>
+		<init-param>
+         <param-name>ExpiresByType text/html</param-name>
+         <param-value>now 0 seconds</param-value>
+      </init-param>    		
+	</filter>
+	<filter>
+		<filter-name>css-cache-filter</filter-name>
+		<filter-class>fr.xebia.servlet.filter.ExpiresFilter</filter-class>		
+		<init-param>			
+			<param-name>ExpiresActive</param-name>
+			<param-value>On</param-value>
+		</init-param>
+		<init-param>
+         <param-name>ExpiresByType text/css</param-name>
+         <param-value>now 0 seconds</param-value>
+      </init-param>    		
+	</filter>
+	 -->
+	
+	
+	<filter-mapping>
+		<filter-name>default-cache-filter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<url-pattern>/fonts/*</url-pattern>
+		<url-pattern>/to-cache/*</url-pattern>
+		<url-pattern>/to-cache/css/*</url-pattern>
+		<url-pattern>/to-cache/emsmobile-pages/*</url-pattern>
+		<url-pattern>/to-cache/img/*</url-pattern>
+		<url-pattern>/to-cache/menu/*</url-pattern>
+		<url-pattern>/to-cache/ol/*</url-pattern>
+		<url-pattern>/to-cache/sounds/*</url-pattern>		
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>gwt-nocache-filter</filter-name>
+		<url-pattern>/emsmobile/emsmobile.nocache.js</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>txt-nocache-filter</filter-name>
+		<url-pattern>/emsmobile/emsmobile.nocache.js</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>	
+	
+	<!--  <filter-mapping>
+		<filter-name>page-cache-filter</filter-name>
+		<url-pattern>/to-cache/emsmobile-pages/dumpPage.html</url-pattern>
+		<url-pattern>/to-cache/emsmobile-pages/activationPage.html</url-pattern>
+		<url-pattern>/to-cache/emsmobile-pages/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>	
+	
+	<filter-mapping>
+		<filter-name>css-cache-filter</filter-name>
+		<url-pattern>/to-cache/css/*</url-pattern>		
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	-->
+	
+	<!-- questa servlet serve per generare il manifest -->
 	<servlet>
 		<servlet-name>ManifestGenerator</servlet-name>
-		<servlet-class>it.appify.remote.offline.ManifestGenerator</servlet-class>
+		<servlet-class>it.appify.remote.offline.ManifestGenerator
+		</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ManifestGenerator</servlet-name>
 		<url-pattern>/manifest.appcache</url-pattern>
-	</servlet-mapping>
-	
-	<!-- <servlet>
-		<servlet-name>ManifestGenerator</servlet-name>
-		<servlet-class>it.appify.poc.server.ManifestGenerator</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ManifestGenerator</servlet-name>
-		<url-pattern>/manifest.appcache</url-pattern>
-	</servlet-mapping> -->
-	
+	</servlet-mapping>	
+
 </web-app> 

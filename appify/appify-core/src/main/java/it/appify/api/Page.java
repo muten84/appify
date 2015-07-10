@@ -82,4 +82,8 @@ public interface Page<E> extends HasViewHandlers {
 
 	public void enableElements(String clazz);
 
+	public void width(String viewId, String width);
+
+	public String width(String id);
+
 }

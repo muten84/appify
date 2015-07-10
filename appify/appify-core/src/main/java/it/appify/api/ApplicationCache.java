@@ -105,4 +105,19 @@ public interface ApplicationCache extends HasHandlers {
 	 */
 	public void watchConnectionStatus(CheckConnectedCallback callback);
 
+	
+	/**
+	 * Set the version of the cache
+	 * @param version
+	 */
+	public void setVersion(String version);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getVersion();
+	
+	
+	
 }

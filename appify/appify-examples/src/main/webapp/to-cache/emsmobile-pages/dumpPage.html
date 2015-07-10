@@ -56,8 +56,8 @@
 		<div class="snap-drawer snap-drawer-right"></div>
 	</div>
 	<div id="content" class="content snap-content">
-
-		<div class="box-shadow app-topbar">
+	<div id="cacheProgress" class="progress-cache"> </div>
+		<div id="dumpTopBar" class="app-topbar progress-space">			
 			<header class="box-shadow bar bar-nav app-title topbar-height">
 
 				<button id="showMenuBtn" class="btn btn-nav pull-left">
@@ -66,7 +66,7 @@
 				<button id="checkInAccels" class="btn btn-nav pull-left">
 					<span class="fa fa-ambulance fa-3x pull-left"><span class="font-xlarge">{{barStatus.vehicleCode}}</span></span>
 				</button>
-				<button id=reloadBtn style="right: -30%" class="btn btn-nav pull-left" onclick="javascript:window.location.reaload();">
+				<button id=reloadBtn style="right: -30%" class="btn btn-nav pull-left">
 					<span class="fa fa-refresh fa-3x"></span>
 				</button>
 				<button id="gpsStateBtn"
@@ -81,8 +81,10 @@
 					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
 					<span class="fa fa-wifi fa-3x"></span>
 				</button>
-			</header>
+			
+			</header>						
 		</div>
+		
 		<div class="box-shadow app-content">
 			<iframe id="dumpFrame"
 				class="app-section-shadow app-section zero-margin-section"

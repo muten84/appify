@@ -244,13 +244,16 @@ public class WebPage implements Page<Element>, HasView<Element> {
 
 	// classie.toggle( this, 'active' );
 	private native void _toggleClassOnElem(String viewId, String className)/*-{
-		//console.log('_toggleClassOnElem: ' + viewId + " - " + className);
+		console.log('_toggleClassOnElem: ' + viewId + " - " + className);
 		var el = $doc.getElementById(viewId);
 		//var el = $wnd.$(viewId);
-		if (el != 'undefined') {
-			//console.log("Element found: " + el);
+		//if (el != 'undefined') {
+			console.log("Element found: " + el);
 			$wnd.classie.toggle(el, className);
-		}
+		//}
+		//else{
+			console.log('_toggleClassOnElem: ' + viewId + " - " + className);
+		//}
 	}-*/;
 
 	@Override
@@ -258,6 +261,25 @@ public class WebPage implements Page<Element>, HasView<Element> {
 		_popover(viewId, title, content, animation);
 
 	}
+	
+	@Override
+	public void width(String viewId, String width){
+		_width(viewId, width);
+	}
+	
+	@Override
+	public String width(String viewId){
+		return _width("#"+viewId);
+	}
+	
+	private native void _width(String viewId, String widthVal)/*-{
+		$wnd.$('#'+viewId).width(widthVal);
+	}-*/;
+	
+	private native String _width(String viewId)/*-{
+		return $wnd.$('#'+viewId).width();
+	}-*/;
+	
 
 	@Override
 	public void setElementValue(String viewId, String val) {

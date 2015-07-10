@@ -3,8 +3,9 @@
 	height: 140% !important;
 	background-color: #0F5959 !important;
 	border-bottom: 1px solid rgba(23, 166, 151, 0.65) !important;
-	box-shadow: 0px 0px 5px 3px #000000;
-	/*margin-bottom:30px;*/
+	/* box-shadow: 0px 0px 5px 3px #000000; */
+	box-shadow: 0px 0px 1px 1px #000000;
+	
 }
 
 .badge {
@@ -82,6 +83,7 @@ a:active, a.active {
 	/*font-size: 14px !important;*/
 	padding: 10px !important;
 	margin-left: 6em;
+	margin-top: 10px !important;
 }
 
 .font-18 {

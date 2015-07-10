@@ -8,6 +8,7 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.core.shared.GWT;
 
+import it.appify.api.HasHandlers.Handler;
 import it.appify.app.WebApp;
 import it.appify.app.WebApp.AppListener;
 import it.appify.examples.emsmobile.model.BarStatus;
@@ -26,7 +27,7 @@ public class EmsMobileEntryPoint implements EntryPoint {
 
 			@Override
 			public void onAppStart(final WebApp<EmsMobileModel> app) {
-				ConsoleLogger.getConsoleLogger().log("App started: " + app.<EmsMobileModel> getCurrentAppState().getBarStatus().getGpsStatus());				
+				ConsoleLogger.getConsoleLogger().log("App started: " + app.<EmsMobileModel> getCurrentAppState().getBarStatus().getGpsStatus());
 				Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
 
 					@Override
@@ -44,25 +45,59 @@ public class EmsMobileEntryPoint implements EntryPoint {
 						return false;
 					}
 				}, 2000);
+				
+				
+				
+				app.getApplicationCacheService().addHandler("progress",  new Handler() {
+					int perc = 0;
+					@Override
+					public void onEvent(String type, String source) {
+						ConsoleLogger.getConsoleLogger().log("emsmobile progress event: "+perc+"%");
+						perc++;
+						app.getCurrentPage().width("cacheProgress", perc+"%");
+					}
+				});
+
+				app.getApplicationCacheService().addHandler("updateready", new Handler() {
+
+					@Override
+					public void onEvent(String type, String source) {
+						ConsoleLogger.getConsoleLogger().log("emsmobile updateready server OK");
+						app.getCurrentPage().toggleClassViewStyle("dumpTopBar", "progress-space");						
+
+					}
+				});
+
+				app.getApplicationCacheService().addHandler("noupdate", new Handler() {
+
+					@Override
+					public void onEvent(String type, String source) {
+						ConsoleLogger.getConsoleLogger().log("emsmobile updateready server OK");
+						app.getCurrentPage().toggleClassViewStyle("dumpTopBar", "progress-space");
+
+					}
+				});
+				
+				
 
 			}
 
 			@Override
 			public void onAppHidden() {
-				//here we can alert the user with a sound cause app is hidden
-				
+				// here we can alert the user with a sound cause app is hidden
+
 			}
 
 			@Override
 			public void onAppVisible() {
-				//here we can stop the sound alert cause app is visible
-				
+				// here we can stop the sound alert cause app is visible
+
 			}
 
 			@Override
 			public void onAppClose() {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
@@ -82,10 +117,10 @@ public class EmsMobileEntryPoint implements EntryPoint {
 			appState.setDumpUrl("http://10.118.32.98/dump118/dumpMobileServlet");
 			appState.setBarStatus(new BarStatus());
 			List<Section> sections = Arrays.asList(new Section[] { //
-			new Section("TEST", Arrays.asList(//
-			new Item[] { new Item("1", "RADIO MAURO"), new Item("2", "RADIO MAX") }))//
-			, new Section("BOLOGNA", Arrays.asList(//
-			new Item[] { new Item("3", "MIKE 01"), new Item("4", "MIKE 02") })) //
+					new Section("TEST", Arrays.asList(//
+					new Item[] { new Item("1", "RADIO MAURO"), new Item("2", "RADIO MAX") }))//
+					, new Section("BOLOGNA", Arrays.asList(//
+					new Item[] { new Item("3", "MIKE 01"), new Item("4", "MIKE 02") })) //
 			});
 
 			appState.setVehicles(sections);

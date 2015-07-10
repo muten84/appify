@@ -14,4 +14,27 @@
 		display: none;
 		height: 0px !important;
 	}
+	
+	.patient-center-bottom-btn {
+		margin-left: 10px !important;
+		margin-right: 10px !important;
+		left: 20% !important;
+		right: 15% !important;
+		margin-top: 10px !important;
+	}
 }
+
+/*@media(max-width: 750px){
+	.hide-activation-bottom-bar{
+		display: none;
+		height: 0px !important;
+	}
+	
+	.patient-center-bottom-btn {
+		margin-left: 10px !important;
+		margin-right: 10px !important;
+		left: 30% !important;
+		right: 15% !important;
+		margin-top: 3px !important;
+	}
+}*/

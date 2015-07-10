@@ -1,9 +1,11 @@
 [v-cloak] {
 	display: none;
 }
-.btn{
+
+.btn {
 	top: 3px !important;
 }
+
 @media ( min-width : 768px) {
 	.auto-center-min {
 		margin-left: auto !important;
@@ -72,13 +74,13 @@
 	font-size: 1.2em;
 }
 
-@media ( max-width : 400px) {
+@media ( min-width : 400px and max-width: 400px) {
 	.patient-center-bottom-btn {
 		margin-left: 10px !important;
 		margin-right: 10px !important;
-		left: 15% !important;
+		left: 10% !important;
 		right: 5% !important;
-		margin-top: 3px !important;
+		margin-top: 10px !important;
 	}
 }
 
@@ -86,9 +88,9 @@
 	.patient-center-bottom-btn {
 		margin-left: 10px !important;
 		margin-right: 10px !important;
-		left: 25% !important;
+		left: 20% !important;
 		right: 15% !important;
-		margin-top: 3px !important;
+		margin-top: 10px !important;
 	}
 }
 
@@ -96,8 +98,23 @@
 	.patient-center-bottom-btn {
 		margin-left: 10px !important;
 		margin-right: 10px !important;
-		left: 35% !important;
+		left: 29% !important;
 		right: 45% !important;
-		margin-top: 3px !important;
+		margin-top: 10px !important;
 	}
 }
+
+.modal {
+	z-index: 9999 !important;
+}
+
+.progress-cache {
+	height: 4px;
+	width: 0%;
+	background-color: green !important;	
+}
+
+.progress-space{
+	/* top: 5px; */
+}
+

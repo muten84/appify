@@ -27,5 +27,11 @@ import it.appify.offline.linker.ApplicationCacheLinker;
  *
  */
 public @interface Offline {
+	
+	/**
+	 * the version of the cached app
+	 * @return
+	 */
+	public String version();
 
 }

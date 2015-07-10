@@ -2,7 +2,7 @@
 	<!-- MODALI -->
 	<!-- se non si vuole mostrare la modale a tutto schermo style="left: 35%; top: 5%; width: 35%; height: 35%" -->
 	<!-- valutazioni sanitarie -->
-	<div id="sanEvalModal" class="modal">
+	<div id="sanEvalModal" class="modal" style="z-index: 9999">
 		<header class="bar bar-nav">
 			<!-- <a id="closeWaitModalBtn" class="icon icon-close pull-right"></a> -->
 			<h1 class="title">Selezionare una valutazione sanitaria</h1>
@@ -50,25 +50,25 @@
 		</div>
 	</div>
 	<!--  -->
-	<div class="snap-drawers">
+	<!-- <div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left menu-border">
 			<div class="app-section">
 				<button id="patientsBtn" class="btn-background btn btn-block">
 			</div>
 		</div>
 		<div class="snap-drawer snap-drawer-right"></div>
-	</div>
-	<div id="content" class="content snap-content">
+	</div> -->
+	<div id="content" class="content">
 		<div class="app-topbar">
 			<!-- HEADER SECTION -->
 			<header class="bar bar-nav app-title topbar-height">
 				<!-- <button id="backBtn" class="btn btn-nav pull-left">
 					<span class="fa fa-arrow-left  fa-3x"></span>
 				</button> -->
-				<button id="showPatientMenuBtn"
+				<!-- <button id="showPatientMenuBtn"
 					class="btn-border btn btn-nav pull-left">
 					<span class="fa fa-bars fa-3x"></span>
-				</button>
+				</button> -->
 				<button id="backBtn" class="btn-border btn btn-nav pull-left">
 					<span class="fa fa-chevron-left fa-3x"></span>
 				</button>
@@ -91,33 +91,33 @@
 			<!-- v-repeat="p: activation.patients" >  -->
 			<div class="app-section zero-margin-section">
 				<!-- v-show="p.show" -->
-				<div class="app-section">
-					<ul class="table-view table-border">
+				<div class="font-xxlarge app-section">
+					<ul class="font-xxlarge table-view table-border">
 						<li
-								class="table-view-divider activation-criticity-{{activation.criticity}}">Pazienti dell' Emergenza {{activation.emergencyId}} -
+								class="table-view-divider activation-criticity-{{activation.criticity}}">Pazienti Emergenza {{activation.emergencyId}} -
 								{{activation.place}}{{activation.pathology}}{{activation.criticity}}
 							</li>
 					</ul>
-					<div class="segmented-control">
+					<div class="font-large segmented-control">
 						<a id="itemSanEvalData"
 							class="control-item activation-bar-height active">Valutazione Sanitaria
 							 </a> <a id="itemResultData"
 							class="control-item activation-bar-height">Dati esito missione </a>
 					</div>				
-					<div class="card">
+					<div class="font-xlarge card">
 						<!-- san eval DATA -->						
 						<div id="cardSanEvalData" class="app-section-shadow app-section control-content active">
-							<button id="sanEvalChoice" class="btn btn-outlined btn-block">Val.
+							<button id="sanEvalChoice" class="font-xxlarge btn btn-outlined btn-block">Val.
 								sanitaria: - {{activation.currentPatient.sanEval}}</button>
 							<button id="criticityEndChoice"
-								class="btn btn-outlined btn-block">Criticit&aacute;
+								class="font-xxlarge btn btn-outlined btn-block">Criticit&aacute;
 								fine: - {{activation.currentPatient.criticityEnd.itemName}}</button>
 						</div>
 						<!-- result DATA -->
 						<div id="cardResultData" class="app-section-shadow app-section control-content">
-							<button id="resultChoice" class="btn btn-outlined btn-block">Esito:
+							<button id="resultChoice" class="font-xxlarge btn btn-outlined btn-block">Esito:
 								- {{activation.currentPatient.result.itemName}}</button>
-							<button id="hospitalChoice" class="btn btn-outlined btn-block">Ospedale:
+							<button id="hospitalChoice" class="font-xxlarge btn btn-outlined btn-block">Ospedale:
 								- {{activation.currentPatient.hospital.itemName}}</button>
 						</div>
 					</div>
@@ -135,12 +135,12 @@
 					<form onsubmit="javascript:return false;">
 						<!-- value="{{p.name}}"  -->
 						<input id="patientName" type="text" placeholder="Nome"
-							v-model="activation.currentPatient.name">
+							v-model="activation.currentPatient.name | uppercase" class="font-xlarge">
 						<!-- value="{{p.lastName}}"  -->
 						<input id="patientSurname" type="text" placeholder="Cognome"
-							v-model="activation.currentPatient.lastName"></input>
+							v-model="activation.currentPatient.lastName | uppercase" class="font-xlarge"></input>
 						<textarea id="patientNote" rows="5" placeholder="Note Paziente"
-							v-model="activation.currentPatient.note"></textarea>
+							v-model="activation.currentPatient.note | uppercase" class="font-xlarge"></textarea>
 						<!-- <button class="btn btn-positive btn-block">Salva i Dati</button> -->
 						<!-- <button class="btn btn-negative btn-block">Pulisci</button> -->
 					</form>
@@ -150,25 +150,32 @@
 	</div>
 	<nav id="bottomBar"
 		class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
-		<button id="btnPrevPatient" class="btn btn-primary  btn-outlined  pull-left"
-			style="height: 90%;">
+		
+		<!-- <button id="placeArrivalBtn"
+				class="btn-background placeArrivalBtn btn btn-outlined badge menu-btn-bottom"
+				style="margin-top: 10px">
+				<span class="btn-adapt fa fa-map-marker fa-3x"></span> <span
+					id="placeArrivalLabel" class="tab-label"><span class="font-xlarge"></span></span>
+			</button> -->
+		<button id="btnPrevPatient" class="btn-background btn btn-outlined badge menu-btn-bottom  pull-left"
+			style="height: 90%; margin-left:5px; margin-right:0px;">
 			<span class="fa fa-arrow-left fa-3x"></span>
 		</button>
 		<button id="btnAddPatient"
-			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
+			class="patient-center-bottom-btn btn-background btn btn-outlined badge menu-btn-bottom  pull-left">
 			<span class="fa fa-user-plus fa-3x"></span>
 		</button>
 		<button id="btnCleanPatientData"
-			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
+			class="patient-center-bottom-btn btn-background btn btn-outlined badge menu-btn-bottom  pull-left">
 			<span class="fa fa-eraser fa-3x"></span>
 		</button>
 		<button id="btnRestorePatientData"
-			class="patient-center-bottom-btn btn btn-primary  btn-outlined  pull-left">
+			class="patient-center-bottom-btn btn-background btn btn-outlined badge menu-btn-bottom  pull-left">
 			<span class="fa fa-undo fa-3x"></span>
 		</button>
 		<button id="btnNextPatient" 
-		class="btn btn-primary  btn-outlined  pull-right"
-			style="height: 90%;">
+		class="btn-background btn btn-outlined badge menu-btn-bottom pull-right"
+			style="height: 90%; margin-right:5px;">
 			<span class="fa fa-arrow-right fa-3x"></span>
 		</button>
 	</nav>

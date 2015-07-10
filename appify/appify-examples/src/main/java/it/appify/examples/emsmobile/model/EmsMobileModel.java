@@ -21,6 +21,7 @@ public class EmsMobileModel implements Serializable, Storable {
 	 */
 	private static final long serialVersionUID = -3307757463809870356L;
 
+	private int version;  
 	private BatteryStatus batteryStatusObject;
 	private Geoposition position;
 	private Screen screen;
@@ -186,6 +187,16 @@ public class EmsMobileModel implements Serializable, Storable {
 		this.precActivation = precActivation;
 	}
 	
+	
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
 	public void backupLastEmergency(){
 		Activation a = getActivation();
 		precActivation = new Activation();

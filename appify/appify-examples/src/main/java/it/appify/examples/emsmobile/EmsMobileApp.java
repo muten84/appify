@@ -14,7 +14,7 @@ import it.appify.examples.emsmobile.model.EmsMobileModel;
 @Geolocation(enableHighAccuracy = true, maxAge = 5000, timeout = 10000, type = Geolocation.WS_PROVIDED)
 @ScreenOrientation
 @Storage(modelType = EmsMobileModel.class)
-@Offline
+@Offline(version="1.0")
 public interface EmsMobileApp extends WebApp<EmsMobileModel> {
 
 }

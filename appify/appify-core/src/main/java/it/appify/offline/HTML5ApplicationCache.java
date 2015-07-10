@@ -24,6 +24,8 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 
 public class HTML5ApplicationCache implements ApplicationCache {
+	
+	private String version;
 
 	private ApplicationCacheJsObject cache;
 
@@ -122,5 +124,16 @@ public class HTML5ApplicationCache implements ApplicationCache {
 			});
 		}
 
+	}
+
+	@Override
+	public void setVersion(String version) {
+		this.version = version;
+		
+	}
+
+	@Override
+	public String getVersion() {
+		return version;
 	}
 }
