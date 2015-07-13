@@ -13,6 +13,7 @@
 	<inherits name="it.appify.Sound" />
 	<inherits name="it.appify.Logging" />
 	<inherits name="it.appify.Visibility" />
+	<inherits name="it.appify.Notification" />
 
 	<source path="app" />
 

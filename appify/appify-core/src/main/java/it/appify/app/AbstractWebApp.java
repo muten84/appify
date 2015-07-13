@@ -37,6 +37,8 @@ import it.appify.api.Geolocation;
 import it.appify.api.HasViewHandlers;
 import it.appify.api.HasViewHandlers.ViewHandler;
 import it.appify.api.HasViewHandlers.ViewHandlerHolder;
+import it.appify.api.Notification.NotificationCallback;
+import it.appify.api.Notification;
 import it.appify.api.Page;
 import it.appify.api.PageManager;
 import it.appify.api.PageManager.PageListener;
@@ -46,6 +48,7 @@ import it.appify.api.Storage;
 import it.appify.app.service.ServiceManager;
 import it.appify.appvisibility.SinglePageAppVisibility;
 import it.appify.logging.ConsoleLogger;
+import it.appify.notification.NotificationImpl;
 import it.appify.screenorientation.WebScreenOrientation;
 import it.appify.view.AppJsPageManager;
 import it.appify.view.PageLoader;
@@ -81,6 +84,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	private int _cnt = 0;
 
 	private Map<String, WebPage> pagesCache;
+
+	private Notification notification;
 
 	private PageListener<Element> pl = new PageListener<Element>() {
 
@@ -196,6 +201,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	public AbstractWebApp(String mainPage) {
 		this.mainPage = mainPage;
+		notification = new NotificationImpl();
 		visibility = new SinglePageAppVisibility();
 		pagesCache = new HashMap<String, WebPage>();
 		dynamicLoader = new AppifyDynamicContentLoader();
@@ -423,7 +429,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 		Page<Element> page = pageManager.getCurrentPage();
 		return (WebPage) page;
 	}
-	
+
 	@Override
 	public ApplicationCache getApplicationCacheService() {
 		// TODO Auto-generated method stub
@@ -515,6 +521,17 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	private native void _reload()/*-{
 		$wnd.location.reload();
 	}-*/;
+
+	@Override
+	public void notify(int type, String message) {
+		notification.notify(type, message);
+	}
+
+	@Override
+	public void notify(int type, String message, NotificationCallback cb) {
+		notification.notify(type, message, cb);
+
+	}
 
 	protected abstract WebModelView<AppState> getAppStateModelView();
 

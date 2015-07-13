@@ -250,7 +250,7 @@ public class WebAppGenerator extends Generator {
 		String version = annotation.version();
 		spec.addMethod(MethodSpec.methodBuilder("getApplicationCacheService").addModifiers(Modifier.PUBLIC)
 				.addAnnotation(Override.class).returns(ApplicationCache.class)
-				.addCode("return $T.createApplicationCache($N);", ServiceProvider.class, version).build());
+				.addCode("return $T.createApplicationCache($S);", ServiceProvider.class, version).build());
 		return spec;
 	}
 
