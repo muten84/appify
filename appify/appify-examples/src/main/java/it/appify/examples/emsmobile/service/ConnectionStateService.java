@@ -6,9 +6,11 @@ import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import it.appify.annotations.Service;
 import it.appify.annotations.Start;
 import it.appify.annotations.Stop;
+import it.appify.api.ApplicationCache;
 import it.appify.api.ApplicationCache.CheckConnectedCallback;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
+import it.appify.logging.ConsoleLogger;
 
 @Service(name="emsmobile_ConnectionStateService")
 public class ConnectionStateService {
@@ -41,6 +43,23 @@ public class ConnectionStateService {
 	}
 
 	protected void check() {
+		String status = this.app.getApplicationCacheService().getStatus();
+		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
+		if(status.equals(ApplicationCache.IDLE) || status.equals(ApplicationCache.UNCACHED)){
+			model.getBarStatus().setCacheStatus("");
+		}
+		else if(status.equals(ApplicationCache.CHECKING) || status.equals(ApplicationCache.DOWNLOADING)){
+			model.getBarStatus().setCacheStatus("status-idle");
+		}
+		else if(status.equals(ApplicationCache.UPDATEREADY)){
+			model.getBarStatus().setCacheStatus("status-on");
+		}
+		else if(status.equals(ApplicationCache.OBSOLETE)){
+			model.getBarStatus().setCacheStatus("status-off");
+		}		
+		app.updateAppState(model);
+		app.getCurrentPage().popover("reloadBtn", "Stato Cache", status+" - "+model.getVersion(), "fade");
+		app.getCurrentPage().popover("checkInAccels", "Orario inizio turno", model.getBarStatus().getCheckInDate(), "fade");
 		this.app.getApplicationCacheService().getConnetionStatus(new CheckConnectedCallback() {
 
 			@Override

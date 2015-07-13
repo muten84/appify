@@ -13,6 +13,7 @@ import it.appify.annotations.Controller;
 import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
+import it.appify.api.Notification;
 import it.appify.app.WebApp;
 import it.appify.app.service.ServiceManager;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
@@ -21,6 +22,10 @@ import it.appify.logging.ConsoleLogger;
 
 @Controller(page = "activationPage")
 public class ActivationController {
+	
+	private static interface NextStageCallback{
+		public void onSuccess(String msg);
+	}
 
 	private WebApp<EmsMobileModel> app;
 
@@ -40,6 +45,7 @@ public class ActivationController {
 	@OnPageReady
 	public void onPageReady() {
 //		showGoogleMap();
+		app.notify(Notification.NOTICE, "Tocca sul nome del mezzo per visualizzare il controllo degli stati");
 		ServiceManager.resumeAllServices();
 		showMap();
 		EmsMobileModel model = app.getCurrentAppState();
@@ -132,25 +138,53 @@ public class ActivationController {
 	@ViewHandler(eventType = "click", viewId = "sendBtn")
 	public void send() {
 		ConsoleLogger.getConsoleLogger().log("send....");
-		nextStage("sendLabel", "sendBtn", new Phase(Phase.SEND, System.currentTimeMillis()));
+		nextStage("sendLabel", "sendBtn", new Phase(Phase.SEND, System.currentTimeMillis()), new NextStageCallback() {
+			
+			@Override
+			public void onSuccess(String msg) {
+				app.notify(Notification.NOTICE, "Il messaggio di partenza dalla postazione &egrave stato inviato con successo");
+				
+			}
+		});
 	}
 
 	@ViewHandler(eventType = "click", viewId = "placeArrivalBtn")
 	public void placeArrival() {
 		ConsoleLogger.getConsoleLogger().log("departure....");
-		nextStage("placeArrivalLabel", "placeArrivalBtn", new Phase(Phase.PL_ARRIVAL, System.currentTimeMillis()));
+		nextStage("placeArrivalLabel", "placeArrivalBtn", new Phase(Phase.PL_ARRIVAL, System.currentTimeMillis()),new NextStageCallback() {
+			
+			@Override
+			public void onSuccess(String msg) {
+				app.notify(Notification.NOTICE, "Il messaggio di arrivo sul luogo &egrave stato inviato con successo");
+				
+			}
+		});
 	}
 
 	@ViewHandler(eventType = "click", viewId = "departureBtn")
 	public void departure() {
 		ConsoleLogger.getConsoleLogger().log("departure....");
-		nextStage("departureLabel", "departureBtn", new Phase(Phase.PL_DEPARTURE, System.currentTimeMillis()));
+		nextStage("departureLabel", "departureBtn", new Phase(Phase.PL_DEPARTURE, System.currentTimeMillis()),new NextStageCallback() {
+			
+			@Override
+			public void onSuccess(String msg) {
+				app.notify(Notification.NOTICE, "Il messaggio di partenza dal luogo &egrave stato inviato con successo");
+				
+			}
+		});
 	}
 
 	@ViewHandler(eventType = "click", viewId = "hospitalArrivalBtn")
 	public void hospitalArrival() {
 		ConsoleLogger.getConsoleLogger().log("hospitalArrival....");
-		nextStage("hospitalArrivalLabel", "hospitalArrivalBtn", new Phase(Phase.HOSP_ARRIVAL, System.currentTimeMillis()));
+		nextStage("hospitalArrivalLabel", "hospitalArrivalBtn", new Phase(Phase.HOSP_ARRIVAL, System.currentTimeMillis()),new NextStageCallback() {
+			
+			@Override
+			public void onSuccess(String msg) {
+				app.notify(Notification.NOTICE, "La comunicazione dell'arrivo in ospedale &egrave avvenuta con successo");
+				
+			}
+		});
 	}
 
 	@ViewHandler(eventType = "click", viewId = "closureBtn")
@@ -187,7 +221,7 @@ public class ActivationController {
 
 	}
 
-	protected void nextStage(final String labelId, String btnId, final Phase phase) {
+	protected void nextStage(final String labelId, String btnId, final Phase phase, final NextStageCallback cb) {
 		app.getCurrentPage().setElementText(labelId, "Invio in corso...");
 		disableStageBtn(btnId);
 		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
@@ -201,6 +235,7 @@ public class ActivationController {
 				d.setTime(phase.getTimestamp());
 				String formattedTime = DateTimeFormat.getFormat(PredefinedFormat.TIME_MEDIUM).format(d);
 				app.getCurrentPage().setElementText(labelId, formattedTime);
+				if(cb!=null){cb.onSuccess(""+phase.getCode());}
 				// TODO: disable element btn
 				return false;
 			}

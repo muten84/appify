@@ -15,7 +15,10 @@ public class BarStatus implements Serializable {
 	private String gpsStatus;
 	private String batteryStatus;
 	private String connectionStatus;
+	private String cacheStatus;
 	private String vehicleCode;
+	private String checkInDate;
+	
 
 	public BarStatus() {
 		// this.gpsStatus = "btn btn-nav pull-right";
@@ -24,6 +27,7 @@ public class BarStatus implements Serializable {
 		this.gpsStatus = "status-idle";
 		this.batteryStatus = "status-idle";
 		this.connectionStatus = "status-idle";
+		this.cacheStatus = "";
 	}
 
 	public String getGpsStatus() {
@@ -57,5 +61,25 @@ public class BarStatus implements Serializable {
 	public void setVehicleCode(String vehicleCode) {
 		this.vehicleCode = vehicleCode;
 	}
+
+	public String getCacheStatus() {
+		return cacheStatus;
+	}
+
+	public void setCacheStatus(String cacheStatus) {
+		this.cacheStatus = cacheStatus;
+	}
+
+	public String getCheckInDate() {
+		return checkInDate;
+	}
+
+	public void setCheckInDate(String checkInDate) {
+		this.checkInDate = checkInDate;
+	}
+	
+	
+	
+	
 
 }

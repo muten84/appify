@@ -10,6 +10,7 @@ import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
 import it.appify.annotations.ViewModelHandler;
 import it.appify.api.HasViewHandlers;
+import it.appify.api.Notification;
 import it.appify.app.WebApp;
 import it.appify.app.service.ServiceManager;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
@@ -40,6 +41,14 @@ public class PatientController {
 
 	@OnPageReady
 	public void onPatientsPageReady() {
+		app.notify(Notification.NOTICE, "Il savataggio delle scheda avviene in automatico quando si torna sui dati dell'emergenza.", new Notification.NotificationCallback() {
+			
+			@Override
+			public void onClose() {
+				app.notify(Notification.NOTICE, "Con il tasto 'UNDO' in basso a destra &egrave possibile visualizzare lo stato della scheda prima che venisse modificata");
+				
+			}
+		});
 		// EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
 		// Activation act = model.getActivation();
 		// if(act!=null){

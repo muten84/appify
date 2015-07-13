@@ -66,8 +66,8 @@
 				<button id="checkInAccels" class="btn btn-nav pull-left">
 					<span class="fa fa-ambulance fa-3x pull-left"><span class="font-xlarge">{{barStatus.vehicleCode}}</span></span>
 				</button>
-				<button id=reloadBtn style="right: -30%" class="btn btn-nav pull-left">
-					<span class="fa fa-refresh fa-3x"></span>
+				<button id=reloadBtn style="/*right: -30%*/" class="btn btn-nav pull-right  {{barStatus.cacheStatus}}">
+					<span class="fa fa-refresh fa-3x"><span class="font-large tab-label"></span></span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">

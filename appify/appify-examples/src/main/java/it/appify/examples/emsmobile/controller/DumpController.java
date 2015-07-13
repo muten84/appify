@@ -1,16 +1,21 @@
 package it.appify.examples.emsmobile.controller;
 
+import java.util.Date;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 
 import it.appify.annotations.Controller;
 import it.appify.annotations.OnPageReady;
 import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
+import it.appify.api.Notification;
+import it.appify.api.Notification.NotificationCallback;
 import it.appify.api.Sound;
-import it.appify.api.HasHandlers.Handler;
 import it.appify.app.WebApp;
 import it.appify.examples.emsmobile.model.EmsMobileModel;
 import it.appify.examples.emsmobile.service.ActivationService;
@@ -20,17 +25,18 @@ import it.appify.logging.ConsoleLogger;
 @Controller(page = "dumpPage")
 public class DumpController {
 
-	private WebApp<EmsMobileModel> app;		
+	private WebApp<EmsMobileModel> app;
 
 	@ViewElement("dumpFrame")
 	private Element dumpFrameElement;
-	
+
 	@ViewElement("cacheProgress")
 	private Element cacheProgress;
-	
+
 	@ViewElement("dumpTopBar")
 	private Element dumpTopBar;
-	
+
+	private boolean firstTime = true;
 
 	public DumpController(WebApp<EmsMobileModel> app) {
 		this.app = app;
@@ -39,63 +45,85 @@ public class DumpController {
 
 	@OnPageReady
 	public void onPageReady() {
+		if (firstTime) {
+			firstTime=false;
+			app.notify(Notification.NOTICE, "La maschera di inizio turno &egrave stata integrata con il dump del sinottico", new NotificationCallback() {
+
+				@Override
+				public void onClose() {
+					app.notify(Notification.NOTICE, "Per visualizzare il menu toccare il bottone in alto a sinistra.");
+
+				}
+			});
+		}
 		ConsoleLogger.getConsoleLogger().log("onPageReady DumpController");
-		
+
 		dumpTopBar.toggleClassName("progress-space");
-		/*test*/
-//		Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
-//			int perc = 0;
-//			@Override
-//			public boolean execute() {
-//				ConsoleLogger.getConsoleLogger().log("emsmobile progress event: "+perc+"%");
-//				perc++;
-//				app.getCurrentPage().width("cacheProgress", perc+"%");
-//				if(perc==100){
-//					return false;
-//				}
-//				return true;
-//			}
-//		}, 1000);
-		/*test*/
-		
+		/* test */
+		// Scheduler.get().scheduleFixedPeriod(new RepeatingCommand() {
+		// int perc = 0;
+		// @Override
+		// public boolean execute() {
+		// ConsoleLogger.getConsoleLogger().log("emsmobile progress event: "+perc+"%");
+		// perc++;
+		// app.getCurrentPage().width("cacheProgress", perc+"%");
+		// if(perc==100){
+		// return false;
+		// }
+		// return true;
+		// }
+		// }, 1000);
+		/* test */
+
 		EmsMobileModel model = this.app.getCurrentAppState();
 		if (model.getActivation() != null) {
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
 			app.moveTo("activationPage");
 		} else {
+			if(model.getBarStatus().getVehicleCode()!=null){
+				app.notify(Notification.NOTICE, "Il sistema &egrave pronto per ricevere attivazioni dalla centrale operativa");
+			}
+			else{
+				app.notify(Notification.NOTICE, "Per poter ricevere attivazioni dalla centrale &egrave necessario entrare in turno");
+			}
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NULL");
 		}
-		
+
 	}
 
-	@ViewHandler(eventType="click", viewId="lastEmergencyBtn")
-	public void viewLastEmergency(){
+	@ViewHandler(eventType = "click", viewId = "lastEmergencyBtn")
+	public void viewLastEmergency() {
 		app.moveTo("activationPageRO");
 	}
-	
+
 	@ViewHandler(eventType = "click", viewId = "checkInBtn")
 	public void onCheckInStart() {
+		ConsoleLogger.getConsoleLogger().log("checkInBtn clicked");
 		checkIn();
 	}
-	
+
 	@ViewHandler(eventType = "click", viewId = "reloadBtn")
-	public void onReload(){
-		//app.refresh();
+	public void onReload() {
+		// app.refresh();
 		try {
 			app.getApplicationCacheService().update();
 		} catch (Exception e) {
+			app.getCurrentPage().popover("relaodBtn", "Stato Cache", "Error: " + e.getMessage(), "fade");
+			EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
+			model.getBarStatus().setCacheStatus("status-off");
+			app.updateAppState(model);
 			ConsoleLogger.getConsoleLogger().log("on reload error", e);
 		}
 	}
 
 	@ViewHandler(eventType = "click", viewId = "checkInAccels")
 	public void onCheckInAccel() {
-//		checkIn();
+		// checkIn();
 	}
 
 	protected void checkIn() {
 		ConsoleLogger.getConsoleLogger().log("onCheckInStart");
-		//app.getScreenOrientationService().requestFullScreen();
+		// app.getScreenOrientationService().requestFullScreen();
 		app.getCurrentPage().mask("");
 		if (app.<EmsMobileModel> getCurrentAppState().getBarStatus().getVehicleCode() == null) {
 			// app.getScreenOrientationService().requestFullScreen();
@@ -108,14 +136,18 @@ public class DumpController {
 				@Override
 				public boolean execute() {
 					// ViewUtils.showModal(app, "waitModal");
-					//app.getScreenOrientationService().exitFullScreen();
+					// app.getScreenOrientationService().exitFullScreen();
 					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 					model.getBarStatus().setVehicleCode(null);
 					model.setCheckInLabel("Inizio Turno");
+					String formattedTime = DateTimeFormat.getFormat(PredefinedFormat.TIME_MEDIUM).format(new Date());
+					model.getBarStatus().setCheckInDate(formattedTime);
 					app.updateAppState(model);
 					app.getCurrentPage().unmask();
+					app.getCurrentPage().popover("checkInAccels", "Orario inizio turno", model.getBarStatus().getCheckInDate(), "fade");
 					ActivationService service = Registry.get("ActivationService");
 					service.scheduleActivation();
+
 					return false;
 				}
 			}, 5000);
@@ -166,5 +198,4 @@ public class DumpController {
 		this.dumpTopBar = dumpTopBar;
 	}
 
-	
 }

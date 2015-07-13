@@ -28,6 +28,7 @@ public class Activation implements Serializable {
 	private long timestamp;
 	private Patient currentPatient;
 	private Patient currentBackupPatient;
+	private String noteDetail;
 	
 
 	public Activation() {
@@ -191,6 +192,14 @@ public class Activation implements Serializable {
 
 	public void setCurrentBackupPatient(Patient currentBackupPatient) {
 		this.currentBackupPatient = currentBackupPatient;
+	}
+
+	public String getNoteDetail() {
+		return noteDetail;
+	}
+
+	public void setNoteDetail(String noteDetail) {
+		this.noteDetail = noteDetail;
 	}
 	
 	

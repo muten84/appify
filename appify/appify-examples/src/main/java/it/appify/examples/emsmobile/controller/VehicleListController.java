@@ -14,6 +14,8 @@ import it.appify.annotations.ViewElement;
 import it.appify.annotations.ViewHandler;
 import it.appify.annotations.ViewModelHandler;
 import it.appify.api.HasViewHandlers;
+import it.appify.api.Notification;
+import it.appify.api.Notification.NotificationCallback;
 import it.appify.api.Page.KeyboardActionCallback;
 import it.appify.api.Page.PageActionCallback;
 import it.appify.app.WebApp;
@@ -30,6 +32,8 @@ public class VehicleListController {
 
 	@ViewElement("waitModalText")
 	private Element waitModalText;
+	
+	private boolean firstTime = true;
 
 	public VehicleListController(WebApp<EmsMobileModel> app) {
 		this.app = app;
@@ -37,6 +41,17 @@ public class VehicleListController {
 
 	@OnPageReady
 	public void onPageReady() {
+		if (firstTime) {
+			firstTime=false;
+		app.notify(Notification.NOTICE, "Prova a tirare la pagina verso il basso per scatenare un refresh...", new NotificationCallback() {
+			
+			@Override
+			public void onClose() {
+				app.notify(Notification.NOTICE, "Puoi filtrare il contenuto della lista utilizzando il campo di testo in alto");
+				
+			}
+		});
+		}
 		ConsoleLogger.getConsoleLogger().log("PAGE READY :) YEAAAAAAAAAAAAAAH!");
 		app.getCurrentPage().keyboard("keyboard", new KeyboardActionCallback() {
 
@@ -66,6 +81,7 @@ public class VehicleListController {
 						ConsoleLogger.getConsoleLogger().log("executing async refresh request...");
 						app.updateAppState(model);
 						cb.onSuccess(true);
+						app.notify(Notification.NOTICE, "Esatto!!");
 						return false;
 					}
 				}, 2000);

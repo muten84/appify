@@ -9,6 +9,12 @@
 	height: 4em;
 }
 
+.btn-small{
+	height: 2em;
+	top: 1px !important;
+	margin-top:1px !important;
+}
+
 .btn-font-large{
 	font-size: 22px;
 	line-height:50px;

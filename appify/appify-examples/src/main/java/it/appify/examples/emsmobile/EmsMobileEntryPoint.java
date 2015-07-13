@@ -9,6 +9,7 @@ import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.core.shared.GWT;
 
 import it.appify.api.HasHandlers.Handler;
+import it.appify.api.Notification;
 import it.appify.app.WebApp;
 import it.appify.app.WebApp.AppListener;
 import it.appify.examples.emsmobile.model.BarStatus;
@@ -27,7 +28,14 @@ public class EmsMobileEntryPoint implements EntryPoint {
 
 			@Override
 			public void onAppStart(final WebApp<EmsMobileModel> app) {
-				ConsoleLogger.getConsoleLogger().log("App started: " + app.<EmsMobileModel> getCurrentAppState().getBarStatus().getGpsStatus());
+//				app.notify(Notification.NOTICE, "onAppStart");
+//				app.notify(Notification.NOTICE, "onAppStart2");
+				EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+				model.setVersion(app.getApplicationCacheService().getVersion());
+				
+				app.updateAppState(model);
+				
+				ConsoleLogger.getConsoleLogger().log("App started: " + app.<EmsMobileModel> getCurrentAppState().getVersion());
 				Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
 
 					@Override
@@ -46,6 +54,15 @@ public class EmsMobileEntryPoint implements EntryPoint {
 					}
 				}, 2000);
 				
+				app.getApplicationCacheService().addHandler("error", new Handler() {
+					@Override
+					public void onEvent(String type, String source) {						
+						EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Errore", "fade");
+						model.getBarStatus().setCacheStatus("status-off");
+						app.updateAppState(model);
+					}
+				});
 				
 				
 				app.getApplicationCacheService().addHandler("progress",  new Handler() {
@@ -55,6 +72,10 @@ public class EmsMobileEntryPoint implements EntryPoint {
 						ConsoleLogger.getConsoleLogger().log("emsmobile progress event: "+perc+"%");
 						perc++;
 						app.getCurrentPage().width("cacheProgress", perc+"%");
+						EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Sto Aggiornando...", "fade");
+						model.getBarStatus().setCacheStatus("status-idle");
+						app.updateAppState(model);
 					}
 				});
 
@@ -64,7 +85,10 @@ public class EmsMobileEntryPoint implements EntryPoint {
 					public void onEvent(String type, String source) {
 						ConsoleLogger.getConsoleLogger().log("emsmobile updateready server OK");
 						app.getCurrentPage().toggleClassViewStyle("dumpTopBar", "progress-space");						
-
+						EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Aggiornamento pronto", "fade");
+						model.getBarStatus().setCacheStatus("status-on");
+						app.updateAppState(model);
 					}
 				});
 
@@ -74,6 +98,10 @@ public class EmsMobileEntryPoint implements EntryPoint {
 					public void onEvent(String type, String source) {
 						ConsoleLogger.getConsoleLogger().log("emsmobile updateready server OK");
 						app.getCurrentPage().toggleClassViewStyle("dumpTopBar", "progress-space");
+						EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Nessun aggiornamento disponibile...", "fade");
+						model.getBarStatus().setCacheStatus("status-idle");
+						app.updateAppState(model);
 
 					}
 				});
