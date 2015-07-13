@@ -58,7 +58,7 @@ public class EmsMobileEntryPoint implements EntryPoint {
 					@Override
 					public void onEvent(String type, String source) {						
 						EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Errore", "fade");
+//						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Errore", "fade");
 						model.getBarStatus().setCacheStatus("status-off");
 						app.updateAppState(model);
 					}
@@ -73,7 +73,7 @@ public class EmsMobileEntryPoint implements EntryPoint {
 						perc++;
 						app.getCurrentPage().width("cacheProgress", perc+"%");
 						EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Sto Aggiornando...", "fade");
+//						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Sto Aggiornando...", "fade");
 						model.getBarStatus().setCacheStatus("status-idle");
 						app.updateAppState(model);
 					}
@@ -86,7 +86,7 @@ public class EmsMobileEntryPoint implements EntryPoint {
 						ConsoleLogger.getConsoleLogger().log("emsmobile updateready server OK");
 						app.getCurrentPage().toggleClassViewStyle("dumpTopBar", "progress-space");						
 						EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Aggiornamento pronto", "fade");
+//						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Aggiornamento pronto", "fade");
 						model.getBarStatus().setCacheStatus("status-on");
 						app.updateAppState(model);
 					}
@@ -99,7 +99,7 @@ public class EmsMobileEntryPoint implements EntryPoint {
 						ConsoleLogger.getConsoleLogger().log("emsmobile updateready server OK");
 						app.getCurrentPage().toggleClassViewStyle("dumpTopBar", "progress-space");
 						EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
-						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Nessun aggiornamento disponibile...", "fade");
+//						app.getCurrentPage().popover("reloadBtn", "Stato Cache", "Nessun aggiornamento disponibile...", "fade");
 						model.getBarStatus().setCacheStatus("status-idle");
 						app.updateAppState(model);
 

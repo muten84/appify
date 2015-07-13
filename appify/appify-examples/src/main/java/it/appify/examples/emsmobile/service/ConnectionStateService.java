@@ -58,7 +58,7 @@ public class ConnectionStateService {
 			model.getBarStatus().setCacheStatus("status-off");
 		}		
 		app.updateAppState(model);
-		app.getCurrentPage().popover("reloadBtn", "Stato Cache", status+" - "+model.getVersion(), "fade");
+//		app.getCurrentPage().popover("reloadBtn", "Stato Cache", status+" - "+model.getVersion(), "fade");
 		app.getCurrentPage().popover("checkInAccels", "Orario inizio turno", model.getBarStatus().getCheckInDate(), "fade");
 		this.app.getApplicationCacheService().getConnetionStatus(new CheckConnectedCallback() {
 
