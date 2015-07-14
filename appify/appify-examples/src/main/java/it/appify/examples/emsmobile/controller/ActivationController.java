@@ -92,6 +92,9 @@ public class ActivationController {
 		} else {
 			ConsoleLogger.getConsoleLogger().log("THERE ARE NO PHASES TO PROCESS IN THE ACTIVATION");
 		}
+		
+		model.setParked(false);
+		app.updateAppState(model);
 	}
 	
 	@ViewHandler(eventType="click", viewId="dump118Btn")

@@ -59,7 +59,12 @@ public class ConnectionStateService {
 		}		
 		app.updateAppState(model);
 //		app.getCurrentPage().popover("reloadBtn", "Stato Cache", status+" - "+model.getVersion(), "fade");
-		app.getCurrentPage().popover("checkInAccels", "Orario inizio turno", model.getBarStatus().getCheckInDate(), "fade");
+		if( model.getBarStatus().getCheckInDate()!=null){
+			app.getCurrentPage().popover("checkInAccels", "Orario inizio turno", model.getBarStatus().getCheckInDate(), "fade");
+		}
+		else{
+			app.getCurrentPage().popover("checkInAccels", "Non sei in turno", "", "fade");
+		}
 		this.app.getApplicationCacheService().getConnetionStatus(new CheckConnectedCallback() {
 
 			@Override

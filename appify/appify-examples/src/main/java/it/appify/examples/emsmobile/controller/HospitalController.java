@@ -1,5 +1,7 @@
 package it.appify.examples.emsmobile.controller;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.dom.client.Element;
 
 import it.appify.annotations.Controller;
@@ -79,12 +81,22 @@ public class HospitalController {
 	@ViewModelHandler(modelType = Item.class, viewId = "hospitalList")
 	public void onItemReceived(final Item i) {
 		ConsoleLogger.getConsoleLogger().log("Received item from hospitalList: " + i.getCode() + " - " + i.getItemName());		
-		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
-		Patient currP = model.getActivation().getCurrentPatient();
-		currP.setHospital(i);
-		model.getActivation().updateCurrentPatient(currP);
-		app.updateAppState(model);
-		app.back();
+//		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
+//		Patient currP = model.getActivation().getCurrentPatient();
+//		currP.setHospital(i);					
+//		model.getActivation().updateCurrentPatient(currP);
+		EmsMobileModel model = updatePatientData(i);
+		ConsoleLogger.getConsoleLogger().log("setted hospital to current patient: " + model.getActivation().getCurrentPatient().getHospital().getItemName());
+//		app.updateAppState(model);				
+		Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+			
+			@Override
+			public boolean execute() {
+				app.back();
+				return false;
+			}
+		}, 500);
+		
 	}
 
 	public Element getWaitModalText() {
@@ -93,6 +105,25 @@ public class HospitalController {
 
 	public void setWaitModalText(Element waitModalText) {
 		this.waitModalText = waitModalText;
+	}
+	
+	private EmsMobileModel updatePatientData(Item hospital) {
+		ConsoleLogger.getConsoleLogger().log("updatePatientData");
+		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
+		if (model.getActivation() == null) {
+			return null;
+		}
+		Patient p = model.getActivation().getCurrentPatient();
+		if (p == null) {
+			p = new Patient();
+		}
+		p.setHospital(hospital);
+		model.getActivation().updateCurrentPatient(p);
+		model.getActivation().setCurrentBackupPatient(p);
+		app.updateAppState(model);
+		ConsoleLogger.getConsoleLogger().log("updatePatientData sucess");
+		return model;
+
 	}
 
 }

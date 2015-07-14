@@ -38,6 +38,7 @@ public class EmsMobileModel implements Serializable, Storable {
 	private List<Item> criticityEnds;
 	private List<Item> results;
 	private List<Item> hospitals;
+	private boolean parked = false;
 
 	public EmsMobileModel() {
 		activation = new Activation();
@@ -194,6 +195,14 @@ public class EmsMobileModel implements Serializable, Storable {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}		
+
+	public boolean isParked() {
+		return parked;
+	}
+
+	public void setParked(boolean parked) {
+		this.parked = parked;
 	}
 
 	public void backupLastEmergency(){

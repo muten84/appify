@@ -46,7 +46,7 @@ public class DumpController {
 	@OnPageReady
 	public void onPageReady() {
 		if (firstTime) {
-			firstTime=false;
+			firstTime = false;
 			app.notify(Notification.NOTICE, "La maschera di inizio turno &egrave stata integrata con il dump del sinottico", new NotificationCallback() {
 
 				@Override
@@ -56,6 +56,7 @@ public class DumpController {
 				}
 			});
 		}
+
 		ConsoleLogger.getConsoleLogger().log("onPageReady DumpController");
 
 		dumpTopBar.toggleClassName("progress-space");
@@ -76,19 +77,39 @@ public class DumpController {
 		/* test */
 
 		EmsMobileModel model = this.app.getCurrentAppState();
+		if (model.isParked()) {
+			this.app.getCurrentPage().disableElement("parkingButton");
+		} else {
+			this.app.getCurrentPage().enableElement("parkingButton");
+		}
 		if (model.getActivation() != null) {
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
-			//app.moveTo("activationPage");
+			// app.moveTo("activationPage");
 		} else {
-			if(model.getBarStatus().getVehicleCode()!=null){
+			if (model.getBarStatus().getVehicleCode() != null) {
 				app.notify(Notification.NOTICE, "Il sistema &egrave pronto per ricevere attivazioni dalla centrale operativa");
-			}
-			else{
+			} else {
 				app.notify(Notification.NOTICE, "Per poter ricevere attivazioni dalla centrale &egrave necessario entrare in turno");
 			}
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NULL");
 		}
 
+	}
+	
+	@ViewHandler(eventType = "click", viewId = "parkingButton")
+	public void parking(){
+		EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
+		app.getCurrentPage().disableElement("parkingButton");
+		model.setParked(true);		
+		app.updateAppState(model);
+		Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+			
+			@Override
+			public boolean execute() {
+				app.notify(Notification.NOTICE, "Lo stato di parcheggio &egrave; stato correttamente inviato in centrale");
+				return false;
+			}
+		}, 1000);
 	}
 
 	@ViewHandler(eventType = "click", viewId = "lastEmergencyBtn")
@@ -148,10 +169,13 @@ public class DumpController {
 					// app.getScreenOrientationService().exitFullScreen();
 					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 					model.getBarStatus().setVehicleCode(null);
-					model.setCheckInLabel("Inizio Turno");					
+					model.getBarStatus().setCheckInDate(null);
+					model.setParked(false);
+					model.setCheckInLabel("Inizio Turno");
 					app.updateAppState(model);
 					app.getCurrentPage().unmask();
-					//app.getCurrentPage().popover("checkInAccels", "Orario inizio turno", model.getBarStatus().getCheckInDate(), "fade");
+					// app.getCurrentPage().popover("checkInAccels", "Orario inizio turno",
+					// model.getBarStatus().getCheckInDate(), "fade");
 					ActivationService service = Registry.get("ActivationService");
 					service.scheduleActivation();
 

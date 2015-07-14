@@ -127,6 +127,7 @@ public class PatientController {
 	public void hospitalChoice() {
 		ConsoleLogger.getConsoleLogger().log("hospitalChoice");
 		// app.getCurrentPage().showModal("criticityEndModal");
+		updatePatientData();
 		app.moveTo("hospitalsPage");
 	}
 

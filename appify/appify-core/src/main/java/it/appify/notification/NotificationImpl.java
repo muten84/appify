@@ -24,7 +24,7 @@ public class NotificationImpl implements Notification {
 //					effect : 'slidetop',
 					layout : 'growl',
 					effect : 'genie',
-
+					ttl : 3000,
 					type : 'notice', // notice, warning, error or success
 					onClose : function() {
 						if(callback!=null){
