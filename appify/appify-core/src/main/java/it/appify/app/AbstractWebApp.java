@@ -69,6 +69,8 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 
 	private String mainPage;
 
+	private String movingPage;
+
 	private Map<String, List<ViewHandlerHolder>> pageViewHandlers;
 
 	private Map<String, List<String>> pageViewElements;
@@ -331,6 +333,13 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 	 */
 	@Override
 	public void moveTo(final String pageId) {
+		if (movingPage == null) {
+			movingPage = pageId;
+		} else {
+			if (movingPage.equals(pageId)) {
+				throw new RuntimeException("cannot move to the same page while going to: " + pageId);
+			}
+		}
 		// getCurrentPage().mask("");
 		Element elRef = null;
 		Element[] els = dynamicLoader.scanDynamicMarkerElements("appify-page");
@@ -349,6 +358,7 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 				@Override
 				public void error() {
 					ConsoleLogger.getConsoleLogger().log("error while load:  " + url);
+					movingPage = null;
 
 				}
 
@@ -356,11 +366,13 @@ public abstract class AbstractWebApp<AppState> implements WebApp<AppState> {
 				public void done() {
 					ConsoleLogger.getConsoleLogger().log("done  move to :  " + pageId);
 					doMoveTo(pageId);
+					movingPage = null;
 
 				}
 			});
 		} else {
 			doMoveTo(pageId);
+			movingPage = null;
 
 		}
 
