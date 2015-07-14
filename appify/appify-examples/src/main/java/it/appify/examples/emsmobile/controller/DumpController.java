@@ -78,7 +78,7 @@ public class DumpController {
 		EmsMobileModel model = this.app.getCurrentAppState();
 		if (model.getActivation() != null) {
 			ConsoleLogger.getConsoleLogger().log("ACTIVATION IS NOT NULL MOVING TO ACTIVATION PAGE");
-			app.moveTo("activationPage");
+			//app.moveTo("activationPage");
 		} else {
 			if(model.getBarStatus().getVehicleCode()!=null){
 				app.notify(Notification.NOTICE, "Il sistema &egrave pronto per ricevere attivazioni dalla centrale operativa");
@@ -113,6 +113,15 @@ public class DumpController {
 			model.getBarStatus().setCacheStatus("status-off");
 			app.updateAppState(model);
 			ConsoleLogger.getConsoleLogger().log("on reload error", e);
+			app.notify(Notification.NOTICE, "Non &egrave; stato possibile aggiornare la cache, l'applicazione sar&agrave; ricaricata in ogni caso");
+			Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+
+				@Override
+				public boolean execute() {
+					app.refresh();
+					return false;
+				}
+			}, 2000);
 		}
 	}
 
@@ -139,12 +148,10 @@ public class DumpController {
 					// app.getScreenOrientationService().exitFullScreen();
 					EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 					model.getBarStatus().setVehicleCode(null);
-					model.setCheckInLabel("Inizio Turno");
-					String formattedTime = DateTimeFormat.getFormat(PredefinedFormat.TIME_MEDIUM).format(new Date());
-					model.getBarStatus().setCheckInDate(formattedTime);
+					model.setCheckInLabel("Inizio Turno");					
 					app.updateAppState(model);
 					app.getCurrentPage().unmask();
-					app.getCurrentPage().popover("checkInAccels", "Orario inizio turno", model.getBarStatus().getCheckInDate(), "fade");
+					//app.getCurrentPage().popover("checkInAccels", "Orario inizio turno", model.getBarStatus().getCheckInDate(), "fade");
 					ActivationService service = Registry.get("ActivationService");
 					service.scheduleActivation();
 

@@ -37,6 +37,8 @@ public class ActivationController {
 
 	@ViewElement("sendBtn")
 	private Element sendBtn;
+	
+	private boolean firstTime = true;
 
 	public ActivationController(WebApp<EmsMobileModel> app) {
 		this.app = app;
@@ -45,7 +47,10 @@ public class ActivationController {
 	@OnPageReady
 	public void onPageReady() {
 //		showGoogleMap();
-		app.notify(Notification.NOTICE, "Tocca sul nome del mezzo per visualizzare il controllo degli stati");
+		if(firstTime){
+			firstTime = false;				
+			app.notify(Notification.NOTICE, "Tocca sul nome del mezzo per visualizzare il controllo degli stati");
+		}
 		ServiceManager.resumeAllServices();
 		showMap();
 		EmsMobileModel model = app.getCurrentAppState();
@@ -87,6 +92,11 @@ public class ActivationController {
 		} else {
 			ConsoleLogger.getConsoleLogger().log("THERE ARE NO PHASES TO PROCESS IN THE ACTIVATION");
 		}
+	}
+	
+	@ViewHandler(eventType="click", viewId="dump118Btn")
+	public void dump118(){
+		app.moveTo("dump118");
 	}
 	
 	@ViewHandler(eventType="click", viewId = "patientsBtn")
@@ -323,7 +333,7 @@ public class ActivationController {
 		var card = $wnd.$('#cardEmergencyData')
 		card
 				.append($wnd
-						.$("<div class='app-section' id='map' style='padding: 0; margin: 0; width: 100%; height: 100%;'></div>"));
+						.$("<div id='map' style = 'margin-left: 3em !important; width : 80%; margin-right: 3em !important; border: 1px solid; height: 20em !important'></div>"));
 	}-*/;
 
 	private native void showMap()/*-{

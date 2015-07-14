@@ -6,6 +6,24 @@
 	top: 3px !important;
 }
 
+:focus {  
+  /* border: 0 !important; */
+  outline: white 0px !important;  
+}
+
+/* .btn:focus, .btn.focus{  
+  border: 0 !important;  
+}
+
+.btn-primary:focus, .btn-primary.focus {  
+  border: 0 !important;
+}
+
+.btn-outlined.btn-primary:active{  
+  border: 0 !important;
+} */
+
+
 @media ( min-width : 768px) {
 	.auto-center-min {
 		margin-left: auto !important;
@@ -69,7 +87,7 @@
 }
 
 .activation-bar-height {
-	line-height: 3 !important;
+	line-height: 1.5 !important;
 	font-weight: bold;
 	font-size: 1.2em;
 }
@@ -118,3 +136,6 @@
 	/* top: 5px; */
 }
 
+.input-form{
+	height: 50px !important;
+}

@@ -1,11 +1,14 @@
 package it.appify.examples.emsmobile.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import it.appify.annotations.Controller;
@@ -32,7 +35,7 @@ public class VehicleListController {
 
 	@ViewElement("waitModalText")
 	private Element waitModalText;
-	
+
 	private boolean firstTime = true;
 
 	public VehicleListController(WebApp<EmsMobileModel> app) {
@@ -42,15 +45,15 @@ public class VehicleListController {
 	@OnPageReady
 	public void onPageReady() {
 		if (firstTime) {
-			firstTime=false;
-		app.notify(Notification.NOTICE, "Prova a tirare la pagina verso il basso per scatenare un refresh...", new NotificationCallback() {
-			
-			@Override
-			public void onClose() {
-				app.notify(Notification.NOTICE, "Puoi filtrare il contenuto della lista utilizzando il campo di testo in alto");
-				
-			}
-		});
+			firstTime = false;
+			app.notify(Notification.NOTICE, "Prova a tirare la pagina verso il basso per scatenare un refresh...", new NotificationCallback() {
+
+				@Override
+				public void onClose() {
+					app.notify(Notification.NOTICE, "Puoi filtrare il contenuto della lista utilizzando il campo di testo in alto");
+
+				}
+			});
 		}
 		ConsoleLogger.getConsoleLogger().log("PAGE READY :) YEAAAAAAAAAAAAAAH!");
 		app.getCurrentPage().keyboard("keyboard", new KeyboardActionCallback() {
@@ -108,7 +111,6 @@ public class VehicleListController {
 			public void onEvent(String type, String source) {
 				ConsoleLogger.getConsoleLogger().log("onEvent source: " + source + " - type: " + type);
 				showKeyboardEl.setAttribute("id", "keyboard");
-				
 
 			}
 		});
@@ -133,6 +135,8 @@ public class VehicleListController {
 			public boolean execute() {
 				// ViewUtils.showModal(app, "waitModal");
 				EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
+				String formattedTime = DateTimeFormat.getFormat(PredefinedFormat.TIME_MEDIUM).format(new Date());
+				model.getBarStatus().setCheckInDate(formattedTime);
 				model.getBarStatus().setVehicleCode(i.getItemName());
 				model.setCheckInLabel("Fine Turno");
 				app.updateAppState(model);

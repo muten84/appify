@@ -16,6 +16,7 @@ public class Patient implements Serializable {
 	private String lastName;
 	private String name;
 	private String note;
+	private String age;
 	private int sanEval;
 	private Item criticityEnd;
 	private Item result;
@@ -28,6 +29,7 @@ public class Patient implements Serializable {
 		name="";
 		note="";
 		sanEval=-1;
+		age = "";
 		criticityEnd = new Item("-1", "");
 		result = new Item("-1", "");
 		hospital = new Item("-1", "");
@@ -118,6 +120,7 @@ public class Patient implements Serializable {
 		copy.lastName = new String(this.lastName);
 		copy.name = new String(this.name);
 		copy.note = new String(this.note);
+		copy.age = new String(this.age);
 		if (this.result != null) {
 			copy.result = new Item(this.result.getCode(), this.result.getItemName());
 		}
@@ -129,6 +132,14 @@ public class Patient implements Serializable {
 	public Patient clonePatient() {
 		return (Patient) this.clone();
 
+	}		
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
 	}
 
 	@Override

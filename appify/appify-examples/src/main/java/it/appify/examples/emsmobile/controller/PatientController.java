@@ -35,20 +35,25 @@ public class PatientController {
 	@ViewElement("patientNote")
 	public Element patientNote;
 
+	private boolean firstTime = true;
+
 	public PatientController(WebApp<EmsMobileModel> app) {
 		this.app = app;
 	}
 
 	@OnPageReady
 	public void onPatientsPageReady() {
-		app.notify(Notification.NOTICE, "Il savataggio delle scheda avviene in automatico quando si torna sui dati dell'emergenza.", new Notification.NotificationCallback() {
-			
-			@Override
-			public void onClose() {
-				app.notify(Notification.NOTICE, "Con il tasto 'UNDO' in basso a destra &egrave possibile visualizzare lo stato della scheda prima che venisse modificata");
-				
-			}
-		});
+		if (this.firstTime) {
+			this.firstTime= false;
+			app.notify(Notification.NOTICE, "Il savataggio delle scheda avviene in automatico quando si torna sui dati dell'emergenza.", new Notification.NotificationCallback() {
+
+				@Override
+				public void onClose() {
+					app.notify(Notification.NOTICE, "Con il tasto 'UNDO' in basso a destra &egrave possibile visualizzare lo stato della scheda prima che venisse modificata");
+
+				}
+			});
+		}
 		// EmsMobileModel model = app.<EmsMobileModel>getCurrentAppState();
 		// Activation act = model.getActivation();
 		// if(act!=null){
@@ -76,7 +81,7 @@ public class PatientController {
 		ConsoleLogger.getConsoleLogger().log("onSanEvalReceived: " + i.getCode());
 		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 		Patient currP = model.getActivation().getCurrentPatient();
-		if(currP!=null){
+		if (currP != null) {
 			currP.setSanEval(Integer.valueOf(i.getCode()));
 			model.getActivation().updateCurrentPatient(currP);
 			app.updateAppState(model);
@@ -117,13 +122,11 @@ public class PatientController {
 		ConsoleLogger.getConsoleLogger().log("selectSanEval sanEvalChoice");
 		app.getCurrentPage().showModal("sanEvalModal");
 	}
-	
-	
 
 	@ViewHandler(eventType = "click", viewId = "hospitalChoice")
 	public void hospitalChoice() {
 		ConsoleLogger.getConsoleLogger().log("hospitalChoice");
-//		app.getCurrentPage().showModal("criticityEndModal");
+		// app.getCurrentPage().showModal("criticityEndModal");
 		app.moveTo("hospitalsPage");
 	}
 
@@ -177,7 +180,7 @@ public class PatientController {
 	public void addNewPatient() {
 		newPatient();
 	}
-	
+
 	@ViewHandler(eventType = "click", viewId = "btnNextPatient")
 	public void onNextPatient() {
 		nextPatient();
@@ -190,17 +193,17 @@ public class PatientController {
 		model.getActivation().setCurrentPatient(newP);
 		model.getActivation().setCurrentBackupPatient(newP);
 	}
-	
-	private void nextPatient(){
+
+	private void nextPatient() {
 		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
 		Patient currPatient = model.getActivation().getCurrentPatient();
-		if(currPatient == null){
+		if (currPatient == null) {
 			return;
 		}
 		List<Patient> pats = model.getActivation().getPatients();
 		int index = currPatient.getIndex();
-		Patient p = pats.get(index +1 % pats.size());
-		if(p == null) {
+		Patient p = pats.get(index + 1 % pats.size());
+		if (p == null) {
 			return;
 		}
 		model.getActivation().setCurrentPatient(p);
@@ -274,7 +277,7 @@ public class PatientController {
 	private void updatePatientData() {
 		ConsoleLogger.getConsoleLogger().log("updatePatientData");
 		EmsMobileModel model = app.<EmsMobileModel> getCurrentAppState();
-		if(model.getActivation()==null){
+		if (model.getActivation() == null) {
 			return;
 		}
 		Patient p = model.getActivation().getCurrentPatient();
