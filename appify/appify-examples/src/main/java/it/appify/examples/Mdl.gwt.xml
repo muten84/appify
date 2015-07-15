@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Could not determine the version of your GWT SDK; using the module DTD from GWT 1.6.4. You may want to change this. -->
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit//EN" "http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
+<module rename-to="mdl">
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.gwt.json.JSON" />
+	<inherits name="com.google.gwt.i18n.I18N"/>
+	<inherits name="it.appify.App" />
+	
+	<source path="mdl" />
+	
+	<define-linker
+		name="AppCacheLinker"
+		class="it.appify.offline.linker.ApplicationCacheLinker" />
+		
+	<add-linker name="AppCacheLinker" />
+	
+	<entry-point class="it.appify.examples.mdl.MdlEntryPoint"></entry-point>
+</module>
