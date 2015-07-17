@@ -36,38 +36,47 @@
 	<!-- MENU -->
 	<div class="snap-drawers">
 		<div class="snap-drawer snap-drawer-left menu-border">
-			<div class="app-section" style="height:auto">
-				<a id="checkInBtn" class="btn-background badge btn btn-block btn-large"><span style="padding: 5px; float: left"
-					class="fa fa-user-md fa-3x"></span><span class="font-xxlarge btn-font-large">{{checkInLabel}}</span></a>
+			<!-- <div class="app-section" style="height: auto"> -->
+				<a id="checkInBtn"
+					class="btn-background badge btn btn-block btn-large"><span
+					style="padding: 5px; float: left"
+					class="nav-icon fa fa-user-md fa-3x"></span><span
+					class="font-xxlarge btn-font-large">{{checkInLabel}}</span></a>
 				<button id="parkingButton"
 					class="btn-background badge btn btn-block btn-large">
-					<span class="fa fa-flag-checkered fa-3x" style="padding: 5px; float: left"></span><span
+					<span class="nav-icon fa fa-flag-checkered fa-3x"
+						style="padding: 5px; float: left"></span><span
 						class="font-xxlarge btn-font-large">Parcheggio</span>
 				</button>
 				<!-- <button id="manageEquipButton" class="btn-background btn btn-block">Gestione
 					Equipaggio</button>  -->
 				<button id="lastEmergencyBtn"
 					class="btn-background badge btn btn-block btn-large">
-					<span class="fa fa-info-circle fa-3x" style="padding: 5px; float: left"></span><span
+					<span class="nav-icon fa fa-info-circle fa-3x"
+						style="padding: 5px; float: left"></span><span
 						class="font-xlarge btn-font-large">Emergenza Prec.</span>
 				</button>
-			</div>
+			<!-- </div> -->
 		</div>
 		<div class="snap-drawer snap-drawer-right"></div>
 	</div>
 	<div id="content" class="content snap-content">
-	<div id="cacheProgress" class="progress-cache"> </div>
-		<div id="dumpTopBar" class="app-topbar progress-space">			
+		<div id="cacheProgress" class="progress-cache"></div>
+		<div id="dumpTopBar" class="app-topbar progress-space">
 			<header class="box-shadow bar bar-nav app-title topbar-height">
-
-				<button id="showMenuBtn" class="btn btn-nav pull-left">
-					<span class="fa fa-bars fa-3x"></span>
+				<button id="showMenuBtn" class="btn btn-nav pull-left"
+					style="padding-left: 4px; padding-right: 10px; padding-top: 1px; padding-bottom: 1px; margin-top: 1px; margin-bottom: 0px;">
+					<span class="nav-icon fa fa-bars fa-3x"></span><span
+						class="font-medium" style="line-height: 43px;">EMS</span>
 				</button>
 				<button id="checkInAccels" class="btn btn-nav pull-left">
-					<span class="fa fa-ambulance fa-3x pull-left"><span class="font-xlarge">{{barStatus.vehicleCode}}</span></span>
+					<span class="fa fa-ambulance fa-3x pull-left"><span
+						class="font-xlarge">{{barStatus.vehicleCode}}</span></span>
 				</button>
-				<button id=reloadBtn style="/*right: -30%*/" class="btn btn-nav pull-right  {{barStatus.cacheStatus}}">
-					<span class="fa fa-refresh fa-3x"><span class="font-large tab-label"></span></span>
+				<button id=reloadBtn style=""
+					class="btn btn-nav pull-right  {{barStatus.cacheStatus}}">
+					<span class="fa fa-refresh fa-3x"><span
+						class="font-large tab-label"></span></span>
 				</button>
 				<button id="gpsStateBtn"
 					class="btn btn-nav pull-right {{barStatus.gpsStatus}}">
@@ -81,10 +90,10 @@
 					class="btn btn-nav pull-right {{barStatus.connectionStatus}}">
 					<span class="fa fa-wifi fa-3x"></span>
 				</button>
-			
-			</header>						
+
+			</header>
 		</div>
-		
+
 		<div class="box-shadow app-content">
 			<iframe id="dumpFrame"
 				class="app-section-shadow app-section zero-margin-section"
@@ -92,11 +101,11 @@
 
 		</div>
 		<nav
-			class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height">
+			class="box-shadow app-bottombar bar-footer bar bar-tab bottombar-height" style="background-color: #00809d !important">
 			<a class="tab-item">
 				<button id="refreshDumpBtn" class="btn-background btn btn-nav">
-					<span class="fa fa-refresh fa-2x"></span> <span class="font-xlarge tab-label">Aggiorna
-						Dump</span>
+					<span class="fa fa-refresh fa-2x"></span> <span
+						class="font-xlarge tab-label">Aggiorna Dump</span>
 				</button>
 			</a> <a class="tab-item">
 				<button class="btn-background btn btn-nav">

@@ -89,7 +89,7 @@
 		<!--END  HEADER SECTION -->
 		<div id="patientDataContent" class="app-content">
 			<!-- v-repeat="p: activation.patients" >  -->
-			<div class="app-section zero-margin-section">
+			<div class="app-section zero-margin-section" style="height: 90%">
 				<!-- v-show="p.show" -->
 				<div class="font-xxlarge app-section">
 					<ul class="font-xxlarge table-view table-border">
@@ -135,15 +135,15 @@
 					<form onsubmit="javascript:return false;">
 						<!-- value="{{p.name}}"  -->
 						<input id="patientName" type="text" placeholder="Nome"
-							v-model="activation.currentPatient.name | uppercase" class="font-xlarge input-form">
+							v-model="activation.currentPatient.name | uppercase" class="font-xlarge input-form form-control">
 						<!-- value="{{p.lastName}}"  -->
 						<input id="patientSurname" type="text" placeholder="Cognome"
-							v-model="activation.currentPatient.lastName | uppercase" class="font-xlarge input-form"></input>
+							v-model="activation.currentPatient.lastName | uppercase" class="form-control font-xlarge input-form"></input>
 						<input id="patientAge" v-model="activation.currentPatient.age" type="text" placeholder="Et&agrave;"
-							 class="font-xlarge input-form"></input>
+							 class="form-control font-xlarge input-form"></input>
 						
 						<textarea id="patientNote" rows="5" placeholder="Note Paziente"
-							v-model="activation.currentPatient.note | uppercase" class="font-xlarge"></textarea>
+							v-model="activation.currentPatient.note | uppercase" class="form-control font-xlarge"></textarea>
 						<!-- <button class="btn btn-positive btn-block">Salva i Dati</button> -->
 						<!-- <button class="btn btn-negative btn-block">Pulisci</button> -->
 					</form>
