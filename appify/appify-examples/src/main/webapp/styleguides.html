@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eliot / Dashboard</title>
+<link type="text/plain" rel="author" href="styleguides/humans.txt" />
+<!-- humanstxt.org -->
+
+<!-- Favicon -->
+<link rel="icon" type="image/png"
+	href="styleguides/assets/img/favicon/favicon.png" />
+
+<!-- Icons for touch devices -->
+<!-- For Chrome for Android: -->
+<link rel="icon" sizes="192x192"
+	href="styleguides/assets/img/favicon/touch-icon-192x192.png">
+<!-- For iPhone 6 Plus with @3× display: -->
+<link rel="apple-touch-icon-precomposed" sizes="180x180"
+	href="styleguides/assets/img/favicon/apple-touch-icon-180x180-precomposed.png">
+<!-- For iPad with @2× display running iOS ≥ 7: -->
+<link rel="apple-touch-icon-precomposed" sizes="152x152"
+	href="styleguides/assets/img/favicon/apple-touch-icon-152x152-precomposed.png">
+<!-- For iPad with @2× display running iOS ≤ 6: -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="styleguides/assets/img/favicon/apple-touch-icon-144x144-precomposed.png">
+<!-- For iPhone with @2× display running iOS ≥ 7: -->
+<link rel="apple-touch-icon-precomposed" sizes="120x120"
+	href="styleguides/assets/img/favicon/apple-touch-icon-120x120-precomposed.png">
+<!-- For iPhone with @2× display running iOS ≤ 6: -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="styleguides/assets/img/favicon/apple-touch-icon-114x114-precomposed.png">
+<!-- For the iPad mini and the first- and second-generation iPad (@1× display) on iOS ≥ 7: -->
+<link rel="apple-touch-icon-precomposed" sizes="76x76"
+	href="styleguides/assets/img/favicon/apple-touch-icon-76x76-precomposed.png">
+<!-- For the iPad mini and the first- and second-generation iPad (@1× display) on iOS ≤ 6: -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="styleguides/assets/img/favicon/apple-touch-icon-72x72-precomposed.png">
+<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+<link rel="apple-touch-icon-precomposed"
+	href="styleguides/assets/img/favicon/apple-touch-icon-precomposed.png">
+<!-- 57×57px -->
+
+
+<!-- Open Sans font family -->
+<link
+	href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700"
+	rel="stylesheet" type="text/css">
+
+<!-- Bootstrap -->
+<link href="styleguides/assets/libs/bootstrap/bootstrap.min.css" rel="stylesheet"
+	type="text/css">
+<!-- Bootstrap plugins -->
+<link href="styleguides/assets/libs/tour/bootstrap-tour.min.css">
+<!-- help -->
+<link
+	href="styleguides/assets/libs/bootstrap-vertical-tabs/bootstrap.vertical-tabs.min.css">
+<!-- vertical tabs -->
+<link href="styleguides/assets/libs/tablesaw/tablesaw.css" rel="stylesheet"
+	type="text/css">
+<!-- tabelle responsive -->
+<link href="styleguides/assets/libs/nav/yamm.css" rel="stylesheet"
+	type="text/css">
+<!-- menu -->
+<link href="styleguides/assets/libs/x-rayhtml/X-rayHTML.css" rel="stylesheet"
+	type="text/css">
+<!-- highlight codice -->
+<link href="styleguides/assets/libs/prism/prism.css" rel="stylesheet"
+	type="text/css">
+<!-- highlight codice -->
+<link href="styleguides/assets/libs/fullcalendar-2.2.3/fullcalendar.min.css"
+	rel="stylesheet" type="text/css">
+<!-- fullcalendar -->
+<link href="styleguides/assets/libs/chartist/chartist.min.css" rel="stylesheet"
+	type="text/css">
+<!-- chartist -->
+<link href="styleguides/assets/libs/bxslider/jquery.bxslider.css"
+	rel="stylesheet" type="text/css">
+<!-- mp-f403 -->
+<link href="styleguides/assets/libs/datetimepicker/jquery.datetimepicker.css"
+	rel="stylesheet" type="text/css">
+<!-- mp-f403 -->
+<!-- Fontawesome -->
+<link href="styleguides/assets/css/old/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+<!-- Eliot -->
+<link href="styleguides/assets/css/eliot.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+	<a href="#content" class="sr-only sr-only-focusable">Vai al
+		contenuto principale</a>
+	<!--[if lt IE 7]>
+	    <p class="browsehappy">Stai utilizzando un browser <strong>obsoleto</strong>. Puoi <a href="http://browsehappy.com/">aggiornare il tuo browser</a> per migliorare la tua esperienza d'uso.</p>
+  	<![endif]-->
+<body class="collapsed-menu">
+	<div class="layout">
+
+		<div class="navbar yamm navbar-default navbar-fixed-top layout-navbar">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-top">
+					<i class="icon-nav fa fa-navicon"></i>
+				</button>
+				<a class="navbar-brand" href="styleguides/index.html">Eliot <span
+					class="versioning">3.0</span></a>
+			</div>
+			<div
+				class="navbar-collapse collapse navbar-responsive-collapse navbar-top">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> <span class="avatar icon-info"><img
+								src="styleguides/assets/img/inline/avatar-ospedale.jpg" alt="" /></span> <span
+							class="nav-label-container"> <span class="nav-label"><acronym
+									title="Azienda Ospedaliero-Sanitaria">AOU</acronym> Città della
+									Salute e della Scienza di Torino</span> <span class="nav-sublabel">Presidio:
+									Molinette</span> <i class="caret fa fa-chevron-down"></i>
+						</span>
+					</a>
+						<ul class="dropdown-menu">
+							<li class="active"><a href="#"
+								title="AOU Città della Salute e della Scienza di Torino"
+								tabindex="">AOU Città della Salute e della Scienza di Torino</a>
+							</li>
+							<li><a href="#" title="Ospedale Sant'Anna" tabindex="">Ospedale
+									Sant'Anna</a></li>
+							<li><a href="#" title="CPVE" tabindex="">CPVE</a></li>
+							<li><a href="#" title="Orbassano" tabindex="">Orbassano</a>
+							</li>
+						</ul></li>
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> <span class="avatar icon-info"><img
+								src="styleguides/assets/img/inline/avatar-medico.jpg" alt="" /></span> <span
+							class="nav-label-container"> <span class="nav-label">Andrea
+									Chierichetti</span> <span class="nav-sublabel">Medico</span> <i
+								class="caret fa fa-chevron-down"></i>
+						</span>
+					</a>
+						<div class="dropdown-menu yamm-content">
+							<div class="row">
+								<div class="col-sm-12">
+									<span class="dropdown-header">Il tuo account</span>
+									<ul class="nav nav-pills nav-stacked">
+										<li><a href="#" title="I miei dati personali" tabindex=""><i
+												class="fa fa-user"></i>I miei dati personali</a></li>
+										<li><a href="#" title="Il mio presidio" tabindex=""><i
+												class="fa fa-building"></i>Il mio presidio</a></li>
+										<li><a href="#" title="Logout" tabindex=""><i
+												class="fa fa-power-off"></i>Logout</a></li>
+									</ul>
+								</div>
+								<div class="col-sm-12 yamm-footer">
+									<small>Scadenza password: 22 giorni. Ultimo accesso:
+										oggi alle 09:25</small>
+								</div>
+
+							</div>
+						</div></li>
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> <span class="avatar icon-info"><i
+								class="fa fa-bell-slash"></i></span> <span class="nav-label-container">
+								<span class="nav-label">Occupato</span> <span
+								class="nav-sublabel">Cambia stato</span> <i
+								class="caret fa fa-chevron-down"></i>
+						</span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#" title="Disponibile" tabindex=""><i
+									class="fa fa-comment"></i> Disponibile</a></li>
+							<li class="active"><a href="#" title="Occupato" tabindex=""><i
+									class="fa fa-bell-slash"></i> Occupato</a></li>
+							<li><a href="#" title="Non al computer" tabindex=""><i
+									class="fa fa-coffee"></i> Non al computer</a></li>
+						</ul></li>
+
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="nav-button"><a href="#" title="" tabindex=""
+						class="js-toggle-search"><span class="sr-only">Ricerca</span><i
+							class="icon-nav fa fa-search"></i></a></li>
+					<li class="nav-button"><a href="#" title="" tabindex=""
+						class="js-toggle-help"><span class="sr-only">Aiuto</span><i
+							class="icon-nav fa fa-question"></i></a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><span class="sr-only">Opzioni</span><i
+							class="icon-nav fa fa-cogs"></i></a>
+						<ul class="dropdown-menu">
+							<li class="dropdown-header">Densità</li>
+							<li class="active"><a href="#" title="" tabindex=""
+								class="js-density-low active">Bassa</a></li>
+							<li><a href="#" title="" tabindex=""
+								class="js-density-medium">Media</a></li>
+							<li><a href="#" title="" tabindex="" class="js-density-high">Alta</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">Lingua</li>
+							<li class="active"><a href="#" title="" tabindex=""
+								class="js-language it active" lang="it">Italiano</a></li>
+							<li><a href="#" title="" tabindex="" class="js-language en"
+								lang="en">English</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="layout-app">
+
+			<div class="layout-app-nav" id="menu">
+
+
+				<nav class="menu-content" role="navigation" id="menu-nav"
+					role="menu" aria-multiselectable="false">
+					<ul class="nav nav-pills nav-stacked">
+
+						<li class='current'><a class='current' href="dashboard.html"
+							title="Dashboard"> <span class="nav-icon"><i
+									class="glyphicon glyphicon-th"></i></span> <span class="nav-label">Dashboard</span>
+						</a></li>
+
+
+
+						<li id="menu-donatori"><a href="donatori.html"
+							title="Donatori"> <span class="nav-icon"><img
+									src="styleguides/assets/img/old/donatore.png" alt="Donatori" /></span> <span
+								class="nav-label">Donatori</span>
+						</a> <a href="#donatori-collapse" data-toggle="collapse"
+							data-parent="#menu-nav" aria-expanded="false"
+							aria-controls="donatori-collapse" title="Espandi Donatori"><i
+								class="fa fa-chevron-down"></i></a>
+							<ul id="donatori-collapse" class="panel-collapse collapse"
+								role="menu" aria-labelledby="menu-donatori">
+								<li><a href="donatori.html">Dashboard</a></li>
+								<li><a href="donatori-calendario.html">Calendario</a></li>
+								<li><a href="donatori-ricerca.html">Donatori</a></li>
+								<li><a href="donatori-dettaglio.html">Donazione</a></li>
+								<li><a href="donatori-questionario.html">Questionario</a></li>
+								<li><a href="donatori-selezione.html">Selezione
+										donatori</a></li>
+								<li><a href="donatori-cartella.html">Cartella clinica</a></li>
+							</ul></li>
+
+						<li><a href="#" title="Pazienti"> <span class="nav-icon"><img
+									src="styleguides/assets/img/old/pazienti.png" alt="Pazienti" /></span> <span
+								class="nav-label">Pazienti</span>
+						</a></li>
+
+
+
+						<li id="menu-esami"><a href="esami.html" title="Esami"> <span
+								class="nav-icon"><i class="fa fa-stethoscope"></i></span> <span
+								class="nav-label">Esami</span>
+						</a> <a href="#esami-collapse" data-toggle="collapse"
+							data-parent="#menu-nav" aria-expanded="false"
+							aria-controls="esami-collapse" title="Espandi Esami"><i
+								class="fa fa-chevron-down"></i></a>
+							<ul id="esami-collapse" class="panel-collapse collapse"
+								role="menu" aria-labelledby="menu-esami">
+								<li><a href="esami.html">Dashboard</a></li>
+								<li><a href="esami-campioni.html">Campioni</a></li>
+								<li><a href="esami-filtri-gestione.html">Filtri
+										Gestione</a></li>
+								<li><a href="esami-filtri-dettaglio.html" class="disabled">Filtri
+										Dettaglio</a></li>
+							</ul></li>
+						<li><a href="emoteca.html" title="Emoteca"> <span
+								class="nav-icon"><img src="styleguides/assets/img/old/emoteca.png"
+									alt="Emoteca" /></span> <span class="nav-label">Emoteca</span>
+						</a></li>
+						<li><a href="#" title="Consegne"> <span class="nav-icon"><i
+									class="fa fa-ambulance"></i></span> <span class="nav-label">Consegne</span>
+						</a></li>
+						<li><a href="#" title="Estrazioni"> <span
+								class="nav-icon"><i class="fa fa-flask"></i></span> <span
+								class="nav-label">Estrazioni</span>
+						</a></li>
+					</ul>
+
+				</nav>
+
+
+				<a href="#" class="js-collapse-menu" title=""> <span
+					class="nav-icon"> <i class="label-out fa fa-chevron-right"></i>
+						<i class="label-in fa fa-chevron-left"></i>
+				</span> <span class="nav-label label-in">Compatta menu</span> <span
+					class="nav-label label-out">Nacondi menu</span>
+				</a>
+
+			</div>
+			<!-- /layout-app-nav -->
+
+			<div class="layout-app-content dashboard clearfix" id="content">
+
+				<header class="page-header js-sticky-header">
+					<div class="header header-section">
+						<div class="row">
+							<div class="title col-xs-12 col-sm-6">
+								<span class="section-icon"><i
+									class="glyphicon glyphicon-th"></i></span>
+								<h1 class="section-title">Dashboard</h1>
+							</div>
+							<form class="col-xs-12 col-sm-6" role="search"
+								action="donatori-ricerca.html">
+
+								<div class="input-group">
+									<button class="search-speak" type="button">
+										<i class="fa fa-microphone"></i>
+									</button>
+									<input type="search" class="form-control typeahead"
+										placeholder="Cerca all'interno dell'applicazione" value="">
+									<span class="input-group-btn">
+										<button class="btn btn-primary" type="submit">Cerca</button>
+										<button class="btn btn-primary collapsed"
+											data-target="#search-advanced" data-toggle="collapse"
+											type="button">
+											<span class="sr-only">Ricerca avanzata</span><i
+												class="fa fa-chevron-down"></i>
+										</button>
+									</span>
+								</div>
+								<!-- /input-group -->
+							</form>
+						</div>
+					</div>
+					<!-- /header -->
+					<div class="search-advanced collapse collapsible"
+						id="search-advanced">
+						<div class="header-section">
+							<div class="row">
+								<div class="col-xs-12 tag-category">Ricerca avanzata</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+
+										<label for="parola-chiave">Parole chiave</label> <input
+											type="text" class="form-control" id="parola-chiave"
+											placeholder="Inserisci parola chiave" name="parola-chiave">
+									</div>
+									<div class="form-group">
+
+										<label for="tipologia-donatore">Tipologia donatore</label> <select
+											class="form-control" id="tipologia-donatore"
+											name="tipologia-donatore">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+
+										<label for="tipologia-donazione">Tipologia donazione</label> <select
+											class="form-control" id="tipologia-donazione"
+											name="tipologia-donazione">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+									<div class="form-group">
+
+										<label for="gruppo-sanguigno">Gruppo sanguigno</label> <select
+											class="form-control" id="gruppo-sanguigno"
+											name="gruppo-sanguigno">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label>Opzioni</label>
+										<div class="">
+
+											<label for="opzione-1"> <input type="checkbox"
+												id="opzione-1" name="opzione-1"> Opzione 1
+											</label>
+										</div>
+										<div class="">
+
+											<label for="opzione-2"> <input type="checkbox"
+												id="opzione-2" name="opzione-2"> Opzione 2
+											</label>
+										</div>
+										<div class="">
+
+											<label for="opzione-3"> <input type="checkbox"
+												id="opzione-3" name="opzione-3"> Opzione 3
+											</label>
+										</div>
+										<div class="">
+
+											<label for="opzione-4"> <input type="checkbox"
+												id="opzione-4" name="opzione-4"> Opzione 4
+											</label>
+										</div>
+										<div class="">
+
+											<label for="opzione-5"> <input type="checkbox"
+												id="opzione-5" name="opzione-5"> Opzione 5
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /search-advanced -->
+					<div class="breadcrumbs header-section">
+						<ol class="breadcrumb">
+							<li class='current'><a class='current' href="dashboard.html">Eliot</a></li>
+							<li class="active">Dashboard</li>
+						</ol>
+					</div>
+					<!-- /breadcrumbs -->
+				</header>
+
+				<div class="page-content">
+
+					<ol class="panels list-unstyled draggable">
+						<li class="panel-container double ">
+							<div class="panel panel-default">
+
+								<div class="panel-heading">
+									<div class="panel-id">
+										<span class="panel-icon"><i class="fa fa-check"></i></span>
+										<h2 class="panel-title">ToDo</h2>
+										<span class="badge">4</span>
+									</div>
+
+									<div class="panel-controls">
+										<span class="panel-icon panel-handle" title="Sposta"><i
+											class="fa fa-arrows"></i></span> <a class="panel-icon" href="#"
+											title="Opzioni" data-toggle="dropdown" aria-haspopup="true"
+											role="button" aria-expanded="false" data-target="#"><i
+											class="fa fa-cog" id="task"></i></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="task">
+											<li><i></i><a href="#" title="Ingrandisci"
+												class="js-panel-espandi"><i class="fa fa-expand"></i>
+													Ingrandisci</a></li>
+											<li><a href="#" title="Riduci" class="js-panel-riduci"><i
+													class="fa fa-compress"></i> Riduci</a></li>
+											<li><a href="#" title="Elimina" class="js-panel-elimina"><i
+													class="fa fa-times"></i> Elimina</a></li>
+										</ul>
+									</div>
+								</div>
+
+
+
+								<div class="panel-section collapsible" id="heading-task-urgenti">
+									<a href="#collapse-task-urgenti" data-toggle="collapse"
+										data-parent="#content" aria-expanded="true"
+										aria-controls="task-urgenti" title="Task urgenti">Task
+										urgenti</a>
+								</div>
+								<ul class="list-group collapse in" id="collapse-task-urgenti"
+									role="tabpanel" aria-labelledby="heading-task-urgenti">
+
+
+
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Referti di gruppo da validare">
+											<div class="media">
+												<div class="media-left">
+													<i class="round-icon fa fa-minus-circle text-danger"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">15 maggio 2014 <span
+														class="data">ore 10:25</span></span> <span class="media-title">Referti
+														di gruppo da validare</span> <span class="media-content">Sono
+														in attesa 35 referti di gruppo da validare</span>
+												</div>
+											</div>
+									</a></li>
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Richieste con crossmatch">
+											<div class="media">
+												<div class="media-left">
+													<i class="round-icon fa fa-minus-circle text-danger"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">15 maggio 2014 <span
+														class="data">ore 11:15</span></span> <span class="media-title">Richieste
+														con crossmatch</span> <span class="media-content">Ci sono
+														2 richieste con crossmatch in attesa di validazione medica</span>
+												</div>
+											</div>
+									</a></li>
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Validazione ed etichettatura">
+											<div class="media">
+												<div class="media-left">
+													<i class="round-icon fa fa-minus-circle text-danger"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">15 maggio 2014 <span
+														class="data">ore 11:23</span></span> <span class="media-title">Validazione
+														ed etichettatura</span> <span class="media-content">70
+														unità in attesa di Validazione ed etichettatura</span>
+												</div>
+											</div>
+									</a></li>
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Emazie urgenti">
+											<div class="media">
+												<div class="media-left">
+													<i class="round-icon fa fa-minus-circle text-danger"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">15 maggio 2014 <span
+														class="data">ore 11:45</span></span> <span class="media-title">Emazie
+														urgenti</span> <span class="media-content">Sono pervenute
+														3 richieste di Emazie Urgenti</span>
+												</div>
+											</div>
+									</a></li>
+
+								</ul>
+								<!-- /panel-section-collapsible -->
+
+
+
+
+								<div class="panel-section collapsible"
+									id="heading-task-prossimi">
+									<a href="#collapse-task-prossimi" data-toggle="collapse"
+										data-parent="#content" aria-expanded="true"
+										aria-controls="task-prossimi" title="Prossimi task">Prossimi
+										task</a>
+								</div>
+								<ul class="list-group collapse in" id="collapse-task-prossimi"
+									role="tabpanel" aria-labelledby="heading-task-prossimi">
+
+
+
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Questionario da completare">
+											<div class="media">
+												<div class="media-left">
+													<i
+														class="round-icon fa fa-exclamation-triangle text-warning"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">15 maggio 2014 <span
+														class="data">ore 12:25</span></span> <span class="media-title">Questionario
+														da completare</span> <span class="media-content">Donatore
+														Pietro Verdi non ha ancora completato il questionario</span>
+												</div>
+											</div>
+									</a></li>
+
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Validazione medica">
+											<div class="media">
+												<div class="media-left">
+													<i
+														class="round-icon fa fa-exclamation-triangle text-warning"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">16 maggio 2014 <span
+														class="data">ore 9:15</span></span> <span class="media-title">Validazione
+														medica</span> <span class="media-content">Donatore
+														Guglielmo Marzo è pronto per la validazione medica</span>
+												</div>
+											</div>
+									</a></li>
+
+
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Valutazione clinica">
+											<div class="media">
+												<div class="media-left">
+													<i class="round-icon fa fa-info-circle text-info"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">16 maggio 2014 <span
+														class="data">ore 10:23</span></span> <span class="media-title">Valutazione
+														clinica</span> <span class="media-content">Esami di Arturo
+														Veltro sono pronti per la valutazione clinica</span>
+												</div>
+											</div>
+									</a></li>
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Validazione medica">
+											<div class="media">
+												<div class="media-left">
+													<i class="round-icon fa fa-info-circle text-info"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">16 maggio 2014 <span
+														class="data">ore 11:12</span></span> <span class="media-title">Validazione
+														medica</span> <span class="media-content">Donatore
+														Guglielmo Marzo è pronto per la validazione medica</span>
+												</div>
+											</div>
+									</a></li>
+
+
+
+
+
+
+									<li><a class="list-group-item" href="#"
+										title="Validazione medica">
+											<div class="media">
+												<div class="media-left">
+													<i class="round-icon fa fa-check-circle text-success"></i>
+												</div>
+												<div class="media-body">
+													<span class="media-meta">16 maggio 2014 <span
+														class="data">ore 11:45</span></span> <span class="media-title">Validazione
+														medica</span> <span class="media-content">Donatore
+														Francesco Piermaria Lippi è pronto per la validazione
+														medica</span>
+												</div>
+											</div>
+									</a></li>
+
+								</ul>
+
+							</div>
+						</li>
+
+						<li class="panel-container double">
+							<div class="panel panel-default">
+
+								<div class="panel-heading">
+									<div class="panel-id">
+										<span class="panel-icon"><img
+											src="styleguides/assets/img/old/donatore.png" alt="donatore" /></span>
+										<h2 class="panel-title">Donatori</h2>
+									</div>
+
+									<div class="panel-controls">
+										<span class="panel-icon panel-handle" title="Sposta"><i
+											class="fa fa-arrows"></i></span> <a class="panel-icon" href="#"
+											title="Opzioni" data-toggle="dropdown" aria-haspopup="true"
+											role="button" aria-expanded="false" data-target="#"><i
+											class="fa fa-cog" id="task"></i></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="task">
+											<li><i></i><a href="#" title="Ingrandisci"
+												class="js-panel-espandi"><i class="fa fa-expand"></i>
+													Ingrandisci</a></li>
+											<li><a href="#" title="Riduci" class="js-panel-riduci"><i
+													class="fa fa-compress"></i> Riduci</a></li>
+											<li><a href="#" title="Elimina" class="js-panel-elimina"><i
+													class="fa fa-times"></i> Elimina</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="panel-body">
+									<p>Ci sono 6 donatori in attesa</p>
+								</div>
+								<!-- @todo questo dovrebbe diventare un carousel -->
+								<ul class="carousel-list">
+									<li class="carousel-page">
+										<ul class="lista-donatori list-group">
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Giacomo Turco">
+													<div class="media">
+														<div class="media-left">
+															<span class="img-circle"><span
+																class="img-circle-letter">GT</span></span>
+														</div>
+														<div class="media-body">
+															<span class="media-title">Giacomo Turco</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Terenzio Testarossa">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-testarossa.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Terenzio Testarossa</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Alberto Agemoni">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-alberto.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Alberto Agemoni</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Averroè Ametrano">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-averroe.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Averroè Ametrano</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+										</ul>
+									</li>
+									<li class="carousel-page">
+										<ul class="lista-donatori list-group">
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Michele Macaluso">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-michele.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Michele Macaluso</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Vincenzo Valenti">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-vincenzo.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Vincenzo Valenti</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Terenzio Testarossa">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-testarossa.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Terenzio Testarossa</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Alberto Agemoni">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-alberto.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Alberto Agemoni</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+										</ul>
+									</li>
+									<li class="carousel-page">
+										<ul class="lista-donatori list-group">
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Andrea Giacometti">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-giacomo.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Andrea Giacometti</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Piero Luigi">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-testarossa.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Piero Luigi</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Antonio Mangiati">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-alberto.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Antonio Mangiati</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Ascanio Astri">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-averroe.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Ascanio Astri</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+										</ul>
+									</li>
+									<li class="carousel-page">
+										<ul class="lista-donatori list-group">
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Mario Melini">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-michele.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Mario Melini</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Gino Garimberti">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-vincenzo.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Gino Garimberti</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Horation Honesti">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-testarossa.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Horation Honesti</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+
+
+
+
+											<li><a class="list-group-item"
+												href="donatori-dettaglio.html" title="Carmelo Calvino">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object img-circle"
+																src="styleguides/assets/img/inline/donatore-alberto.jpg"
+																alt="...">
+														</div>
+														<div class="media-body">
+															<span class="media-title">Carmelo Calvino</span> <span
+																class="media-content">Questionario</span>
+														</div>
+													</div>
+											</a></li>
+										</ul>
+									</li>
+								</ul>
+
+							</div>
+						</li>
+
+						<li class="panel-container single">
+							<div class="panel panel-default">
+
+								<div class="panel-heading">
+									<div class="panel-id">
+										<span class="panel-icon"><i class="fa fa-bar-chart-o"></i></span>
+										<h2 class="panel-title">Raccolta unità di sangue</h2>
+									</div>
+
+									<div class="panel-controls">
+										<span class="panel-icon panel-handle" title="Sposta"><i
+											class="fa fa-arrows"></i></span> <a class="panel-icon" href="#"
+											title="Opzioni" data-toggle="dropdown" aria-haspopup="true"
+											role="button" aria-expanded="false" data-target="#"><i
+											class="fa fa-cog" id="task"></i></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="task">
+											<li><i></i><a href="#" title="Ingrandisci"
+												class="js-panel-espandi"><i class="fa fa-expand"></i>
+													Ingrandisci</a></li>
+											<li><a href="#" title="Riduci" class="js-panel-riduci"><i
+													class="fa fa-compress"></i> Riduci</a></li>
+											<li><a href="#" title="Elimina" class="js-panel-elimina"><i
+													class="fa fa-times"></i> Elimina</a></li>
+										</ul>
+									</div>
+								</div>
+
+
+
+								<div class="panel-section horizontal-navigation">
+									<a href="#" title="precedente" class="dir"><i
+										class="fa fa-chevron-left"></i><span class="sr-only">Precedente</span></a>
+									<a href="#" title="Dicembre 2014">Dicembre 2014</a> <a href="#"
+										title="successivo" class="dir"><i
+										class="fa fa-chevron-right"></i><span class="sr-only">Successivo</span></a>
+								</div>
+								<div class="panel-body graph">
+									<div class="ct-chart ct-golden-section" id="grafico-1"></div>
+								</div>
+								<div class="panel-footer">
+									<ul class="graph-legend list-inline">
+										<li class="graph-a"><i class="fa fa-circle"></i> <span
+											class="graph-label">Raccolta mese</span></li>
+										<li class="graph-b"><i class="fa fa-circle"></i> <span
+											class="graph-label">Media di riferimento</span></li>
+									</ul>
+								</div>
+
+							</div>
+						</li>
+
+						<li class="panel-container single">
+							<div class="panel panel-default">
+
+								<div class="panel-heading">
+									<div class="panel-id">
+										<span class="panel-icon"><i class="fa fa-calendar"></i></span>
+										<h2 class="panel-title">Calendario</h2>
+										<span class="badge">1</span>
+									</div>
+
+									<div class="panel-controls">
+										<span class="panel-icon panel-handle" title="Sposta"><i
+											class="fa fa-arrows"></i></span> <a class="panel-icon" href="#"
+											title="Opzioni" data-toggle="dropdown" aria-haspopup="true"
+											role="button" aria-expanded="false" data-target="#"><i
+											class="fa fa-cog" id="task"></i></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="task">
+											<li><i></i><a href="#" title="Ingrandisci"
+												class="js-panel-espandi"><i class="fa fa-expand"></i>
+													Ingrandisci</a></li>
+											<li><a href="#" title="Riduci" class="js-panel-riduci"><i
+													class="fa fa-compress"></i> Riduci</a></li>
+											<li><a href="#" title="Elimina" class="js-panel-elimina"><i
+													class="fa fa-times"></i> Elimina</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="panel-body unpadded">
+									<div class="calendar-small"></div>
+								</div>
+
+							</div>
+						</li>
+
+						<li class="panel-container single">
+							<div class="panel panel-default">
+
+								<div class="panel-heading">
+									<div class="panel-id">
+										<span class="panel-icon"><i class="fa fa-stethoscope"></i></span>
+										<h2 class="panel-title">Esami</h2>
+										<span class="badge">3</span>
+									</div>
+
+									<div class="panel-controls">
+										<span class="panel-icon panel-handle" title="Sposta"><i
+											class="fa fa-arrows"></i></span> <a class="panel-icon" href="#"
+											title="Opzioni" data-toggle="dropdown" aria-haspopup="true"
+											role="button" aria-expanded="false" data-target="#"><i
+											class="fa fa-cog" id="task"></i></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="task">
+											<li><i></i><a href="#" title="Ingrandisci"
+												class="js-panel-espandi"><i class="fa fa-expand"></i>
+													Ingrandisci</a></li>
+											<li><a href="#" title="Riduci" class="js-panel-riduci"><i
+													class="fa fa-compress"></i> Riduci</a></li>
+											<li><a href="#" title="Elimina" class="js-panel-elimina"><i
+													class="fa fa-times"></i> Elimina</a></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="panel-body">
+									<p>Lorem ipsum dolor sit amet numquam suspendisse elit.</p>
+								</div>
+
+							</div>
+						</li>
+
+						<li class="panel-container single">
+							<div class="panel panel-default">
+
+								<div class="panel-heading">
+									<div class="panel-id">
+										<span class="panel-icon"><i class="fa fa-bar-chart-o"></i></span>
+										<h2 class="panel-title">Unità</h2>
+									</div>
+
+									<div class="panel-controls">
+										<span class="panel-icon panel-handle" title="Sposta"><i
+											class="fa fa-arrows"></i></span> <a class="panel-icon" href="#"
+											title="Opzioni" data-toggle="dropdown" aria-haspopup="true"
+											role="button" aria-expanded="false" data-target="#"><i
+											class="fa fa-cog" id="task"></i></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="task">
+											<li><i></i><a href="#" title="Ingrandisci"
+												class="js-panel-espandi"><i class="fa fa-expand"></i>
+													Ingrandisci</a></li>
+											<li><a href="#" title="Riduci" class="js-panel-riduci"><i
+													class="fa fa-compress"></i> Riduci</a></li>
+											<li><a href="#" title="Elimina" class="js-panel-elimina"><i
+													class="fa fa-times"></i> Elimina</a></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="panel-body">
+									<p>Lorem ipsum dolor sit amet numquam suspendisse elit.</p>
+								</div>
+
+							</div>
+						</li>
+
+						<li class="panel-container single">
+							<div class="panel panel-default">
+
+								<div class="panel-heading">
+									<div class="panel-id">
+										<span class="panel-icon"><img
+											src="styleguides/assets/img/old/pazienti.png" alt="Pazienti" /></span>
+										<h2 class="panel-title">Pazienti</h2>
+										<span class="badge">4</span>
+									</div>
+
+									<div class="panel-controls">
+										<span class="panel-icon panel-handle" title="Sposta"><i
+											class="fa fa-arrows"></i></span> <a class="panel-icon" href="#"
+											title="Opzioni" data-toggle="dropdown" aria-haspopup="true"
+											role="button" aria-expanded="false" data-target="#"><i
+											class="fa fa-cog" id="task"></i></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="task">
+											<li><i></i><a href="#" title="Ingrandisci"
+												class="js-panel-espandi"><i class="fa fa-expand"></i>
+													Ingrandisci</a></li>
+											<li><a href="#" title="Riduci" class="js-panel-riduci"><i
+													class="fa fa-compress"></i> Riduci</a></li>
+											<li><a href="#" title="Elimina" class="js-panel-elimina"><i
+													class="fa fa-times"></i> Elimina</a></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="panel-body">
+									<p>Lorem ipsum dolor sit amet numquam suspendisse elit.</p>
+								</div>
+
+							</div>
+						</li>
+
+						<li class="panel-container single">
+							<div class="panel panel-default">
+
+								<div class="panel-heading">
+									<div class="panel-id">
+										<span class="panel-icon"><i class="fa fa-ambulance"></i></span>
+										<h2 class="panel-title">Consegne</h2>
+									</div>
+
+									<div class="panel-controls">
+										<span class="panel-icon panel-handle" title="Sposta"><i
+											class="fa fa-arrows"></i></span> <a class="panel-icon" href="#"
+											title="Opzioni" data-toggle="dropdown" aria-haspopup="true"
+											role="button" aria-expanded="false" data-target="#"><i
+											class="fa fa-cog" id="task"></i></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="task">
+											<li><i></i><a href="#" title="Ingrandisci"
+												class="js-panel-espandi"><i class="fa fa-expand"></i>
+													Ingrandisci</a></li>
+											<li><a href="#" title="Riduci" class="js-panel-riduci"><i
+													class="fa fa-compress"></i> Riduci</a></li>
+											<li><a href="#" title="Elimina" class="js-panel-elimina"><i
+													class="fa fa-times"></i> Elimina</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="panel-body">
+									<p>Lorem ipsum dolor sit amet</p>
+								</div>
+
+							</div>
+						</li>
+
+					</ol>
+
+				</div>
+
+			</div>
+			<!-- /layout-app-content -->
+
+		</div>
+		<!-- /layout-app -->
+
+	</div>
+	<!-- /layout -->
+
+	<!-- menu radiale -->
+	<div id="radial-container">
+		<nav id="radial-menu" class="navbar-collapsed">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target=".radial-menu">
+				<span class="sr-only">Notifiche</span> <span class="badge">5</span>
+				<i class="fa fa-bell menu-closed"></i> <i
+					class="fa fa-times menu-open"></i>
+			</button>
+			<ul class="radial-menu navbar-collapse collapse">
+				<li><a href="#notifiche-avvisi" title="Avvisi" tabindex=""
+					class="notifica" id="attiva-avvisi" data-toggle="modal"
+					data-target="#notifiche-avvisi"> <span class="sr-only">Avvisi</span>
+						<i class="fa fa-exclamation-triangle"></i> <span class="badge">1</span>
+				</a></li>
+				<li><a href="#notifiche-messaggi" title="Messaggi" tabindex=""
+					class="notifica" id="attiva-messaggi" data-toggle="modal"
+					data-target="#notifiche-messaggi"> <span class="sr-only">Messaggi</span>
+						<i class="fa fa-comment"></i> <span class="badge">4</span>
+				</a></li>
+				<li><a href="#notifiche-appunti" title="Appunti" tabindex=""
+					id="attiva-appunti" data-toggle="modal"
+					data-target="#notifiche-appunti"> <span class="sr-only">Appunti</span>
+						<i class="fa fa-thumb-tack"></i> <span class="badge"></span>
+				</a></li>
+				<li><a href="#notifiche-email" title="Email" tabindex=""
+					id="attiva-email" data-toggle="modal"
+					data-target="#notifiche-email"> <span class="sr-only">Email</span>
+						<i class="fa fa-envelope"></i> <span class="badge"></span>
+				</a></li>
+			</ul>
+		</nav>
+		<!-- /radial-menu -->
+	</div>
+
+
+
+	<div class="modal fade" id="notifiche-avvisi" tabindex="-1"
+		role="dialog" aria-labelledby="attiva-avvisi" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Chiudi</span>
+					</button>
+					<span class="panel-icon"><i
+						class="fa fa-exclamation-triangle"></i></span>
+					<h4 class="modal-title">Avvisi</h4>
+				</div>
+				<ul class="list-group">
+
+
+
+
+
+
+
+					<li><a class="list-group-item" href="#"
+						title="Referti di gruppo da validare">
+							<div class="media">
+								<div class="media-left">
+									<i class="round-icon fa fa-minus-circle text-danger"></i>
+								</div>
+								<div class="media-body">
+									<span class="media-meta">15 maggio 2014 <span
+										class="data">ore 10:25</span></span> <span class="media-title">Referti
+										di gruppo da validare</span> <span class="media-content">Sono
+										in attesa 35 referti di gruppo da validare</span>
+								</div>
+							</div>
+					</a></li>
+
+				</ul>
+				<div class="modal-footer">
+					<a href="#" title="Visualizza tutti gli Avvisi">Tutti gli
+						Avvisi</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modal fade" id="notifiche-messaggi" tabindex="-1"
+		role="dialog" aria-labelledby="attiva-messaggi" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Chiudi</span>
+					</button>
+					<span class="panel-icon"><i class="fa fa-comment"></i></span>
+					<h4 class="modal-title">Messaggi</h4>
+				</div>
+				<ul class="list-group">
+
+
+
+
+
+
+
+					<li><a class="list-group-item" href="#" title="Mario Rossi">
+							<div class="media">
+								<div class="media-left">
+									<i class="round-icon fa fa-comments text-info"></i>
+								</div>
+								<div class="media-body">
+									<span class="media-meta">15 maggio 2014 <span
+										class="data">ore 10:25</span></span> <span class="media-title">Mario
+										Rossi</span> <span class="media-content">Ciao! Per caso hai
+										terminato gli esami?</span>
+								</div>
+							</div>
+					</a></li>
+
+
+
+
+					<li><a class="list-group-item" href="#" title="Antonio Verdi">
+							<div class="media">
+								<div class="media-left">
+									<i class="round-icon fa fa-comments text-info"></i>
+								</div>
+								<div class="media-body">
+									<span class="media-meta">15 maggio 2014 <span
+										class="data">ore 11:15</span></span> <span class="media-title">Antonio
+										Verdi</span> <span class="media-content">Riunione alle 12:00</span>
+								</div>
+							</div>
+					</a></li>
+
+
+
+
+					<li><a class="list-group-item" href="#"
+						title="Pier Luigi Magiani">
+							<div class="media">
+								<div class="media-left">
+									<i class="round-icon fa fa-comments text-info"></i>
+								</div>
+								<div class="media-body">
+									<span class="media-meta">15 maggio 2014 <span
+										class="data">ore 11:23</span></span> <span class="media-title">Pier
+										Luigi Magiani</span> <span class="media-content">70 unità in
+										attesa di Validazione ed etichettatura</span>
+								</div>
+							</div>
+					</a></li>
+
+				</ul>
+				<div class="modal-footer">
+					<a href="#" title="Visualizza tutti i Messaggi">Tutti i
+						Messaggi</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modal fade" id="notifiche-appunti" tabindex="-1"
+		role="dialog" aria-labelledby="attiva-appunti" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Chiudi</span>
+					</button>
+					<span class="panel-icon"><i class="fa fa-thumb-tack"></i></span>
+					<h4 class="modal-title">Appunti</h4>
+				</div>
+				<div class="modal-body">
+
+					<ul class="list-group">
+
+
+
+
+
+
+
+						<li><a class="list-group-item" href="#"
+							title="Referti di gruppo da validare">
+								<div class="media">
+									<div class="media-left">
+										<i class="round-icon fa fa-minus-circle text-danger"></i>
+									</div>
+									<div class="media-body">
+										<span class="media-meta">15 maggio 2014 <span
+											class="data">ore 10:25</span></span> <span class="media-title">Referti
+											di gruppo da validare</span> <span class="media-content">Sono
+											in attesa 35 referti di gruppo da validare</span>
+									</div>
+								</div>
+						</a></li>
+
+
+
+
+						<li><a class="list-group-item" href="#"
+							title="Richieste con crossmatch">
+								<div class="media">
+									<div class="media-left">
+										<i class="round-icon fa fa-minus-circle text-danger"></i>
+									</div>
+									<div class="media-body">
+										<span class="media-meta">15 maggio 2014 <span
+											class="data">ore 11:15</span></span> <span class="media-title">Richieste
+											con crossmatch</span> <span class="media-content">Ci sono 2
+											richieste con crossmatch in attesa di validazione medica</span>
+									</div>
+								</div>
+						</a></li>
+
+
+
+
+						<li><a class="list-group-item" href="#"
+							title="Validazione ed etichettatura">
+								<div class="media">
+									<div class="media-left">
+										<i class="round-icon fa fa-minus-circle text-danger"></i>
+									</div>
+									<div class="media-body">
+										<span class="media-meta">15 maggio 2014 <span
+											class="data">ore 11:23</span></span> <span class="media-title">Validazione
+											ed etichettatura</span> <span class="media-content">70 unità
+											in attesa di Validazione ed etichettatura</span>
+									</div>
+								</div>
+						</a></li>
+
+
+
+
+						<li><a class="list-group-item" href="#"
+							title="Emazie urgenti">
+								<div class="media">
+									<div class="media-left">
+										<i class="round-icon fa fa-minus-circle text-danger"></i>
+									</div>
+									<div class="media-body">
+										<span class="media-meta">15 maggio 2014 <span
+											class="data">ore 11:45</span></span> <span class="media-title">Emazie
+											urgenti</span> <span class="media-content">Sono pervenute 3
+											richieste di Emazie Urgenti</span>
+									</div>
+								</div>
+						</a></li>
+
+					</ul>
+					<div class="modal-footer">
+						<a href="#" title="Visualizza tutti gli Appunti">Tutti gli
+							Appunti</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modal fade" id="notifiche-email" tabindex="-1"
+		role="dialog" aria-labelledby="attiva-email" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Chiudi</span>
+					</button>
+					<span class="panel-icon"><i class="fa fa-envelope"></i></span>
+					<h4 class="modal-title">Email</h4>
+				</div>
+				<div class="modal-body">
+
+					<ul class="list-group">
+
+
+
+
+
+
+
+						<li><a class="list-group-item" href="#"
+							title="Referti di gruppo da validare">
+								<div class="media">
+									<div class="media-left">
+										<i class="round-icon fa fa-minus-circle text-danger"></i>
+									</div>
+									<div class="media-body">
+										<span class="media-meta">15 maggio 2014 <span
+											class="data">ore 10:25</span></span> <span class="media-title">Referti
+											di gruppo da validare</span> <span class="media-content">Sono
+											in attesa 35 referti di gruppo da validare</span>
+									</div>
+								</div>
+						</a></li>
+
+
+
+
+						<li><a class="list-group-item" href="#"
+							title="Richieste con crossmatch">
+								<div class="media">
+									<div class="media-left">
+										<i class="round-icon fa fa-minus-circle text-danger"></i>
+									</div>
+									<div class="media-body">
+										<span class="media-meta">15 maggio 2014 <span
+											class="data">ore 11:15</span></span> <span class="media-title">Richieste
+											con crossmatch</span> <span class="media-content">Ci sono 2
+											richieste con crossmatch in attesa di validazione medica</span>
+									</div>
+								</div>
+						</a></li>
+
+
+
+
+						<li><a class="list-group-item" href="#"
+							title="Validazione ed etichettatura">
+								<div class="media">
+									<div class="media-left">
+										<i class="round-icon fa fa-minus-circle text-danger"></i>
+									</div>
+									<div class="media-body">
+										<span class="media-meta">15 maggio 2014 <span
+											class="data">ore 11:23</span></span> <span class="media-title">Validazione
+											ed etichettatura</span> <span class="media-content">70 unità
+											in attesa di Validazione ed etichettatura</span>
+									</div>
+								</div>
+						</a></li>
+
+
+
+
+						<li><a class="list-group-item" href="#"
+							title="Emazie urgenti">
+								<div class="media">
+									<div class="media-left">
+										<i class="round-icon fa fa-minus-circle text-danger"></i>
+									</div>
+									<div class="media-body">
+										<span class="media-meta">15 maggio 2014 <span
+											class="data">ore 11:45</span></span> <span class="media-title">Emazie
+											urgenti</span> <span class="media-content">Sono pervenute 3
+											richieste di Emazie Urgenti</span>
+									</div>
+								</div>
+						</a></li>
+
+					</ul>
+					<div class="modal-footer">
+						<a href="#" title="Visualizza tutte le Email">Tutte le Email</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		window.jQuery
+				|| document
+						.write('<script type="text/javascript" src="styleguides/assets/libs/jquery/jquery-1.11.1.min.js"><\/script>')
+	</script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script type="text/javascript" src="styleguides/assets/js/old/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="styleguides/assets/libs/tour/bootstrap-tour.min.js"></script>
+
+	<!-- tabelle -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/tablesaw/tablesaw.js"></script>
+	<!-- menu di navigazione -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/nav/jquery.bootstrap-autohidingnavbar.min.js"></script>
+	<script type="text/javascript" src="styleguides/assets/libs/nav/fixto.js"></script>
+	<!-- notifiche -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/dragabilly/draggabilly.pkgd.min.js"></script>
+	<!-- dashboard -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/packery/packery.pkgd.min.js"></script>
+	<!-- mp-f216 -->
+	<!-- highlight codice -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/x-rayhtml/X-rayHTML.js"></script>
+	<script type="text/javascript" src="styleguides/assets/libs/prism/prism.js"></script>
+	<!-- scrollbar -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- ordinamento elementi di lista -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/html5sortable/jquery.sortable.js"></script>
+	<!-- suggerimenti ricerca -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/typeahead/typeahead.jquery.min.js"></script>
+	<!-- fullcalendar -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/fullcalendar-2.2.3/lib/moment.min.js"></script>
+	<script type="text/javascript"
+		src="styleguides/assets/libs/fullcalendar-2.2.3/fullcalendar.min.js"></script>
+	<!-- chartist -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/chartist/chartist.min.js"></script>
+	<!-- bxslider -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/bxslider/jquery.bxslider.min.js"></script>
+	<!-- mp-f403 -->
+	<!-- datetimepicker -->
+	<script type="text/javascript"
+		src="styleguides/assets/libs/datetimepicker/jquery.datetimepicker.js"></script>
+	<!-- mp-f403 -->
+	<!-- pizza pie chart -->
+	<link href="styleguides/assets/libs/pizza/css/pizza.css"
+		media="screen, projector, print" rel="stylesheet" type="text/css" />
+	<script src="styleguides/assets/libs/snapsvg/snap.svg.js"></script>
+	<script src="styleguides/assets/libs/pizza/js/pizza.js"></script>
+
+	<!-- Attivazione script -->
+	<script type="text/javascript" src="styleguides/assets/js/eliot.js"></script>
+
+	<!-- Help -->
+	<script type="text/javascript"
+		src="styleguides/assets/js/tour/tour-dashboard.js"></script>
+	<script type="text/javascript" src="styleguides/assets/js/eliot-eventi.js"></script>
+	<script type="text/javascript" src="styleguides/assets/js/eliot-grafici.js"></script>
+</body>
+</html>

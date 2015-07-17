@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!-- <html manifest="manifest.appcache"> -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ems Mobile App</title>
+
+<!-- Sets initial viewport load and disables zooming  -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+<!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<!-- <script src="page.js"></script> -->
+<script src="emsmobile/cache-utils/cache-utils.js"></script>
+<script>
+if ('serviceWorker' in navigator){
+	navigator.serviceWorker.register('sw.js').then(function(reg) {
+	    // registration worked
+	    console.log('Registration succeeded. Scope is ' + reg.scope);
+	  }).catch(function(error) {
+	    // registration failed
+	    console.log('Registration failed with ' + error);
+	  });
+}
+else{
+	console.log('service-worker not supported');
+}
+</script>
+
+
+<!-- Favicon -->
+<link rel="icon" type="image/png"
+	href="styleguides/assets/img/favicon/favicon.png" />
+
+<!-- Icons for touch devices -->
+<!-- For Chrome for Android: -->
+<link rel="icon" sizes="192x192"
+	href="styleguides/assets/img/favicon/touch-icon-192x192.png">
+<!-- For iPhone 6 Plus with @3× display: -->
+<link rel="apple-touch-icon-precomposed" sizes="180x180"
+	href="styleguides/assets/img/favicon/apple-touch-icon-180x180-precomposed.png">
+<!-- For iPad with @2× display running iOS ≥ 7: -->
+<link rel="apple-touch-icon-precomposed" sizes="152x152"
+	href="styleguides/assets/img/favicon/apple-touch-icon-152x152-precomposed.png">
+<!-- For iPad with @2× display running iOS ≤ 6: -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="styleguides/assets/img/favicon/apple-touch-icon-144x144-precomposed.png">
+<!-- For iPhone with @2× display running iOS ≥ 7: -->
+<link rel="apple-touch-icon-precomposed" sizes="120x120"
+	href="styleguides/assets/img/favicon/apple-touch-icon-120x120-precomposed.png">
+<!-- For iPhone with @2× display running iOS ≤ 6: -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="styleguides/assets/img/favicon/apple-touch-icon-114x114-precomposed.png">
+<!-- For the iPad mini and the first- and second-generation iPad (@1× display) on iOS ≥ 7: -->
+<link rel="apple-touch-icon-precomposed" sizes="76x76"
+	href="styleguides/assets/img/favicon/apple-touch-icon-76x76-precomposed.png">
+<!-- For the iPad mini and the first- and second-generation iPad (@1× display) on iOS ≤ 6: -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="styleguides/assets/img/favicon/apple-touch-icon-72x72-precomposed.png">
+<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+<link rel="apple-touch-icon-precomposed"
+	href="styleguides/assets/img/favicon/apple-touch-icon-precomposed.png">
+<!-- 57×57px -->
+
+
+<!-- Open Sans font family -->
+<link
+	href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700"
+	rel="stylesheet" type="text/css">
+
+<!-- Bootstrap -->
+<link href="styleguides/assets/libs/bootstrap/bootstrap.min.css" rel="stylesheet"
+	type="text/css">
+<!-- Bootstrap plugins -->
+<link href="styleguides/assets/libs/tour/bootstrap-tour.min.css">
+<!-- help -->
+<link
+	href="styleguides/assets/libs/bootstrap-vertical-tabs/bootstrap.vertical-tabs.min.css">
+<!-- vertical tabs -->
+<link href="styleguides/assets/libs/tablesaw/tablesaw.css" rel="stylesheet"
+	type="text/css">
+<!-- tabelle responsive -->
+<link href="styleguides/assets/libs/nav/yamm.css" rel="stylesheet"
+	type="text/css">
+<!-- menu -->
+<link href="styleguides/assets/libs/x-rayhtml/X-rayHTML.css" rel="stylesheet"
+	type="text/css">
+<!-- highlight codice -->
+<link href="styleguides/assets/libs/prism/prism.css" rel="stylesheet"
+	type="text/css">
+<!-- highlight codice -->
+<link href="styleguides/assets/libs/fullcalendar-2.2.3/fullcalendar.min.css"
+	rel="stylesheet" type="text/css">
+<!-- fullcalendar -->
+<link href="styleguides/assets/libs/chartist/chartist.min.css" rel="stylesheet"
+	type="text/css">
+<!-- chartist -->
+<link href="styleguides/assets/libs/bxslider/jquery.bxslider.css"
+	rel="stylesheet" type="text/css">
+<!-- mp-f403 -->
+<link href="styleguides/assets/libs/datetimepicker/jquery.datetimepicker.css"
+	rel="stylesheet" type="text/css">
+<!-- mp-f403 -->
+<!-- Fontawesome -->
+<link href="styleguides/assets/css/old/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+<!-- Eliot -->
+<link href="styleguides/assets/css/eliot.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="emsmobile/appify/appify.min.css">
+<link rel="stylesheet" href="emsmobile/keyboard/css/jquery-ui.min.css">
+<link rel="stylesheet" href="emsmobile/keyboard/css/keyboard.min.css">
+
+
+<script
+	src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+
+<!-- PUT HERE ALL YOUR CUSTOM CSS REFS -->
+<link rel="stylesheet" href="to-cache/ol/ol.css">
+<link href="to-cache/css/keyboard.css" rel="stylesheet">
+<link href="to-cache/css/loader.css" rel="stylesheet">
+<link href="to-cache/css/theme.aqua.css" rel="stylesheet">
+<link href="to-cache/css/custom.css" rel="stylesheet">
+<link href="to-cache/css/orientation.css" rel="stylesheet">
+<link href="to-cache/css/button.css" rel="stylesheet">
+<link href="to-cache/css/font.css" rel="stylesheet">
+
+<!-- <link rel="stylesheet" type="text/css" href="notification/css/ns-default.css" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="notification/css/ns-style-growl.css" /> -->
+<style>
+[v-cloak] {
+	display: none;
+}
+</style>
+</head>
+<div id="notifier">
+	<body style="background-color: white;">
+
+		<iframe v-pre src="javascript:''" id="__gwt_historyFrame"
+			tabIndex='-1'
+			style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+		<script type="text/javascript" language="javascript"
+			src="emsmobile/emsmobile.nocache.js"></script>
+
+		<div id="cacheEl"></div>
+
+		<!-- <div data-appify-template="emsmobile-pages/activationPage.html" data-appify-ref="activationPage"></div> -->
+
+		<div appify-tpl="to-cache/emsmobile-pages/activationPage.html"
+			appify-page="activationPage"></div>
+
+		<div appify-tpl="to-cache/emsmobile-pages/dumpPage.html"></div>
+
+		<div appify-tpl="to-cache/emsmobile-pages/pullable.html"
+			appify-page="pullablePage"></div>
+
+		<div appify-tpl="to-cache/emsmobile-pages/vehiclesPage.html"
+			appify-page="vehiclesPage"></div>
+
+		<div appify-tpl="to-cache/emsmobile-pages/patientPage.html"
+			appify-page="patientPage"></div>
+
+		<div appify-tpl="to-cache/emsmobile-pages/activationPageRO.html"
+			appify-page="activationPageRO"></div>
+
+		<div appify-tpl="to-cache/emsmobile-pages/hospitalsPage.html"
+			appify-page="hospitalsPage"></div>
+
+		<div appify-tpl="to-cache/emsmobile-pages/dump118.html"
+			appify-page="dump118"></div>
+
+
+
+		<!-- <script src="emsmobile/appjs/zepto.js"></script>
+	<script src="emsmobile/vuejs/vue.min.js"></script>
+	<script src="emsmobile/appjs/app.min.js"></script>	
+	<script src="emsmobile/ratchet/js/ratchet.js"></script>
+	<script src="emsmobile/snapjs/snap.js"></script>
+	<script src="emsmobile/popover/jquery.js" type="text/javascript"></script>
+	<script src="emsmobile/classie/classie.js" type="text/javascript"></script>
+	<script src="emsmobile/popover/popover.js" type="text/javascript"></script>
+	<script src="emsmobile/mask/spin.min.js" type="text/javascript"></script>
+	<script src="emsmobile/mask/loadmask.js" type="text/javascript"></script>
+	<script src="emsmobile/wptr/hammer.2.0.4.js"></script>
+	<script src="emsmobile/wptr/wptr.1.1.js"></script>	
+	<script src="emsmobile/keyboard/js/jquery-ui.min.js"></script>	
+	<script src="emsmobile/keyboard/js/jquery.keyboard.min.js"></script>
+	<script src="emsmobile/buzz/buzz.min.js"></script> -->
+		<script src="emsmobile/appify/appify.min.js"></script>
+		<script src="emsmobile/keyboard/js/jquery.keyboard.min.js"></script>
+		<script src="to-cache/ol/ol.js"></script>
+
+		<!-- <script src="notification/js/modernizr.custom.js"></script>
+	<script src="notification/js/notificationFx.js"></script> -->
+		<!-- <script src="notification/js/snap.svg-min.js"></script> -->
+	</body>
+</html>

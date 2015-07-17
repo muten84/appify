@@ -1,0 +1,287 @@
+/*see http://materializecss.com/badges.html#!*/
+.topbar-height {
+	height: 140% !important;
+	background-color: #00809d !important;
+	border-bottom: 1px solid rgba(23, 166, 151, 0.65) !important;
+	/* box-shadow: 0px 0px 5px 3px #000000; */
+	box-shadow: 0px 0px 1px 1px #000000;
+}
+
+.badge {
+	background-color: rgba(15, 89, 89, 0.24) !important;
+	box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.25) !important;
+}
+
+.app-section {
+	margin: 5px !important;
+}
+
+.app-content {
+	/* background-color: #BEBEC0 !important; */
+	background-color: #BFD4D9 !important;
+	margin-top: 15px !important;
+	border-bottom: 1px solid rgba(23, 166, 151, 0.65) !important;
+	box-shadow: 0px 0px 5px 3px #000000;
+	/* background-color: rgba(223, 152, 59, 0.74) !important; */
+}
+
+.app-page {
+	/* background-color: #BEBEC0 !important; */
+	background-color: #BFD4D9 !important;
+	/* background-color: rgba(223, 152, 59, 0.74) !important; */
+}
+
+.btn-background {
+	background-color: rgba(15, 89, 89, 0.24) !important;
+}
+
+a:active, a.active {
+	color: inherit;
+	background-color: #BFD4D9 !important;
+}
+
+.btn:active, .btn.active {
+	color: inherit;
+	/* background-color: #BFD4D9; */
+	background-color: #638CA6 !important
+}
+
+.snap-drawer {
+	width: 260px !important;
+}
+
+.menu-border {
+	border-color: rgba(23, 166, 151, 0.94) !important;
+	border-width: 1px !important;
+	border-spacing: 1px !important;
+	border-style: groove !important;
+	padding: 1px !important;
+	margin-bottom: 5px !important;
+	margin-right: 1px !important;
+	margin-left: 1px !important;
+	background-color: #00809d !important;
+	border-bottom: 1px solid rgba(23, 166, 151, 0.65) !important;
+	box-shadow: 0px 0px 5px 3px #000000
+}
+
+.table-border {
+	border-bottom-color: #333 !important;
+	border-color: rgba(51, 51, 51, 0.32) !important;
+	border-width: 1px !important;
+	border-spacing: 1px !important;
+	border-style: groove !important;
+	padding: 1px !important;
+}
+
+.menu-badge-font-18 {
+	font-size: 18px !important;
+	width: 100%;
+}
+
+.menu-btn-bottom {
+	/*font-size: 14px !important;*/
+	padding: 10px !important;
+	margin-left: 6em;
+	margin-top: 10px !important;
+}
+
+.font-18 {
+	font-size: 18px !important;
+}
+
+.btn-border {
+	border-bottom: 1px solid #17A697 !important;
+}
+
+.segmented-control .control-item.active {
+	/* 	background-color: #638CA6 !important;
+	color: #181818; */
+	background-color: rgba(0, 128, 157, 0.89) !important;
+	color: #ecf0f1;
+}
+
+.zero-margin-section {
+	margin: 16px !important;
+}
+
+.text-center {
+	text-align: center !important;
+}
+
+.bottombar-height {
+	height: 90px !important;
+}
+
+.box-shadow:after {
+	-webkit-box-shadow: 0px 0px 15px 5px #000000;
+	-moz-box-shadow: 0px 0px 15px 5px #000000;
+	box-shadow: 0px 0px 15px 5px #000000;
+}
+
+.app-section {
+	/*box-shadow: 0px 1px rgba(99, 140, 166, 0.50);*/
+	
+}
+
+.app-section-shadow {
+	box-shadow: 0px 1px rgba(99, 140, 166, 0.50);
+}
+
+.status-on {
+	/*verde*/
+	background-color: #81b85c !important;
+}
+
+.status-off {
+	/**/
+	background-color: #eb1b4c !important;
+}
+
+.status-idle {
+	background-color: #7c8b8c !important;
+}
+
+.activation-criticity-B {
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #EAE9E9 !important;
+	border-radius: 5px;
+}
+
+.activation-criticity-V {
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #81b85c !important;
+	border-radius: 5px;
+}
+
+.activation-criticity-G {
+	font-weight: bold !important;
+	color: #1D0F0F !important;
+	background-color: #7c8b8c !important;
+	border-radius: 5px;
+}
+
+.activation-criticity-R {
+	font-weight: bold !important;
+	color: #ecf0f1 !important;
+	background-color: #eb1b4c !important;
+	border-radius: 5px;
+}
+
+.btn-nav {
+	color: #ecf0f1;
+	border-radius: 36px;
+	background-color: rgba(7, 44, 63, 1);
+	outline-color: transparent;
+	border: 1px solid #006b84;
+}
+
+.app-section {
+	background-color: #ecf0f1 !important;
+}
+
+.btn-large {
+	/* color: white;
+  background-color: rgba(7, 44, 63, 1) !important; */
+	/* color: white; */
+	/* background-color: rgba(7, 44, 63, 1) !important; */
+	border-radius: 5px;
+	/* margin: 0px; */
+	margin-top: 3px;
+	margin-bottom: 0px;
+	padding: 3px;
+	color: #fff;
+	background-color: #00566a !important;
+	border-color: #003946;
+}
+
+.btn-small {
+	border-radius: 5px;
+	/* margin: 0px; */
+	margin-top: 3px;
+	margin-bottom: 0px;
+	padding: 3px;
+	color: #fff;
+	background-color: #00566a !important;
+	border-color: #003946;
+}
+
+.btn-medium {
+	/* color: white;
+  background-color: rgba(7, 44, 63, 1) !important; */ /* color: white;
+	background-color: rgba(7, 44, 63, 1) !important; */
+	border-radius: 5px;
+	margin-top: 3px;
+	margin-bottom: 0px;
+	padding: 3px;
+	color: #fff;
+	background-color: #00566a !important;
+	border-color: #003946;
+}
+
+.nav-icon {
+	margin-right: 3px;
+	margin-left: 0px;
+	padding: 5px !important;
+	float: left !important;
+	display: table-cell !important;
+	vertical-align: middle !important;
+	border-radius: 64px !important;
+	background-color: #00809d !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+	padding-top: 5px !important;
+}
+
+.form-control {
+	display: block !important;
+	width: 100% !important;
+	height: 41px !important;
+	padding: 10px 15px !important;
+	font-size: 13px !important;
+	line-height: 1.5 !important;
+	color: #2b2c2d !important;
+	background-color: #f3f6f6 !important;
+	background-image: none !important;
+	border: 1px solid #dce4ec !important;
+	border-radius: 4px !important;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075) !important;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075) !important;
+	-webkit-transition: border-color ease-in-out .15s, box-shadow
+		ease-in-out .15s !important;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s !important;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+		!important;
+}
+
+.form-control:focus {
+	border-color: #00809d !important;
+	outline: 0 !important;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+		rgba(0, 128, 157, .6) !important;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+		rgba(0, 128, 157, .6) !important;
+}
+
+.table-view-divider {
+	color: #7c8b8c;
+}
+
+.table-view {
+	background-color: #ecf0f1;
+}
+
+.alert-success {
+	background-color: #81b85c;
+	border-color: #81b85c;
+	color: #fff;
+}
+
+/* #notifier {
+	padding: 15px;
+	margin-bottom: 19px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+} */
